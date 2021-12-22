@@ -1,4 +1,4 @@
-# dh-knowledge-bank
+# docs
 
 https://datahawk.atlassian.net/browse/PH-4
 

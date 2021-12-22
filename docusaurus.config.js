@@ -14,7 +14,7 @@ const config = {
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
   organizationName: 'datahawk-technologies', // Usually your GitHub org/user name.
-  projectName: 'dh-knowledge-bank', // Usually your repo name.
+  projectName: 'docs', // Usually your repo name.
   trailingSlash: false,
 
   presets: [
