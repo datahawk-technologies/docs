@@ -9,7 +9,7 @@ const config = {
   title: 'DataHawk awesome knowledge bank',
   tagline: 'DevOps FTW',
   url: 'https://docs.datahawk.co',
-  baseUrl: '/projectName/',
+  baseUrl: '/dh-knowledge-bank/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
