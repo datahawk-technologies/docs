@@ -55,30 +55,17 @@ const config = {
             docId: 'intro',
             position: 'left',
             label: 'Getting started',
+          },
+          {
+            position: 'left',
+            href:'https://datahawk.co/'
+            label: 'Back to Datahawk.co',
           }
         ],
       },
       footer: {
         style: 'dark',
         links: [
-          {
-            title: 'Docs',
-            items: [
-              {
-                label: 'Tutorial',
-                to: '/docs/intro',
-              },
-            ],
-          },
-          {
-            title: 'More',
-            items: [
-              {
-                label: 'Website',
-                href: 'https://datahawk.co',
-              },
-            ],
-          },
         ],
         copyright: `Copyright © ${new Date().getFullYear()} DataHawk Technologies, Inc.`,
       },
