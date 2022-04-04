@@ -58,8 +58,8 @@ const config = {
           },
           {
             position: 'left',
-            href:'https://datahawk.co/'
-            label: 'Back to Datahawk.co',
+            href:'https://datahawk.co/',
+            label: 'Back to Datahawk.co'
           }
         ],
       },
