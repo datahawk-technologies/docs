@@ -6,8 +6,8 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'DataHawk awesome knowledge bank',
-  tagline: 'DevOps FTW',
+  title: 'DataHawk Documentation',
+  tagline: 'Learn how to use DataHawk to collect and leverage your Amazon/Walmart data',
   url: 'https://docs.datahawk.co',
   baseUrl: '/',
   onBrokenLinks: 'throw',
@@ -25,13 +25,13 @@ const config = {
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
           // Please change this to your repo.
-          editUrl: 'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
+          editUrl: 'https://github.com/datahawk-technologies/docs/',
         },
         blog: {
           showReadingTime: true,
           // Please change this to your repo.
           editUrl:
-            'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
+            'https://github.com/datahawk-technologies/docs/',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
@@ -44,9 +44,9 @@ const config = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       navbar: {
-        title: 'My Site',
+        title: 'Documentation',
         logo: {
-          alt: 'My Site Logo',
+          alt: 'DataHawk Logo',
           src: 'img/logo.svg',
         },
         items: [
@@ -54,14 +54,8 @@ const config = {
             type: 'doc',
             docId: 'intro',
             position: 'left',
-            label: 'Tutorial',
-          },
-          {to: '/blog', label: 'Blog', position: 'left'},
-          {
-            href: 'https://github.com/facebook/docusaurus',
-            label: 'GitHub',
-            position: 'right',
-          },
+            label: 'Getting started',
+          }
         ],
       },
       footer: {
@@ -77,37 +71,16 @@ const config = {
             ],
           },
           {
-            title: 'Community',
-            items: [
-              {
-                label: 'Stack Overflow',
-                href: 'https://stackoverflow.com/questions/tagged/docusaurus',
-              },
-              {
-                label: 'Discord',
-                href: 'https://discordapp.com/invite/docusaurus',
-              },
-              {
-                label: 'Twitter',
-                href: 'https://twitter.com/docusaurus',
-              },
-            ],
-          },
-          {
             title: 'More',
             items: [
               {
-                label: 'Blog',
-                to: '/blog',
-              },
-              {
-                label: 'GitHub',
-                href: 'https://github.com/facebook/docusaurus',
+                label: 'Website',
+                href: 'https://datahawk.co',
               },
             ],
           },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
+        copyright: `Copyright © ${new Date().getFullYear()} DataHawk Technologies, Inc.`,
       },
       prism: {
         theme: lightCodeTheme,
