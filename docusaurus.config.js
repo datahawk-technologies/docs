@@ -25,13 +25,13 @@ const config = {
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
           // Please change this to your repo.
-          editUrl: 'https://github.com/datahawk-technologies/',
+          editUrl: 'https://github.com/datahawk-technologies/docs/tree/main/',
         },
         blog: {
           showReadingTime: true,
           // Please change this to your repo.
           editUrl:
-            'https://github.com/datahawk-technologies/',
+            'https://github.com/datahawk-technologies/docs/tree/main/',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
@@ -44,7 +44,7 @@ const config = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       navbar: {
-        title: 'Documentation',
+        title: 'Docs',
         logo: {
           alt: 'DataHawk Logo',
           src: 'img/logo.svg',
