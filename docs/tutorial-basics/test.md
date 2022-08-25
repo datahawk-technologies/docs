@@ -2,6 +2,8 @@
 sidebar_position: 1
 ---
 
+# Estimated Monthly Sales
+
 How do we calculate Estimated Monthly Sales and how accurate are they?
 Othmane Sghir avatar
 Written by Othmane Sghir
