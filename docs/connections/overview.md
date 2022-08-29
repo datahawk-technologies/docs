@@ -2,7 +2,7 @@
 sidebar_position: 6
 ---
 
-# Analytics
+# Connections Overview
 
 ## Lorem
 
