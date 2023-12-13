@@ -27,3 +27,7 @@
 * [Search & Content](search-and-content.md)
 * [Troubleshooting](troubleshooting.md)
 * [Simplify Data Collection](simplify-data-collection.md)
+
+## Professional Services
+
+* [Customer Project - only for Customer](professional-services/customer-project-only-for-customer.md)
