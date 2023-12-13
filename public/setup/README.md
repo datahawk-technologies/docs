@@ -1,3 +1,9 @@
+---
+cover: >-
+  https://images.unsplash.com/photo-1699462516246-8c80fc00d774?crop=entropy&cs=srgb&fm=jpg&ixid=M3wxOTcwMjR8MHwxfHJhbmRvbXx8fHx8fHx8fDE3MDI1MDAzNDN8&ixlib=rb-4.0.3&q=85
+coverY: 0
+---
+
 # Setup
 
 **Setting up DataHawk can take less than 5 minutes**. In this section, you'll learn about how DataHawk works, how to get started, and best practices for an optimal setup.

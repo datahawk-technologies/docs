@@ -6,9 +6,9 @@
 
 ***
 
-* [Setup](setup.md)
-* [Optimize Your Performance](optimize-your-performance.md)
-* [Dashboard: Best Seller Ranks](dashboard-best-seller-ranks.md)
+* [Setup](setup/README.md)
+  * [Optimize Your Performance](setup/optimize-your-performance/README.md)
+    * [Dashboard: Best Seller Ranks](setup/optimize-your-performance/dashboard-best-seller-ranks.md)
 * [Product Tools](product-tools.md)
 * [Dashboard: Search](dashboard-search.md)
 * [Keyword Tools](keyword-tools.md)
