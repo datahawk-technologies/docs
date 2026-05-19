@@ -3,17 +3,62 @@
 This is a Next.js application generated with
 [Create Fumadocs](https://github.com/fuma-nama/fumadocs).
 
-Run development server:
+## Fresh Checkout Setup
+
+Install these system dependencies before you start:
+
+- Git, for cloning the repository.
+- Node.js 20.9.0 or newer. Next.js 16 requires this minimum Node version.
+- Corepack, which ships with recent Node.js releases and manages `pnpm`.
+
+This project uses `pnpm` and the committed `pnpm-lock.yaml` file. From a fresh
+checkout:
 
 ```bash
-npm run dev
-# or
+git clone <repo-url>
+cd docs
+corepack enable
+corepack prepare pnpm@10.18.3 --activate
+pnpm install --frozen-lockfile
+```
+
+`pnpm install` runs the `postinstall` script, which generates the Fumadocs MDX
+source files under `.source`. No `.env` file, database, or external service is
+required for local development.
+
+The package dependencies installed by `pnpm` are:
+
+- Next.js, React, and React DOM for the application runtime.
+- Fumadocs Core, Fumadocs MDX, and Fumadocs UI for the documentation system.
+- Tailwind CSS, `@tailwindcss/postcss`, PostCSS, and `tailwind-merge` for
+  styling.
+- TypeScript and the React/Node/MDX type packages for type checking.
+- ESLint and `eslint-config-next` for linting.
+- `lucide-react` for icons.
+
+Run the development server:
+
+```bash
 pnpm dev
-# or
-yarn dev
 ```
 
 Open http://localhost:3000 with your browser to see the result.
+
+Before opening a pull request, run the local checks:
+
+```bash
+pnpm lint
+pnpm types:check
+pnpm build
+```
+
+Useful scripts:
+
+- `pnpm dev`: start the Next.js development server.
+- `pnpm build`: build the production site.
+- `pnpm start`: serve a production build locally.
+- `pnpm lint`: run ESLint.
+- `pnpm types:check`: regenerate Fumadocs/Next types and run TypeScript.
 
 ## Explore
 
