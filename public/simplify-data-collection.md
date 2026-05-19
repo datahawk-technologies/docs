@@ -1,2 +1,0 @@
-# Simplify Data Collection
-
