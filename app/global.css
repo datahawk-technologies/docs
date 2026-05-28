@@ -10,3 +10,52 @@ html > body[data-scroll-locked] {
   margin-right: 0px !important;
   --removed-body-scroll-bar-size: 0px !important;
 }
+/* ───────────────────────────────────────────
+   DataHawk brand colors — light mode
+   ─────────────────────────────────────────── */
+:root {
+  --color-fd-background: #ffffff;
+  --color-fd-foreground: #122c47;
+
+  --color-fd-muted: #eeeeee;
+  --color-fd-muted-foreground: #122c47;
+  --color-fd-border: #eeeeee;
+
+  --color-fd-card: #ffffff;
+  --color-fd-card-foreground: #122c47;
+  --color-fd-popover: #ffffff;
+  --color-fd-popover-foreground: #122c47;
+
+  --color-fd-primary: #0079fe;
+  --color-fd-primary-foreground: #ffffff;
+
+  --color-fd-accent: #20549f;
+  --color-fd-accent-foreground: #ffffff;
+
+  --color-fd-ring: #0079fe;
+}
+
+/* ───────────────────────────────────────────
+   DataHawk brand colors — dark mode
+   ─────────────────────────────────────────── */
+.dark {
+  --color-fd-background: #122c47;
+  --color-fd-foreground: #ffffff;
+
+  --color-fd-muted: #1a3a5c;
+  --color-fd-muted-foreground: #eeeeee;
+  --color-fd-border: #1a3a5c;
+
+  --color-fd-card: #1a3a5c;
+  --color-fd-card-foreground: #ffffff;
+  --color-fd-popover: #1a3a5c;
+  --color-fd-popover-foreground: #ffffff;
+
+  --color-fd-primary: #78b7fc;
+  --color-fd-primary-foreground: #122c47;
+
+  --color-fd-accent: #0079fe;
+  --color-fd-accent-foreground: #ffffff;
+
+  --color-fd-ring: #78b7fc;
+}
