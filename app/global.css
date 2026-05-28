@@ -1,7 +1,26 @@
+/* ============================================================
+   DataHawk Documentation - Global Styles (light mode only)
+   ============================================================
+   
+   YOUR BRAND PALETTE (reference):
+   #ffffff = white
+   #122c47 = dark navy        (your text/bg 1)
+   #0079fe = bright blue      (your text/bg 3 - primary)
+   #eeeeee = light gray       (your text/bg 4)
+   #20549f = medium blue      (your accent 1)
+   #78b7fc = light blue       (your accent 2)
+   #ffd573 = warm yellow      (your accent 3)
+   #faf7ef = warm cream       (custom for sidebar)
+   ============================================================ */
+
+
+/* --- 1. IMPORTS - required, don't touch ------------------- */
 @import 'tailwindcss';
 @import 'fumadocs-ui/css/neutral.css';
 @import 'fumadocs-ui/css/preset.css';
 
+
+/* --- 2. BASE HTML BEHAVIOR - scrollbar fixes -------------- */
 html {
   scrollbar-gutter: stable;
 }
@@ -10,9 +29,11 @@ html > body[data-scroll-locked] {
   margin-right: 0px !important;
   --removed-body-scroll-bar-size: 0px !important;
 }
-/* ───────────────────────────────────────────
-   DataHawk brand colors — light mode
-   ─────────────────────────────────────────── */
+
+
+/* ============================================================
+   3. BRAND COLORS
+   ============================================================ */
 :root {
   --color-fd-background: #ffffff;
   --color-fd-foreground: #122c47;
@@ -35,27 +56,73 @@ html > body[data-scroll-locked] {
   --color-fd-ring: #0079fe;
 }
 
-/* ───────────────────────────────────────────
-   DataHawk brand colors — dark mode
-   ─────────────────────────────────────────── */
-.dark {
-  --color-fd-background: #122c47;
-  --color-fd-foreground: #ffffff;
 
-  --color-fd-muted: #1a3a5c;
-  --color-fd-muted-foreground: #eeeeee;
-  --color-fd-border: #1a3a5c;
+/* ============================================================
+   4. SIDEBAR BACKGROUND - warm cream
+   ============================================================ */
+#nd-sidebar {
+  background-color: #faf7ef;
+}
 
-  --color-fd-card: #1a3a5c;
-  --color-fd-card-foreground: #ffffff;
-  --color-fd-popover: #1a3a5c;
-  --color-fd-popover-foreground: #ffffff;
 
-  --color-fd-primary: #78b7fc;
-  --color-fd-primary-foreground: #122c47;
+/* ============================================================
+   5. UNIVERSAL HOVER - yellow bg + navy text
+   ============================================================ */
+#nd-sidebar a:hover,
+article a:hover,
+.fd-toc a:hover,
+button:hover,
+[role="button"]:hover,
+a[class*="button"]:hover {
+  background-color: #ffd573;
+  color: #122c47;
+}
 
-  --color-fd-accent: #0079fe;
-  --color-fd-accent-foreground: #ffffff;
 
-  --color-fd-ring: #78b7fc;
+/* ============================================================
+   6. EXCLUSIONS - elements that should NOT get yellow hover
+   ============================================================ */
+
+/* 6a. Content headings (H1-H6) */
+article h1 a:hover,
+article h2 a:hover,
+article h3 a:hover,
+article h4 a:hover,
+article h5 a:hover,
+article h6 a:hover {
+  background-color: transparent !important;
+  color: inherit !important;
+}
+
+/* 6b. Sidebar section titles (group labels like "GETTING STARTED") */
+#nd-sidebar h1:hover,
+#nd-sidebar h2:hover,
+#nd-sidebar h3:hover,
+#nd-sidebar h4:hover,
+#nd-sidebar h5:hover,
+#nd-sidebar h6:hover,
+#nd-sidebar [data-slot="sidebar-group-label"]:hover,
+#nd-sidebar [data-slot="sidebar-group-label"] *:hover,
+#nd-sidebar button[aria-expanded]:hover {
+  background-color: transparent !important;
+  color: inherit !important;
+}
+
+/* 6c. Theme toggle button (light/dark switcher in navbar) */
+button[aria-label*="theme" i]:hover,
+button[aria-label*="Theme" i]:hover,
+button[data-theme-toggle]:hover,
+.fd-theme-toggle:hover {
+  background-color: transparent !important;
+  color: inherit !important;
+}
+
+/* 6d. DataHawk title / logo link — in navbar AND in sidebar
+   The title link appears in two places: the top navbar AND
+   the top of the sidebar. Both need exclusion. */
+header a[href="/"]:hover,
+nav a[href="/"]:hover,
+#nd-sidebar a[href="/"]:hover {
+  background-color: transparent !important;
+  color: inherit !important;
 }
