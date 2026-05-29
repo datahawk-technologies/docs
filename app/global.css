@@ -1,26 +1,26 @@
-/* ============================================================
+/* ================================================================
    DataHawk Documentation - Global Styles (light mode only)
-   ============================================================
+   ================================================================
    
-   YOUR BRAND PALETTE (reference):
-   #ffffff = white
-   #122c47 = dark navy        (your text/bg 1)
-   #0079fe = bright blue      (your text/bg 3 - primary)
-   #eeeeee = light gray       (your text/bg 4)
-   #20549f = medium blue      (your accent 1)
-   #78b7fc = light blue       (your accent 2)
-   #ffd573 = warm yellow      (your accent 3)
-   #faf7ef = warm cream       (custom for sidebar)
-   ============================================================ */
+   BRAND PALETTE:
+   #ffffff  white
+   #122c47  dark navy        (text/bg 1)
+   #0079fe  bright blue      (text/bg 3 - primary)
+   #eeeeee  light gray       (text/bg 4)
+   #20549f  medium blue      (accent 1)
+   #78b7fc  light blue       (accent 2)
+   #ffd573  warm yellow      (accent 3)
+   #faf7ef  warm cream       (custom - sidebar bg)
+   ================================================================ */
 
 
-/* --- 1. IMPORTS - required, don't touch ------------------- */
+/* --- IMPORTS - required, don't touch ----------------------------- */
 @import 'tailwindcss';
 @import 'fumadocs-ui/css/neutral.css';
 @import 'fumadocs-ui/css/preset.css';
 
 
-/* --- 2. BASE HTML BEHAVIOR - scrollbar fixes -------------- */
+/* --- BASE HTML BEHAVIOR ------------------------------------------ */
 html {
   scrollbar-gutter: stable;
 }
@@ -31,9 +31,9 @@ html > body[data-scroll-locked] {
 }
 
 
-/* ============================================================
-   3. BRAND COLORS
-   ============================================================ */
+/* ================================================================
+   BRAND COLORS
+   ================================================================ */
 :root {
   --color-fd-background: #ffffff;
   --color-fd-foreground: #122c47;
@@ -57,17 +57,18 @@ html > body[data-scroll-locked] {
 }
 
 
-/* ============================================================
-   4. SIDEBAR BACKGROUND - warm cream
-   ============================================================ */
+/* ================================================================
+   SIDEBAR BACKGROUND
+   ================================================================ */
 #nd-sidebar {
   background-color: #faf7ef;
 }
 
 
-/* ============================================================
-   5. UNIVERSAL HOVER - yellow bg + navy text
-   ============================================================ */
+/* ================================================================
+   HOVER 1: yellow bg + navy text
+   Applies to: sidebar links, article links, TOC, buttons
+   ================================================================ */
 #nd-sidebar a:hover,
 article a:hover,
 .fd-toc a:hover,
@@ -79,11 +80,11 @@ a[class*="button"]:hover {
 }
 
 
-/* ============================================================
-   6. EXCLUSIONS - elements that should NOT get yellow hover
-   ============================================================ */
+/* ================================================================
+   HOVER EXCLUSIONS - elements that should NOT get yellow hover
+   ================================================================ */
 
-/* 6a. Content headings (H1-H6) */
+/* Content headings (H1-H6) */
 article h1 a:hover,
 article h2 a:hover,
 article h3 a:hover,
@@ -94,7 +95,7 @@ article h6 a:hover {
   color: inherit !important;
 }
 
-/* 6b. Sidebar section titles (group labels like "GETTING STARTED") */
+/* Sidebar section labels */
 #nd-sidebar h1:hover,
 #nd-sidebar h2:hover,
 #nd-sidebar h3:hover,
@@ -108,21 +109,37 @@ article h6 a:hover {
   color: inherit !important;
 }
 
-/* 6c. Theme toggle button (light/dark switcher in navbar) */
-button[aria-label*="theme" i]:hover,
-button[aria-label*="Theme" i]:hover,
-button[data-theme-toggle]:hover,
-.fd-theme-toggle:hover {
-  background-color: transparent !important;
-  color: inherit !important;
-}
-
-/* 6d. DataHawk title / logo link — in navbar AND in sidebar
-   The title link appears in two places: the top navbar AND
-   the top of the sidebar. Both need exclusion. */
+/* DataHawk title/logo link (navbar AND sidebar) */
 header a[href="/"]:hover,
 nav a[href="/"]:hover,
 #nd-sidebar a[href="/"]:hover {
   background-color: transparent !important;
   color: inherit !important;
+}
+
+
+/* ================================================================
+   CENTERED SEARCH BAR
+   ================================================================ */
+#nd-subnav button[data-search-full] {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 400px;
+  flex: 1;
+}
+
+
+/* ================================================================
+   HOVER 2: INVERTED (navy bg + yellow text)
+   Applies to:
+   - Subnav tabs: Getting Started, Help Center, Troubleshooting, API Reference
+   - Top-row links: Contact (mailto) and Dashboard (app.datahawk.co)
+   ================================================================ */
+#nd-subnav a:hover,
+#nd-subnav a:hover *,
+a[href^="mailto:"]:hover,
+a[href^="mailto:"]:hover *,
+a[href^="https://app.datahawk.co"]:hover,
+a[href^="https://app.datahawk.co"]:hover * {
+  color: #ffd573 !important;
 }
