@@ -45,7 +45,7 @@ export default function Layout({ children }: { children: ReactNode }) {
       // To rename:       change the 'title' string
       tabs={[
         {
-          title: 'Getting Started',
+          title: 'Welcome',
           url: '/docs/getting-started',
         },
         {
