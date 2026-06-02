@@ -1,0 +1,6 @@
+{
+  "title": "API Reference",
+  "description": "Build with the DataHawk API",
+  "root": true,
+  "pages": ["index"]
+}

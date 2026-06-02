@@ -1,0 +1,6 @@
+{
+  "title": "Help Center",
+  "description": "Self-serve answers and how-tos",
+  "root": true,
+  "pages": ["index"]
+}

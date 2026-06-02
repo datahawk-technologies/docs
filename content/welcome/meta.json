@@ -1,0 +1,6 @@
+{
+  "title": "Welcome",
+  "description": "Get oriented with DataHawk",
+  "root": true,
+  "pages": ["index", "explore-datahawk", "getting-started"]
+}
