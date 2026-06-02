@@ -8,7 +8,8 @@
     "start": "next start",
     "types:check": "fumadocs-mdx && next typegen && tsc --noEmit",
     "postinstall": "fumadocs-mdx",
-    "lint": "eslint"
+    "lint": "eslint",
+    "check:links": "linkinator http://127.0.0.1:3000/welcome --recurse --skip '^mailto:' --skip '^https?://(?!(127\\\\.0\\\\.0\\\\.1|localhost)(:3000)?/)'"
   },
   "dependencies": {
     "fumadocs-core": "16.8.11",
@@ -28,6 +29,7 @@
     "@types/react-dom": "^19.2.3",
     "eslint": "^9.39.4",
     "eslint-config-next": "16.2.6",
+    "linkinator": "^7.6.1",
     "postcss": "^8.5.14",
     "tailwindcss": "^4.3.0",
     "typescript": "^6.0.3"
