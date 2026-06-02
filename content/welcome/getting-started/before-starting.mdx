@@ -1,0 +1,71 @@
+---
+title: Before starting
+description: Before connecting your data to DataHawk, take a few minutes to check that you have everything you need. Going through this checklist upfront will help you avoid interruptions during setup.
+---
+
+import { Callout } from 'fumadocs-ui/components/callout';
+
+
+## You need to sign in to DataHawk
+
+DataHawk will send you an **invitation email** when your account is ready. Make sure to check your **spam folder** if you don't see it within a few minutes of your contract being activated. The link in that email is your starting point — no separate account creation is needed.
+
+## Your private accounts
+
+### Amazon Accounts
+
+DataHawk connects to Amazon through the accounts you have access to. Depending on your business, you may connect one or several of the following:
+
+- **Amazon Seller Central** — Required if you sell directly on Amazon as a third-party seller (3P). You'll need **admin-level access** to your Seller Central account to authorise the connection.
+- **Amazon Vendor Central** — Required if you sell to Amazon as a first-party supplier (1P). You'll need **admin-level access** to your Vendor Central account.
+- **Amazon Advertising** — Required to see advertising performance data (Sponsored Products, Sponsored Brands, Sponsored Display, DSP). This is a **separate account** from Seller or Vendor Central. You'll need access to the Amazon Advertising console.
+
+<Callout type="info">
+  You do not need all three — connect only the accounts that apply to your business. If you are both a Seller and a Vendor, you can connect both.
+</Callout>
+
+### Walmart Account
+
+- **Walmart Seller (Marketplace)** — Required if you sell on Walmart.com as a third-party seller. Connect via Walmart Marketplace credentials.
+- **Walmart Connect** — Required for Walmart advertising data.
+
+## For Profit & Loss Reporting
+
+If you want to use the **P&L features** (Gross Profit, Operating Profit, Net Profit), you'll need to upload your **Cost of Goods Sold (COGS)** data. DataHawk cannot calculate profit without this, as COGS is not available from Amazon.
+
+<Callout type="info">
+  You can upload COGS at any time after setup — it does not block you from connecting your account — but without it, profit metrics will not be populated. See [Upload Amazon Product Expenses](/help-center/upload-product-expenses) for instructions.
+</Callout>
+
+## For Power BI Dashboards
+
+If you plan to use DataHawk's Power BI dashboard templates, you'll need:
+
+- **Power BI Desktop** (free) to open and customise the templates locally, OR
+- **Power BI Pro or Premium licence** if you want to publish and share dashboards with your team
+
+If your team already uses Power BI, you likely have the right licence. If you are unsure, check with your IT or BI team.
+
+## A Note on Timing
+
+<Callout type="warn">
+  Once you connect a data source, DataHawk needs approximately **24 hours** to retrieve and process your historical data. You will not see data immediately after connecting.
+</Callout>
+
+Plan your setup session accordingly — connecting on a Friday means your data will typically be ready by Monday.
+
+Data is then refreshed **automatically** on an ongoing basis, so you don't need to do anything after the initial connection.
+
+## Summary Checklist
+
+Before moving on to the Quick Start Guide, make sure you have:
+
+    - Invitation email received and accessible
+    - Admin access to your **Amazon Seller Central** account (if applicable)
+    - Admin access to your **Amazon Vendor Central** account (if applicable)
+    - Access to your **Amazon Advertising** account (if applicable)
+    - Access to your **Walmart accounts** (if applicable)
+    - **COGS file prepared** (if you want P&L reporting)
+    - **Power BI licence confirmed** (if you plan to use Power BI dashboards)
+
+Once you have ticked these off, head to the [Quick Start Guide](/welcome/getting-started/quick-start) to begin your setup.

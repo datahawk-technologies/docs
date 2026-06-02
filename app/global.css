@@ -11,16 +11,34 @@
    #78b7fc  light blue       (accent 2)
    #ffd573  warm yellow      (accent 3)
    #faf7ef  warm cream       (custom - sidebar bg)
+   #d9e9fd  pale blue        (custom - card bg)
+   #fff3d4  pale yellow      (custom - pager bg)
+   ================================================================
+   
+   FILE STRUCTURE:
+   1. GLOBAL SETUP        (imports, base, CSS variables)
+   2. NAVBAR              (top of every page)
+   3. SIDEBAR             (left side)
+   4. TOC                 ("On this page" right side)
+   5. ARTICLE / CONTENT   (main page area)
+      5a. Universal hover
+      5b. Headings & description
+      5c. Cards
+      5d. Footer / Prev-Next pager
    ================================================================ */
 
 
-/* --- IMPORTS - required, don't touch ----------------------------- */
+/* ════════════════════════════════════════════════════════════════
+   1. GLOBAL SETUP
+   ════════════════════════════════════════════════════════════════ */
+
+/* --- Imports (required, don't touch) --------------------------- */
 @import 'tailwindcss';
 @import 'fumadocs-ui/css/neutral.css';
 @import 'fumadocs-ui/css/preset.css';
 
 
-/* --- BASE HTML BEHAVIOR ------------------------------------------ */
+/* --- Base HTML behavior ---------------------------------------- */
 html {
   scrollbar-gutter: stable;
 }
@@ -31,9 +49,7 @@ html > body[data-scroll-locked] {
 }
 
 
-/* ================================================================
-   BRAND COLORS
-   ================================================================ */
+/* --- Brand CSS variables --------------------------------------- */
 :root {
   --color-fd-background: #ffffff;
   --color-fd-foreground: #122c47;
@@ -57,21 +73,87 @@ html > body[data-scroll-locked] {
 }
 
 
-/* ================================================================
-   SIDEBAR BACKGROUND
-   ================================================================ */
+/* ════════════════════════════════════════════════════════════════
+   2. NAVBAR (top of every page)
+   ════════════════════════════════════════════════════════════════ */
+
+/* --- Centered search bar --------------------------------------- */
+#nd-subnav button[data-search-full] {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 400px;
+  flex: 1;
+}
+
+/* --- Tab + Contact/Dashboard hover (yellow text, no bg) -------- */
+#nd-subnav a:hover,
+#nd-subnav a:hover *,
+a[href^="mailto:"]:hover,
+a[href^="mailto:"]:hover *,
+a[href^="https://app.datahawk.co"]:hover,
+a[href^="https://app.datahawk.co"]:hover * {
+  color: #ffd573 !important;
+  background-color: transparent !important;
+}
+
+/* --- DataHawk title/logo link (no hover effect) ---------------- */
+header a[href="/"]:hover,
+nav a[href="/"]:hover {
+  background-color: transparent !important;
+  color: inherit !important;
+}
+
+
+/* ════════════════════════════════════════════════════════════════
+   3. SIDEBAR (left)
+   ════════════════════════════════════════════════════════════════ */
+
+/* --- Sidebar background (warm cream) --------------------------- */
 #nd-sidebar {
   background-color: #faf7ef;
 }
 
+/* --- Sidebar link hover (yellow bg, navy text) ----------------- */
+#nd-sidebar a:hover {
+  background-color: #ffd573;
+  color: #122c47;
+}
 
-/* ================================================================
-   HOVER 1: yellow bg + navy text
-   Applies to: sidebar links, article links, TOC, buttons
-   ================================================================ */
-#nd-sidebar a:hover,
+/* --- Sidebar exclusions: section labels, brand link, expand --- */
+#nd-sidebar h1:hover,
+#nd-sidebar h2:hover,
+#nd-sidebar h3:hover,
+#nd-sidebar h4:hover,
+#nd-sidebar h5:hover,
+#nd-sidebar h6:hover,
+#nd-sidebar [data-slot="sidebar-group-label"]:hover,
+#nd-sidebar [data-slot="sidebar-group-label"] *:hover,
+#nd-sidebar button[aria-expanded]:hover,
+#nd-sidebar a[href="/"]:hover {
+  background-color: transparent !important;
+  color: inherit !important;
+}
+
+
+/* ════════════════════════════════════════════════════════════════
+   4. TABLE OF CONTENTS ("On this page" - right side)
+   ════════════════════════════════════════════════════════════════ */
+
+/* --- TOC link hover (yellow text only, no bg) ------------------ */
+a.text-fd-muted-foreground[href^="#"]:hover {
+  color: #ffd573 !important;
+  background-color: transparent !important;
+}
+
+
+/* ════════════════════════════════════════════════════════════════
+   5. ARTICLE / MAIN CONTENT
+   ════════════════════════════════════════════════════════════════ */
+
+/* ─────────────────────────────────────────────────────────────
+   5a. UNIVERSAL HOVER (article links + all buttons everywhere)
+   ───────────────────────────────────────────────────────────── */
 article a:hover,
-.fd-toc a:hover,
 button:hover,
 [role="button"]:hover,
 a[class*="button"]:hover {
@@ -79,12 +161,7 @@ a[class*="button"]:hover {
   color: #122c47;
 }
 
-
-/* ================================================================
-   HOVER EXCLUSIONS - elements that should NOT get yellow hover
-   ================================================================ */
-
-/* Content headings (H1-H6) */
+/* --- Exclude heading anchor links from yellow flash ------------ */
 article h1 a:hover,
 article h2 a:hover,
 article h3 a:hover,
@@ -95,51 +172,129 @@ article h6 a:hover {
   color: inherit !important;
 }
 
-/* Sidebar section labels */
-#nd-sidebar h1:hover,
-#nd-sidebar h2:hover,
-#nd-sidebar h3:hover,
-#nd-sidebar h4:hover,
-#nd-sidebar h5:hover,
-#nd-sidebar h6:hover,
-#nd-sidebar [data-slot="sidebar-group-label"]:hover,
-#nd-sidebar [data-slot="sidebar-group-label"] *:hover,
-#nd-sidebar button[aria-expanded]:hover {
-  background-color: transparent !important;
-  color: inherit !important;
+
+/* ─────────────────────────────────────────────────────────────
+   5b. HEADINGS & PAGE DESCRIPTION
+   ───────────────────────────────────────────────────────────── */
+
+/* --- H1: Page title (prominent, tight letter spacing) ---------- */
+article h1 {
+  color: #122c47;
+  font-weight: 800;
+  font-family: 'Poppins', sans-serif;
+  font-size: 3rem;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.5rem;
 }
 
-/* DataHawk title/logo link (navbar AND sidebar) */
-header a[href="/"]:hover,
-nav a[href="/"]:hover,
-#nd-sidebar a[href="/"]:hover {
-  background-color: transparent !important;
-  color: inherit !important;
+/* --- Page description (subtitle below H1, italic, faded navy) - */
+article > p.text-lg.text-fd-muted-foreground {
+  color: #122c47c4;
+  font-weight: 400;
+  font-size: 1.125rem;
+  font-style: italic;
+}
+
+/* --- H2: Major section headings -------------------------------- */
+article .prose > h2 {
+  color: #122c47;
+  font-weight: 700;
+  font-family: 'Poppins', sans-serif;
+  font-size: 2rem;
+}
+
+/* --- H3: Sub-section headings (medium blue) -------------------- */
+article .prose > h3 {
+  color: #20549f;
+  font-weight: 600;
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.5rem;
+}
+
+/* --- H4: Minor headings ---------------------------------------- */
+article .prose > h4 {
+  color: #122c47;
+  font-weight: 500;
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.25rem;
 }
 
 
-/* ================================================================
-   CENTERED SEARCH BAR
-   ================================================================ */
-#nd-subnav button[data-search-full] {
-  margin-left: auto;
-  margin-right: auto;
-  max-width: 400px;
-  flex: 1;
+/* ─────────────────────────────────────────────────────────────
+   5c. CARDS (inside article)
+   ───────────────────────────────────────────────────────────── */
+
+/* --- Card styling: color, hover, alignment, layout ------------- */
+article a.bg-fd-card {
+  background-color: #d9e9fd !important;
+  color: #122c47 !important;
+  transition: background-color 0.2s ease;
+}
+
+article a.bg-fd-card:hover {
+  background-color: #ffd573 !important;
+  color: #122c47 !important;
+}
+
+/* --- Spacing between stacked cards ----------------------------- */
+article a.bg-fd-card:not(:last-child) {
+  margin-bottom: 1rem !important;
+}
+
+/* --- Card title font size -------------------------------------- */
+article a.bg-fd-card h3 {
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+
+/* --- Grid gap and internal padding (affects pager grid too) --- */
+article .grid:has(> a) {
+  gap: 1.5rem;
+}
+
+article .grid > a {
+  padding: 1.5rem;
 }
 
 
-/* ================================================================
-   HOVER 2: INVERTED (navy bg + yellow text)
-   Applies to:
-   - Subnav tabs: Getting Started, Help Center, Troubleshooting, API Reference
-   - Top-row links: Contact (mailto) and Dashboard (app.datahawk.co)
-   ================================================================ */
-#nd-subnav a:hover,
-#nd-subnav a:hover *,
-a[href^="mailto:"]:hover,
-a[href^="mailto:"]:hover *,
-a[href^="https://app.datahawk.co"]:hover,
-a[href^="https://app.datahawk.co"]:hover * {
-  color: #ffd573 !important;
+/* ─────────────────────────────────────────────────────────────
+   5d. FOOTER / PREVIOUS-NEXT PAGER (bottom of every docs page)
+   ───────────────────────────────────────────────────────────── */
+
+/* --- Space + separator between content and pager --------------- */
+article > div.grid:last-child {
+  margin-top: 4rem;
+  padding-top: 2rem;
+  border-top: 1px solid #eeeeee;
+}
+
+/* --- Pager card styling (pale yellow bg) ----------------------- */
+article > div.grid:last-child > a {
+  background-color: #fff3d4 !important;
+  color: #122c47 !important;
+  transition: background-color 0.2s ease;
+}
+
+/* --- Pager hover (warm yellow bg) ------------------------------ */
+article > div.grid:last-child > a:hover {
+  background-color: #ffd573 !important;
+  color: #122c47 !important;
+}
+/* ─────────────────────────────────────────────────────────────
+   5e. BULLET LISTS - indented + colored markers
+   ───────────────────────────────────────────────────────────── */
+article .prose ul {
+  padding-left: 3rem;
+  list-style-type: disc;
+}
+
+article .prose ul li {
+  margin-bottom: 0.5rem;
+  padding-left: 0.5rem;
+}
+
+article .prose ul li::marker {
+  color: #20549f;
+  font-size: 1.2em;
+  font-weight: 700;
 }

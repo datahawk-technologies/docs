@@ -1,0 +1,154 @@
+---
+title: Quick Start Guide
+description: A step-by-step walkthrough from first sign-in to your first report. Takes about 30 minutes of active setup time, plus a 24-hour data sync.
+---
+
+import { Callout } from 'fumadocs-ui/components/callout';
+import { Cards, Card } from 'fumadocs-ui/components/card';
+
+
+## Step 1 — Sign In
+
+Open the invitation email you received from DataHawk and click the sign-in link. This will take you directly to the DataHawk platform.
+
+If you haven't received an invitation email, check your spam folder. If you still cannot find it, contact your DataHawk account manager.
+
+<Callout type="warn">
+  **First time here?** Take a moment to read [Before Starting](/welcome/getting-started/before-starting) to make sure you have everything you need before proceeding.
+</Callout>
+
+
+
+## Step 2 — Get Familiar with the Platform
+
+Once signed in, you'll land on the DataHawk web app. Here's a quick orientation:
+
+- **Workspace** — Your data is organised into workspaces. A workspace is an isolated environment for a brand, client, or business segment. If you manage multiple brands or clients, each one can have its own workspace with its own data and configuration.
+- **Sources** — This is where you connect your Amazon and Walmart accounts. No data flows into DataHawk until you add a source.
+- **Apps** — DataHawk's built-in tools (Sherlock, Alerts, AI Copywriter, Insights) live here. You can explore these once your data is connected.
+- **Destinations** — If you want to access your data in Power BI, Google Sheets, Snowflake, or another external tool, you set that up here.
+
+
+## Step 3 — Connect Your Data Sources
+
+This is the most important step. Go to **Sources** in the left sidebar and connect the accounts that apply to your business.
+
+<Cards>
+  <Card
+    title="Amazon Seller Central"
+    href="/help-center/amazon-private-data-seller"
+    description="Connect this if you are a third-party seller (3P) on Amazon. You'll need admin access to your Seller Central account."
+  />
+  <Card
+    title="Amazon Vendor Central"
+    href="/help-center/amazon-private-data-vendor"
+    description="DConnect this if you sell to Amazon as a first-party supplier (1P)."
+  />
+  <Card
+    title="Amazon Advertising"
+    href="/help-center/amazon-private-data-advertising"
+    description="HConnect this to see your advertising performance (Sponsored Products, Sponsored Brands, Sponsored Display, DSP)."
+  />
+  <Card
+    title="Walmart"
+    href="/help-center/walmart-private-data"
+    description="Connect this if you sell on Walmart.com."
+  />
+</Cards>
+
+
+<Callout type="info">
+  You don't need to connect all of these. Only connect the accounts that are relevant to your business.
+</Callout>
+
+Once you have connected a source, DataHawk will start retrieving your data. 
+This takes approximately **24 hours**. You will not see data in your reports until this initial sync is complete.
+
+
+## Step 4 — Upload Your Cost of Goods (Optional)
+
+If you want to use DataHawk's profit reporting (P&L, Gross Profit, Net Profit), you need to provide your **Cost of Goods Sold (COGS)** data. Amazon doesn't supply this, so DataHawk cannot calculate profit without it.
+
+You can upload a COGS file at any time. See [Upload Amazon Product Expenses](/help-center/upload-product-expenses) for the format and instructions.
+
+<Callout type="info">
+  If you skip this step now, your revenue and traffic data will still be available — only profit metrics will be missing.
+</Callout>
+
+
+## Step 5 — Set Up a Destination
+
+If you want to access your data in an external tool — Power BI, Google Sheets, Snowflake, BigQuery, or Excel — you need to add a **Destination**.
+
+Go to **Destinations** in the left sidebar and click **Add Destination**. DataHawk will build a database for you, pre-filled with your data, that you can connect to your tool of choice.
+
+See [Destinations Overview](/help-center/destinations-overview) for a full explanation of how this works, and the individual destination pages for step-by-step connection guides.
+
+<Callout type="info">
+  If you only plan to use DataHawk's built-in dashboards and apps, you can skip this step.
+</Callout>
+
+
+
+## Step 6 — Access Your Dashboards
+
+Once your data has loaded (after the 24-hour sync), you're ready to start analysing.
+
+### Power BI dashboards
+
+Download the DataHawk dashboard templates and connect them to your destination database. Available templates include:
+
+- Seller Analytics Dashboard
+- Vendor Analytics Dashboard
+- Market Intelligence Dashboard
+- Advertising Dashboard
+- Product Dashboard
+- Ads DSP Dashboard
+
+See [Download Power BI Templates](/help-center/power-bi-templates) to get started.
+
+### Looker Studio
+
+A Looker Studio template is also available. See [Looker Studio Template](/help-center/looker-studio-template).
+
+
+
+## Step 7 — Explore the Modules
+
+With data flowing, you can start using DataHawk's built-in tools:
+
+- **Sherlock** — AI-powered diagnostic engine that identifies what's driving changes in your performance. A good starting point once you have a few weeks of data.
+- **Alerts** — Set up notifications for important changes in your metrics, so you're informed the moment something shifts.
+- **AI Copywriter** — Generate and optimise Amazon product listings directly from your data.
+- **Insights** — Surfaces trends and anomalies across your catalogue automatically.
+
+
+
+## Where to Go Next
+
+Once you're set up, these are the most useful places to continue learning:
+
+<Cards>
+  <Card
+    title="Seller Analytics Dashboard User Guide"
+    href="/help-center/seller-analytics-dashboard"
+    description="Deep dive into the Seller dashboard."
+  />
+  <Card
+    title="Vendor Analytics Dashboard User Guide"
+    href="/help-center/vendor-analytics-dashboard"
+    description="Deep dive into the Vendor dashboard."
+  />
+  <Card
+    title="Understanding Your Data"
+    href="/help-center/understanding-your-data"
+    description="How DataHawk processes and models your Amazon data."
+  />
+  <Card
+    title="Troubleshooting"
+    href="/troubleshooting"
+    description="If something doesn't look right."
+  />
+</Cards>
+
+If you get stuck at any point, reach out via [Get in Touch](mailto:support@datahawk.co).

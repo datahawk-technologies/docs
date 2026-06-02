@@ -1,0 +1,11 @@
+{
+  "title": "Explore DataHawk",
+  "defaultOpen": true,
+  "pages": [
+    "amazon-seller",
+    "amazon-vendor",
+    "advertizing",
+    "finance-operations",
+    "market-intelligence"
+  ]
+}
