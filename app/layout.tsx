@@ -23,7 +23,7 @@ export default function Layout({ children }: { children: ReactNode }) {
       className={poppins.className}
       suppressHydrationWarning
     >
-      <body className="flex flex-col min-h-screen">
+      <body className="flex flex-col min-h-screen" suppressHydrationWarning>
         <RootProvider
           theme={{
             enabled: false,
