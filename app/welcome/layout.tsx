@@ -1,3 +1,4 @@
+
 import { DocsLayout } from 'fumadocs-ui/layouts/notebook';
 import { baseOptions } from '@/lib/layout.shared';
 import { welcomeSource } from '@/lib/source';
@@ -13,6 +14,7 @@ export default function Layout({ children }: { children: ReactNode }) {
       tabMode="navbar"
       tree={welcomeSource.pageTree}
       tabs={tabs}
+      sidebar={{ defaultOpenLevel: 0 }}
     >
       {children}
     </DocsLayout>

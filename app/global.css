@@ -220,6 +220,27 @@ article .prose > h4 {
   font-size: 1.25rem;
 }
 
+/* --- Headings wrapped in links - no underline ---------------------------------------- */
+article h1 a,
+article h2 a,
+article h3 a,
+article h4 a,
+article h5 a,
+article h6 a {
+  text-decoration: none;
+  color: inherit;
+}
+
+article h1 a:hover,
+article h2 a:hover,
+article h3 a:hover,
+article h4 a:hover,
+article h5 a:hover,
+article h6 a:hover {
+  text-decoration: none !important;
+  opacity: 0.7;                  /* gently fade on hover */
+  transition: opacity 0.15s ease;
+}
 
 /* ─────────────────────────────────────────────────────────────
    5c. CARDS
@@ -286,7 +307,15 @@ article a.bg-fd-card h3 {
   display: grid;
   grid-template-columns: repeat(3, 1fr);  /* default: 3 columns */
   gap: 1rem;
-  margin: 1.5rem 0;
+  margin: 2.5rem 0;
+}
+
+/* Extra space when card are stacking - no grids */
+.card-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin: 1rem 0;
 }
 
 /* Counts that are multiples of 2 but NOT of 3 → 2 columns */
