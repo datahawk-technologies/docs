@@ -1,14 +1,8 @@
 import { DocsLayout } from 'fumadocs-ui/layouts/notebook';
 import { baseOptions } from '@/lib/layout.shared';
 import { helpCenterSource } from '@/lib/source';
+import { tabs } from '@/lib/tabs';
 import type { ReactNode } from 'react';
-
-const tabs = [
-  { title: 'Welcome', url: '/welcome' },
-  { title: 'Help Center', url: '/help-center' },
-  { title: 'Troubleshooting', url: '/troubleshooting' },
-  { title: 'API Reference', url: '/api-reference' },
-];
 
 export default function Layout({ children }: { children: ReactNode }) {
   const { nav, ...base } = baseOptions();
