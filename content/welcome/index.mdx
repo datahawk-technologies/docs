@@ -3,32 +3,28 @@ title: Welcome to DataHawk
 description: DataHawk connects your Amazon and Walmart accounts and delivers structured, analysis-ready data through pre-built dashboards and hosted databases. Focus on decisions, not data wrangling.
 ---
 
-import { Cards, Card } from 'fumadocs-ui/components/card';
+import { Card } from 'fumadocs-ui/components/card';
 import { Callout } from 'fumadocs-ui/components/callout';
-
-
 
 **Where would you like to go?**
 
-
-<Card
+<div className="card-grid">
+  <Card
     title="🔍 Exploring DataHawk?"
     href="/welcome/explore-datahawk"
-    description="Just had a demo or want to understand what DataHawk can do for your team?"
+    description="Just had a demo or want to understand what DataHawk can do for your team? See a role-by-role breakdown of the questions DataHawk helps every team answer."
   />
-
-<Cards>
   <Card
     title="🚀 Ready to get set up?"
-    href="/welcome/quick-start"
-    description="A step-by-step guide from first sign-in to your first report — takes around 30 minutes of active setup time."
+    href="/welcome/getting-started"
+    description="You have your invitation and are ready to connect your accounts. A step-by-step guide from first sign-in to your first report — around 30 minutes of active setup time."
   />
   <Card
     title="📚 Already set up?"
     href="/help-center"
-    description="Find user in-deepth guides for every dashboard, setup instructions, data model references, and more."
+    description="Looking for in-depth guides, dashboard references, or data model documentation? Find user guides for every dashboard, destination setup instructions, and more."
   />
-</Cards>
+</div>
 
 <Callout type="info">
   Need help? Reach out to your DataHawk contact or [Get in Touch](mailto:support@datahawk.co).

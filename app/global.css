@@ -25,6 +25,7 @@
       5b. Headings & description
       5c. Cards
       5d. Footer / Prev-Next pager
+      5e. Bullet lists
    ================================================================ */
 
 
@@ -221,67 +222,137 @@ article .prose > h4 {
 
 
 /* ─────────────────────────────────────────────────────────────
-   5c. CARDS (inside article)
+   5c. CARDS
+   ─────────────────────────────────────────────────────────────
+   
+   Cards are wrapped in a <div className="card-grid"> in MDX.
+   The wrapper makes cards into a responsive grid where same-row
+   cards automatically align to equal heights.
+   
+   MDX usage:
+     <div className="card-grid">
+       <Card title="..." href="..." description="..." />
+       <Card title="..." href="..." description="..." />
+     </div>
+   
+   To change:
+   - Card background color:  edit "background-color" in bg-fd-card
+   - Card hover color:       edit "background-color" in :hover
+   - Card text color:        edit "color" in both rules
+   - Cards per row:          edit minmax(280px, 1fr) - 280px = min card width
+   - Space between cards:    edit "gap" in .card-grid
+   - Card title font size:   edit "font-size" in the h3 rule
    ───────────────────────────────────────────────────────────── */
 
-/* --- Card styling: color, hover, alignment, layout ------------- */
+/* --- Card colors -------------------------------------------- */
 article a.bg-fd-card {
   background-color: #d9e9fd !important;
   color: #122c47 !important;
   transition: background-color 0.2s ease;
 }
 
+/* --- Card hover (warm yellow) --------------------------------- */
 article a.bg-fd-card:hover {
   background-color: #ffd573 !important;
   color: #122c47 !important;
 }
 
-/* --- Spacing between stacked cards ----------------------------- */
-article a.bg-fd-card:not(:last-child) {
-  margin-bottom: 1rem !important;
-}
-
-/* --- Card title font size -------------------------------------- */
+/* --- Card title font size ------------------------------------- */
 article a.bg-fd-card h3 {
   font-size: 1.125rem;
   font-weight: 600;
 }
 
-/* --- Grid gap and internal padding (affects pager grid too) --- */
-article .grid:has(> a) {
-  gap: 1.5rem;
+/* --- Card grid wrapper - smart column count -------------------- 
+   
+   Default:        3 columns
+   Exception:      Even-count grids that are NOT multiples of 3
+                   use 2 columns (2, 4, 8, 10, 14, 16...)
+   
+   Result by card count:
+     2 cards  →  2 cols (1 row of 2)
+     3 cards  →  3 cols (1 row of 3)
+     4 cards  →  2 cols (2 rows of 2)
+     5 cards  →  3 cols (1 row of 3, 1 row of 2)
+     6 cards  →  3 cols (2 rows of 3)         ← uses 3 cols for less height
+     7 cards  →  3 cols (2 rows of 3, 1 row of 1)
+     8 cards  →  2 cols (4 rows of 2)
+     9 cards  →  3 cols (3 rows of 3)
+     10 cards →  2 cols (5 rows of 2)
+     12 cards →  3 cols (4 rows of 3)         ← uses 3 cols for less height
+   ───────────────────────────────────────────────────────────── */
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);  /* default: 3 columns */
+  gap: 1rem;
+  margin: 1.5rem 0;
 }
 
-article .grid > a {
-  padding: 1.5rem;
+/* Counts that are multiples of 2 but NOT of 3 → 2 columns */
+.card-grid:has(> :nth-child(2):nth-last-child(1)),    /* 2 cards */
+.card-grid:has(> :nth-child(4):nth-last-child(1)),    /* 4 cards */
+.card-grid:has(> :nth-child(8):nth-last-child(1)),    /* 8 cards */
+.card-grid:has(> :nth-child(10):nth-last-child(1)),   /* 10 cards */
+.card-grid:has(> :nth-child(14):nth-last-child(1)),   /* 14 cards */
+.card-grid:has(> :nth-child(16):nth-last-child(1)) {  /* 16 cards */
+  grid-template-columns: repeat(2, 1fr);
+}
+
+/* Mobile: always 1 column */
+@media (max-width: 768px) {
+  .card-grid,
+  .card-grid:has(> :nth-child(2):nth-last-child(1)),
+  .card-grid:has(> :nth-child(4):nth-last-child(1)),
+  .card-grid:has(> :nth-child(8):nth-last-child(1)),
+  .card-grid:has(> :nth-child(10):nth-last-child(1)),
+  .card-grid:has(> :nth-child(14):nth-last-child(1)),
+  .card-grid:has(> :nth-child(16):nth-last-child(1)) {
+    grid-template-columns: 1fr;
+  }
 }
 
 
 /* ─────────────────────────────────────────────────────────────
    5d. FOOTER / PREVIOUS-NEXT PAGER (bottom of every docs page)
+   ─────────────────────────────────────────────────────────────
+   
+   The "Previous / Next" pager appears at the bottom of every
+   docs page. Fumadocs renders it as a grid of 1 or 2 cards.
+   
+   To change:
+   - Top separator line:     edit border-top in pager container
+   - Space above pager:      edit margin-top
+   - Pager card bg color:    edit background-color in pager card
+   - Pager hover color:      edit background-color in :hover
+   - Internal card padding:  edit padding in pager card rule
    ───────────────────────────────────────────────────────────── */
 
-/* --- Space + separator between content and pager --------------- */
+/* --- Pager container (separator + spacing above) -------------- */
 article > div.grid:last-child {
   margin-top: 4rem;
   padding-top: 2rem;
+  gap: 1.5rem;
   border-top: 1px solid #eeeeee;
 }
 
-/* --- Pager card styling (pale yellow bg) ----------------------- */
+/* --- Pager card styling --------------------------------------- */
 article > div.grid:last-child > a {
   background-color: #fff3d4 !important;
   color: #122c47 !important;
+  padding: 1.5rem;
   transition: background-color 0.2s ease;
 }
 
-/* --- Pager hover (warm yellow bg) ------------------------------ */
+/* --- Pager card hover ----------------------------------------- */
 article > div.grid:last-child > a:hover {
   background-color: #ffd573 !important;
   color: #122c47 !important;
 }
+
+
 /* ─────────────────────────────────────────────────────────────
-   5e. BULLET LISTS - indented + colored markers
+   5e. BULLET LISTS - indented with colored markers
    ───────────────────────────────────────────────────────────── */
 article .prose ul {
   padding-left: 3rem;
