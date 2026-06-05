@@ -1,0 +1,67 @@
+---
+title: Ads data appearing under the wrong Account Type (Seller vs Vendor)
+description: How to investigate and resolve advertising data appearing under the wrong account type (Seller vs Vendor) in DataHawk dashboards.
+---
+
+You may spot some **data discrepancies** in your advertising dashboard vs Seller Analytics or Vendor Analytics dashboards. It is linked to the fact that Seller and Vendor ads data is filtered to seller or vendor account type accordingly, while Ads Dashboard consolidates all your accounts.
+
+If **data appears under a different account type than expected** (e.g. Vendor instead of Seller), we invite you to make a first step of verification.
+
+## What DataHawk shows
+
+DataHawk surfaces the account classification returned by Amazon's API. DataHawk does not manually determine whether an account is Seller or Vendor. The account type is part of the account data model returned and stored as a classification field.
+
+<Accordions>
+  <Accordion title="DataHawk can">
+    - Share the identifier returned by Amazon
+    - Confirm the classification returned by Amazon's Advertising API
+    - Help review Amazon's response once you receive it
+  </Accordion>
+  <Accordion title="DataHawk cannot">
+    - Reclassify an Amazon account
+    - Override Amazon's account registration
+    - Confirm internal ownership structure inside Amazon on your behalf
+  </Accordion>
+</Accordions>
+
+## What to check first
+
+1. Copy the Entity ID or profile identifier shown by DataHawk App (hover on top of the connected advertising account) or copy the account key from one of the dashboards
+2. Log into the Amazon environment used for advertising management
+3. Switch to the relevant marketplace
+4. Locate the matching advertising profile
+5. Try to confirm:
+   - Whether the profile exists in your account structure
+   - Whether it is linked to a **Seller** or **Vendor** environment
+   - Whether multiple profiles or business entities exist for the same marketplace
+6. If Amazon's own environment or API identifies the account differently from what your team expects, please contact **Amazon Advertising support directly**. Only Amazon can confirm how a profile is registered in their backend systems.
+
+**Message to send to Amazon:**
+
+> We are reviewing advertising account Entity ID [ENTITY ID]. Amazon Advertising API identifies it as a [Vendor/Seller] account, while our internal understanding is different. We are specifically reviewing the [MARKETPLACE] account and would like clarification on how this profile is linked to our organization.
+>
+> Please confirm how this Entity ID is registered in your systems and explain why it is classified this way.
+
+## Common reasons for a mismatch
+
+It is possible for a company to believe it operates only Seller accounts, while Amazon returns a specific advertising profile as Vendor.
+
+This can happen when:
+
+- Your organization has multiple Amazon account relationships
+- A Vendor account exists historically but is not actively used
+- Access was granted through another entity, region, or team
+- An agency or partner connected the profile previously
+- Amazon's backend registration differs from your internal understanding of the account structure
+
+In these cases, DataHawk can only surface what Amazon returns.
+
+## If the result does not match what you observe on DataHawk
+
+Please re-engage with us once you have completed the checks above and please include:
+
+- The original account identifier
+- The marketplace
+- A screenshot or forward of Amazon's reply
+
+This will allow us to review the case efficiently.

@@ -1,0 +1,42 @@
+---
+title: Amazon Seller Profit - Reading Your Reports
+description: Where to find profit data in DataHawk, why some fees appear at account level rather than SKU level, and how profit metrics are defined.
+---
+
+DataHawk gives you several ways to explore your profitability — from a high-level account view down to individual brands and SKUs. This page explains where to find what, and covers a common point of confusion around how Amazon fees appear in reports.
+
+## Where to explore profit in DataHawk
+
+| What you want to see | Where to find it |
+|---|---|
+| Profitability by SKU or ASIN | **Profit Explorer** |
+| Brand → SKU breakdown with fees and ad spend | **Download Center** |
+| Account-level fees (storage, etc.) | "No Brand" / "No SKU" row in Download Center |
+
+<Callout type="warn">
+  Organic vs. paid sales breakdown is not currently available in the Download Center view.
+</Callout>
+
+## Why some fees don't appear at the SKU level
+
+This is one of the most common questions about profit reporting — and the answer lies in how Amazon itself reports fees.
+
+Amazon charges fees in two different ways:
+
+**SKU-level fees** — fees Amazon attributes directly to a specific product (e.g. FBA fulfillment fees per unit shipped). These appear at the SKU level in DataHawk, so you can see exactly what each product costs to fulfill.
+
+**Account-level fees** — fees Amazon bills at the account level without breaking them down by product (e.g. FBA storage fees, long-term storage fees). Amazon does not tell DataHawk which SKU these belong to, so DataHawk cannot automatically split them.
+
+In the **Download Center**, account-level fees appear grouped under **"No Brand" / "No SKU"**. They are not missing from your P&L — they are fully accounted for at the account level, just not distributed across individual products.
+
+## What if I need storage fees allocated by SKU?
+
+It's possible, but it requires defining a custom allocation rule — for example, distributing fees proportionally by unit volume, revenue share, or storage space used. This is not available out of the box.
+
+Reach out to your DataHawk representative to discuss options.
+
+## How profit metrics are defined
+
+For the full breakdown of how each metric is calculated — from Gross Revenue to Net Profit — see the [Amazon Seller Profit - Data](/help-center/knowledge-hub/amz-seller-profit-data) page.
+
+That page also covers the accrual vs. recorded methodology and includes the underlying dataset reference for analysts and developers.

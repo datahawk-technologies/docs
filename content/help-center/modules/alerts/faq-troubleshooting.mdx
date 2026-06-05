@@ -1,0 +1,53 @@
+---
+title: Alerts FAQ & troubleshooting
+description: Quick answers to the most common Alerts questions — from missing emails to noisy alerts.
+---
+
+Quick answers to the most common Alerts questions.
+
+## "Why didn't I get an alert?"
+
+A few common reasons:
+
+- **The trigger didn't fire** — DataHawk checks once a day. If the change happened *after* the daily check, you'll see it tomorrow.
+- **The alert is paused** — check the Alerts list for status.
+- **The recipient group is empty or wrong** — check the group's members.
+- **The email landed in spam** — whitelist [noreply@datahawk.co](mailto:noreply@datahawk.co)
+- **The data isn't available** — Walmart doesn't expose all properties (see [Triggers & properties](/help-center/modules/alerts/triggers)).
+
+## "Why am I getting too many alerts?"
+
+- **Triggers are too sensitive** — tighten the threshold (e.g. "decreases by 5%" → "decreases by 15%").
+- **Alert covers too many products** — narrow it to a tag or specific ASINs.
+- **Multiple overlapping alerts** — consolidate into one alert with multiple triggers and a single recipient group.
+
+## "When are alerts sent?"
+
+DataHawk runs the daily check once per day and emails the recipient group everyday at 12pm CET.
+
+## "Can I send alerts to Slack, Teams, or a webhook?"
+
+DataHawk Alerts module does not offer this natively. If you need non-email delivery today, build a workflow with [DataHawk MCP](/help-center/modules/datahawkmcp) and a tool like n8n or Make — they can pull your DataHawk data and post anywhere.
+
+## "How long is alert history kept?"
+
+Alert events are retained for **3 months**.
+
+## "What's the difference between preset and custom triggers?"
+
+- **Preset** — pre-built templates for the most common situations. Fast to set up.
+- **Custom** — build your own rule using property + operator + value. More flexible.
+
+See [Custom triggers](/help-center/modules/alerts/custom-triggers).
+
+## "Can I monitor competitors' products?"
+
+Yes — you just need to track them in your workspace first. Once tracked, you can attach any alert to them.
+
+## "Walmart support is missing for properties I need"
+
+Walmart's API doesn't expose every data point Amazon does. The full parity matrix is in [Triggers & properties](/help-center/modules/alerts/triggers). If you need a missing property, tell support — feature requests inform our roadmap.
+
+## Still stuck?
+
+Email [support@datahawk.co](mailto:support@datahawk.co).

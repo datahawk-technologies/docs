@@ -1,5 +1,6 @@
 // source.config.ts
-import { defineDocs, defineConfig } from "fumadocs-mdx/config";
+import { z } from "zod";
+import { defineDocs, defineConfig, frontmatterSchema } from "fumadocs-mdx/config";
 var welcome = defineDocs({
   dir: "content/welcome"
 });
@@ -12,9 +13,19 @@ var troubleshooting = defineDocs({
 var apiReference = defineDocs({
   dir: "content/api-reference"
 });
+var changelog = defineDocs({
+  dir: "content/changelog",
+  docs: {
+    schema: frontmatterSchema.extend({
+      date: z.coerce.string().optional(),
+      tags: z.array(z.string()).optional()
+    })
+  }
+});
 var source_config_default = defineConfig();
 export {
   apiReference,
+  changelog,
   source_config_default as default,
   helpCenter,
   troubleshooting,

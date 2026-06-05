@@ -1,0 +1,70 @@
+---
+title: Navigate through Ad Spend Drop
+description: Spot quiet ad pullbacks — Sherlock's Ad Spend Drop case flags products where ad spend fell ≥10% week-over-week, pulling traffic and revenue with it.
+---
+
+**Ad Spend Drop** flags products where you've quietly pulled back on ads, and your traffic and revenue went down with it. Most of the time it's not a deliberate decision — a campaign hit its budget, a bid lost out, or auto-targeting changed — and Sherlock surfaces it before you lose another week of sales.
+
+## What's on the page
+
+At the top:
+
+- **The rule:** *"Products where ad spend fell ≥10% WoW, pulling traffic and revenue down with it."*
+- **Total opportunity** — the combined revenue at stake across every flagged product.
+- **Refresh** — re-run the check with the latest data.
+
+Below, the table:
+
+| Column | What it means |
+|---|---|
+| **Product** | Image, title, marketplace flag, ASIN (with copy icon), and brand |
+| **Revenue drop** | Week-over-week revenue change |
+| **Traffic drop** | Week-over-week traffic (sessions) change |
+| **Ad spend drop** | Week-over-week ad spend change |
+| **Prev week traffic** | Sessions in the previous week, for context |
+| **Opportunity** | Estimated revenue you could recover by restoring ad delivery |
+
+The list is sorted by **Opportunity**, biggest first.
+
+## How to read a row
+
+> *Revenue drop: –56.0% · Traffic drop: –55.2% · Ad spend drop: –46.7% · Prev week traffic: 8,403 · Opportunity: \$15,209*
+
+It tells you:
+
+- Last week you spent ~47% less on this product's ads.
+- Traffic fell almost in lockstep (−55%), and revenue followed (−56%).
+- The previous week had 8,403 sessions, so this isn't a small, low-volume item.
+- If you restore ad delivery to roughly where it was, Sherlock estimates ~\$15k in recoverable revenue.
+
+## Open the product investigation
+
+Click any row to open the same investigation view used by Signals (*Overview*, *Timeline*, *Metrics*).
+
+For ad spend drops, the most useful places to look:
+
+- The **Overview** explanation, which usually pinpoints whether the drop came from a budget cap, lost auction, or paused campaign.
+- The **Metrics** heatmap → *Advertising* group. Red cells across *Ad spend*, *Ad clicks*, and *Ad impressions* confirm the pullback.
+- The **Timeline** tab. Recent product or campaign changes show up here.
+
+## What to do about it
+
+1. **Budget hit.** Daily budget capped out before peak hours — raise it or shift it.
+2. **Lost auctions.** Bids no longer competitive — increase bids on the top-performing keywords.
+3. **Paused or archived ad group.** Someone (or auto-rule) turned it off.
+4. **Auto-targeting drift.** SP Auto stopped matching the right queries — review the targeting report.
+
+## Tips
+
+- Cross-check with **Zombie Ad Spend** — if the same product is wasting on some keywords *and* under-spending on others, the issue is a campaign-level imbalance.
+- Pay attention to **Prev week traffic** — a 70% drop on a 200-session item is less urgent than a 30% drop on a 10,000-session hero.
+
+## Where to go next
+
+- [What is Sherlock](/help-center/modules/sherlock)
+- [Navigate through Signals](/help-center/modules/sherlock/signals)
+- [Navigate through Zombie Ad Spend](/help-center/modules/sherlock/zombie-ad-spend)
+- [Navigate through Return Anomalies](/help-center/modules/sherlock/return-anomalies)
+- [Navigate through Price CVR Drop](/help-center/modules/sherlock/price-cvr-drop)
+- [Navigate through FBA Stockout](/help-center/modules/sherlock/fba-stockout)
+- [Navigate through Buy Box Loss](/help-center/modules/sherlock/buybox-loss)

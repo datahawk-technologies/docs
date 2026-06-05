@@ -1,0 +1,21 @@
+---
+title: Improved tax management in Profit data
+description: Refined tax breakdown in Profit datasets. Tax portions extracted into separate lines with is_tax=true.
+date: 2025-11-02
+tags: [breaking, improvement]
+---
+
+A refined tax breakdown will be added to Profit datasets and dashboards, improving transparency in how taxes affect reported profits.
+
+**Data Model Changes:**
+- In `finance_profit_ledger` and `finance_profit`, taxes previously embedded within fees are extracted into separate tax lines, and tax portions are now marked with `is_tax = true`
+- Category, subcategory hierarchies and event signatures remain unchanged
+- In `finance_profit_metrics`, *Tax Liability* and *Net Profit* metrics are recalculated
+
+<Callout type="warn">
+If you apply custom computations on these metrics to account for fees taxes, make sure to remove them from your reporting.
+</Callout>
+
+**Operational Impact:**
+- Reporting compatibility is fully maintained
+- Reported profit may increase slightly due to exclusion of tax amounts

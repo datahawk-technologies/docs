@@ -1,0 +1,141 @@
+---
+title: Use Tags
+description: Tags are labels that help organize and filter Products and Keywords across your DataHawk workspace.
+---
+
+Tags are **labels** that help organize and filter Products and Keywords.
+
+<Callout type="info">
+  Assign Tags to each Product or Keyword, whether tracked or not. This makes it easier to identify and analyze multiple items together.
+</Callout>
+
+---
+
+## Types of Tags
+
+### Custom Tags
+
+**You can create your own Tags.** The most frequently used ones will appear when assigning Tags to Products and Keywords.
+
+#### Examples of Custom Tags
+
+- Brand Name
+- Category Name
+- Marketing Segment
+
+### Automated Tags
+
+These Tags are automatically assigned to Products:
+
+- **FBA**: Fulfilled by Amazon
+- **Prime**: Prime eligible
+- **Vendor**: Sold by Amazon
+- **Tracked**: Monitored in your workspace
+- **ASIN**: Product's ASIN identifier
+- **Variation**: ASIN belongs to a variation
+- **Owned Tags**: Found in your Seller Central or Advertising Account
+
+### Preset Tags
+
+**For Products**
+
+These default Tags can be used for organization.
+
+- Direct Competitor
+- Threat
+- New Entrant
+- Top Performer
+
+**For Keywords**
+
+- Short Tail/Mid Tail/Long Tail
+- Low Volume/Medium Volume/High Volume
+- Low Competition/Medium Competition/High Competition
+- Core Keywords/Ancillary Keywords
+
+---
+
+## Adding Tags
+
+You can add Tags to products and keywords when you start tracking them or after.
+
+### Add Tags at Tracking step
+
+<Callout type="info">
+  You can tag **tracked and untracked** products/keywords.
+</Callout>
+
+- If you choose the following methods to track new products/keywords:
+  - **Enter URLs**
+  - **Enter ASINs**
+
+  → You will be prompted to add Tags to the products/keywords in the last steps of the tracking process.
+
+- If you choose **Import CSV:**
+
+  → you can add an optional **Tags column** and enter your tags separated by a semi-colon ";". Entries are case sensitive.
+
+### Upload a Product or Keyword Tags CSV
+
+1. Navigate to **Sources**, scroll down to find **Product Tags** or **Keyword Tags** and click on *+ Add*
+2. Choose the appropriate template for your needs:
+   - **Template CSV:** Download this if you need a blank, pre-formatted CSV file to start fresh.
+   - **Product/Keyword catalog & Tags CSV:** Use this option if you want a pre-filled template that includes your existing product or keyword associations for easy updates. It will not contain non-tagged products or keywords.
+3. Fill out the template with the necessary product information and tags. Ensure that each row corresponds to a product and includes the relevant tags.
+4. Once you have filled out the CSV template, upload it to the system.
+5. Review the uploaded data for any errors or inconsistencies. The system will highlight any issues that need to be corrected. You can use the "Find and replace" feature to quickly fix any errors in the data.
+6. Choose the import mode that best suits your needs:
+   - **Add New Only:** This mode adds new tags from your upload without duplicating existing tags. Tags already associated with a product are left unchanged.
+   - **Replace Matching:** This mode replaces tags for products that match those in your upload.
+   - **Replace All:** This mode removes all current tags and uses only the ones from your current upload.
+7. Click on "Add Product/Keyword Tags" to finalize the process and add the tags to the system.
+
+<Callout type="info">
+  It can take up to 24 hours to see the Tags updated in your database.
+</Callout>
+
+## Tag Management
+
+Access the Tag Management module by clicking **View Tags** in the Sources header.
+
+In this module, you can add, edit, or remove Tags.
+
+## Using Tags as Types or Hierarchies
+
+Even if the system only provides one generic **Tags** field, you can still make tags easy to filter by encoding the **tag type (dimension)** directly inside the tag name.
+
+### Tag Types / Dimensions (grouping tags)
+
+Use a prefix per dimension:
+
+**Format:** `[dimension]:[value]`
+
+**Examples:**
+
+- Product Category: `cat:HomeCare`
+- Product Group: `pg:Vacuum Cleaner`
+- Product Color: `color:Red`
+
+This makes filtering simple and consistent:
+
+- filter categories with `cat:`
+- filter product groups with `pg:`
+- filter colors with `color:`
+
+### Tag Hierarchies (within a dimension)
+
+Use `/` to represent sub-levels.
+
+**Format:** `[dimension]:[level1]/[level2]/...`
+
+**Examples:**
+
+- `cat:HomeCare/All`
+- `cat:HomeCare/Accessory`
+
+### Formatting Rules (recommended)
+
+- Always include the dimension prefix (cat:, pg:, color:)
+- Keep casing consistent (e.g. always lowercase prefixes)
+- Use a single spacing convention (no spaces around `/`)
+- Optionally trim extra spaces automatically on ingestion

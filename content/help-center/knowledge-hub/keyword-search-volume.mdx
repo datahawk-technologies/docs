@@ -1,0 +1,59 @@
+---
+title: Keyword Search Volume
+description: DataHawk's estimated monthly search volume for tracked keywords — updated weekly, with historical data across marketplaces.
+---
+
+DataHawk provides estimated monthly search volume for every keyword you track, updated weekly. This gives you a historical view of how demand for any keyword evolves over time across marketplaces.
+
+## What you can use it for
+
+- **Track keyword popularity and seasonality** — see how search demand rises and falls across weeks and months, so you can plan campaigns around peak periods
+- **Identify high-volume keywords** — find the terms with the highest demand to prioritise for both organic SEO and paid advertising
+- **Measure the impact of marketing initiatives** — see whether a campaign or listing change moved the needle on keyword demand
+- **Support product research and market entry** — validate whether there is sufficient search demand before launching a new product or entering a new category
+
+<Callout type="info">
+  Each keyword variation is counted separately. For example, "bag" and "bags" are treated as two distinct keywords, each with their own volume. Keep this in mind when comparing keywords or summing volumes across a set.
+</Callout>
+
+## Requirements
+
+You must have the keyword tracked in DataHawk to see its search volume data. Volume data does not backfill — it is collected from the day tracking begins.
+
+## Supported marketplaces
+
+| Region | Coverage |
+|---|---|
+| North America | All marketplaces |
+| Far East | All marketplaces |
+| Europe | Spain, United Kingdom, France, Netherlands, Germany, Italy, Sweden, Turkey, United Arab Emirates, India |
+
+**Data available from:**
+
+- Most marketplaces: 1 May 2024
+- AE and SG: 15 August 2024
+
+## Available dashboards
+
+Keyword search volume is included in:
+
+- [Search Power BI Dashboard Template](/help-center/connect-tools/powerbi)
+- [Analytics Essentials Looker Studio Dashboard](/help-center/looker-studio)
+
+## Changelog
+
+**3 November 2025** — DataHawk rolled out significant improvements to its keyword volume estimation models, incorporating a greater amount of real Amazon data. No changes are required on your end. Expect progressively higher accuracy and reliability of keyword volumes going forward.
+
+---
+
+## ⚙️ For Developers & Analysts
+
+### Data table
+
+| Schema | Table | Granularity | Refresh |
+|---|---|---|---|
+| `SEO` | `SEO_KEYWORD_VOLUME_V2` | One data point per keyword per marketplace per day (`DATE_DAY`) | Weekly |
+
+<Callout type="info">
+  **Note:** Absence of data for a given date and keyword means that keyword's search volume was below measurable thresholds — it does not indicate a data error.
+</Callout>

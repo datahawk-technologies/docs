@@ -1,0 +1,4 @@
+{
+  "title": "Alerts",
+  "pages": ["index", "create", "triggers", "custom-triggers", "recipient-groups", "manage-alerts", "faq-troubleshooting"]
+}

@@ -1,0 +1,31 @@
+---
+title: I don't see traffic data for my ASIN
+description: How to investigate missing traffic data for an ASIN in DataHawk — checking account type, data source, and API coverage.
+---
+
+If traffic data (sessions, page views, Buy Box %) is not appearing for your ASIN in DataHawk, this may be related to how your account type is classified by Amazon.
+
+## What to check
+
+1. Copy the Entity ID or profile identifier shown by DataHawk App
+2. Confirm whether your account is classified as Seller or Vendor in Amazon's Advertising API
+3. Verify that your Seller Central account is connected and syncing — traffic data requires a Seller Central connection
+
+**Note:** Traffic data (Glance Views) for Vendor accounts requires that the ASIN is visible in Manufacturing view, not just Sourcing view. If your ASIN is Sourcing-only, traffic data may not be available.
+
+See [Amazon Vendor Account - Sourcing vs Manufacturing View](/help-center/knowledge-hub/amz-cendor-account-sourcing-manufacturing) for more details.
+
+## If your account is correctly connected
+
+- Allow up to 24 hours for data to sync after connecting
+- Verify that the ASIN is tracked in your workspace
+- Check that the date range selected includes days after the account was connected
+
+## Still not seeing data?
+
+Contact [support@datahawk.co](mailto:support@datahawk.co) with:
+
+- The ASIN(s) affected
+- Your marketplace
+- The account type (Seller / Vendor)
+- Screenshot of what you see in DataHawk

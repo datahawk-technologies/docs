@@ -1,0 +1,154 @@
+---
+title: Amazon Private Data - Vendor Account
+description: Connect your Amazon Vendor Central account to DataHawk to automatically collect sales, inventory, traffic, and margin data.
+---
+
+## Your Vendor Central Account
+
+Amazon Vendor Central is an invitation-only platform that Vendors use to sell products directly to Amazon.
+
+DataHawk allows you to **add an unlimited number of Vendor Central accounts** you manage.
+
+Adding your Amazon Vendor Central account allows you to **automatically collect data on critical metrics**, including Sales, Product Margins, Inventory, and Traffic.
+
+## DataHawk Connexion Capabilities
+
+### Supported regions
+
+DataHawk integration works for Sellers registered in all Amazon regions:
+
+- **North America**: US, Canada, Mexico, and Brazil.
+- **Europe**: UK, Germany, Italy, France, Spain, Netherlands, UAE, Sweden, India, and Poland.
+- **Far East**: Japan, Singapore, and Australia.
+
+### Data Coverage
+
+The list below highlights a very high-level summary of the currently available datasets on any destination.
+
+All of the data listed below is available at **both Account-level and ASIN-level**.
+
+- **Vendor's Revenue** (Referred to as "Shipped COGS," as this is COGS from Amazon's perspective)
+- **Amazon's Revenue** (Referred to as "Shipped Sales" or "Ordered Sales," as these are sales from Amazon's perspective)
+- **Units Sold**
+- **Returns**
+- **Product Margins**
+- **Product Page Views**
+- **Inventory**
+- **Demand Forecasts**
+
+### Historical data storage
+
+Once you connect your Vendor Central account to DataHawk, we immediately retrieve **3 years of historical data**. We then **securely store and back up** all your data **everyday**, enabling **more comprehensive reporting with extended historical insights**.
+
+### Refresh Frequency & Data Delay
+
+Data is updated daily.
+
+For Vendor Central data, there is a 72-hour delay between the data available and the day the data is retrieved/refreshed, due to limitations with Amazon's API.
+
+## How to Connect your Amazon Vendor Accounts
+
+<Callout type="info">
+  Before you start, ensure you have the **necessary account permissions**. If not, share the login link with someone who does.
+</Callout>
+
+<Steps>
+
+<Step>
+
+### Go to the Sources Page
+
+On DataHawk App, go to the [Sources Page](https://analytics.datahawk.co/app/sources).
+
+</Step>
+
+<Step>
+
+### Add Sources
+
+Click `+ Add Sources` on the top right corner. Or `+ Add` on the Amazon Vendor Central line (jump to step 4).
+
+{/* TODO: Replace this Notion image with a local copy in /public/images/data-setup/ */}
+
+</Step>
+
+<Step>
+
+### Select Amazon Vendor Central
+
+{/* TODO: Replace this Notion image with a local copy in /public/images/data-setup/ */}
+
+</Step>
+
+<Step>
+
+### Choose a marketplace to connect
+
+{/* TODO: Replace this Notion image with a local copy in /public/images/data-setup/ */}
+
+</Step>
+
+<Step>
+
+### Log in and authorize
+
+Log in to your **Amazon Vendor account**.
+
+Authorize DataHawk integration.
+
+{/* TODO: Replace this Notion image with a local copy in /public/images/data-setup/ */}
+
+</Step>
+
+</Steps>
+
+## DataHawk Limitations
+
+- Data for the last 48h may be incomplete
+- Due to Amazon's API's limitations, datasets contain data until 72 hours before the refresh.
+- Some metrics are limited by Amazon API
+- Initial historical depth is limited by Amazon API
+- Due to Amazon's API's limitations, we have limited access to data when your marketplace is sourcing and not manufacturing. [Learn more.](/help/knowledge-hub/amz-cendor-account-sourcing-manufacturing)
+
+## Outputs
+
+### Raw data
+
+Raw data can be accessed via destinations and can notably be used to build dashboards on your favorite BI solution.
+
+When you set up a destination, DataHawk provides you with a hosted database containing your Sources data. These tables contain a very exhaustive list of data points as columns and are organized into what are called schemas.
+
+All data is available under the `SELLING_PARTNER` schema.
+
+Most of these tables have several variations available based on the **Distributor View** chosen. Moreover, most of these tables have a column indicating the **Selling Program** corresponding to each data point. The following are definitions of the different distributor views and selling programs available:
+
+- **Distributor Views**
+  - **Manufacturing** - Includes all product's under the Vendor's brand, including those not sourced directly from their inventory.
+  - **Sourcing** - Includes only products sourced directly from the Vendor's inventory.
+- **Selling Program**
+  - **Retail** - The default selling program applicable to the vast majority of Vendor sales.
+  - **Fresh** - Refers to [Amazon Fresh](https://www.amazon.com/fmc/m/30003175?almBrandId=QW1hem9uIEZyZXNo), Amazon's online food shopping home delivery service.
+  - **Business** - Refers to [Amazon Business](https://business.amazon.com/en/discover-more/blog/what-is-amazon-business), which is specialized towards enterprises as buyers.
+
+To see an exhaustive view of all columns within these tables, refer to [our Table & Column Referential](https://docs.google.com/spreadsheets/d/1gYGqKQP9Z71nz1lOb4y0wJ15i27NvsUzdliIJeIx0HY/edit#gid=175439716).
+
+| Schema | Table | About |
+|---|---|---|
+| SELLING_PARTNER | `VENDOR_SALES_{VIEW}_SRC` | Sales data including Vendor's Revenue (Shipped COGS), Amazon's Revenue (Sales), Units Sold, and Returns. |
+| SELLING_PARTNER | `VENDOR_NET_PURE_PRODUCT_MARGIN_SRC` | Net Pure Margins per Product |
+| SELLING_PARTNER | `VENDOR_TRAFFIC_SRC` | Daily Page Views per Product |
+| SELLING_PARTNER | `VENDOR_INVENTORY_{VIEW}_SRC` | In-Depth Daily Inventory Breakdown |
+| SELLING_PARTNER | `VENDOR_FORECASTING_SRC` | Demand Forecasts per ASIN provided on a weekly basis. Includes Mean, P70, P80, and P90 forecasts. A P70 forecast means that if the Vendor stocks up on the recommended about, there is a 70% chance of avoiding a shortage. |
+
+### Dashboards
+
+DataHawk provides ready-to-use dashboards and reports on Power BI and Looker Studio.
+
+Go on our complete guide on Advertising Dashboards:
+
+- for Looker Studio: Perfect for a high-level overview
+- for Power BI: Great for a deep-dive and investigation on performance
+
+## Coming Soon
+
+Vendor Central Support at DataHawk is still in development. New capabilities will be released in the near future, such as more refined data, including added layers of intelligence in the context of the Vendor's full Amazon ecosystem.

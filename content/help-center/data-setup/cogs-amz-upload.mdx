@@ -1,0 +1,92 @@
+---
+title: Upload Amazon Product Expenses (COGS)
+description: Add Amazon product expenses as a Source to make daily unit costs available in your database and profit analyses.
+---
+
+Adding an Amazon Product Expense as a Source will make daily unit expenses available on your managed database. It will also add product expense reporting to your profit and loss analyses.
+
+## Where Product Expenses Data Appears
+
+**Datasets:** your product expenses (COGS) are surfaced in the following tables:
+
+- `FINANCE.FINANCE_PROFIT`: Aggregated daily COGS used for overall profit calculations.
+- `FINANCE.FINANCE_PROFIT_LEDGER`: COGS represented as transactional events:
+  - Negative COGS (-COGS) when a sale occurs
+  - Positive COGS (+COGS) when a return is processed
+- `FINANCE.FINANCE_PROFIT_METRICS`: Used to compute profit metrics such as:
+  - Gross Profit
+  - Operating Profit
+  - Net Profit
+- `FINANCE.FINANCE_COGS`: Provides detailed daily COGS data per product/channel.
+- `FINANCE.FINANCE_COGS_SKU`: SKU-level breakdown of daily COGS for deeper product-level insights.
+- *`FINANCE.FINANCE_PROFIT_LOSS` (Deprecated)*: Previously used for profit/loss reporting. Superseded by the tables above.
+
+**In the Dashboards:**
+
+- Templates:
+  - Seller Finances and Supply Chain on Power BI: Product expenses data will be included in profit and loss reporting.
+  - Analytics Essentials on Looker: Product expenses data will be included in profit and loss reporting.
+- Any custom dashboard built on top of the tables above
+
+## Uploading Product Expenses
+
+<Steps>
+
+<Step>
+
+### Download the CSV template
+
+Download the CSV template.
+
+</Step>
+
+<Step>
+
+### Fill in the template
+
+Fill in the template with:
+
+- **Account ID:** Seller Central Account ID.
+- **Marketplace:** Domain name.
+- **ASIN:** Product identifier.
+- **Start/End Date:** Duration the cost applies. You can upload COGS data for dates up to 5 years in the past or 1 year in the future.
+- **Product Cost:** Per-unit cost of goods sold.
+- **Currency:** Currency for the cost.
+
+</Step>
+
+<Step>
+
+### Save and upload
+
+Save in **CSV UTF-8 format**.
+
+Upload the CSV file.
+
+</Step>
+
+<Step>
+
+### Review and finish
+
+Review and correct any errors.
+
+Click **Finish**.
+
+</Step>
+
+</Steps>
+
+<Callout type="info">
+  The system always uses the **most recent upload** to calculate final product expenses.
+
+  To Edit Previously Uploaded Data:
+  1. Re-upload the updated values for the affected products and date range.
+  2. The system will automatically **overwrite** the old data with your new submission.
+</Callout>
+
+<Callout type="info">
+  Updates take up to 24 hours. You can upload COGS data for dates up to 5 years in the past or 1 year in the future.
+</Callout>
+
+{/* TODO: Replace this Notion image with a local copy in /public/images/data-setup/ */}

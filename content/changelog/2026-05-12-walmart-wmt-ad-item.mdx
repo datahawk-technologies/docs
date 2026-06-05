@@ -1,0 +1,14 @@
+---
+title: New Walmart Advertising dataset
+description: New advertising.wmt_ad_item alias with proper sponsored_type attribution. wmt_sp_ad_item now deprecated.
+date: 2026-05-12
+tags: [new, breaking]
+---
+
+- New dataset `advertising.wmt_ad_item` introduced as an **alias** for `advertising.wmt_sp_ad_item`
+- `advertising.wmt_sp_ad_item` is now **deprecated**
+- Both datasets now correctly attribute ad item data to the corresponding `sponsored_type` (Sponsored Products / Sponsored Brands / Video), driven by campaign-level configuration
+
+<Callout type="warn">
+Please migrate to `advertising.wmt_ad_item` at your earliest convenience.
+</Callout>

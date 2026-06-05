@@ -1,0 +1,134 @@
+---
+title: Track Keywords
+description: Monitor the first 5 pages of Amazon search results daily to track changes in organic rank, sponsored rank, and editorial recommendations.
+---
+
+## Keyword Tracking
+
+Keyword tracking monitors the first 5 pages of Amazon search results daily, so you can follow changes in organic rank, sponsored rank, and editorial recommendations.
+
+## DataHawk Product Tracking Capabilities
+
+### What data does DataHawk collect from Amazon?
+
+For each keyword you track, DataHawk will provide a daily snapshot of these primary product attributes:
+
+- organic search rank
+- organic page rank
+- sponsored page rank *(requires Amazon Premium Keywords)*
+- content recommendations
+
+Each product will contain basic information such as:
+
+- title
+- price
+- stars rating
+- numbers of ratings, including reviews
+
+### What data does DataHawk collect from Walmart?
+
+For each keyword you track, DataHawk will provide a daily snapshot of these primary product attributes:
+
+- organic search rank
+- organic page rank
+- sponsored page rank
+- editorial recommendations
+
+Each product will contain basic information such as:
+
+- title
+- price
+- stars rating
+- numbers of ratings, including reviews
+- A+ status
+- product image
+
+### Supported regions
+
+DataHawk integration works for tracked products in all Amazon regions:
+
+- **North America**: US, Canada, Mexico, and Brazil.
+- **Europe**: UK, Germany, Italy, France, Spain, Netherlands, UAE, Sweden, India, and Poland.
+- **Far East**: Japan, Singapore, and Australia.
+
+<Callout type="info">
+  Keyword tracking is country-specific. If you track the same keyword in multiple marketplaces, each marketplace is counted as a separate tracked keyword.
+</Callout>
+
+### Automated Data Sync & Backup
+
+Once you add a product for tracking, we collect data automatically from that point forward (it may take up to 24-hours to have complete data). No historical data possible.
+
+We then **securely store and back up** all your data **every day**, enabling **more comprehensive reporting with extended historical insights**.
+
+### Refresh Frequency
+
+Data is updated daily. There may be a delay in updating the data from the last 24-hours.
+
+## How to track an Amazon Keyword
+
+<Steps>
+
+<Step>
+
+### Go to the Sources Page
+
+Go to the [Sources Page](https://analytics.datahawk.co/app/sources).
+
+</Step>
+
+<Step>
+
+### Add Source
+
+Click **Add Source**.
+
+</Step>
+
+<Step>
+
+### Select Amazon or Walmart Keyword
+
+Select **Amazon** or **Walmart**, then choose **Keyword**.
+
+{/* TODO: Replace this Notion image with a local copy in /public/images/data-setup/ */}
+
+</Step>
+
+<Step>
+
+### Choose your preferred method
+
+Choose your preferred method:
+
+- **Manual Entry**
+- **CSV Import** (recommended for more than 500 keywords)
+
+<Accordions>
+  <Accordion title="Adding via Manual Entry">
+    1. Select `Enter Keywords`
+    2. Select Marketplace
+    3. Enter or paste the keywords.
+    4. (Optional) [Assign tags](/help/data-setup/tags) for better organization.
+    5. Click **`Add Keywords`** to finish.
+  </Accordion>
+  <Accordion title="Adding via CSV Import">
+    1. Download the CSV template.
+    2. Fill in the template with:
+
+    {/* TODO: Replace this Notion image with a local copy in /public/images/data-setup/ */}
+
+       - **Marketplace:** Domain name.
+       - **Keyword:** The search term you want to track.
+       - [**Tags (Optional):**](/help/data-setup/tags) Use semicolons (`;`) to separate multiple tags.
+
+    3. Save the file in **CSV UTF-8 format**.
+    4. Upload the CSV file.
+    5. Review and correct any errors if needed.
+    6. Click **Finish**.
+  </Accordion>
+</Accordions>
+
+</Step>
+
+</Steps>

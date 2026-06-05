@@ -1,0 +1,99 @@
+---
+title: Market Intelligence Dashboard User Guide
+description: Complete guide to DataHawk's Market Intelligence Power BI Dashboard — category-level analysis of pricing, ratings, market share, and brand presence.
+---
+
+The Market Intelligence dashboard is your go-to tool for understanding category-level performance on Amazon. It shows you how the top 100 best-selling products in your tracked categories are performing — including pricing, ratings, estimated sales, market share, and brand presence — giving you the competitive context to make informed decisions.
+
+<Callout type="warn">
+  Only available for Amazon
+</Callout>
+
+## Questions this dashboard helps answer
+
+- Which brands have the largest share of sales in my category?
+- How has estimated market share evolved over the past 6 or 12 months?
+- What is the typical price range for best-selling products in my category?
+- Which products consistently appear in the Top 100, and which come and go?
+- How does my brand's Best Sellers Rank (BSR) compare to competitors?
+- Are there new brands or products gaining traction in my category?
+- What is the estimated total market size (in sales) for a given category?
+
+## Before you start
+
+**What you need:**
+
+- At least one Amazon category added as a source in DataHawk (go to **Sources** in the DataHawk app)
+
+**Data coverage:** The dashboard analyses the top 100 best-selling products in each tracked category.
+
+**Setup:** Download and configure the Power BI template. See [Connect to Power BI](/help-center/connect-tools/powerbi).
+
+## Dashboard tabs at a glance
+
+| Tab | What it shows |
+|---|---|
+| **Market Charts** | Summary metrics, bar charts, line charts, and a scatter chart for competitive comparison |
+| **Market Overview** | Totals for all entities (marketplace, category, brand, product) over the selected timeframe |
+| **Market History** | Monthly trends for your selected entities and metrics |
+
+## General controls
+
+All three tabs share the same set of filters:
+
+| Filter | What it does |
+|---|---|
+| **Timeframe** | Set the date range for analysis |
+| **Marketplace** | Filter to Amazon or Walmart, and specific country |
+| **Category** | Filter to one or more tracked categories |
+| **Brand** | Filter to one or more brands |
+| **Product** | Filter to specific products |
+
+Each tab also includes a shortcut to **Add Sources**, letting you add more categories or products directly from within the dashboard.
+
+## Tab by tab
+
+**Market Charts** — A visual exploration tool for comparing market data. Includes:
+
+- A **summary bar** with aggregate totals for the selected filters
+- A **bar chart** comparing a chosen primary metric across a chosen dimension (e.g. Estimated Market Share by Brand)
+- A **line chart** showing the evolution of that metric over time for a selected entity (click any bar to focus on it)
+- A **scatter chart** adding a second metric dimension for richer comparison (e.g. Market Share vs. Median Price by brand)
+
+This tab is best for answering "who is winning?" and "how are rankings changing?"
+
+**Market Overview** — A table showing aggregated totals for your selected entities over the selected timeframe. Click on any row to see metrics specific to that entity. Use this tab for snapshot comparisons — e.g. all brands in a category ranked by estimated market share.
+
+**Market History** — A monthly breakdown of how your selected entities have performed over time. Includes a line chart comparing the primary metric across brands, and a detailed table below it. Click on a row to focus on a specific entity. Use this tab for trend analysis — e.g. how a brand's BSR has moved over 12 months.
+
+## A note on unknown or missing data
+
+In some cases, DataHawk cannot collect complete listing details for a product in a given period. When this happens, sales are still **estimated using virtual rank signals**, so overall market totals and trends remain accurate. However, the specific product or brand behind those sales cannot be reliably identified, and will appear as *XXXXXXXXXX* or *Unknown*.
+
+These estimates reflect real market activity but lack item-level metadata. This is expected behaviour and does not indicate a data error.
+
+---
+
+## For analysts & developers
+
+**Category entities** — the subjects around which market data is organised
+
+- **Marketplace** — Amazon or Walmart, by country
+- **Category** — A product group as defined by Amazon or Walmart
+- **Brand** — A brand name associated with products in the category
+- **Product** — An individual listing. Products in the Top 100 selling products in a category are called Category Best Sellers
+
+**Product metrics**
+
+- **Estimated Sales** — Estimated sales for a product at the given date. Sum aggregations provided
+- **Estimated Sales/Product/Month** — Estimated monthly sales per product. Min, max, and median aggregations provided
+
+**Market KPIs**
+
+- **BSR (Best Seller Rank)** — Numerical ranking based on sales performance within a category. Lower = more sales
+- **Presence in the Top 100** — The share of time a product appeared in the Top 100 for a given category. Higher = more consistent best seller status
+- **Estimated Market Share** — Approximate % of total category sales attributed to a brand or product. Higher = larger share of the category
+
+<Callout type="info">
+  **Data source:** This dashboard uses data collected from your tracked categories. For a full column reference, see the [Exhaustive Column Referential](https://docs.google.com/spreadsheets/d/1gYGqKQP9Z71nz1lOb4y0wJ15i27NvsUzdliIJeIx0HY/edit#gid=175439716).
+</Callout>

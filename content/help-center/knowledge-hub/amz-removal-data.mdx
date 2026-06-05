@@ -1,0 +1,59 @@
+---
+title: Amazon Removal Data
+description: Amazon FBA removal reports in DataHawk — Removal Order Detail and Removal Shipment Detail, data availability, and table locations.
+---
+
+Your Amazon Removal data is sourced from Amazon FBA Reports, through the Amazon Selling Partner API (SP-API) for registered brands. This page provides an overview of the removal reports available through DataHawk.
+
+## Removal Order Detail
+
+### Overview
+
+The Amazon Removal Order Detail Report provides a detailed breakdown of inventory removed from Amazon's fulfillment centers, whether it's due to damage, returns, expiration, long-term storage fees, or your own removal requests. It's especially useful for FBA sellers to track what's leaving Amazon's warehouses and why.
+
+### Requirements
+
+- **Eligibility:** Brand-registered sellers or vendors with Amazon Brand Registry.
+- **Access:** Must have connected your Seller account to DataHawk.
+
+### Data Availability
+
+- **Frequency:** Daily
+- **Granularity:** One row per item in a removal order, uniquely identified by order-id, sku and fnsku
+- **Backwards history:** 3 years
+- **Lookback:** Once, at D+30
+
+### Data Table
+
+`SELLING_PARTNER.FBA_REMOVAL_ORDER_DETAIL`
+
+---
+
+## Removal Shipment Detail
+
+### Overview
+
+The Removal Shipment Detail Report gives you shipment-level visibility into removal orders, tracking how and when Amazon physically ships your removed inventory back to you (or disposes of it).
+
+### Requirements
+
+- **Eligibility:** Brand-registered sellers or vendors with Amazon Brand Registry.
+- **Access:** Must have connected your Seller account to DataHawk.
+
+### Data Availability
+
+- **Frequency:** Daily
+- **Granularity:** One row per shipped item in a removal order, uniquely identified by order-id, sku, fnsku, and shipment-date
+- **Backwards history:** 3 years
+- **Lookback:** Once, at D+30
+
+### Data Table
+
+`SELLING_PARTNER.FBA_REMOVAL_SHIPMENT_DETAIL`
+
+---
+
+## Sources
+
+- [Removal Order Detail - SP API Documentation](https://sellercentral.amazon.fr/gp/help/external/200989110?locale=en-GB)
+- [Removal Shipment Detail - SP API Documentation](https://sellercentral.amazon.fr/gp/help/external/200989100?locale=en-GB)

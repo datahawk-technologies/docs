@@ -9,6 +9,15 @@ import './global.css';
 import type { ReactNode } from 'react';
 import { Poppins } from 'next/font/google';
 import { RootProvider } from 'fumadocs-ui/provider/next';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  alternates: {
+    types: {
+      'application/rss+xml': '/feed.xml',
+    },
+  },
+};
 
 const poppins = Poppins({
   subsets: ['latin'],

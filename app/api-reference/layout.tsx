@@ -12,7 +12,7 @@ export default function Layout({ children }: { children: ReactNode }) {
       {...base}
       nav={{ ...nav, mode: 'top' }}
       tabMode="navbar"
-      tree={welcomeSource.pageTree}
+      tree={apiReferenceSource.pageTree}
       tabs={tabs}
       sidebar={{ defaultOpenLevel: 0 }}
     >

@@ -1,0 +1,40 @@
+---
+title: Walmart Private Data - Marketplace
+description: Connect your Walmart Marketplace account to DataHawk to collect and report on US seller data.
+---
+
+## Your Walmart Marketplace Account
+
+Walmart Marketplace is a platform for selling on [Walmart.com](http://walmart.com/). DataHawk lets you connect unlimited accounts for US-registered sellers.
+
+## DataHawk Connexion Capabilities
+
+### Supported regions
+
+DataHawk connects only with US-registered accounts.
+
+### Data Coverage
+
+Walmart Seller data can be found in the `FINANCE` schema. Tables are prefixed with `WMT`. Example: `FINANCE.WMT_MARKETPLACE_ITEMS`
+
+Data is refreshed **daily**.
+
+#### Tables
+
+- `WMT_MARKETPLACE_ITEMS`
+  - This table stores product listings for Walmart Marketplace, including identifiers, pricing, availability, condition, status, and publishing details for inventory management.
+- `WMT_MARKETPLACE_ORDERS`
+  - This table stores Walmart Marketplace order details, including order IDs, product info, pricing, customer data, fulfillment, shipping, and status for tracking and processing.
+
+### Historical data storage
+
+Once you connect your Walmart Marketplace to DataHawk, we immediately retrieve a maximum of **90 days of data**. Then, we **securely store and back up** all your data **everyday**, enabling **more comprehensive reporting with extended historical insights**.
+
+### Refresh Frequency & Data Delay
+
+- **Data Refresh**: A second data refresh takes place 15 days after the first download.
+- **Data Updates**: Walmart does not update reports after 14 days, so we always fetch the most recent consolidated version available.
+
+## Useful resources
+
+[Walmart Advertising Reports official guide](https://developer.walmart.com/doc/us/us-wmc-ads/us-wmc-ads-snapshot-reportsv2/)

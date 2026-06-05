@@ -1,0 +1,79 @@
+---
+title: Navigate through Return Anomalies
+description: Catch return rate spikes early — Sherlock's Return Anomalies case flags products whose return rate jumped at least 50% above the 90-day baseline.
+---
+
+**Return Anomalies** surfaces products whose return rate has spiked. A small rise in returns can quietly erase profit, so catching it early matters. Sherlock compares the last 30 days against a 90-day baseline and flags anything that looks off.
+
+## What's on the page
+
+At the top:
+
+- The rule: *"Products where last 30-day return rate is at least 50% above the previous 90-day baseline, with 3+ returns and positive impact."*
+- **Total potential leak** — the combined dollar impact of every flagged product.
+- **Refresh** — re-run the check with the latest data.
+
+Below, the table:
+
+| Column | What it means |
+|---|---|
+| **Product** | Product image, title, marketplace flag, ASIN (with copy icon) and brand |
+| **Summary** | Plain-English description of the jump, plus the marketplace and baseline date range |
+| **30d rate** | Return rate over the last 30 days |
+| **Baseline** | Return rate over the prior 90 days |
+| **Returns** | Number of returns in the last 30 days |
+| **Net impact** | Dollars lost to the spike |
+
+The list is sorted by **Net impact**, biggest first.
+
+## How to read a row
+
+> *Return rate rose from 1.8% to 15.7% with 19 returns.*
+> *Amazon-US · Baseline 2026-01-12 to 2026-04-11*
+> *30d rate: 15.7% · Baseline: 1.8% · Returns: 19 · Net impact: \$220.99*
+
+The product's return rate is almost 9× its usual rate, costing about \$221 in lost sales over the last month.
+
+## Open the product investigation
+
+Click any row to open the same investigation view you get from Signals (*Overview*, *Timeline*, *Metrics*).
+
+For return spikes specifically, the most useful places to look:
+
+- The **Metrics** heatmap → *Sales Performance → Units Refunded* row. Red cells show you when the returns clustered.
+- The **Timeline** tab. Recent product changes often line up with the spike.
+- The **Suggestions** in the Overview tab.
+
+## What to do about it
+
+When a product is flagged, the cause is usually one of these:
+
+1. **Listing mismatch.** Images, title, or bullets don't match what the customer receives.
+2. **Quality issue.** A bad batch, damaged packaging, or a recent supplier change.
+3. **Sizing or fit.** Common with apparel and home goods.
+4. **Wrong customer.** Ad targeting or keywords are bringing in shoppers who aren't a fit.
+
+Use Sherlock's data to narrow it down:
+
+- Read review and feedback comments in Seller Central to see *why* people are returning.
+- Check the **Timeline** in the investigation for recent changes.
+- Compare *Units Refunded* against ad spend pushes — if returns spiked after an ad ramp, the targeting may be off.
+
+<Callout type="info">
+  If you push out a fix (e.g., updated images, supplier change), open the **Sherlock assistant** and save a seller annotation. Future investigations will see that note in the Timeline and weigh it in their reasoning.
+</Callout>
+
+## Tips
+
+- A high return rate on a low-volume product can look alarming. Use **Returns** and **Net impact** to focus on items that actually move the needle.
+- Re-check after each fix. Sherlock recalculates with every refresh.
+
+## Where to go next
+
+- [What is Sherlock](/help-center/modules/sherlock)
+- [Navigate through Signals](/help-center/modules/sherlock/signals)
+- [Navigate through Zombie Ad Spend](/help-center/modules/sherlock/zombie-ad-spend)
+- [Navigate through Ad Spend Drop](/help-center/modules/sherlock/ad-spend-drop)
+- [Navigate through Price CVR Drop](/help-center/modules/sherlock/price-cvr-drop)
+- [Navigate through FBA Stockout](/help-center/modules/sherlock/fba-stockout)
+- [Navigate through Buy Box Loss](/help-center/modules/sherlock/buybox-loss)

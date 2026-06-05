@@ -1,0 +1,105 @@
+---
+title: How DataHawk Sources Your Data
+description: Understand the difference between public and private data in DataHawk, why some data requires account connections, and typical freshness for each data type.
+---
+
+<Callout type="info">
+  This page applies to both Amazon and Walmart unless otherwise noted.
+</Callout>
+
+DataHawk pulls data from two fundamentally different places: **Amazon and Walmart's public storefront**, and **your private seller or vendor accounts**. Understanding this distinction helps you know what data you have access to, how fresh it is, and why some data requires account connections while other data is available immediately.
+
+## Two types of data
+
+### Public data — no account connection needed
+
+Some data is publicly visible on Amazon and Walmart's websites — anyone can see it by browsing. DataHawk systematically collects this data across millions of products, regardless of whether you sell them or not.
+
+Public data includes:
+
+- **Product information** — titles, descriptions, images, ratings, review counts
+- **Pricing** — listed price, buy box price, competitor pricing
+- **Best Seller Rank (BSR)** — category rankings
+- **Sales estimates** — estimated units sold per ASIN (DataHawk's own model, based on public signals)
+- **Keyword search volumes** — estimated monthly search frequency per keyword
+- **Organic and sponsored search rankings** — where a product appears for a given keyword
+- **Category structures** — Amazon's browse node tree
+
+You can access all of this for your own products *and* your competitors' products.
+
+### Private data — requires account connection
+
+Other data only exists inside your seller or vendor account — it's not visible publicly and can only be accessed with your explicit authorisation via Amazon's or Walmart's API.
+
+Private data includes:
+
+- **Orders and sales** — actual units sold, revenue, returns (from your account)
+- **Inventory levels** — stock on hand, inbound shipments, FBA storage
+- **Advertising data** — spend, impressions, clicks, ACoS, campaigns
+- **Profit and costs** — fees, COGS, net margin
+- **Vendor-specific data** — purchase orders, shipped cost of goods, vendor metrics
+
+To access private data, you need to connect your Seller Central, Vendor Central, or Advertising account to DataHawk. See the [Set up data](/help-center/data-setup) section for step-by-step instructions.
+
+## Why some data has a delay
+
+Even after connecting your account, not all data appears instantly. The delay depends on how Amazon or Walmart makes data available through their APIs.
+
+| Data type | Typical freshness | Reason |
+|---|---|---|
+| Product listings, pricing, BSR | Daily | DataHawk crawls public pages daily |
+| Keyword rankings | Daily | Crawled per keyword, per marketplace |
+| Sales estimates | Daily | Model runs on daily crawl data |
+| Orders (Seller) | Daily (D+1 to D+3) | Amazon SP-API has a settlement delay |
+| Inventory | Daily | API snapshot |
+| Advertising | Daily (D+2) | Amazon Ads API standard delay |
+| Vendor metrics | Weekly | Vendor Central API update cadence |
+
+"D+2" means data for a given day becomes available 2 days later. This is an Amazon-side constraint — DataHawk fetches data as soon as Amazon makes it available.
+
+## What happens if you don't connect an account
+
+You can still use DataHawk without connecting any account — you'll have access to all public data. This is useful for product research, competitor monitoring, and keyword analysis.
+
+However, without an account connection, you will not see:
+
+- Your own sales or revenue figures
+- Inventory alerts
+- Advertising performance
+- Profit and margin data
+- Returns and removal data
+
+DataHawk dashboards that display private data will show empty or placeholder values until the relevant account is connected.
+
+## Data collection across marketplaces
+
+If you sell in multiple countries (e.g., US, UK, Germany), DataHawk collects data **per marketplace independently**. Connecting your US Seller account does not automatically pull UK data — each marketplace requires its own configuration.
+
+---
+
+## ⚙️ For analysts & developers
+
+### Schema organisation by data type
+
+DataHawk organises datasets into schemas that reflect this public/private split:
+
+| Schema | Data type | Account required |
+|---|---|---|
+| `PRODUCT` | Public product data (listings, BSR, estimates, rankings) | No |
+| `KEYWORD` | Public keyword data (search volume, SERP rankings) | No |
+| `CATEGORY` | Public category structure and rankings | No |
+| `SELLER` | Private Seller Central data (orders, inventory, fees) | Seller account |
+| `VENDOR` | Private Vendor Central data (POs, shipped COGS) | Vendor account |
+| `ADVERTISING` | Private Advertising data (campaigns, spend, performance) | Advertising account |
+| `REPORTS` | Processed DataHawk report tables (mixed public/private) | Varies |
+
+### API source references
+
+- Amazon private data is fetched via the **Selling Partner API (SP-API)**
+- Amazon advertising data is fetched via the **Amazon Advertising API**
+- Walmart data is fetched via the **Walmart Marketplace API** and **Walmart Connect API**
+- Public product and keyword data is collected through DataHawk's own proprietary crawling infrastructure
+
+### Freshness fields
+
+Many tables include a `DATE_DAY` or `UPDATED_AT` field indicating when the row was last refreshed. Use these to filter for the most recent snapshot rather than querying all historical rows, especially for current-state tables like inventory or listings.

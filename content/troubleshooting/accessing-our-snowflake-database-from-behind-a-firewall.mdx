@@ -1,0 +1,48 @@
+---
+title: Accessing our Snowflake Database from Behind a Firewall
+description: Hostnames and ports to whitelist to access DataHawk's Snowflake environment from behind a corporate firewall or private network.
+---
+
+## Accessing our Snowflake database from behind a firewall?
+
+If you are operating behind a corporate firewall or within a private network, you must **explicitly whitelist certain hostnames and ports** to ensure uninterrupted access to our Snowflake environment.
+
+This document lists the endpoints required to connect and operate securely with our Snowflake instance.
+
+## Required Hostnames and Ports to Allow
+
+Add the following hostnames to your firewall or proxy whitelist:
+
+| Type | Hostname | Port |
+|---|---|---|
+| SNOWFLAKE_DEPLOYMENT | `mj13008.west-europe.azure.snowflakecomputing.com` | 443 |
+| SNOWFLAKE_DEPLOYMENT_REGIONLESS | `datahawk-dh_data_connectors_prod.snowflakecomputing.com` | 443 |
+| STAGE | `kej3jkesfcb1stg.blob.core.windows.net` | 443 |
+| SNOWSQL_REPO | `sfc-repo.snowflakecomputing.com` | 443 |
+| OUT_OF_BAND_TELEMETRY | `client-telemetry.snowflakecomputing.com` | 443 |
+| OCSP_CACHE | `ocsp.snowflakecomputing.com` | 80 |
+| DUO_SECURITY | `api-00b5905e.duosecurity.com` | 443 |
+| DUO_SECURITY | `uw2.devicemanagement.duosecurity.com` | 443 |
+| DUO_SECURITY | `ec1.devicemanagement.duosecurity.com` | 443 |
+| SPCS_REGISTRY_REGIONLESS | `DATAHAWK-DH-DATA-CONNECTORS-PROD.registry.snowflakecomputing.com` | 443 |
+| SPCS_REGISTRY_REGIONLESS | `DATAHAWK-DH_DATA_CONNECTORS_PROD.registry.snowflakecomputing.com` | 443 |
+| OCSP_RESPONDER | `ocsp.rootg2.amazontrust.com` | 80 |
+| OCSP_RESPONDER | `ocsp.sca1b.amazontrust.com` | 80 |
+| OCSP_RESPONDER | `oneocsp.microsoft.com` | 80 |
+| OCSP_RESPONDER | `ocsp.r2m01.amazontrust.com` | 80 |
+| OCSP_RESPONDER | `ocsp.digicert.com` | 80 |
+| OCSP_RESPONDER | `ocsp.rootca1.amazontrust.com` | 80 |
+| OCSP_RESPONDER | `ocsp.r2m03.amazontrust.com` | 80 |
+| OCSP_RESPONDER | `ocsp.r2m02.amazontrust.com` | 80 |
+| SNOWSIGHT_DEPLOYMENT | `apps-api.c1.westeurope.azure.app.snowflake.com` | 443 |
+| SNOWSIGHT_DEPLOYMENT | `app.snowflake.com` | 443 |
+
+## Security Notes
+
+- All traffic must be allowed over **HTTPS (port 443)** unless otherwise noted.
+- OCSP (Online Certificate Status Protocol) responders use **HTTP (port 80)** for certificate validation.
+- Ensure your firewall or proxy does not block these domains or downgrade the TLS/SSL connections.
+
+## References
+
+- [Snowflake Hostname Allowlist Documentation](https://docs.snowflake.com/en/user-guide/hostname-allowlist)

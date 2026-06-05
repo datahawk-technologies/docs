@@ -1,0 +1,161 @@
+---
+title: Navigate through Signals
+description: Sherlock's daily starting point — every product with a meaningful sales movement ranked by dollar impact, with filters for Momentum, Tier, brand, and marketplace.
+---
+
+The **Signals** page is your daily starting point. It shows every product whose sales moved in a meaningful way week-over-week, ranked by dollar impact, so you know what to look at first.
+
+<Callout type="warn">
+  Sherlock is in active development. If something on screen doesn't match this page, drop a note via the assistant and we'll catch up.
+</Callout>
+
+## How the app is organised
+
+The left sidebar has two groups:
+
+- **Investigate** → *Signals*. The full, filterable list of every meaningful product movement.
+- **Cases** → *Zombie Ad Spend*, *Return Anomalies*, *Ad Spend Drop*, *Price CVR Drop*, *FBA Stockout*, *Buy Box Loss*. Each Case is a curated shortcut for a specific risk pattern.
+
+If you don't know where to start, open **Signals**. If you already have a hunch ("I think we have an ad-spend issue"), jump straight to the matching Case.
+
+## What's on the Signals page
+
+When you open Signals, you'll see a list of products with these columns:
+
+| Column | What it means |
+|---|---|
+| **Product** | Product title, marketplace flag, parent and child ASIN (each with a copy icon) |
+| **Trend** | A small sparkline of the metric Sherlock is flagging |
+| **Growth** | % change — toggle the header between **WoW** and **MoM** to switch the view. Green = up, red = down |
+| **\$ Impact** | Absolute revenue difference between the current period and the prior equivalent period, in the product's sales currency. Follows the WoW / MoM toggle. Click the header to sort |
+| **Rev Share** | Product's contribution to your total revenue over the last 6 months (USD) |
+
+At the top, you'll see how many products are showing (e.g., *"Showing 1–50 of 184 products"*).
+
+<Callout type="info">
+  The small flask icon at the far right of each row means **"Recent analysis available."** Sherlock has cached the investigation, so it'll open instantly. Rows without the icon will generate a fresh analysis on first click (a few seconds, sometimes longer).
+</Callout>
+
+## Filter to find what matters
+
+The filter bar sits just above the table. Each filter has an in-app tooltip that explains the exact rule.
+
+### Momentum
+
+*Filter by revenue trend (WoW vs MoM).*
+
+| Option | Exact rule |
+|---|---|
+| **All** | Show all products regardless of revenue trend |
+| **Growing** | Revenue up week-over-week AND month-over-month (both > +10%) |
+| **Recovering** | Revenue up this week (WoW > +10%) but still below last month (MoM < −10%) |
+| **Slowing** | Revenue down this week (WoW < −10%) but still above last month (MoM > +10%) |
+| **Declining** *(default)* | Revenue down week-over-week AND month-over-month (both < −10%) |
+| **Sudden spike** | Revenue jumped this week well above the monthly trend — something changed recently |
+| **Sudden drop** | Revenue fell this week well below the monthly trend — something may have broken |
+
+### Tier
+
+*Filter by L6M revenue contribution.* Use this when you want to focus only on products that move the needle.
+
+| Option | Exact rule |
+|---|---|
+| **All** | Include all products regardless of revenue contribution |
+| **Meaningful** | Top 50% of products by total revenue over the last 6 months |
+| **Core** | Top 25% of products by total revenue over the last 6 months |
+| **Hero** | Top 10% of products — your highest-revenue ASINs over the last 6 months |
+
+### Brand
+
+Multi-select dropdown with a *Search brands* input. Tick one or several to narrow the list.
+
+### Marketplace
+
+Multi-select dropdown listing every marketplace you have data for.
+
+### Min. 10 units
+
+Toggle button. *Hides products with fewer than 10 units sold in the last 30 days — avoids noisy % swings on near-zero volume ASINs.* Most teams leave this on for the weekly review.
+
+### Reset
+
+Appears whenever at least one filter is active. Clears every filter in one click.
+
+<Callout type="info">
+  **Quick recipe for your weekly review:** Momentum = *Declining*, Tier = *Core* or *Hero*, Min. 10 units = on, sort by *\$ Impact*. That's usually the shortest list of the most expensive problems.
+</Callout>
+
+## Top-right icons
+
+In the top-right of the page:
+
+- 🔄 **Refresh** — re-runs the analysis with the latest data.
+- ⚙️ **Settings** — opens the period and pre-generation panel.
+- 🔍 **Search products** — slides out a search field. Type a keyword or ASIN to filter the list.
+
+## Open an investigation
+
+Click any product to open its **investigation**. The header tells you the date the investigation covers and, once cached, when it was last updated.
+
+You'll find three tabs:
+
+### Overview
+
+The main story. Sherlock always produces three outputs: **Summary**, **Explanations**, and **Suggestions**. From top to bottom:
+
+- **Summary** — one-paragraph plain-English explanation.
+- **Explanations** — a deeper breakdown of what moved.
+- **Metrics table** — side-by-side comparison of the two 7-day windows.
+- **Causal chain** — the cause-and-effect logic Sherlock followed.
+- **Suggestions** — concrete actions to take.
+- **Was this helpful?** — thumbs up or down to help us improve.
+
+Below, an **Overview** dashboard shows sparkline charts for the metrics most relevant to this product.
+
+### Timeline
+
+A chronological list of events that may have affected this product:
+
+- **Product changes** (parent ASIN swap, title change, etc.)
+- **Shopping events** (e.g., Prime Day)
+- **Seller annotations** — notes your team has logged via the Sherlock assistant
+
+### Metrics
+
+A heatmap of every key metric over the analysed period, grouped by:
+
+- **Sales Performance** — orders, units, refunds, shipments
+- **Pricing** — selling, listing, landed, shipping price
+- **Traffic & Engagement** — buy box %, sessions, conversion
+- **Advertising** — ad sales, ad spend, ACOS, ad orders, ad units
+
+Green cells sit above baseline, red cells below. Use the **T0 / T1 / All** toggle to focus on a single window or compare both.
+
+## Share or chat about an investigation
+
+Top-right of any investigation:
+
+- 🔗 **Share** — copy link (live) or copy link at current date (locked)
+- 💬 **Open assistant** — opens the Sherlock assistant in a side panel
+
+### Two modes for the assistant
+
+- **Product-scoped** *(inside an investigation)* — the assistant already knows the product. Ask follow-ups, log feedback, or save a seller annotation.
+- **Workspace-scoped** *(from any page)* — deep-dive into your full DataHawk data layer for broader questions.
+
+## Tips
+
+- Always start with **\$ Impact** — the biggest dollars are at the top.
+- Use **Min. 10 units** to cut low-volume noise.
+- Use **Pre-generate top 10** in Settings before your weekly review so investigations open instantly.
+- Drop seller annotations into the assistant as you go — they give every future investigation more context.
+
+## Under the hood (for the curious)
+
+Every Sherlock investigation runs through the same 5-step pipeline:
+
+1. **Fetch metrics** — pull 30 days of daily arrays from Snowflake: revenue, sessions, CVR, Buy Box, ads, inventory, price, rank.
+2. **Compute evidences** — compare the last 7 days vs the previous 7, and the last 3 vs the previous 3. Build deltas, decomposition, event start dates, and scored root causes.
+3. **Fetch events** — external events (Prime Day, holidays), seller annotations, and product changes.
+4. **Load knowledge playbook** — apply DataHawk's library of diagnostics and causality rules.
+5. **Present** — a single LLM call combines all of the above and produces the *Summary*, *Explanations*, and *Suggestions*.

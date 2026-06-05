@@ -1,0 +1,97 @@
+---
+title: Connect to Excel
+description: Connect your DataHawk Snowflake database to Excel via ODBC for automatically refreshed data — no manual exports needed.
+---
+
+Instead of exporting data manually, you can connect your DataHawk-powered Snowflake database directly to Excel. This gives you automatically refreshed data inside an Excel file using an ODBC connection.
+
+<Callout type="info">
+  Estimated setup time: **under 5 minutes.**
+</Callout>
+
+## Prerequisite
+
+- Your data sources (Amazon / Walmart accounts) should be connected and collecting data.
+  - If you did not connect any data sources, go to [Set up data](/help-center/data-setup)
+- An activated DataHawk-hosted **Snowflake** database.
+  - If you haven't set one up yet, go to [Send data to your tool](/help-center/connect-tools)
+  - Once set up, it will take up to 4 hours to show as **Enabled**
+- Retrieve your credentials
+  - On your DataHawk App account, **Setup \> Destinations \> Snowflake \> See Credentials**.
+
+## Set up
+
+### Step 1 — Install the Snowflake ODBC driver
+
+Download and install the Snowflake ODBC driver for your operating system:
+
+- [Windows 64-bit](https://sfc-repo.snowflakecomputing.com/odbc/win64/latest/index.html)
+- [Windows 32-bit](https://sfc-repo.snowflakecomputing.com/odbc/win32/latest/index.html)
+- [macOS](https://community.snowflake.com/s/article/How-to-configure-Excel-on-MacOS-to-use-Snowflake-using-ODBC-driver)
+
+### Step 2 — Configure the ODBC data source
+
+1. Search for **ODBC** on your computer to open the **ODBC Data Source Administrator**.
+2. In the **User DSN** tab, click **Add \> SnowflakeDSIIDriver \> Finish**.
+3. Fill in the fields using your DataHawk Snowflake credentials:
+
+| ODBC field | DataHawk credential |
+|---|---|
+| Data Source Name | Any name you choose (e.g. "DataHawk") |
+| User | Your Snowflake username |
+| Password | Your Snowflake password |
+| Server | Your Snowflake server URL |
+| Database | Your DataHawk database name |
+| Warehouse | Your Snowflake warehouse |
+
+### Step 3 — Connect Excel to your data source
+
+1. In Excel, go to **Data \> Get Data \> From Other Sources \> From ODBC**.
+2. Select the data source you just created.
+3. Re-enter your **User** and **Password** when prompted.
+4. Browse and select the tables you want to load.
+
+If you want to load only part of a table (specific columns, a date range, or merged data), use **Transform Data** to open the Power Query Editor before loading. See the **Transform data with Power Query** section below.
+
+### Step 4 — Schedule automatic refreshes
+
+To keep your file up to date:
+
+1. In the **Data** tab, click **Queries & Connections**.
+2. Right-click on a query and select **Properties**.
+3. Tick **Refresh data when opening the file** — this updates data every time you open Excel.
+4. Optionally, tick **Refresh every 999 minutes** if you plan to keep the file open continuously.
+
+<Callout type="info">
+  **Why 999 minutes?** Excel's maximum scheduled refresh interval is 999 minutes (approximately 16 hours). Since DataHawk updates data once per day, refreshing when opening the file is sufficient for most users — the 999-minute option is only useful if you keep the file open across days.
+</Callout>
+
+## Transform data with Power Query
+
+Rather than loading an entire table (which can contain thousands of rows) and then filtering in Excel, a better approach is to use **Power Query Editor** to shape the data before it loads.
+
+To open Power Query Editor:
+
+- When importing a table, click **Transform Data** before loading
+- For an already-loaded table: go to **Data \> Queries & Connections**, then double-click a query
+
+In Power Query Editor you can:
+
+- Remove columns you don't need
+- Add calculated columns
+- Apply filters (e.g. last 30 days only)
+- Merge multiple tables
+- Write a custom SQL query
+
+When finished, click **Close & Load**.
+
+## Limitations
+
+Excel is not designed for large datasets. Keep the following in mind:
+
+| Limit | Value |
+|---|---|
+| Maximum rows per worksheet | 1,048,576 |
+| Maximum columns per worksheet | 16,384 |
+
+These limits can be hit quickly if you load unfiltered large tables. Use Power Query filters or write a SQL query to limit your dataset to what you actually need. If you regularly need to analyse large volumes of data, consider using [Power BI](/help-center/connect-tools/powerbi) instead — DataHawk offers pre-built Power BI templates covering sales, advertising, keywords, and more.

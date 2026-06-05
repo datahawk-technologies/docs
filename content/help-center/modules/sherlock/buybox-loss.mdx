@@ -1,0 +1,66 @@
+---
+title: Navigate through Buy Box Loss
+description: Find listings priced off the Buy Box — Sherlock flags products where ASP rose ≥5% and Buy Box share dropped ≥10pp.
+---
+
+**Buy Box Loss** flags listings where you raised the price and the Buy Box dropped along with it. In most cases, the price hike pushed Amazon's algorithm to favour another seller (or no one), and you stopped winning the "Buy now" button.
+
+## What's on the page
+
+At the top:
+
+- **The rule:** *"Listings where ASP rose ≥5% WoW and buy box dropped ≥10pp — price likely pushed us off the buy box."*
+- **Total opportunity** — the combined revenue at stake.
+- **Refresh** — re-run the check with the latest data.
+
+Below, the table:
+
+| Column | What it means |
+|---|---|
+| **Product** | Image, title, marketplace flag, ASIN (with copy icon), and brand |
+| **Buy box drop** | Change in Buy Box percentage, in percentage points (pp). The detail in parentheses shows *prev% → now%* |
+| **Price (prev → now)** | Previous and current ASP, with the % change |
+| **Revenue prev week** | Revenue from the previous week, for context |
+| **Opportunity** | Estimated revenue you could recover by walking the price back |
+
+The list is sorted by **Opportunity**, biggest first.
+
+## How to read a row
+
+> *Buy box drop: –66.7pp (100.0% → 33.3%) · Price: \$10.56 → \$14.99 (+41.9%) · Revenue prev week: \$1,954 · Opportunity: \$1,303*
+
+It tells you:
+
+- You raised the price by ~42%.
+- Buy Box share crashed from 100% to 33%.
+- The previous week earned ~\$2k.
+- Walking the price back should recover ~\$1.3k.
+
+## Open the product investigation
+
+Click any row to open the same investigation view used by Signals (*Overview*, *Timeline*, *Metrics*).
+
+For Buy Box loss tied to price, the most useful places to look:
+
+- The **Overview** — the metrics table will show ASP up, Buy Box down.
+- The **Metrics** heatmap → *Pricing* group and *Buy Box Percentage*.
+- The **Timeline** tab — look for any pricing rule, repricer change, or competitor activity.
+
+## What to do about it
+
+1. **Price moved past the Buy Box threshold.** Walk it back until you regain Buy Box share.
+2. **Competitor undercut you.** Check competing offers and decide whether to match or differentiate.
+3. **Repricer misfire.** Your repricer ratcheted up against a competitor that paused — reset the floor and ceiling.
+4. **Shipping cost change.** Landed price went up even if your listed price didn't.
+
+## Tips
+
+- Buy Box is winner-take-most. A 10pp loss can translate to a 30–60% revenue loss.
+- Cross-check with **Price CVR Drop** and **FBA Stockout** — if the same product is in multiple Cases, treat the highest *Opportunity* one first.
+
+## Where to go next
+
+- [What is Sherlock](/help-center/modules/sherlock)
+- [Navigate through Signals](/help-center/modules/sherlock/signals)
+- [Navigate through Price CVR Drop](/help-center/modules/sherlock/price-cvr-drop)
+- [Navigate through FBA Stockout](/help-center/modules/sherlock/fba-stockout)

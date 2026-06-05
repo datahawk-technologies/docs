@@ -1,0 +1,87 @@
+---
+title: My advertising data is not populating
+description: Steps to troubleshoot missing advertising data in DataHawk after connecting your Amazon Advertising account.
+---
+
+After connecting your Amazon Advertising account to DataHawk, you notice that some or all advertising data is not appearing.
+
+## What I can observe
+
+- No advertising data appears in DataHawk after connection
+- Dashboards remain empty or show incomplete data
+- Specific campaign types are missing (Sponsored Products, Sponsored Brands, or Sponsored Display)
+- You expect data but nothing is retrieved
+
+## Why is this happening?
+
+This is usually due to **campaign status, data availability on Amazon's side, or API sync timing** — not a problem with the DataHawk connection itself.
+
+## What can I do?
+
+### Step 1: Verify campaigns are active
+
+Before investigating further, confirm that your campaigns are not paused or archived.
+
+- Log in to **Amazon Advertising Console**
+- Navigate to **Campaign Manager**
+- Check the status of your campaigns
+  - If campaigns are **Paused**, **Archived**, or **Ended**, no new data will be generated
+  - Ensure at least some campaigns are in **Enabled** or **Running** status
+
+<Callout type="info">
+  **Note:** Paused campaigns will not generate new data. Historical data from when the campaign was active should still be available, but no new metrics will appear.
+</Callout>
+
+### Step 2: Check data availability on Amazon's side
+
+Confirm that data exists in Amazon's native reporting.
+
+- Log in to **Amazon Advertising Console**
+- Go to **Reports → Sponsored Ads Reports**
+- Download a report for the relevant **date range** and **campaign type**
+- Verify that metrics appear in the downloaded file
+
+If the Amazon report is **empty or shows no data**, the issue originates from Amazon — not DataHawk.
+
+### Step 3: Wait for sync completion
+
+DataHawk syncs advertising data on a regular schedule. After connecting a new account or after Amazon processes new campaign data:
+
+- Allow **24–48 hours** for initial data to appear
+- Check back to confirm data is populating
+
+## Still not working?
+
+If data is available on Amazon's side but not appearing in DataHawk, please contact DataHawk support and provide the following information:
+
+**Account Identification:**
+- DataHawk Account ID or Workspace Name
+- Email address used for the connection
+
+**Account Type:** Is this a Seller or Vendor advertising account?
+
+**Marketplace:** Which marketplace(s) are affected? (e.g., US, UK, DE, FR, etc.)
+
+**Campaign Type:** Which campaign type(s) are not showing data?
+- Sponsored Products
+- Sponsored Brands
+- Sponsored Display
+
+<Callout type="info">
+  **When contacting support,** please attach a screenshot of the Amazon Advertising report showing that data exists for the affected period. This helps us investigate faster.
+</Callout>
+
+## What DataHawk handles
+
+DataHawk automatically:
+
+- Retrieves advertising data via Amazon Advertising API
+- Syncs campaign, ad group, keyword, and targeting data
+- Handles API requests and rate limits
+
+If no data is returned after completing the checks above, the issue may be related to **API access, account permissions, or Amazon-side data availability**, which requires further investigation.
+
+## Related articles
+
+- [I don't see Data after connecting my DSP Account](/help-center/troubleshooting/i-don't-see-data-after-connecting-my-dsp-account)
+- [Ads data appearing under the wrong Account Type (Seller vs Vendor)](/help-center/troubleshooting/ads-data-appearing-under-the-wrong-account-type)

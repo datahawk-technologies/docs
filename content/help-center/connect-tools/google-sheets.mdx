@@ -1,0 +1,162 @@
+---
+title: Connect to Google Sheets
+description: Connect your DataHawk BigQuery database directly to Google Sheets for automatically refreshed data — no manual exports needed.
+---
+
+Instead of exporting data manually, you can connect your DataHawk-powered BigQuery database directly to Google Sheets. This gives you automatically refreshed data inside a Google Sheets file — no downloads, no copy-pasting.
+
+<Callout type="info">
+  Estimated setup time: under 5 minutes.
+</Callout>
+
+## Prerequisites
+
+- An activated DataHawk-hosted **BigQuery** database.
+  - If you haven't set one up yet, go to [Send data to your tool](/help-center/connect-tools)
+- Your data sources (Amazon / Walmart accounts) should be connected and collecting data.
+  - If you did not connect any data sources, go to [Set up data](/help-center/data-setup)
+- Your Google email address must be registered on your BigQuery database page
+  - Go to your DataHawk App Account, **Setup \> Destinations \> BigQuery \> Access**. DataHawk uses this to share access to templates.
+
+## Set up
+
+### Step 1 — Connect your BigQuery database
+
+1. Open or create a Google Sheets file.
+2. In the navigation menu, click **Data \> Data Connectors \> Connect to BigQuery**.
+3. Select the BigQuery project that DataHawk created for you.
+4. Select the schema you want to access (e.g. `PRODUCT`, `SELLER`, `ADVERTISING`).
+5. Either select a table to load it entirely, or write a SQL query to load partial data.
+6. Click **Connect**, then **Create an Extract**.
+
+<Callout type="info">
+  **Note on case sensitivity in BigQuery queries:** When writing SQL queries in Google Sheets' BigQuery connector, use the following casing conventions:
+  - Project name: **lowercase** (e.g. `sales-datahawk-bigquery`)
+  - Schema: **UPPERCASE** (e.g. `PRODUCT`)
+  - Table name: **lowercase** (e.g. `product_sales_rank`)
+  - Surround the full path with backticks: `` `project.SCHEMA.table` ``
+</Callout>
+
+### Step 2 — Create an Extract
+
+After connecting, you'll initially see only a preview of the data. To get the full results, create an Extract.
+
+An Extract lets you:
+
+- Load up to 25,000 rows of data
+- Select only the columns you need
+- Apply filters and sorting
+
+To create one:
+
+1. In your query results, click **Extract**
+2. Choose whether to insert it in a **New sheet** or an **Existing sheet**
+3. In the Extract Editor, select columns, add filters, and apply sorting as needed
+4. Click **Apply**
+
+The Extract stays in sync with your query — refresh it to pull fresh data.
+
+### Step 3 — Schedule automatic refreshes
+
+To keep your file up to date without manual action:
+
+1. Click **Schedule refresh**
+2. Set the repeat interval to **every 1 day** (recommended) or every 12 hours
+3. Set a preferred time window
+4. Click **Save**
+
+<Callout type="info">
+  There is no need to refresh more frequently — DataHawk updates data once per day.
+</Callout>
+
+## SQL query examples
+
+### Get Sales Rank (BSR) data
+
+```sql
+SELECT
+  OBSERVATION_DATE,
+  CHANNEL_PRODUCT_ID,
+  BROWSE_NODE_NAME,
+  RANK
+FROM `your-project-id.PRODUCT.product_sales_rank`
+WHERE OBSERVATION_DATE > CURRENT_DATE() - 30
+ORDER BY OBSERVATION_DATE DESC
+```
+
+<iframe src="https://www.loom.com/embed/9058bab76a6940febb75fcb9b3f561dd" />
+
+### Get keyword organic rankings
+
+```sql
+SELECT
+  OBSERVATION_DATE,
+  CHANNEL_PRODUCT_ID,
+  KEYWORD,
+  PAGE,
+  RANK
+FROM `your-project-id.SEO.seo_product_organic_rank`
+WHERE OBSERVATION_DATE > CURRENT_DATE() - 30
+ORDER BY OBSERVATION_DATE DESC
+```
+
+<Callout type="info">
+  This table can return a very large number of rows if unfiltered. Add enough filters (date range, specific products, or a join to tracked products only) to stay under the 25,000-row Extract limit.
+</Callout>
+
+### Limit results to tracked products only
+
+```sql
+SELECT
+  RANKS.OBSERVATION_DATE,
+  RANKS.CHANNEL_PRODUCT_ID,
+  RANKS.KEYWORD,
+  RANKS.PAGE,
+  RANKS.RANK
+FROM `your-project-id.SEO.seo_product_organic_rank` AS RANKS
+INNER JOIN `your-project-id.REFERENTIAL.referential_product_tracked` AS TRACKING
+  ON RANKS.PRODUCT_KEY = TRACKING.PRODUCT_KEY
+WHERE RANKS.OBSERVATION_DATE > CURRENT_DATE() - 30
+ORDER BY RANKS.OBSERVATION_DATE DESC
+```
+
+### Include product tags for segmentation
+
+```sql
+SELECT
+  RANKS.OBSERVATION_DATE,
+  RANKS.CHANNEL_PRODUCT_ID,
+  TAGS.TAG_NAME,
+  RANKS.KEYWORD,
+  RANKS.PAGE,
+  RANKS.RANK
+FROM `your-project-id.SEO.seo_product_organic_rank` AS RANKS
+INNER JOIN `your-project-id.REFERENTIAL.referential_product_tracked` AS TRACKING
+  ON RANKS.PRODUCT_KEY = TRACKING.PRODUCT_KEY
+LEFT JOIN `your-project-id.REFERENTIAL.referential_product_tag` AS TAGS
+  ON TRACKING.PRODUCT_KEY = TAGS.PRODUCT_KEY
+WHERE RANKS.OBSERVATION_DATE > CURRENT_DATE() - 30
+ORDER BY RANKS.OBSERVATION_DATE DESC
+```
+
+## Limitations
+
+Google Sheets is not designed for large datasets. Keep the following limits in mind:
+
+| Limit | Value |
+|---|---|
+| Maximum Extract size | 25,000 rows or 10 MB |
+| Maximum Pivot Table rows | 30,000 |
+| Maximum total cells in a spreadsheet | 10 million |
+
+The best way to stay within these limits is to use filters in your queries — date ranges, specific ASINs, or joins to tracked products only. Aim to keep your working dataset under 25,000 rows.
+
+For larger datasets, consider using [BigQuery](/help-center/connect-tools/bigquery) directly with Looker Studio, or [Snowflake](/help-center/connect-tools/snowflake) with Power BI.
+
+## Live demo
+
+[View a read-only example spreadsheet](https://docs.google.com/spreadsheets/d/1LilGXrS0C5hSvC2a5_oYLi_ucMc4E5CeYim0TNNeWxU/edit?usp=sharing)
+
+## Further reading
+
+[Google's official BigQuery + Sheets documentation](https://support.google.com/docs/topic/9699960)

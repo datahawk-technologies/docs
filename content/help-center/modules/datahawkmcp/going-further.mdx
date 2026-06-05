@@ -1,0 +1,191 @@
+---
+title: Going further with the MCP
+description: Advanced patterns for DataHawk MCP — faster answers, number verification, multi-marketplace queries, investigation flow, and pro habits.
+---
+
+You've got MCP connected and answered your first few questions. This page is for the next step: how to get faster answers, verify what comes back, work across marketplaces, and pair MCP with the rest of DataHawk.
+
+<Callout type="info">
+  Looking for help writing better prompts? See the [Prompting guide](/help-center/modules/datahawkmcp/write-prompts). For setup issues, check the [FAQ](/help-center/modules/datahawkmcp/faq-troubleshooting).
+</Callout>
+
+## Get faster answers
+
+MCP is tuned for interactive use. A few habits keep responses snappy.
+
+**Narrow your date range**
+
+The shorter the window, the faster the answer. As a rule of thumb:
+
+- **30 days** — your default for exploration
+- **90 days** — for quarterly trends
+- **365 days** — for year-over-year, but expect longer waits
+
+When you're still exploring, start small. Widen the range only once you know which question matters.
+
+**Be specific about products and accounts**
+
+Asking about 20 specific ASINs is faster than asking about "all my ASINs". Same for "brand X" vs. "all brands". Filters do the heavy lifting — the more you give, the less DataHawk has to scan.
+
+**Reuse cached answers**
+
+DataHawk caches frequent queries. Ask the same question twice in a row and the second answer comes back faster.
+
+**One topic per session**
+
+Broad prompts like *"do a complete audit of my business"* can trigger 20+ tool calls and risk timeouts. Break it up:
+
+- One conversation for sales
+- One for advertising
+- One for inventory
+
+You'll get cleaner answers and won't hit rate limits.
+
+## Verify and reconcile numbers
+
+**Ask to see the tool call**
+
+For any number that matters, ask:
+
+> *"Show me the DataHawk tool call you ran."*
+
+You'll see the exact filters, dates, and view used. Most "that number looks wrong" moments are explained at a glance — a marketplace you didn't mean to include, a date range that's off by a week.
+
+**Cross-check with the DataHawk app**
+
+When a number really matters (a board meeting, a supplier conversation), run the same query in Snowflake or BigQuery and compare.
+
+**Common gotchas when reconciling**
+
+- **Currency** — MCP normalizes to USD by default. Add *"in local currency, broken down by marketplace"* to see native amounts.
+- **Marketplace** — defaults to *all* connected marketplaces unless you scope. Always say *"in the US marketplace"* for accuracy.
+- **Refresh window** — DataHawk refreshes once a day, at **9 AM PST**. Queries run right at refresh time can catch a partial update. If something looks off, wait an hour and retry.
+
+## Work across Amazon marketplaces
+
+If you sell on multiple Amazon marketplaces (US, UK, DE, JP, etc.), MCP queries every connected marketplace by default — which is rarely what you want for accuracy.
+
+**Always scope your question**
+
+Say which platform and which marketplace explicitly:
+
+- *"For Amazon US only…"*
+- *"Across all my European Amazon marketplaces…"*
+- *"On Walmart, last 30 days…"*
+- *"Both Amazon and Walmart combined…"*
+
+A 5-second extra in the prompt saves 5 minutes of reconciling later.
+
+**Comparing marketplaces**
+
+Ask for side-by-side comparisons in one prompt:
+
+> *"Compare revenue, units, ACOS, and conversion across my US and UK marketplaces, last 30 days."*
+
+Numbers come back normalized to USD by default. Add *"in local currency"* if you'd rather see native amounts.
+
+**Managing multiple DataHawk workspaces**
+
+If you run separate workspaces for different brands or clients, connect each to your AI client separately. MCP doesn't yet span workspaces within a single conversation.
+
+## Work with the investigation flow
+
+For "why" questions (*"why did revenue drop?"*, *"what's driving the ACOS spike?"*), MCP triggers a dedicated investigation flow. The AI builds hypotheses, gathers evidence across domains, and explains its reasoning — instead of just dumping numbers.
+
+**When it triggers**
+
+Diagnostic questions — those starting with *"why"*, *"what's driving"*, *"what changed"* — trigger it automatically.
+
+**How to redirect mid-investigation**
+
+If the AI heads down the wrong path, course-correct in plain English:
+
+> *"Skip the catalog analysis — focus on advertising changes."*
+
+**When it's not enough**
+
+If a conclusion feels wrong:
+
+1. Drop into focused mode: *"Show me the raw sales data for those 7 days, day by day."*
+2. Run the same query in the DataHawk app to confirm the underlying numbers
+3. Email [support@datahawk.co](mailto:support@datahawk.co) if the discrepancy persists
+
+## Combine MCP with the rest of DataHawk
+
+**Use MCP to explore, the app to share**
+
+MCP shines for ad-hoc thinking. Once you find an insight worth sharing, build a chart in the DataHawk app and send the dashboard link.
+
+**Paste screenshots from Seller Central**
+
+Claude and ChatGPT both accept image uploads. Drop a Seller Central screenshot into the chat and ask:
+
+> *"Reconcile this against DataHawk data for the same period."*
+
+**Use MCP as a first draft**
+
+Generate a weekly summary in MCP, then refine it in the app, in a Google Doc, or wherever you usually polish.
+
+## When to fall back to another tool
+
+MCP isn't the right home for every job. Switch tools when you need:
+
+- **Custom dashboards shared with non-MCP users** → DataHawk app or Power BI / Looker templates
+- **Heavy data joins across millions of rows** → BigQuery export + your own SQL
+- **Scheduled reports with strict SLAs** → DataHawk app's reporting features
+- **Years of history** → BigQuery (MCP focuses on the most recent ~180 days)
+- **Large CSV exports for offline analysis** → BigQuery export or the app
+
+Not sure which to pick? Email [support@datahawk.co](mailto:support@datahawk.co) with what you're trying to do — we'll point you to the fastest path.
+
+## During beta
+
+DataHawk MCP is currently in beta — free for all DataHawk customers while we polish it.
+
+A few things to expect during this phase:
+
+- **Frequent improvements** — query routing and data coverage get better most weeks
+- **Occasional changes** — how questions get interpreted may shift slightly between updates
+- **New data domains added regularly** — vendor surfaces, brand analytics, and more are landing on a rolling basis
+- **Rare brief downtimes** — we try to schedule upgrades around US daytime hours
+
+**Report what's broken**
+
+When you find an issue, email [support@datahawk.co](mailto:support@datahawk.co) with:
+
+- The exact prompt you ran
+- Which AI client you used (Claude, ChatGPT, Cursor, etc.)
+- The tool call output (ask the AI to show it)
+- What you expected to see
+
+## Pro habits worth building
+
+**Save your best prompts**
+
+The third time you write the same prompt by hand is when you should save it. Use:
+
+- **Claude Projects** for repeated workflows
+- **ChatGPT custom GPTs** for team-shareable prompts
+- **Your AI client's prompt library** for personal ones
+
+See [Ready-to-use prompts](/help-center/modules/datahawkmcp/ready-prompts) for ready-made templates to start with.
+
+**Set session defaults up front**
+
+For multi-turn analyses, anchor the session in your first message:
+
+> *"For the rest of this chat, assume US Amazon marketplace, last 30 days, and brand 'Acme' unless I say otherwise."*
+
+**Schedule a weekly DataHawk hour**
+
+Block 30–60 minutes once a week to run your standard analyses — weekly summary, inventory check, ACOS review. Most users find it pays back its time within the first month.
+
+**Send the answer somewhere useful**
+
+Pair MCP with your team's tools using n8n or Make. Even one auto-generated daily digest into Slack or email cuts a lot of manual dashboard checking. See [Set up DataHawk MCP](/help-center/modules/datahawkmcp/setup) for client connection guides.
+
+## What's next
+
+- [Ready-to-use prompts](/help-center/modules/datahawkmcp/ready-prompts)
+- [How to write effective MCP prompts](/help-center/modules/datahawkmcp/write-prompts)
+- [FAQ](/help-center/modules/datahawkmcp/faq-troubleshooting)

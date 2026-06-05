@@ -1,0 +1,135 @@
+---
+title: Product Dashboard User Guide
+description: Complete guide to DataHawk's Product Power BI Dashboard — monitoring rankings, pricing, ratings, listing quality, and estimated sales across your tracked products.
+---
+
+The Product dashboard lets you monitor performance across your tracked products on Amazon and Walmart. Use it to track rankings, pricing, ratings, listing quality, and estimated sales — for your own products and the top products in your tracked categories.
+
+## Questions this dashboard helps answer
+
+- Which of my products have the best and worst Best Sellers Rank (BSR) right now?
+- How are my product ratings and review counts trending over time?
+- What is my Buy Box win rate, and which sellers are winning it instead of me?
+- How does my average listing quality score compare across my catalogue?
+- Which products have had price changes, and by how much?
+- How are estimated monthly sales and units trending for my products?
+- Which products have seen changes in their listing details (title, images, badges)?
+
+## Before you start
+
+**What you need:**
+
+- [Products tracked](/help-center/data-setup/products-tracking) in DataHawk (Amazon and/or Walmart)
+- Optionally: tracked categories, to also see the top 100 products within those categories
+
+**Setup:** Make sure you have downloaded and configured the Power BI template. See [Connect to Power BI](/help-center/connect-tools/powerbi).
+
+## Dashboard tabs at a glance
+
+| Tab | What it shows |
+|---|---|
+| **Dashboard** | A high-level overview of key product metrics for the selected period |
+| **Overview** | A detailed snapshot of your full product portfolio at a point in time |
+| **History** | How metrics have changed over time (BSR, price, ratings, estimated sales) |
+| **Changes** | A log of specific changes detected in product details |
+
+## Tab by tab
+
+**Dashboard** — A summary view showing the most important metrics for your tracked products across the selected date range. Use this as your daily health check — it surfaces top-level figures for BSR, pricing, Buy Box, ratings, and estimated sales in one place.
+
+**Overview** — A detailed, product-by-product snapshot covering all key attributes: variants, brands, sellers, pricing (min/avg/max), Buy Box ownership, listing quality score (LQS), images, badges, sessions, and conversion rate. Use filters to drill down by marketplace, seller account, brand, product tag, or category.
+
+**History** — A time-series view showing how your products' metrics have evolved. Useful for spotting trends — for example, a drop in BSR following a price change, or a spike in ratings after a product launch. You can filter by date range, product, or marketplace.
+
+**Changes** — A changelog that flags when specific product details have changed: title, price, images, category, and other listing attributes. Use this to catch unexpected listing modifications (by you or other sellers) and to audit your own updates.
+
+## Filters
+
+All tabs share the same set of filters. Key filters to know:
+
+| Filter | What it does |
+|---|---|
+| **Dates** | Set the date range for analysis |
+| **Marketplace** | Filter to one or more Amazon/Walmart marketplaces |
+| **Seller** | Filter to a specific seller account |
+| **Brand** | Filter by brand name |
+| **Product Name** | Filter by product name |
+| **Product ID** | Filter by ASIN (Amazon) or equivalent ID (Walmart) |
+| **Product Tag** | Filter to products assigned a specific tag in DataHawk |
+| **Category** | Filter by product category |
+| **Price** | Set a price range |
+| **Ratings** | Filter by total number of ratings |
+| **Rating** | Filter by average star rating |
+| **Sales Rank** | Filter by BSR range |
+
+---
+
+## For analysts & developers
+
+### Data models
+
+The Product dashboard pulls from two data models:
+
+- **Products** — [Amazon](https://docs.datahawk.co/docs/amazon-product-pages) / [Walmart](https://docs.datahawk.co/docs/walmart-product-pages)
+- **Categories** — [Amazon](https://docs.datahawk.co/docs/amazon-categories) / [Walmart](https://docs.datahawk.co/docs/walmart-categories)
+
+Product data comes from your tracked products. Category data covers the top 100 products within each of your tracked categories.
+
+### Key metrics reference
+
+**Product overview**
+
+- **Variants** — Count of distinct product variants
+- **Brands** — Count of unique brands in your portfolio
+- **Sellers** — Count of competing sellers
+- **Sellers (Winners)** — Count of distinct Buy Box winners
+- **Seller (Latest)** — Most recent Buy Box winner
+
+**Price**
+
+- **Price (Min / Avg / Max)** — Minimum, average, and maximum prices
+- **Price (Distinct)** — Count of distinct price points
+
+**Buy Box**
+
+- **Buy Box % (Active)** — Buy Box enabled rate (competitive positioning)
+- **Buy Box % (Public)** — Buy Box share visible to customers
+- **Buy Box % (Private)** — Average owned Buy Box percentage (requires Seller Central connection)
+
+**Sales & units** *(estimates)*
+
+- **Units/mo (E)(Avg)(Low / High)** — Estimated monthly units, low and high range
+- **Sales (E)(Low / High)** — Total estimated sales, low and high range
+- **Sales % (E)** — Your products' share of total estimated market sales
+- **Sales Score** — Estimated demand score
+
+**Rankings**
+
+- **BSR (Best / Avg / Worst)** — Best Sellers Rank: minimum, average, and maximum across your portfolio
+- **Categories** — Number of categories the product appears in
+
+**Ratings & reviews**
+
+- **Rating (Avg)** — Average star rating
+- **Ratings (Min / Avg / Max)** — Distribution of total review counts
+
+**Listing quality**
+
+- **Images (Avg)** — Average number of listing images
+- **LQS (Avg)** — Average Listing Quality Score
+- **Badges** — Count of badges (e.g. Amazon's Choice, Best Seller)
+
+**Traffic** *(requires Seller Central connection)*
+
+- **Sessions** — Total sessions on product pages
+- **Pageviews** — Total page views
+- **Sessions CVR (Avg)** — Average session-to-purchase conversion rate
+
+### Template version history
+
+| Version | Changes |
+|---|---|
+| [Nov 22, 2023](https://drive.google.com/uc?id=1OLdAzQxHXoe0wgSxjr_ip2rF_fZAdJND&export=download) | Customisable rows for segmentation (Market, Seller, Project, Tag, Brand, Variant, Category). Customisable columns for analysed metrics. Historical analysis tab added |
+| [Dec 5, 2023](https://drive.google.com/uc?id=1hOtkyrs6E0OU83j4M_NriqJp463DScSE&export=download) | Dashboard tab added with product metrics overview. New KPIs: sessions, pageviews, conversion rates, and real Buy Box ownership (requires Seller Central connection) |
+| [Feb 9, 2024](https://drive.google.com/uc?id=1nVI55xfhocLEal5fPl3Irvg9-Re7tC_R&export=download) | Product Name available as entity. Product Name filter added. Project filter removed following Projects deprecation |
+| [Feb 16, 2024](https://drive.google.com/uc?id=1zpv1d62zjqjWafe0UogvVDv_8WXyGsUc&export=download) | Improved visuals. Dashboard tab metrics now aggregate data for the entire selected period instead of just the last date |

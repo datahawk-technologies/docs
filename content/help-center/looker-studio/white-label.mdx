@@ -1,0 +1,129 @@
+---
+title: White-label your Looker Studio Dashboards for customers
+description: Three approaches to delivering client-specific Looker Studio dashboards with DataHawk data isolation — from manual duplication to portal-based delivery.
+---
+
+This guide outlines three approaches to delivering client-specific dashboards in Looker Studio while ensuring data isolation when using DataHawk data.
+
+Each approach aligns with a different level of scale and operational maturity, from manual duplication to fully automated, portal-based delivery.
+
+This guide is meant to help you choose the most efficient setup for your client base and reporting needs.
+
+<Callout type="warn">
+  We strongly advise against using the full scope of the **Analytics Essentials Template**. The sheer volume of sources significantly complicates the required filtering, so a **small, targeted perimeter is recommended**.
+</Callout>
+
+---
+
+## Method 1: Duplicate Dashboard + Hard-Coded Filters
+
+### Overview
+
+This method consists of making one copy of the Looker Studio dashboard per client and applying fixed filters directly inside each copy. You then share each dashboard with **view-only** access.
+
+### How It Works
+
+1. Duplicate your master dashboard.
+2. Apply hard-coded filters on Account Key, Tags, or any field that you want to filter the data on.
+3. Rename the dashboard to the client's name.
+4. Test all tabs to ensure filtering has been applied thoroughly.
+5. Share with view-only permissions.
+
+### Best Adapted For
+
+- Agencies managing **fewer than 10 clients**.
+- Dashboards that do **not change frequently**.
+
+### Benefits
+
+- Very simple to set up, no additional tooling required.
+- Full control over what each client sees.
+
+### Inconvenients
+
+- Manual duplication for each new client.
+- Any dashboard update must be repeated manually across all copies.
+
+---
+
+## Method 2: Master Dashboard + Google Sheets URL Filter Generator
+
+### Overview
+
+This approach keeps **one master dashboard** in Looker Studio but generates **pre-filtered anonymised dashboard URLs** via a Google Sheet referential. Each client gets a specific link that automatically filters the dashboard to their data.
+
+### Best Adapted For
+
+- Agencies with **10 to 50 clients**.
+- Frequent dashboard updates (only update the master).
+
+### Benefits
+
+- Only one dashboard to maintain.
+- Updates automatically benefit all clients.
+- Scalable and low-effort once configured.
+
+<Accordions>
+  <Accordion title="Core Concept">
+    - Single master dashboard on Looker Studio serving multiple brands
+    - Data filtered by Amazon Seller ID (`account_key` in DataHawk)
+    - Optional brand filter available for additional segmentation
+    - All data resides within the IFGlobal workspace
+  </Accordion>
+  <Accordion title="Access Management">
+    - Unique URL for each account (+ optional brand) combination
+    - Security through anonymized account keys
+    - Centralized management via Google Sheets
+  </Accordion>
+  <Accordion title="Required Info to Fast-Track Proposal">
+    **What does your target dashboard look like?** If you start from the Analytics Essentials template, which pages/tabs do you want to keep in your Master Dashboard:
+
+    - Any custom edits you want to add
+    - Your desired timeline for delivery
+    - FYI final price is heavily influenced by how many sources need to be filtered.
+
+    **Pre-filtering capabilities (hard filtering → hides other data):** To ensure we're on the same page, can you **confirm the following:**
+
+    - Each dashboard will require data from a single seller account
+    - Is brand filtering capabilities needed? allowing for multiple dashboards based on the same seller account but different brands (use case when you handle multiple clients in the same account)
+    - Could you share the Account Key, Account Name, and Brand (if needed) of the first dashboard you'd like to set up?
+  </Accordion>
+</Accordions>
+
+### Get Started
+
+Contact your Account Manager if you would like us to help you set up this solution.
+
+---
+
+## Method 3: No-Code Portal With Embedded Dashboards
+
+### Overview
+
+This method uses a no-code tool (Bubble, Retool, Lovable…) to create a secure portal where clients log in. The Tool filters data based on the client's login credentials and embeds the Looker Studio dashboard, or its own UI connected to your db.
+
+### Best Adapted For
+
+- Agencies with **50+ clients**.
+- Need for a branded, secure, professional portal.
+- Use cases requiring more than reporting (forms, actions, alerts, CRM, etc.).
+
+### Benefits
+
+- Very secure: server-side filtering.
+- Scalable to hundreds of clients, central portal with user management.
+- Can integrate additional features beyond dashboards.
+
+### Get Started
+
+Contact your Account Manager if you would like us to help you set up this solution.
+
+---
+
+## Summary Table
+
+| Method | Best For | Pros | Cons |
+|---|---|---|---|
+| **1. Duplicate Dashboard** | \<10 clients, simple setups | Easy to set up, no tools | Manual updates, error-prone |
+| **2. Master + Google Sheets URLs** | 10–50 clients | Scalable, one dashboard to maintain | Does not enable customer-level customization |
+| **3. Portal (Retool / no-code)** | 50+ clients, need secure portal | Very secure, scalable, extensible | Setup cost + time |

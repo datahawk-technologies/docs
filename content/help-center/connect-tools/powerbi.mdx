@@ -1,0 +1,117 @@
+---
+title: Connect to Power BI
+description: Connect DataHawk to Power BI using pre-built templates on your Snowflake database — get up and running in under 5 minutes.
+---
+
+Power BI is DataHawk's recommended dashboarding tool. DataHawk provides ready-to-use Power BI templates built on top of your Snowflake database.
+
+<Callout type="info">
+  You can be up and running in under 5 minutes.
+</Callout>
+
+## Prerequisite
+
+- Your data sources (Amazon / Walmart accounts) should be connected and collecting data.
+  - If you did not connect any data sources, go to [Set up data](/help-center/data-setup)
+- An activated DataHawk-hosted **Snowflake** database.
+  - If you haven't set one up yet, go to [Send data to your tool](/help-center/connect-tools)
+  - Once set up, it will take up to 4 hours to show as **Enabled**
+- Retrieve your credentials
+  - On your DataHawk App account, **Setup \> Destinations \> Snowflake \> See Credentials**.
+
+## Option 1 — Use a DataHawk template
+
+DataHawk provides pre-built Power BI templates in `.pbix` format. See [Download Power BI Templates](https://docs.datahawk.co/download-power-bi-templates) for the full catalogue and download link.
+
+| Template | What it covers |
+|---|---|
+| Seller Finances & Supply Chain | SKU-level profit, orders, unit economics, replenishment |
+| Product | Ratings, BSR, price, LQS, sales, estimates, buy box |
+| Search | Share of voice, search ranks, keyword research |
+| Advertising | Account, campaign, product, and keyword ads |
+| Market Intelligence | Top-selling products, category insights, market size and share |
+| Master Vendor | Revenue, COGS, inventory, ads, share of voice |
+| DSP Ads | Advertiser, order, line item, and creative ads |
+
+### Set up on Power BI Desktop
+
+**Estimated time: under 5 minutes.**
+
+1. Open the `.pbix` template file in Power BI Desktop.
+2. In the **Home** tab, click **Transform data** to open the Power Query Editor.
+3. Click **Manage Parameters**.
+4. Replace the values for **Database**, **Server**, and **Warehouse** with your DataHawk Snowflake credentials.
+5. Click **Close & Apply**.
+6. Enter your Snowflake **username** and **password** when prompted.
+7. Data will begin refreshing — this can take up to 30 minutes depending on your data volume.
+
+<Callout type="info">
+  If you run into a refresh error, try closing and re-applying the parameters once or twice, then contact the DataHawk team if the issue persists.
+</Callout>
+
+### Publish to Power BI Online (for sharing and scheduled refresh)
+
+**Estimated time: under 5 minutes.**
+
+<Callout type="info">
+  **One-time admin step required:** Before publishing templates to Power BI Online, a Power BI administrator must enable Snowflake SSO in your tenant.
+
+  1. Go to [app.powerbi.com/admin-portal](https://app.powerbi.com/admin-portal)
+  2. Navigate to **Tenant Settings**
+  3. Find **Snowflake SSO**, expand it, and enable the toggle
+  4. Allow a few hours for the change to propagate across your organisation
+</Callout>
+
+Once SSO is enabled:
+
+1. Go to [app.powerbi.com](https://app.powerbi.com/) and navigate to a workspace (or create one).
+2. Click **Upload** \> **Browse** and select your `.pbix` template file.
+3. Hover over the newly uploaded dataset, click the **⋯** menu, and select **Settings**.
+4. Under **Parameters**, replace **Database**, **Server**, and **Warehouse** with your DataHawk Snowflake credentials.
+5. Under **Data source credentials**, click **Edit credentials** and enter your Snowflake **username** and **password**.
+6. Under **Refresh**, enable the auto-refresh toggle and set it to run daily.
+7. Data will begin refreshing — this can take up to 30 minutes.
+8. Once refreshed, navigate back to your workspace to open the report.
+
+## Option 2 — Build your own reports
+
+If you prefer to build from scratch or connect an existing Power BI file to your DataHawk data, follow the steps below.
+
+DataHawk's Power BI templates use **DirectQuery** mode. If you plan to build your own reports, the same mode is recommended to ensure your data stays live.
+
+### Connect via Power BI Desktop
+
+1. Open Power BI Desktop.
+2. Click **Get Data \> More**, search for **Snowflake**, and click **Connect**.
+3. Enter the **Server** and **Warehouse** values from your DataHawk Snowflake credentials page.
+4. Select **Database** as the authentication mode.
+5. Enter your Snowflake **username** and **password**.
+6. Browse the schemas and tables, or write a custom SQL query.
+7. Click **Load** (or **Transform Data** to filter before loading).
+
+### Connect via Power BI Online
+
+Before connecting via Power BI Online, you need to enable Snowflake SSO in your Power BI tenant — this is a one-time admin step.
+
+<Callout type="info">
+  **Admin required:** You must be an administrator of your Power BI instance to complete this.
+
+  1. Go to [app.powerbi.com/admin-portal](https://app.powerbi.com/admin-portal).
+  2. Navigate to **Tenant Settings**.
+  3. Find **Snowflake SSO**, expand it, and enable the toggle.
+  4. Allow a few hours for the change to propagate across your organisation.
+</Callout>
+
+Once SSO is enabled, upload your `.pbix` file and point the parameters (Database, Server, Warehouse) to your DataHawk Snowflake credentials.
+
+## Going deeper
+
+Once connected, head to the dashboard guides for help using and interpreting what you see:
+
+- [Seller Analytics Dashboard User Guide](/help-center/powerbi-dashboards/seller-analytics-dashboard)
+- [Advertising Dashboard User Guide](/help-center/powerbi-dashboards/advertising-dashboard)
+- [Vendor Analytics Dashboard User Guide](/help-center/powerbi-dashboards/vendor-analytics-dashboard)
+- [Market Intelligence Dashboard User Guide](/help-center/powerbi-dashboards/market-intelligence-dashboard)
+- [Product Dashboard User Guide](/help-center/powerbi-dashboards/product-dashboard)
+- [Ads DSP Dashboard Documentation](/help-center/powerbi-dashboards/ads-dsp-dashboard)
+- [Creating Power BI Alerts in Power Automate](/help-center/tips-advanced-use/alerts-automation)

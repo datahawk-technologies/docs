@@ -1,0 +1,80 @@
+---
+title: Walmart Private Data - Connect
+description: Connect your Walmart Connect advertising account to DataHawk to collect and store ad data combined with financial and search metrics.
+---
+
+## Your Walmart Connect Account
+
+Use Walmart Connect to run ads on Walmart. By connecting your account, DataHawk automatically collects and stores your ad data, and combines it with financial and search metrics to give you a unified performance view.
+
+## DataHawk Connexion Capabilities
+
+### Supported regions
+
+DataHawk connects only with US-registered accounts.
+
+### Data Coverage
+
+Walmart Advertising data can be found in the `ADVERTISING` schema. Tables are prefixed with `WMT`. Example: `ADVERTISING.WMT_SP_AD_ITEM`
+
+Data is refreshed **daily**.
+
+#### Tables
+
+- `WMT_AD_GROUP`
+  **AdGroup:** The performance of individual ad groups within your campaign
+- `WMT_SP_AD_ITEM`
+  **AdItem:** This report provides key performance metrics for the items in all of your campaigns. This information can help you improve current and future Sponsored Products campaigns
+- `WMT_BRAND`
+  **Brand:** The Performance of the different brands within your campaign available to Walmart suppliers (1p suppliers) only.
+- `WMT_CATEGORY`
+  **Category:** The performance of the categories of the items in your campaign. Available to Walmart suppliers (1p advertiser) only
+- `WMT_ITEM_HEALTH_V2`
+  **ItemHealthV2:** The Item Health report enables advertisers to see the health of their sponsored items and take corrective actions as needed, to improve item performance and reach their desired campaign goals.
+- `WMT_SP_ITEM_KEYWORD`
+  **ItemKeyword:** This report indicates which keywords your advertised items are being served against, and how well the advertised items are performing for those keywords. This information can help you improve current and future Sponsored Products campaigns.
+  - *Automatic campaigns:* Use this report to identify keywords that showed your ads in Search In-Grid placements and delivered high performance. You can then add these keywords to Manual campaigns.
+  - *Manual campaigns:* Use the additional information to optimize campaign performance: bid higher on more-valuable keywords and/or remove underperforming items.
+- `WMT_KEYWORD`
+  **Keyword:** This report indicates which keywords your advertised items are being served against. This information can help you optimize keyword bids *(available in Manual/Keyword bidding campaigns only).*
+  - Inside this report there are two new columns for Bid and Average CPC:
+    - Bid is the maximum you will pay for a click when this target triggers your ad.
+    - Average CPC is the average amount you paid for a click on an ad.
+  - If the Searched Keyword is alphabetical or alphanumeric, that means your ad was shown on the Search In-grid position of the given keyword.
+  - If the Searched Keyword is a number, that means your ad was shown on the Buy Box or Item Carousel of the given item ID.
+  - Data will only be included in the Keyword Performance report if at least one of the following is true:
+    - Impressions are greater than 10
+    - Ad spend is greater than \$0.00
+    - Attributed sales is greater than \$0.00.
+- `WMT_PAGE_TYPE`
+  **PageType:** The performance of those page types where the items in your campaign are showing on. E.g. Search Page, Browse Page, Item Page, Category page.
+  - **browse** – sub-category pages with algorithmic item selection
+  - **item** – specific item pages
+  - **search** – search pages based on a customer's query
+  - **topic** – custom curated search pages, found from searches outside of Walmart.com that lead back to Walmart.com
+  - **category** – category pages
+  - **homepage** – home page high visibility personalization carousels *(Note: This pageType report is only available for Auto Campaigns)*
+  - **other** – any other pages not falling into the categories above or if our beacon was unable to track which page type the user was visiting
+- `WMT_PLACEMENT`
+  **Placement:** This report provides key performance metrics for your campaigns by the placement the ads are served in. This information can help you to improve current and future Sponsored Products campaigns. Use bid multipliers to optimize placements based on their performance.
+  - For a keyword campaign: `Search In-grid`, `Carousel`, `Buybox`, `Others`
+  - For an Auto campaign: `Search In-grid`, `Carousel`, `Buybox`, `Browse In-Grid`, `Stock Up`, `Home Page`, `Others`
+- `WMT_PLATFORM`
+  **Platform:** The performance of which device type the products in your campaign are displaying on
+  - **app** – performance from the Walmart iOS and Android app
+  - **desktop** – performance from the Walmart.com website on desktop and tablets
+  - **mobile** – performance from the Walmart.com website on mobile web
+  - **others** – performance from a platform we are unable to detect at the time
+
+### Historical data storage
+
+Once you connect your Walmart Marketplace to DataHawk, we immediately retrieve a maximum of **90 days of data**. Then, we **securely store and back up** all your data **everyday**, enabling **more comprehensive reporting with extended historical insights**.
+
+### Refresh Frequency & Data Delay
+
+- **Data Refresh**: A second data refresh takes place 15 days after the first download.
+- **Data Updates**: Walmart does not update reports after 14 days, so we always fetch the most recent consolidated version available.
+
+## Useful resources
+
+[Walmart Advertising Reports official guide](https://developer.walmart.com/doc/us/us-wmc-ads/us-wmc-ads-snapshot-reportsv2/)

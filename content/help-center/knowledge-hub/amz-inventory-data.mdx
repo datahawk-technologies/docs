@@ -1,0 +1,84 @@
+---
+title: Amazon Inventory Data
+description: Guide to Amazon inventory datasets in DataHawk — FBA planning, ledger detail, restock recommendations, and SQL examples for common inventory questions.
+---
+
+This guide explains Amazon inventory datasets for tracking stock, resolving discrepancies, and optimizing replenishment.
+
+<Callout type="info">
+  **View Your Inventory at the Country Level**
+
+  If your goal is simply to see your ASIN/SKU inventory the same way Seller Central shows it, use:
+
+  - **FBA → `SELLER_INVENTORY_FBA_PLANNING`** — FBA qty with AI-driven recommendations for aged stock and removals
+  - **FBM → `SELLER_INVENTORY_ALL_LISTINGS`** — your catalog with pricing and availability for MFN
+
+  These tables show your day-to-day inventory quantities at the country level with key fields: stock, aging, health, and availability.
+</Callout>
+
+## Inventory Datasets
+
+| Schema | View | Purpose | Data Freshness | Geographic Scope |
+|---|---|---|---|---|
+| **RAW_INVENTORY** | `RAW_INVENTORY_FBA` | Latest snapshot of FBA inventory (sellable/unsellable stock, inbound shipments) ⚠️ No deduplication | Daily | Region-based |
+| **RAW_INVENTORY** | `RAW_INVENTORY_FBA_HISTORY` | Daily historical snapshots of FBA inventory ⚠️ No deduplication | Daily | Region-based |
+| **SELLING_PARTNER** | `SELLER_INVENTORY_FBA_HISTORY_DAILY` | Daily seller-level inventory snapshots ⚠️ No deduplication | Daily | Region-based |
+| **RAW_INVENTORY** | `RAW_INVENTORY_RESTOCK_RECOMMENDATIONS` | Amazon's restock advice for SKUs with ≤14 days of supply | Daily | MX, FR, DE, CA, JP, US, IT, ES, GB |
+| **SELLING_PARTNER** | `SELLER_INVENTORY_LEDGER_DETAIL` | Granular log of all inventory movements (shipments, returns, adjustments, removals) — past 18 months | Daily (≤3 day delay) | Region + Country + warehouse |
+| **SELLING_PARTNER** | `SELLER_INVENTORY_LEDGER_SUMMARY` | Daily aggregated view of inventory health | Daily (≤3 day delay) | Region + Country + warehouse |
+| **SELLING_PARTNER** | `SELLER_INVENTORY_FBA_PLANNING` | FBA qty, AI-driven recommendations for aged stock, pricing, and removals | Daily | All except MX |
+| **SELLING_PARTNER** | `SELLER_INVENTORY_ALL_LISTINGS` | Snapshot of your catalog — current pricing and quantity for MFN | Daily | Marketplace Key |
+
+## Practical Scenarios & Example Queries
+
+### "How much sellable AFN stock do I have for SKU-X today in US?"
+
+```sql
+SELECT SKU, AFN_FULFILLABLE_QUANTITY, AFN_INBOUND_SHIPPED_QUANTITY
+FROM RAW_INVENTORY_FBA
+WHERE SKU = 'X';
+```
+
+### "Why did my inventory drop by 200 units in the US last week?"
+
+```sql
+SELECT EVENT_TYPE, QUANTITY, FULFILLMENT_CENTER, DATE
+FROM SELLING_PARTNER.SELLER_INVENTORY_LEDGER_DETAIL
+WHERE SKU = 'X' AND COUNTRY = 'US'
+AND DATE BETWEEN '2024-01-01' AND '2024-01-07';
+```
+
+### "Which FBA SKUs need urgent restocking?"
+
+```sql
+SELECT SKU, ALERT, RECOMMENDED_REPLENISHMENT_QTY
+FROM RAW_INVENTORY_RESTOCK_RECOMMENDATIONS
+WHERE ALERT IN ('low_stock', 'out_of_stock');
+```
+
+### "Which aged SKUs should I remove to avoid storage fees?"
+
+```sql
+SELECT SKU, INV_AGE_365_PLUS_DAYS, RECOMMENDED_ACTION, ESTIMATED_STORAGE_COST
+FROM SELLING_PARTNER.SELLER_INVENTORY_FBA_PLANNING
+WHERE INV_AGE_365_PLUS_DAYS > 0;
+```
+
+### "How has my sellable stock for ASIN-Y changed over the past month?"
+
+```sql
+SELECT OBSERVATION_DATE, AFN_FULFILLABLE_QUANTITY
+FROM SELLER_INVENTORY_FBA_HISTORY_DAILY
+WHERE ASIN = 'Y'
+AND OBSERVATION_DATE BETWEEN '2024-01-01' AND '2024-01-31';
+```
+
+### "Amazon says restock but I have inventory"
+
+```sql
+SELECT estimated_excess_quantity, weeks_of_cover_T30
+FROM SELLING_PARTNER.SELLER_INVENTORY_FBA_PLANNING
+WHERE SKU = 'YOUR_SKU';
+```
+
+If `weeks_of_cover_T30 = 1`, Amazon expects a demand surge despite current stock levels.

@@ -1,0 +1,146 @@
+---
+title: Vendor Analytics Dashboard User Guide
+description: Complete guide to DataHawk's Vendor Analytics Power BI Dashboard — covering traffic, sales, inventory, advertising, and share of voice for Vendor Central managers.
+---
+
+DataHawk's Vendor Analytics Dashboard gives Vendor Central managers a complete view of their business with Amazon — covering traffic, sales, inventory, advertising, and share of voice analysis. It is designed for weekly and monthly reporting, with up to two years of history for trend analysis.
+
+## Questions this dashboard helps answer
+
+- How many glance views did my products receive, and how many converted to shipped units?
+- What is my shipped revenue and shipped COGS, and how are they trending year over year?
+- What is my current sellable on-hand inventory, and which products are at risk of going out of stock?
+- What is my advertising spend as a percentage of my total shipped revenue (TACoS)?
+- How is my share of voice evolving for the keywords I'm tracking?
+- Which of my purchase orders have low confirmation or fill rates?
+- Which brands, products, or markets are driving the biggest changes in my metrics this period?
+
+## Before you start
+
+**What you need:**
+
+- Vendor Central account connected in DataHawk
+- Advertising account connected in DataHawk (required for advertising tabs)
+
+**Data history:** Up to 2 years of historical data. The dashboard refreshes daily.
+
+**Set up:** Download and configure the Power BI template. See [Download Power BI Templates](https://docs.datahawk.co/download-power-bi-templates) and [Connect to Power BI](/help-center/connect-tools/powerbi).
+
+## Dashboard tabs at a glance
+
+| Tab | What it shows |
+|---|---|
+| **Executive Report** | Top KPIs across sales, inventory, and advertising — weekly or monthly |
+| **Traffic** | Glance views, conversion rate, and period-over-period traffic trends |
+| **Sales** | Shipped revenue, shipped COGS, units, returns, and ordered revenue |
+| **Advertising** | Account-level and product-level ad performance (SP + SD + SB) |
+| **Inventory Snapshot** | On-hand inventory, purchase order status, and Amazon demand forecast |
+| **Search** | Share of voice by brand and keyword across organic and sponsored placements |
+| **Explorer** | Custom cross-metric analysis with flexible dimensions |
+| **Imported Product Catalog** | Reference table of all tracked products and their attributes |
+
+## Time periods and comparisons
+
+Most tabs support **Weekly** and **Monthly** views. The dashboard holds up to **2 years** of history.
+
+Comparisons use:
+
+- **PoP (Period over Period)** — the previous week or month, depending on your view
+- **YoY (Year over Year)** — the same period in the prior year
+- **YTD (Year to Date)** — cumulative from January 1 to the current period
+
+For simple metrics (e.g. revenue), changes show as a percentage. For ratio metrics (e.g. conversion), changes show in **bps** (basis points — 100 bps = 1 percentage point).
+
+## Tab by tab
+
+**Executive Report** — A high-level summary of KPIs for the selected period. Includes a summary bar with top metrics and their PoP and YTD changes, line charts comparing current vs. prior year, a configurable main table (choose your metrics with the slicer), and a drill-down section that breaks performance changes by Country, Brand, Tag, and ASIN. Note: advertising metrics here are at the account level (SB + SP + SD), but automatically switch to product level when a product filter (Tag, Brand, ASIN, or Vendor Account) is applied.
+
+**Traffic** — Shows glance views (GVs) and conversion rate (GVs to shipped units). Includes a summary bar, line charts vs. prior year, a metrics table by period and dimension, a distribution table (% of total GVs and ordered revenue per breakdown row), and a product performance section highlighting the biggest week-over-week movers. Note: GVs are counted at the ASIN level and only when Retail (Amazon) is the featured seller. A value of 0 means there was a sales event but no glance view; a null value means no sales activity at all.
+
+**Sales** — Analysis of shipped revenue, shipped COGS, shipped units, ASP, ordered revenue, ordered units, and net received inventory. Includes PoP and YoY comparisons, distribution breakdowns (% of total COGS per row), and product performance tables for the biggest movers.
+
+**Advertising** — Two sections: (1) **Account level** — ad spend, ad sales, ACoS, RoAS, impressions, and clicks, broken down by country and sponsored type (SB, SP, SD). (2) **Product level** — same metrics scoped to Sponsored Products and Sponsored Display only. Sponsored Brands are excluded from product-level data. Includes a custom timeline graph where you can set your own date range and compare any two metrics side by side.
+
+**Inventory Snapshot** — Overview of your current inventory position with Amazon. Shows open purchase order quantities, sellable on-hand inventory, and a historical inventory chart. The forecast section visualises your projected inventory depletion based on shipped units and a 6-week moving average, alongside Amazon's demand forecast (selectable between Mean, P70, P80, and P90 confidence levels). Useful for planning replenishment before stockouts occur.
+
+**Search** — Share of voice (SoV) analysis at the brand level, based on your tracked keywords. You can filter by search type — Organic, Sponsored (SB + SP), Sponsored SB only, or Sponsored SP only — and by page range. Charts include: competitive SoV breakdown for the current month, historical SoV over 12 months by brand, owned brand comparison, and a two-brand comparative chart. A keyword count table at the bottom shows how many distinct keywords were tracked each month. Note: SoV is calculated monthly from daily data and depends on the keywords tracked at the time. Changes in your keyword tracking set will affect how SoV trends are interpreted.
+
+**Explorer** — Build a custom chart and table by choosing any two metrics from the available list. Hierarchies go from Country → Tag → Brand → ASIN. Granularity can be set to year, month, week, or day. Metrics are at the product level and include prior-year comparators for each metric.
+
+**Imported Product Catalog** — Reference table of all products being tracked, including ASIN, name, brand, and tags. Not an analytics tab — use it for product lookups or to verify tracking scope.
+
+## Filters
+
+All tabs share a common filter panel:
+
+| Filter | What it does |
+|---|---|
+| **Vendor Account** | Filter to one or more vendor accounts |
+| **Marketplace** | Filter to specific marketplaces |
+| **Brand** | Filter by brand name |
+| **Tags** | Filter to products assigned a specific tag in DataHawk |
+| [**Distribution View**](/help-center/knowledge-hub/amz-cendor-account-sourcing-manufacturing) | Switch between Manufacturing and Sourcing views for inventory metrics |
+| **Currency** | Choose the display currency for monetary metrics |
+
+---
+
+## For analysts & developers
+
+**Traffic metrics**
+
+- **Glance Views (GVs)** — Views of the product detail page when Retail is the featured seller
+- **Conversion** — Shipped Units ÷ Glance Views
+
+**Sales metrics**
+
+- **Shipped Revenue** — Revenue at the time of shipment
+- **Shipped COGS** — Price paid to the vendor × units shipped (brand's actual revenue from Amazon)
+- **Shipped Units** — Units shipped to customers
+- **ASP** — Average Selling Price
+- **Ordered Revenue** — Revenue from all customer orders regardless of shipment status
+- **Ordered Units** — All customer orders regardless of shipment status
+- **Sellable OH Inventory** — Value of units available for sale (last day of period)
+- **Sellable OH Inventory Units** — Number of units available for sale (last day of period)
+- **Customer Returns** — Units returned, applied to the original sale date
+- **Return Rate** — Returns as % of total shipped revenue
+
+**Inventory metrics**
+
+- **Aged 90+ Days Sellable Inventory** — Units and cost of inventory ≥ 90 days old and sellable
+- **Average Vendor Lead Time Days** — Days from PO receipt to inventory arriving at a fulfillment centre
+- **Net Received Inventory** — Net units/cost received by Amazon after supplier returns
+- **Open Purchase Order Units** — Units in confirmed but not yet received purchase orders
+- **Procurable Products Out of Stock Rate** — OOS GVs on procurable ASINs ÷ Total GVs (Manufacturing view only)
+- **Receive Fill Rate** — Units received ÷ Units confirmed by vendor (procurable ASINs only)
+- **Sellable On Hand Inventory** — Units and cost of sellable inventory in Amazon fulfilment centres
+- **Unfilled Customer Ordered Units** — Units ordered but not yet shipped
+- **Unsellable On Hand Inventory** — Units in fulfilment centres classified as unsellable
+- **Vendor Confirmation Rate** — Accepted PO quantity ÷ Quantity submitted by Amazon
+
+**Advertising metrics**
+
+- **Ad Spend** — Total advertising spend
+- **Ad Sales** — Ad-attributed revenue (Same-SKU and Other-SKU)
+- **Ad Sales Ratio** — Ad Sales as % of Shipped Revenue
+- **ACoS** — Ad Spend ÷ Ad Sales × 100%
+- **RoAS** — Ad Sales ÷ Ad Spend
+- **TACoS** — Ad Spend ÷ Shipped COGS × 100%
+- **CVR** — Ad Orders ÷ Clicks
+- **CTR** — Clicks ÷ Impressions
+
+**Share of Voice calculation**
+
+- **Organic SoV** — 1 ÷ rank
+- **Sponsored SoV** — (1 ÷ page) × (1 ÷ rank) × sponsored_type_factor
+- Sponsored Brands receive a 1.25× factor (25% boost) to reflect their higher placement impact vs Sponsored Products
+
+**Terminology**
+
+- **bps** — Basis points. 100 bps = 1 percentage point
+- **PoP** — Period over Period (MoM or WoW)
+- **YoY** — Year over Year (same period, prior year)
+- **SB / SD / SP** — Sponsored Brands / Sponsored Display / Sponsored Products
+
+<Callout type="info">
+  **Data source:** This dashboard uses data from your connected Vendor Central and Advertising accounts. For a full column reference, see the [Exhaustive Column Referential](https://docs.google.com/spreadsheets/d/1gYGqKQP9Z71nz1lOb4y0wJ15i27NvsUzdliIJeIx0HY/edit#gid=175439716).
+</Callout>

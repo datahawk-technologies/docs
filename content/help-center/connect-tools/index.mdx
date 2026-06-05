@@ -1,0 +1,134 @@
+---
+title: Send data to your tool
+description: Connect DataHawk to your preferred BI tool or database — Power BI, Looker Studio, Google Sheets, Excel, Snowflake, BigQuery, or a writable database.
+---
+
+Destinations give you direct access to your DataHawk data inside the tools you already use. Instead of manually exporting files, DataHawk builds and maintains a dedicated database for you, filled with all your collected data and refreshed automatically every day.
+
+## Which tool are you using?
+
+<div className="card-grid">
+  <Card
+    title="Power BI (recommended)"
+    href="/help-center/connect-tools/powerbi"
+    description="Connect via Snowflake to DataHawk's pre-built Power BI templates."
+  />
+  <Card
+    title="Looker Studio"
+    href="/help-center/connect-tools/looker-studio"
+    description="Connect via BigQuery to the Analytics Essentials Looker Studio template."
+  />
+  <Card
+    title="Google Sheets"
+    href="/help-center/connect-tools/google-sheets"
+    description="Connect via BigQuery to pull DataHawk data directly into Google Sheets."
+  />
+  <Card
+    title="Excel"
+    href="/help-center/connect-tools/excel"
+    description="Connect via Snowflake to pull DataHawk data into Excel."
+  />
+  <Card
+    title="Snowflake"
+    href="/help-center/connect-tools/snowflake"
+    description="Direct Snowflake access for SQL editors, Tableau, and other BI tools."
+  />
+  <Card
+    title="BigQuery"
+    href="/help-center/connect-tools/bigquery"
+    description="Direct BigQuery access for SQL editors and other BI tools."
+  />
+  <Card
+    title="Writable Database Service"
+    href="/help-center/connect-tools/writable-database"
+    description="Push your own data into the DataHawk database."
+  />
+</div>
+
+## How it works
+
+When you add a destination, DataHawk creates a dedicated database hosted on either **Snowflake** or **BigQuery** (depending on the tool you connect). This database is populated with all your DataHawk data and refreshed daily — no manual exports needed.
+
+DataHawk refreshes your database **every day**, for both Snowflake and BigQuery. However, not all data is available at the same time — some datasets are populated later in the day because Amazon's API does not deliver all data types on the same schedule. See the individual dataset pages in the Knowledge Hub for dataset-specific freshness details.
+
+- **Snowflake** is the underlying database for Power BI, Excel, and SQL-based tools.
+- **BigQuery** is the underlying database for Looker Studio and Google Sheets.
+
+Each destination guide includes the database setup step inline — you don't need to set up the database separately before starting.
+
+## What data is available?
+
+All data you collect through your DataHawk workspace is available via the Destinations of your choice:
+
+- **Public product data** — tracked products, listings, sales ranks, search rankings (organic and sponsored)
+- **Seller Central data** — orders, profit & loss, financial events, traffic
+- **Vendor Central data** — revenue, financial events, traffic
+- **Advertising data** — aggregated per account, campaign, or product
+- **DataHawk KPIs** — sales estimates, keyword search volume, and more
+
+## How to add a destination
+
+<Steps>
+
+<Step>
+
+### Open Destinations
+
+Open the DataHawk app and navigate to **Destinations** in the sidebar.
+
+</Step>
+
+<Step>
+
+### Add Destination
+
+Click **Add Destination**.
+
+</Step>
+
+<Step>
+
+### Select your tool
+
+Select the tool you want to connect (e.g. Google Sheets, Power BI). DataHawk will recommend the right hosted database for that tool — BigQuery or Snowflake.
+
+</Step>
+
+<Step>
+
+### Confirm and provision
+
+Confirm by clicking **Use BigQuery** or **Use Snowflake**. DataHawk will begin provisioning your database.
+
+</Step>
+
+<Step>
+
+### Retrieve credentials
+
+Once the status shows **Enabled**, click on the destination to retrieve your database credentials.
+
+</Step>
+
+<Step>
+
+### Connect your tool
+
+Follow the relevant guide above to connect your tool.
+
+</Step>
+
+</Steps>
+
+<Callout type="info">
+  Once added BigQuery or Snowflake database to your DataHawk App, we will take up to 4 hours to get everything ready.
+</Callout>
+
+---
+
+## Technical reference
+
+For full schema documentation, supported integrations, and advanced setup (including self-hosted options):
+
+- [BigQuery — technical reference](/help-center/connect-tools/bigquery)
+- [Snowflake — technical reference](/help-center/connect-tools/snowflake)

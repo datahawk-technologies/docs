@@ -1,0 +1,70 @@
+---
+title: Navigate through FBA Stockout
+description: React fast when FBA goes empty — Sherlock flags products that went out of stock on FBA, lost the Buy Box, and saw revenue collapse.
+---
+
+**FBA Stockout** flags products that went out of stock on FBA this week, lost the Buy Box, and saw revenue collapse. These are urgent: every day out of stock costs sales now *and* damages rank for the recovery weeks.
+
+## What's on the page
+
+At the top:
+
+- **The rule:** *"Products where FBA went out of stock this week (≥2 days), buy box dropped ≥10pp, and revenue fell ≥10%."*
+- **Total opportunity** — the combined revenue at stake.
+- **Refresh** — re-run the check with the latest data.
+
+Below, the table:
+
+| Column | What it means |
+|---|---|
+| **Product** | Image, title, marketplace flag, ASIN (with copy icon), and brand |
+| **Revenue drop** | Week-over-week revenue change |
+| **Buy box drop** | Change in Buy Box percentage, in percentage points (pp). The detail in parentheses shows *prev% → now%* |
+| **FBA OOS days** | Number of days out of stock this week. "(was 2d)" notes mean the count went up vs the previous week |
+| **Opportunity** | Estimated revenue you could recover by replenishing |
+
+The list is sorted by **Opportunity**, biggest first.
+
+## How to read a row
+
+> *Revenue drop: –99.2% · Buy box drop: –66.7pp (100.0% → 33.3%) · FBA OOS days: 7d · Opportunity: \$1,954*
+
+It tells you:
+
+- The product was out on FBA every day this week (7d).
+- Buy Box collapsed from 100% to 33%.
+- Revenue is effectively zero this week (–99%).
+- Replenishing should recover ~\$2k in the coming weeks.
+
+<Callout type="warn">
+  *Was 2d* means OOS days **got worse** week over week. *7d (was 2d)* signals the stockout is deepening, not recovering.
+</Callout>
+
+## Open the product investigation
+
+Click any row to open the same investigation view used by Signals (*Overview*, *Timeline*, *Metrics*).
+
+For FBA stockouts, the most useful places to look:
+
+- The **Overview** — it usually identifies the date the stockout started.
+- The **Metrics** heatmap → *Is Out Of Stock* row, *Buy Box Percentage*, and *Avg FBA on hand*.
+- The **Timeline** tab — any inbound shipments or transfers should appear here.
+
+## What to do about it
+
+1. **Replenish FBA fast.** Send a same-day shipment if you can, or create an FBM backup listing to bridge the gap.
+2. **Audit forecasting.** If this product stocks out repeatedly, the safety stock is too low.
+3. **Pause ads.** Don't pay for traffic to an OOS listing — it burns cash and hurts CVR.
+4. **Watch the recovery.** Re-check the next 2 weeks. Rank usually takes a hit and needs paid pushes to recover.
+
+## Tips
+
+- Stockouts compound: every day out of stock also hurts organic rank, so the loss outlives the stockout itself.
+- Cross-check with **Buy Box Loss** — if the Buy Box loss is from a stockout *and* a price hike, both need fixing.
+
+## Where to go next
+
+- [What is Sherlock](/help-center/modules/sherlock)
+- [Navigate through Signals](/help-center/modules/sherlock/signals)
+- [Navigate through Price CVR Drop](/help-center/modules/sherlock/price-cvr-drop)
+- [Navigate through Buy Box Loss](/help-center/modules/sherlock/buybox-loss)

@@ -1,0 +1,169 @@
+---
+title: Amazon Private Data - Advertising Account
+description: Connect your Amazon Advertising account to DataHawk to automatically collect and centralize your advertising data for structured reporting and analysis.
+---
+
+Connecting your Amazon Advertising account allows you to **automatically collect and centralize your advertising data in DataHawk. Enable structured reporting and analysis**, data **storage to prevent data loss**, and consolidation with other metrics such as financial and search data.
+
+## Your Amazon Advertising Account
+
+Whether you are a Seller, a Vendor, or an Agency, you already have access to Amazon advertising account. This is where your campaigns (Sponsored Products, Sponsored Brands, Sponsored Display) are created and managed.
+
+DataHawk will be taking care of **collecting data through API**, clean and normalize the data, aggregate them, and deliver them to you. You can have access to the raw data as well as aggregated data in dashboards.
+
+<Accordions>
+  <Accordion title="Knowledge and Resources Library about Amazon Ads">
+    - [Amazon Ads platform](https://advertising.amazon.com/?ref_=logo)
+    - [Amazon Ads Academy](https://advertising.amazon.com/academy?ref_=aaa_us_hnav_gw&activeLocale=en-gb)
+    - [Type of Amazon Ads](https://advertising.amazon.com/products?ref_=a20m_us_fnav_p)
+  </Accordion>
+</Accordions>
+
+## DataHawk Connexion Capabilities
+
+### What Data Does DataHawk Collect?
+
+When you connect your Amazon Advertising account, DataHawk automatically:
+
+- Collects your advertising data via Amazon's API
+- Cleans and organizes the data
+- Stores it securely (so you don't lose historical data - Amazon gives only the latest 60 days)
+- Makes it available in dashboards and raw datasets
+
+Once you connect your Amazon Advertising account, DataHawk will have **access to all the data available in the account**. It means that you can not choose to give partial access to DataHawk on certain Seller/Vendor account or profile/marketplaces.
+
+<Accordions>
+  <Accordion title="Example">
+    If you advertise in:
+    - France 🇫🇷 - Brand A
+    - France 🇫🇷 - Brand B
+    - Germany 🇩🇪
+
+    You will see:
+    - One dataset for France - Brand A
+    - One dataset for France - Brand B
+    - One dataset for Germany
+  </Accordion>
+</Accordions>
+
+### Data Coverage
+
+Data is structured across multiple levels:
+
+- Campaign-level
+- Ad group-level
+- Keyword / targeting-level
+- ASIN-level (when available)
+
+Metrics resulting from integrating an Amazon Advertising account can be accessed **both in a raw format and ready-to-use reports and dashboards**.
+
+<Callout type="warn">
+  Note that for certain type of data, DataHawk might be limited by what Amazon Ads' API is providing.
+</Callout>
+
+### Supported regions
+
+DataHawk integration works for Advertisers registered in all Amazon regions:
+
+- **North America**: US, Canada, Mexico, and Brazil.
+- **Europe**: UK, Germany, Italy, France, Spain, Netherlands, UAE, Sweden, India, and Poland.
+- **Far East**: Japan, Singapore, and Australia.
+
+<Callout type="warn">
+  Note: Sweden, Poland, Ireland, and Belgium marketplaces are not supported for Sponsored Ads data due to availability on Amazon's API.
+</Callout>
+
+### Automated Data Sync & Backup
+
+Once you connect your Advertising account to DataHawk, we immediately retrieve **60 days of historical data**. This is the maximum historical window allowed by Amazon Ads API.
+
+We then **securely store and back up** all your data **everyday**, enabling **more comprehensive reporting with extended historical insights**.
+
+### Refresh Frequency
+
+Data is updated daily. There may be a delay in updating the data from the last 24 hours.
+
+## DataHawk Limitations
+
+- Data for the last 48h may be incomplete
+- Some metrics are limited by Amazon API
+- Initial historical depth is limited by Amazon API
+
+## How to Connect your Amazon Advertising Accounts
+
+<Callout type="info">
+  Before you start, ensure you have the **necessary account permissions**. If not, share the login link with someone who does.
+</Callout>
+
+<Steps>
+
+<Step>
+
+### Go to the Sources Page
+
+On DataHawk App, go to the [Sources Page](https://analytics.datahawk.co/app/sources).
+
+</Step>
+
+<Step>
+
+### Add Sources
+
+Click `+ Add Sources` on the top right corner. Or `+ Add` on the Amazon Advertising line (jump to step 4).
+
+{/* TODO: Replace this Notion image with a local copy in /public/images/data-setup/ */}
+
+</Step>
+
+<Step>
+
+### Select Amazon Ads
+
+{/* TODO: Replace this Notion image with a local copy in /public/images/data-setup/ */}
+
+</Step>
+
+<Step>
+
+### Choose the corresponding region
+
+{/* TODO: Replace this Notion image with a local copy in /public/images/data-setup/ */}
+
+</Step>
+
+<Step>
+
+### Log in and authorize
+
+Log in to your **Amazon Advertising account**.
+
+Authorize DataHawk integration.
+
+{/* TODO: Replace this Notion image with a local copy in /public/images/data-setup/ */}
+
+</Step>
+
+</Steps>
+
+## Outputs
+
+### Raw data
+
+Raw data can be accessed via destinations and can notably be used to build dashboards on your favorite BI solution.
+
+Your DataHawk-powered Snowflake database contains multiple tables about advertising data. These tables contain a very exhaustive list of data points as columns and are organized into what is called a schema.
+
+[Here, is our datasets schema](https://docs.google.com/spreadsheets/d/1gYGqKQP9Z71nz1lOb4y0wJ15i27NvsUzdliIJeIx0HY/edit?usp=sharing).
+
+### Dashboards
+
+DataHawk provides ready-to-use dashboards and reports on Power BI and Looker Studio.
+
+Go on our complete guide on Advertising Dashboards:
+
+- for Looker Studio: Perfect for a high-level overview
+- for Power BI: Great for a deep-dive and investigation on performance
+
+## Troubleshooting on common issues
+
+{/* TODO: Internal anchor links from Notion could not be resolved — add troubleshooting content here */}

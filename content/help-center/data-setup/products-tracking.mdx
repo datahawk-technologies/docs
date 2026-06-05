@@ -1,0 +1,185 @@
+---
+title: Track Products
+description: Monitor key data from Amazon and Walmart product pages including ratings, sales rank, sales, and buy box ownership.
+---
+
+## Product tracking
+
+Product tracking at DataHawk **monitors key data from Amazon** product pages (e.g., ratings, sales rank, sales, and buy box ownership) so businesses can **track performance, detect changes, and make informed decisions**.
+
+<Callout type="info">
+  By combining it with [Amazon Keywords Tracking](/help/data-setup/keywords-tracking), you can monitor the changes in the rankings of your tracked products.
+</Callout>
+
+## DataHawk Product Tracking Capabilities
+
+### What data does DataHawk collect from Amazon?
+
+For each product you track on Amazon, DataHawk will provide a daily snapshot of the main attributes, such as:
+
+- brand
+- title
+- description
+- bullet items
+- product image
+- number of media
+- the product's price
+- stars rating
+- numbers of ratings
+- the number of Sellers competing for the Buy Box
+- displayed categories and corresponding best seller ranks
+- its group ASIN
+- number of variations
+- A+ status
+- out-of-stock status
+- and many more.
+
+We further include these computed metrics:
+
+- its Estimated Monthly Sales
+- a Competitiveness Score
+- and a Listing Quality Score
+
+### What data does DataHawk collect from Walmart?
+
+For each product you track, DataHawk will provide a daily snapshot of the main attributes such as:
+
+- brand
+- title
+- description
+- bullet items
+- product image
+- number of media
+- the product's price
+- stars rating
+- numbers of ratings, including reviews
+- the number of Sellers competing for the Buy Box
+- displayed categories and corresponding best seller ranks
+- its group ASIN
+- number of variations
+- Walmart+ status
+- out-of-stock status
+- and many more…
+
+### Supported regions
+
+DataHawk integration works for tracked products in all Amazon regions:
+
+- **North America**: US, Canada, Mexico, and Brazil.
+- **Europe**: UK, Germany, Italy, France, Spain, Netherlands, UAE, Sweden, India, and Poland.
+- **Far East**: Japan, Singapore, and Australia.
+
+<Callout type="info">
+  Product tracking is country-specific. If you track the same product in multiple marketplaces, each marketplace is counted as a separate tracked product.
+</Callout>
+
+### Automated Data Sync & Backup
+
+Once you add a product for tracking, we collect data automatically from that point forward (it may take up to 24-hours to have complete data). No historical data possible.
+
+We then **securely store and back up** all your data **every day**, enabling **more comprehensive reporting with extended historical insights**.
+
+### Refresh Frequency
+
+Data is updated daily. There may be a delay in updating the data from the last 24-hours.
+
+## How to track a Product
+
+<Callout type="info">
+  After adding a product, it may take **up to 24 hours** for data to sync. Data is collected automatically from that point forward. Historical data availability depends on the data source.
+</Callout>
+
+<Steps>
+
+<Step>
+
+### Go to the Sources Page
+
+Go to the [Sources Page](https://analytics.datahawk.co/app/sources).
+
+</Step>
+
+<Step>
+
+### Add Source
+
+Click **Add Source**.
+
+{/* TODO: Replace this Notion image with a local copy in /public/images/data-setup/ */}
+
+</Step>
+
+<Step>
+
+### Select Amazon or Walmart Product
+
+Select **Amazon or Walmart**, then choose **Product**.
+
+{/* TODO: Replace this Notion image with a local copy in /public/images/data-setup/ */}
+
+</Step>
+
+<Step>
+
+### Choose your preferred method
+
+Choose your preferred method:
+
+- **URL**
+- **ASIN**
+- **CSV Import** (recommended for more than 500 products)
+- **Brand Selection** *(coming soon)*
+
+<Accordions>
+  <Accordion title="Adding via URL">
+    1. Enter or paste the product URLs.
+
+    {/* TODO: Replace this Notion image with a local copy in /public/images/data-setup/ */}
+
+    2. (Optional) Toggle to add all associated variations.
+
+    {/* TODO: Replace this Notion image with a local copy in /public/images/data-setup/ */}
+
+    3. (Optional) [Assign tags](/help/data-setup/tags) for better organization.
+
+    {/* TODO: Replace this Notion image with a local copy in /public/images/data-setup/ */}
+
+    4. Click **`Add Products`** (bottom right hand side) to finish.
+  </Accordion>
+  <Accordion title="Adding via ASIN or Walmart ID">
+    1. Select the marketplace.
+
+    {/* TODO: Replace this Notion image with a local copy in /public/images/data-setup/ */}
+
+    2. Enter or paste the product ASINs.
+
+    {/* TODO: Replace this Notion image with a local copy in /public/images/data-setup/ */}
+
+    3. (Optional) Toggle to add all associated variations.
+    4. (Optional) [Assign tags](/help/data-setup/tags) for better organization.
+    5. Click **`Add Products`** (bottom right hand side) to finish.
+  </Accordion>
+  <Accordion title="Adding via CSV (Recommended for Bulk Uploads)">
+    1. Download the CSV template.
+    2. Fill in the template with:
+       - **Marketplace:** Domain name (Amazon/Walmart marketplace).
+       - **Product ID:** ASIN (Amazon) or Product ID (Walmart).
+       - **Include Variations:** `True` to include variations, `False` to exclude.
+       - **Tags (Optional):** Use semicolons (`;`) to separate multiple tags.
+    3. Save the file in **CSV UTF-8 format**.
+    4. Upload the CSV file.
+    5. Review and correct any errors if needed.
+    6. Click **Finish**.
+  </Accordion>
+  <Accordion title="Adding via Brand Selection">
+    This feature is coming soon! Contact our team for more details.
+  </Accordion>
+</Accordions>
+
+<Callout type="info">
+  If you choose to track variations, DataHawk will automatically monitor all discovered variations linked to the parent product.
+</Callout>
+
+</Step>
+
+</Steps>

@@ -1,0 +1,76 @@
+---
+title: MCP - Frequently Asked Questions (FAQ)
+description: Common questions about DataHawk MCP — getting started, security, multi-workspace, troubleshooting, and roadmap.
+---
+
+## Getting started
+
+**Q: Do I need to know SQL query syntax?**
+
+No. Your AI handles the query construction entirely. The data layer exists so power users can drop down to it via the API, but conversational users never touch it.
+
+**Q: Can the AI hallucinate numbers?**
+
+Every number comes from a real `datahawk_load_data` call against your actual data. The validation step catches invalid queries before they run, and the router enforces required filters so you can't accidentally get data from the wrong marketplace or time window. That said, LLMs can still misrepresent results in their prose summary — always cross-check specific numbers against the tool output in the conversation.
+
+**Q: Which AI clients are supported?**
+
+Any client supporting MCP servers with OAuth authentication.
+
+Claude (Desktop, Web, Mobile), ChatGPT (Plus, Team, Enterprise), Cursor, Windsurf, Lovable, Replit, n8n, Make, and any custom client speaking MCP. See the installation guides on the [setup page](/help-center/modules/datahawkmcp/setup).
+
+**Q: How long does setup take?**
+
+Under 2 minutes for any OAuth-based client (Claude, ChatGPT, Cursor). Slightly longer for token-based clients (n8n, Make) because you also need to generate an API token.
+
+## Security and privacy
+
+**Q: Does my data leave my workspace?**
+
+Query results flow to the AI that asked the question — the same AI you're already talking to. DataHawk doesn't send your data anywhere else.
+
+**Q: Who in my organization can connect?**
+
+Anyone with an active login to your DataHawk workspace. Admin-only restrictions are on the roadmap — for now, use DataHawk's workspace roles to control who has access.
+
+## Multi-workspace / agencies
+
+**Q: I run DataHawk for multiple brands — can I connect them all to one AI?**
+
+Yes. All brands connected in one DataHawk workspace are accessible through the MCP.
+
+**Q: Can I restrict what data specific team members see?**
+
+Access follows your DataHawk workspace roles — if a user can see something in DataHawk, they can query it via MCP. If they can't see it in DataHawk, they can't query it.
+
+## Troubleshooting
+
+**Q: "No data returned" — what's wrong?**
+
+Usually one of: (1) your Amazon account isn't connected/syncing in DataHawk, (2) the date range you specified has no data yet, (3) a required filter was rejected by the validator. Ask the AI to show the tool call output — it usually pinpoints the issue.
+
+**Q: The AI is giving me a different number than the DataHawk app.**
+
+Most common causes: different date range (MCP uses last 90 days by default), different marketplace filter, or different currency. Ask the AI to show the exact query it ran — copy the date range and filters and run them in the app to reconcile.
+
+**Q: I'm hitting rate limits.**
+
+MCP is tuned for interactive use. For high-volume workloads, switch to the BigQuery export or contact [support@datahawk.co](mailto:support@datahawk.co) for elevated limits.
+
+**Q: OAuth fails when I try to connect.**
+
+Make sure you're signed into the correct DataHawk workspace in your browser before clicking authorize. If you have multiple workspaces, sign out of all but the target one, then retry.
+
+## Roadmap questions
+
+**Q: When is the native ChatGPT / Claude app coming?**
+
+In active development. Watch your emails for the news.
+
+**Q: When will deeper Amazon data be available?**
+
+We're continuously expanding. Recent additions: DSP creative-level detail, vendor data, profit ledger line items. Next up: broader brand analytics and finance surfaces.
+
+**Q: Can I request a new metric or view?**
+
+Yes — email [support@datahawk.co](mailto:support@datahawk.co) with your use case. If multiple users request the same thing, it moves up the priority list fast.

@@ -17,4 +17,5 @@ export const tabs = [
   { title: 'Help Center', url: '/help-center' },
   { title: 'Troubleshooting', url: '/troubleshooting' },
   // { title: 'API Reference', url: '/api-reference' },  // hidden for now
+  { title: 'Changelog', url: '/changelog' },
 ];

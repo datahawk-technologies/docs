@@ -1,0 +1,196 @@
+---
+title: Datasets Models
+description: Full reference of DataHawk's database schemas and tables — Advertising, Finance, Market, Product, RAW_INVENTORY, REFERENTIAL, REPORTS, SELLING_PARTNER, and SEO.
+---
+
+## Table & Column Referential
+
+An exhaustive list of all tables and their respective columns, labeled by schema, can be found in the [Datasets Schema Reference](https://docs.google.com/spreadsheets/d/1gYGqKQP9Z71nz1lOb4y0wJ15i27NvsUzdliIJeIx0HY/edit#gid=175439716).
+
+## Frequently Asked Questions
+
+**How can I see data on sessions and page views of my products?**
+
+Currently, this data is available as a preview in the `PREVIEW_RAW_SELLER` schema. Here, you'll find data on sessions and page views broken down by platform (browser vs. mobile app). This data is available at SKU-level, Child ASIN-level, and Parent ASIN-level.
+
+**How can I check which brands dominate a specific category?**
+
+Upon tracking a category, the table `REPORTS.REPORT_MARKET_PRODUCT_SALES_RANK_AND_ESTIMATES` will contain this data within both the `brand` and `brand_catalog` columns.
+
+**How can I check which brands dominate search results for a specific keyword?**
+
+Upon tracking a keyword, the tables `REPORTS.REPORT_SEO_PRODUCT_ORGANIC_RANK` and `REPORTS.REPORT_SEO_PRODUCT_SPONSORED_RANK` will contain this data within both the `brand` and `brand_catalog` columns.
+
+**Why do some of these tables contain two brand columns?**
+
+We gather brand data from two distinct sources - directly from the Amazon website and via their API. Brand names may vary between these two sources, and thus, we present both to provide more exhaustive information.
+
+**Why are some schemas labeled "Raw"?**
+
+The "Raw" label means that this data is exactly what we have collected from Amazon's APIs, with very minimal transformation on DataHawk's side.
+
+**Why are some schemas labeled "Preview"?**
+
+The "Preview" label means that this data is currently in the works, and subject to change in terms of form and content. However, we believe that this data can already provide value to you despite being a work-in-progress.
+
+**I want to access this data in a more raw/unaggregated format. Would this be possible?**
+
+In most cases, yes! If you would like to request this type of access, please reach out to us, and we will do our best to accommodate your request.
+
+## Supported Schemas and Tables
+
+> **Notes:**
+> - **Maturity**: Tables marked as *experimental* are in preview/testing and subject to change.
+> - **Amazon/Walmart**: Some tables are platform-specific.
+> - **Deprecated tables**: Some tables are deprecated in favor of newer versions.
+
+### ADVERTISING
+
+Tables related to advertising performance data (Amazon & Walmart).
+
+| Table | Description | Maturity |
+|---|---|---|
+| `ADVERTISING_ACCOUNT_METRICS` | Advertising data aggregated by account, date, and sponsoring type | |
+| `ADVERTISING_CAMPAIGN_METRICS` | Advertising data aggregated by account, campaign, date, and sponsoring type | |
+| `ADVERTISING_KEYWORD_METRICS` | Advertising data aggregated by account, keyword, date, and sponsoring type | |
+| `ADVERTISING_KEYWORD_METRICS_V2` | Advertising data by account, keyword, date, campaign, ad_group, and sponsoring type | |
+| `ADVERTISING_PRODUCT_CAMPAIGN_METRICS` | Advertising data by account, date, product, and sponsoring type | |
+| `ADVERTISING_PRODUCT_METRICS` | Advertising data aggregated by account, date, product, and sponsoring type | |
+| `AMZN_AMS_SPONSORED_BRANDS` | Sponsored Brands advertising data | |
+| `AMZN_AMS_SPONSORED_DISPLAY` | Sponsored Display advertising data | |
+| `AMZN_AMS_SPONSORED_PRODUCTS` | Sponsored Products advertising data | |
+| `AMZN_SP_SEARCH_TERM` | Sponsored Products search term data | |
+| `AMZN_SP_TARGETING` | Sponsored Products targeting data | |
+| `WMT_AD_GROUP` | Performance of individual ad groups (Walmart) | Experimental |
+| `WMT_KEYWORD` | Keyword performance for advertised items (Walmart) | Experimental |
+| `WMT_SP_AD_ITEM` | Key performance metrics for items in campaigns (Walmart) | Experimental |
+
+### FINANCE
+
+Financial and order-related data — Seller accounts only. Vendor data is not included.
+
+| Table | Description |
+|---|---|
+| `FINANCE_ACCOUNT_METRICS` | Daily aggregated order data (orders, units sold, sales) |
+| `FINANCE_COGS` | Cost of goods sold data |
+| `FINANCE_COGS_SKU` | SKU-level COGS data |
+| `FINANCE_PROFIT` | Daily profit events (Amazon Finance API + enrichment) |
+| `FINANCE_PROFIT_LEDGER` | Full ledger of profit events |
+| `FINANCE_PROFIT_METRICS` | Daily SKU-level profit metrics |
+| `FINANCE_PROFIT_LOSS` | Daily P&L metrics per account |
+| `FINANCE_PRODUCT_PROFIT_LOSS` | Daily P&L metrics per product (estimated ad costs included) |
+| `FINANCE_EVENTS` | Daily financial events (linked to orders/ASINs where applicable) |
+| `FINANCE_ORDERS` | Daily order records (successful & canceled) |
+| `FINANCE_ORDERS_SUCCESS` | Daily successful orders only |
+| `WMT_MARKETPLACE_ITEMS` | Walmart marketplace items data | 
+| `WMT_MARKETPLACE_ORDERS` | Walmart marketplace orders data |
+
+### PRODUCT
+
+Product catalog, tracking, and listing quality data.
+
+| Table | Description |
+|---|---|
+| `PRODUCT_ATTRIBUTES` | Product attributes and metadata |
+| `PRODUCT_DETAILED` | Daily historical snapshots of tracked product listings |
+| `PRODUCT_HISTORY` | Product history and changes over time |
+| `PRODUCT_LQA_CRITERION` | Observed LQA criteria per product |
+| `PRODUCT_LQA_RULE` | Compliance with Amazon/Walmart listing rules |
+| `PRODUCT_LQA_SCORE` | Global and category-specific Listing Quality Scores |
+| `PRODUCT_SALES_ESTIMATES_V5` | Daily sales estimates (standalone/parent level) |
+| `PRODUCT_SALES_ESTIMATES_V5_RAW` | Daily sales estimates with reliability scoring |
+| `PRODUCT_SALES_RANK` | Browse nodes and sales ranks for tracked products |
+| `PRODUCT_KEYWORD_RESEARCH` | Keywords where your products appeared in the last 7 days |
+| `PRODUCT_COMPETITORS` | Competitor products for your tracked ASINs |
+| `PRODUCT_BADGES` | Historical badges (e.g., "Amazon's Choice") for tracked products |
+
+### RAW_INVENTORY
+
+FBA inventory, restock recommendations, and ledger data.
+
+| Table | Description |
+|---|---|
+| `RAW_INVENTORY_FBA` | Latest FBA inventory status and breakdown |
+| `RAW_INVENTORY_FBA_HISTORY` | Historical FBA inventory snapshots |
+| `RAW_INVENTORY_LEDGER_DETAIL` | Granular inventory movement events |
+| `RAW_INVENTORY_LEDGER_SUMMARY` | Daily aggregated inventory events |
+| `RAW_INVENTORY_RESTOCK_RECOMMENDATIONS` | Latest restock recommendations from Amazon |
+| `RAW_INVENTORY_RESTOCK_RECOMMENDATIONS_HISTORY` | Historical restock recommendations |
+
+### REFERENTIAL
+
+Reference data (accounts, products, keywords, etc.).
+
+| Table | Description |
+|---|---|
+| `REFERENTIAL_PRODUCT_TRACKED` | All tracked products |
+| `REFERENTIAL_KEYWORD_TRACKED` | All tracked keywords |
+| `REFERENTIAL_PRODUCT_TAG` | Tags for tracked products |
+| `REFERENTIAL_KEYWORD_TAG` | Tags for tracked keywords |
+| `REFERENTIAL_CURRENCY_RATE` | Daily USD exchange rates (since 2016) |
+| `REFERENTIAL_MARKETPLACE` | Supported marketplaces (currency, URLs) |
+| `REFERENTIAL_ADVERTISING_ACCOUNT` | Connected Advertising accounts |
+| `REFERENTIAL_FINANCE_ACCOUNT` | Connected Seller Central (Finance) accounts |
+| `REFERENTIAL_BROWSE_NODE_TRACKED` | Tracked browse nodes (categories) |
+| `REFERENTIAL_BROWSE_NODE_TREE` | Full browse node hierarchy (Amazon/Walmart) |
+
+### REPORTS
+
+Pre-built reports and enriched datasets.
+
+| Table | Description |
+|---|---|
+| `REPORT_PRODUCT_LATEST_VERSION` | Key data for all products across schemas |
+| `REPORT_SEO_PRODUCT_ORGANIC_RANK` | Organic rankings with product metadata |
+| `REPORT_SEO_PRODUCT_SPONSORED_RANK` | Sponsored rankings with product metadata |
+| `REPORT_MARKET_BEST_SELLER_RANK_AND_ESTIMATES` | Consolidated sales ranks + estimates (Top 100) |
+| `REPORT_MARKET_PRODUCT_SALES_RANK_AND_ESTIMATES` | Sales ranks + estimates (all tracked categories) |
+| `REPORT_AMZN_SALES_AND_TRAFFIC` | Amazon sales and traffic data |
+| `REPORT_PRODUCT_KEYWORD_LOOKUP` | Keywords where your products ranked organically (last 7 days) |
+| `REPORT_PRODUCT_KEYWORD_SUGGESTIONS` | AI-generated keyword ideas for products |
+
+### SELLING_PARTNER
+
+Amazon Seller/Vendor Central data (FBA, forecasts, fees).
+
+| Table | Description |
+|---|---|
+| `SELLER_INVENTORY_FBA_PLANNING` | FBA quantity, AI-driven recommendations for aged stock and removals |
+| `SELLER_INVENTORY_FBA_HISTORY_DAILY` | Daily historical FBA inventory |
+| `SELLER_INVENTORY_ALL_LISTINGS` | Snapshot of your catalog with pricing and availability for MFN |
+| `SELLER_INVENTORY_LEDGER_DETAIL` | Granular log of all inventory movements (18 months history) |
+| `SELLER_INVENTORY_LEDGER_SUMMARY` | Daily aggregated inventory health |
+| `SELLER_RETAIL_TRAFFIC_BY_ASIN_SRC` | Daily page views/sessions per ASIN |
+| `FBA_STORAGE_FEES` | FBA monthly storage fees |
+| `FBA_REMOVAL_ORDER_DETAIL` | Fees for inventory removal/disposal |
+| `FBA_SNS_FORECAST_SRC` | FBA inventory forecasts |
+| `FBA_SNS_PERFORMANCE_SRC` | FBA inventory performance |
+| `VENDOR_SALES_MANUFACTURING_SRC` | Daily sales (manufacturing view) |
+| `VENDOR_SALES_SOURCING_SRC` | Daily sales (sourcing view) |
+| `VENDOR_INVENTORY_MANUFACTURING_SRC` | Vendor inventory (manufacturing view) |
+| `VENDOR_INVENTORY_SOURCING_SRC` | Vendor inventory (sourcing view) |
+| `VENDOR_FORECASTING_SRC` | Weekly demand forecasts per ASIN |
+| `VENDOR_TRAFFIC_SRC` | Daily product page views |
+| `BA_SEARCH_TERMS_SRC` | Customer search terms for product discovery |
+| `BA_MARKET_BASKET_SRC` | Products frequently bought together |
+| `BA_REPEAT_PURCHASE_SRC` | Customer repurchase frequency |
+
+### SEO
+
+Search Engine Optimization (keyword and ranking data).
+
+| Table | Description |
+|---|---|
+| `SEO_KEYWORD_VOLUME_V2` | Updated keyword volume estimates |
+| `SEO_PRODUCT_ORGANIC_RANK` | Daily organic rankings (top 5 pages of search results) |
+| `SEO_PRODUCT_SPONSORED_RANK` | Daily sponsored rankings and keyword page data |
+
+### USAGE (Snowflake only)
+
+Snowflake database usage and credit tracking.
+
+| Table | Description |
+|---|---|
+| `USAGE_CREDIT_CONSUMPTION_HISTORY` | Historical credit usage (compute vs. cloud) |
+| `USAGE_CREDITS_REMAINING` | Credit quota (used vs. remaining) |
+| `USAGE_QUERY_HISTORY` | Query history across destinations |

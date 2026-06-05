@@ -1,0 +1,141 @@
+---
+title: Amazon Private Data - Seller Account
+description: Connect your Amazon Seller Central account to DataHawk to automatically collect financial, traffic, and inventory data.
+---
+
+## Your Seller Central Account
+
+Amazon Seller Central is the platform Sellers use to sell products on Amazon directly to consumers, either by fulfilling it themselves (FBM) or via Amazon's fulfillment centers (FBA).
+
+DataHawk allows you to **add an unlimited number of Seller Central accounts** you manage.
+
+By linking your Amazon Seller Central account, DataHawk automatically collects and organizes the following data for **seamless reporting and analysis**:
+
+- **Financial Data:** Revenue, expenses, and cost breakdowns **by account and product**
+- **Traffic & Sessions Data:** Page views and sessions metrics **per product**
+- **Inventory Data:** FBA inventory levels and movements **by product**
+
+## DataHawk Connexion Capabilities
+
+### Supported regions
+
+DataHawk integration works for Sellers registered in all Amazon regions:
+
+- **North America**: US, Canada, Mexico, and Brazil.
+- **Europe**: UK, Germany, Italy, France, Spain, Netherlands, UAE, Sweden, India, and Poland.
+- **Far East**: Japan, Singapore, and Australia.
+
+### Data Coverage
+
+Metrics resulting from integrating a Seller Central account can be accessed **both in a raw format and ready-to-use reports and dashboards**.
+
+The table below highlights a very high-level summary of the datasets available, where they can be accessed, and how.
+
+| Metric Family | By Account on your Database | By SKU on your Database |
+|---|---|---|
+| Sales | ✅ | ✅ |
+| Orders | ✅ | ✅ |
+| Units Sold | ✅ | ✅ |
+| Returns | ✅ | ✅ |
+| Refunds and Returns | ✅ | ✅ |
+| Reimbursements | ✅ | ✅ |
+| Marketing | ✅ | ✅ |
+| Referral Costs | ✅ | ✅ |
+| Warehousing Costs | ✅ | ✅ |
+| Shipping Costs | ✅ | ✅ |
+| Other Costs | ✅ | ✅ |
+| Traffic & Sessions | ✅ | ✅ |
+| Inventory | ✅ | ✅ |
+
+### Historical data storage
+
+Once you connect your Seller Central account to DataHawk, we immediately retrieve a maximum of **2 years of historical data on some data point**. We then **securely store and back up** all your data **everyday**, enabling **more comprehensive reporting with extended historical insights**.
+
+### Refresh Frequency & Data Delay
+
+Data is updated daily.
+
+There is usually a delay in updating the data from the last 24 hours.
+
+## How to Connect your Amazon Seller Accounts
+
+<Callout type="info">
+  Before you start, ensure you have the **necessary account permissions**. If not, share the login link with someone who does.
+</Callout>
+
+<Steps>
+
+<Step>
+
+### Go to the Sources Page
+
+On DataHawk App, go to the [Sources Page](https://analytics.datahawk.co/app/sources).
+
+</Step>
+
+<Step>
+
+### Add Sources
+
+Click `+ Add Sources` on the top right corner. Or `+ Add` on the Amazon Seller Central line (jump to step 4).
+
+{/* TODO: Replace this Notion image with a local copy in /public/images/data-setup/ */}
+
+</Step>
+
+<Step>
+
+### Select Amazon Seller Central
+
+{/* TODO: Replace this Notion image with a local copy in /public/images/data-setup/ */}
+
+</Step>
+
+<Step>
+
+### Choose a marketplace to connect
+
+{/* TODO: Replace this Notion image with a local copy in /public/images/data-setup/ */}
+
+</Step>
+
+<Step>
+
+### Log in and authorize
+
+Log in to your **Amazon Seller account**.
+
+Authorize DataHawk integration.
+
+{/* TODO: Replace this Notion image with a local copy in /public/images/data-setup/ */}
+
+</Step>
+
+</Steps>
+
+## DataHawk Limitations
+
+- Data for the last 48h may be incomplete
+- Due to Amazon's API's limitations, datasets contain data until 72 hours before the refresh.
+- Some metrics are limited by Amazon API
+- Initial historical depth is limited by Amazon API
+
+## Outputs
+
+### Raw data
+
+Raw data can be accessed on your destination and can notably be **used to build your own dashboards** on your favorite BI solution.
+
+Your Seller Central accounts data will be found in the following schemas:
+
+| Schema | Available Data |
+|---|---|
+| FINANCE | Sales Data and Profit & Loss Data |
+| RAW_INVENTORY | Inventory Breakdown Data |
+| SELLING_PARTNER | Traffic & Sessions Data |
+
+Detailed documentation on these data schemas can be found in the [Datasets Models](/help/knowledge-hub/datasets-models) page.
+
+### Dashboards
+
+**Ready-to-use dashboards** and reports are available on the web application, and in our [pre-built PowerBI report](https://drive.google.com/uc?export=download&id=1AIvk0lBOnNdMqHrXopZLrNW-pFWGTVtR) covering Seller Finances & Supply Chain (Traffic Data coming soon).

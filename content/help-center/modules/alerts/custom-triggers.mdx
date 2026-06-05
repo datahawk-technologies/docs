@@ -1,0 +1,81 @@
+---
+title: Custom triggers
+description: Build your own alert rules from scratch using a property, an operator, and a value — for cases that preset triggers don't cover.
+---
+
+Use a custom trigger when no preset matches what you need. Custom triggers let you build a rule from scratch using a property, an operator, and a value.
+
+## When to use a custom trigger
+
+Pick a custom trigger when you need to:
+
+- Watch a specific threshold ("alert me when Buy Box price drops below \$15")
+- Apply more granular logic ("alert me when number of sellers increases by more than 3")
+- Track properties not covered by presets
+
+For everyday monitoring (Buy Box loss, stock-outs, big price moves), a preset is faster — see [Triggers & properties](/help-center/modules/alerts/triggers).
+
+## How to create one
+
+1. Open **Apps → Alerts** and click **Create alert**
+2. Choose **Create custom trigger**
+3. Pick a **property** (e.g. Buy Box price, BSR, number of ratings)
+4. Pick an **operator** (e.g. *decreases by more than X%*)
+5. Set a **value** appropriate for the operator
+6. Click **Continue**, then choose the product (or tag) and the recipient group
+7. Save
+
+You can stack multiple triggers in the same alert — the daily email will list each event that fired.
+
+## Operators reference
+
+**Global operators** — work on any property:
+
+- any change
+- is known
+- is unknown
+- is true
+- is false
+- matches value
+- does not match the value
+
+**Numerical operators** — for numeric properties only:
+
+- increases
+- decreases
+- goes over value
+- goes under value
+- increases or decreases by more than a relative value (%)
+- increases by more than a relative value (%)
+- decreases by more than a relative value (%)
+- increases or decreases by more than an absolute value (#)
+- increases by more than an absolute value (#)
+- decreases by more than an absolute value (#)
+
+## Worked examples
+
+**Defend your price floor**
+
+- Property: Buy Box price
+- Operator: goes under value
+- Value: 14.99
+- Why: alerts when a tracked ASIN's Buy Box price drops below your breakeven point.
+
+**Catch a competitor entering your space**
+
+- Property: number of sellers
+- Operator: increases by more than an absolute value
+- Value: 1
+- Why: alerts when 2+ new sellers appear on a product's offer page.
+
+**Spot review-bombs early**
+
+- Property: % of critical ratings (1–2 star)
+- Operator: increases by more than a relative value
+- Value: 5%
+- Why: alerts when negative reviews jump suddenly.
+
+## What's next
+
+- [Triggers & properties](/help-center/modules/alerts/triggers) — full property reference
+- [Manage alerts](/help-center/modules/alerts/manage-alerts) — edit or pause once you're set up

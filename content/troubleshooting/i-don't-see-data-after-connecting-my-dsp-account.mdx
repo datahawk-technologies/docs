@@ -1,0 +1,73 @@
+---
+title: I don't see Data after connecting my DSP Account
+description: Troubleshooting steps when no DSP data appears in DataHawk after connecting your Amazon DSP account.
+---
+
+After connecting your Amazon DSP account to DataHawk, no data is displayed.
+
+## What I can observe
+
+- No DSP data appears in DataHawk after connection
+- Dashboards remain empty
+- You expect data but nothing is retrieved
+
+## Why is this happening?
+
+This is usually due to a **permission or account setup issue**, not a problem with the connection itself.
+
+## What can I do?
+
+### 1. Check access to the DSP manager account
+
+- Log in to **Amazon DSP Manager Account**
+- Use the **region switcher** (top-left)
+- Confirm the **manager account** is visible in at least one region (Americas, EMEA, or APAC)
+  - If the manager account is **not visible**, your user is not linked correctly
+  - Ask your admin or Amazon representative to add your user to the **global DSP manager account (important)**
+
+### 2. Confirm the correct user is connected
+
+Make sure the same Amazon Ads user is used for:
+
+- Connecting to DataHawk
+- Accessing DSP in the Amazon Ads interface
+- This user must have access to the DSP manager account.
+
+<Callout type="info">
+  **Note on connecting specific advertisers only:** It is not currently possible to select individual advertisers under shared credentials — all linked accounts will be connected. To limit scope, create separate credentials per advertiser.
+
+  If you wish to give restricted access to specific DSP profiles, [you can check how](/help-center/troubleshooting/i-want-to-restrict-datahawk-access-to-specific-dsp-profiles).
+</Callout>
+
+### 3. Reconnect the account (if changes were made)
+
+If you updated permissions:
+
+- Reconnect your DSP account in DataHawk to refresh access
+
+## What DataHawk handles
+
+DataHawk automatically:
+
+- Detects the correct API region
+- Retrieves available DSP profiles
+- Handles API requests
+
+If no data is returned after completing the checks above, the issue may be related to **API access or account configuration**, which requires further investigation.
+
+## Amazon How-to
+
+- [Understand Manager accounts](https://advertising.amazon.ae/help/GU3YDB26FR7XT3C8)
+- [Create a manager account](https://advertising.amazon.ae/help/G69CDSR9MNSWJH95)
+- [Add accounts to your Manager account](https://advertising.amazon.ae/help/G23QYEJNEX3FJFH5)
+- [Manage users in a Manager account](https://advertising.amazon.ae/help/G4M4JGKGV2VAY9JC)
+
+## Still not working?
+
+Please contact DataHawk support and provide:
+
+- Confirmation that the manager account is visible in DSP UI
+- The email/login used for the connection
+- The DSP region (if known)
+
+We will investigate API access and account configuration with you.

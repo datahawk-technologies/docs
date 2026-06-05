@@ -1,0 +1,69 @@
+---
+title: Navigate through Zombie Ad Spend
+description: Find ad groups spending without conversions — Sherlock's Zombie Ad Spend case surfaces wasted ad dollars so you can pause or fix them.
+---
+
+A "zombie" is an ad group that keeps spending without converting. It looks alive in your reports, but it's not bringing in sales. **Zombie Ad Spend** finds these ad groups so you can pause them or fix them.
+
+## What's on the page
+
+At the top:
+
+- A short description of the rule: *"Ad groups spending with no conversions for at least 10 days, checked across the last 30 days."*
+- **Total potential leak** — the total ad dollars at risk across all flagged ad groups.
+- **Refresh** — re-run the check with the latest data.
+
+Below, a table with three columns:
+
+| Column | What it means |
+|---|---|
+| **Campaign / ad group** | Campaign name, ad group **type tag**, and campaign total spend |
+| **Summary** | What Sherlock found: how many days without conversions, the **diagnosis**, and the list of **targets** (keywords or product targets) responsible |
+| **\$ Impact** | The dollars wasted on this ad group |
+
+The list is sorted by impact, biggest first.
+
+## How to read a row
+
+Each row tells a small story:
+
+> *No conversions for 24 days while spending \$67.26.*
+> *Diagnosis: Clicks without conversions*
+> *Targets:*
+> *Keyword: cruise shirts (\$37.99, 90 clicks, 0 conversions)*
+> *Keyword: cruise tshirts (\$9.49, 22 clicks, 0 conversions)*
+
+This tells you:
+
+- The ad group has burned \$67.26 with zero sales over the last 24 days.
+- The **diagnosis** describes the type of failure — *Clicks without conversions* means people click but don't buy.
+- The **targets** list shows which keywords are wasting money, with spend, clicks, and conversions for each.
+
+## What to do about it
+
+1. **Pause underperformers.** Keywords with high spend and zero conversions are usually safe to pause.
+2. **Check intent.** If a keyword is irrelevant, add it as a negative.
+3. **Adjust bids.** If a keyword has potential but bids are too high, lower them and give it another week.
+4. **Audit the listing.** Clicks but no conversions? The issue may be on the product page — price, images, reviews, or stock.
+
+Make the change in Amazon Ads. Sherlock will reflect the impact on the next refresh.
+
+<Callout type="info">
+  Want a second opinion? Open the **Sherlock assistant** (chat icon, top-right) and ask things like *"Should I pause cruise shirts on this ad group?"* — the assistant has access to your full DataHawk data layer.
+</Callout>
+
+## Tips
+
+- The page updates daily. Check it once a week as part of your ad routine.
+- Click **Refresh** after big bid changes to see the updated leak total.
+- Cross-check with **Signals** — if a product appears in both, the ad waste is likely a symptom of a bigger issue (out of stock, poor listing, etc.).
+
+## Where to go next
+
+- [What is Sherlock](/help-center/modules/sherlock)
+- [Navigate through Signals](/help-center/modules/sherlock/signals)
+- [Navigate through Return Anomalies](/help-center/modules/sherlock/return-anomalies)
+- [Navigate through Ad Spend Drop](/help-center/modules/sherlock/ad-spend-drop)
+- [Navigate through Price CVR Drop](/help-center/modules/sherlock/price-cvr-drop)
+- [Navigate through FBA Stockout](/help-center/modules/sherlock/fba-stockout)
+- [Navigate through Buy Box Loss](/help-center/modules/sherlock/buybox-loss)

@@ -1,0 +1,173 @@
+---
+title: How to write effective MCP prompts
+description: How to phrase DataHawk MCP prompts so you get the right answer the first time — anatomy, domain vocabulary, patterns, and iteration tips.
+---
+
+Your AI assistant is only as good as the question you give it. This guide shows you how to phrase prompts so DataHawk MCP returns the right answer the first time.
+
+<Callout type="info">
+  **New to DataHawk MCP?** Start with [Ready-to-use prompts](/help-center/modules/datahawkmcp/ready-prompts) to get a feel for what's possible, then come back here to learn how to write your own.
+</Callout>
+
+## The anatomy of a good prompt
+
+Most disappointing answers come from a vague prompt. A solid DataHawk MCP prompt usually names six things:
+
+1. **The metric** — what you want to measure (revenue, ACOS, units, sessions, on-hand inventory, rating…)
+2. **The dimension** — how to break it down (by ASIN, by campaign, by keyword, by marketplace, by day…)
+3. **The time range** — be explicit ("March 2026", "last 30 days", "Q1 2026")
+4. **The marketplace** — "US", "all European marketplaces", "US + UK", etc.
+5. **The filter** — narrow the scope ("Sponsored Products only", "vendor brand X", "spend > \$500")
+6. **The output format** — table, ranked list, trend chart, short summary
+
+You won't need all six every time, but the more you include, the closer the first answer lands.
+
+**Vague prompt:**
+> *"How are my ads doing?"*
+
+**Sharper prompt:**
+> *"Show me ACOS by campaign for Sponsored Products in the US marketplace over the last 30 days, as a table ranked by spend, filtered to campaigns with spend above \$500."*
+
+The sharper version names every element. The AI has nothing to guess.
+
+## Domain vocabulary cheat sheet
+
+DataHawk organizes data into domains. Using the right vocabulary for each domain helps your AI pick the right data view on the first try.
+
+| Domain | Words that work |
+|---|---|
+| Sales | revenue, ordered product sales, units ordered, average selling price (ASP), B2B sales |
+| Advertising | ACOS, ROAS, ad spend, ad sales, impressions, clicks, CPC, Sponsored Products / Brands / Display, campaign, ad group |
+| DSP | total cost, attributed sales, new-to-brand, detail-page views, eCPM, creative |
+| Catalog | price, rating, review count, buy box, A+ content, variation, browse node |
+| Traffic | sessions, page views, buy box %, browser vs. mobile-app split |
+| SEO | organic rank, sponsored rank, keyword visibility, search volume |
+| Inventory | FBA on-hand, reserved, inbound, unsellable, MFN fulfillable, days of cover |
+| Finance | profit ledger, fee category, refund, reimbursement |
+| Vendor | manufacturing, sourcing, sell-through, fill rate, lead time, aged inventory |
+
+If you're not sure what to call something, ask the AI: *"What metrics does DataHawk have for advertising?"* It'll list what's available.
+
+## Prompt patterns that work
+
+### The "explain your work" pattern
+
+Add this to any analysis prompt to cut down on hallucinations:
+
+> *"Cite the numbers from DataHawk and briefly explain your reasoning."*
+
+You'll get answers that show their math, making them easy to verify.
+
+### The "threshold" pattern
+
+Tell the AI what counts as a signal so you don't drown in noise:
+
+> *"Flag only campaigns with ACOS > 40% AND spend > \$500 in the last 7 days."*
+
+Without thresholds, you get every campaign. With them, you get a punch list.
+
+### The "take action" pattern
+
+Once you have an analysis, ask for the next step:
+
+> *"Draft the Slack message I should send to my PPC team about this."*
+> *"Turn this into a one-paragraph email for my supplier."*
+> *"What's the single highest-priority thing to do next?"*
+
+This turns insight into output you can use today.
+
+### The "role priming" pattern
+
+Set the AI's persona before asking. It changes the depth and tone of the answer:
+
+> *"Act as my senior PPC analyst. Review my Sponsored Products performance for the last 14 days in the US, flag anything that needs attention, and suggest fixes."*
+
+Works well for: PPC analyst, inventory planner, brand manager, financial controller.
+
+### The "chained analysis" pattern
+
+When one question depends on another, chain them in a single prompt:
+
+> *"First, find my 10 worst-performing campaigns by ROAS last 30 days. Then, for each, list the top 3 keywords pulling ACOS up. Finally, recommend which keywords to pause."*
+
+The AI will run the steps in order, using each result as input to the next.
+
+## How to iterate when the answer looks wrong
+
+If a number looks off, don't start over. Use this short diagnostic loop:
+
+**Step 1 — Ask to see the query.**
+> *"Show me the DataHawk tool call you ran."*
+
+The AI will surface the exact filters, date range, and view it used. Most issues are visible at a glance — wrong marketplace, wrong date, missing filter.
+
+**Step 2 — Narrow the scope.**
+
+If the result is empty or strange, shrink the question. Try one ASIN, one marketplace, one week. Once you see real numbers, expand back out.
+
+**Step 3 — Cross-check with the DataHawk app.**
+
+Run the same date range and marketplace inside the DataHawk web app. If the numbers match, you're good. If they don't, ask the AI: *"Why might my answer differ from the DataHawk dashboard?"* — usually it's a currency or filter difference.
+
+**Step 4 — Retry with sharper phrasing.**
+
+Once you know what went wrong, rewrite the prompt with the missing element added. Don't ask the AI to "try again" — give it the new information directly.
+
+## Common mistakes and quick fixes
+
+| Mistake | Fix |
+|---|---|
+| "Recently…" or "lately…" | Use an explicit range: "March 2026", "last 30 days" |
+| No marketplace specified | Add "in the US marketplace" or "across all European marketplaces" |
+| "All my data" | Pick one domain: sales, ads, inventory — broad scans hit timeouts |
+| Vague metric ("performance") | Use a real metric name: revenue, ACOS, units, sessions |
+| Asking for raw data, getting a summary | Add "Return as a markdown table with columns X, Y, Z" |
+| Asking why something happened but getting a list | Use diagnostic language: "Why did X drop?" triggers the investigation flow |
+| Trusting a number with no tool call shown | Always ask: "Show me the DataHawk tool call you ran" |
+
+## Advanced techniques
+
+### Force a tool call
+
+If the AI gives you a number without running a query, it might be guessing. Push it:
+
+> *"Pull this from DataHawk and show me the query you ran."*
+
+### Combine multiple domains in one prompt
+
+The AI can join data across domains in a single question:
+
+> *"For my top 10 ASINs by revenue last 30 days, show me sales, ad spend, ACOS, sessions, and current FBA on-hand — all in one table."*
+
+### Set defaults for a session
+
+If you're going to ask 10 questions about the same brand or marketplace, tell the AI upfront:
+
+> *"For the rest of this chat, assume US marketplace, last 30 days, and brand 'Acme' unless I say otherwise."*
+
+Saves you from repeating the same filters in every question.
+
+### Save your best prompts
+
+When a prompt works well, save it. Most AI clients have a prompt library, Claude Projects, or custom GPT support. Reuse instead of rewrite.
+
+For full reusable templates, see [Ready-to-use prompts](/help-center/modules/datahawkmcp/ready-prompts).
+
+## Behind the scenes — what your AI does with your prompt
+
+When you send a prompt, your AI runs a four-step flow against DataHawk:
+
+1. **Plan** — your question gets routed to the right data view (sales, ads, inventory, etc.) along with required filters.
+2. **Discover** — if the view doesn't already have what's needed, the AI inspects the full catalog of metrics and dimensions.
+3. **Validate** — field names, filters, and date ranges get checked server-side before anything runs.
+4. **Load** — the query executes against your workspace and returns real numbers.
+
+For diagnostic questions (*"why did X happen?"*), the AI runs a parallel **investigate** flow that ranks hypotheses and gathers evidence across domains.
+
+Knowing this helps you write better prompts. When you specify a domain ("advertising"), a marketplace ("US"), and a time range ("last 30 days"), you're handing the planning step exactly what it needs — and that's why the answer comes back faster and more accurate.
+
+## What's next
+
+- [Ready-to-use prompts](/help-center/modules/datahawkmcp/ready-prompts)
+- [Going further with the MCP](/help-center/modules/datahawkmcp/going-further)
+- [FAQ](/help-center/modules/datahawkmcp/faq-troubleshooting)

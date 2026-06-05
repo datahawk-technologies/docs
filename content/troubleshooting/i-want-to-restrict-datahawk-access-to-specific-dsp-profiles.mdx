@@ -1,0 +1,37 @@
+---
+title: I want to restrict DataHawk Access to Specific DSP Profiles
+description: How to limit DataHawk's access to only specific Amazon DSP profiles when connecting your advertising account.
+---
+
+When connecting an Amazon DSP account to DataHawk, all profiles linked to that DSP account become accessible. But you want to restrict access to specific profiles only.
+
+## What I can observe
+
+- I can see the data of all the profiles of your DSP account on the dashboard.
+
+## Why is this happening?
+
+This is how the Amazon DSP API works. DataHawk can access all profiles available to the connected user.
+
+## What can you do
+
+Create a dedicated Amazon Ads user with access only to the profiles you want DataHawk to retrieve.
+
+<Callout type="warn">
+  Then make sure this user is also invited to the **global DSP manager account** for the relevant region.
+</Callout>
+
+### How to verify the setup
+
+1. Log in to Amazon DSP Campaign Manager
+2. Use the region switcher in the top-left corner
+3. Confirm that the manager account is visible in the relevant region
+
+If the manager account is not visible, the user is probably not linked to the global manager account. Add the user to that account, then try connecting again.
+
+## Amazon How-to
+
+- [Understand Manager accounts](https://advertising.amazon.ae/help/GU3YDB26FR7XT3C8)
+- [Create a manager account](https://advertising.amazon.ae/help/G69CDSR9MNSWJH95)
+- [Add accounts to your Manager account](https://advertising.amazon.ae/help/G23QYEJNEX3FJFH5)
+- [Manage users in a Manager account](https://advertising.amazon.ae/help/G4M4JGKGV2VAY9JC)

@@ -1,0 +1,120 @@
+---
+title: Ads DSP Dashboard Documentation
+description: Complete guide to DataHawk's Ads DSP Power BI Dashboard — visibility into programmatic Amazon DSP campaigns from advertiser level down to individual creatives.
+---
+
+The Ads DSP Dashboard gives Amazon DSP advertisers detailed visibility into their programmatic campaigns. It covers investment efficiency, audience engagement, and conversion performance — from advertiser and order level all the way down to individual creatives.
+
+## Questions this dashboard helps answer
+
+- How much am I spending on DSP, and what revenue is it generating?
+- What is my Return on Ad Spend (RoAS) for my DSP campaigns?
+- How often are my ads being seen (impressions), and how many people click through?
+- How many shoppers visit my product detail pages after seeing a DSP ad?
+- What share of my DSP-attributed sales are coming from new-to-brand customers?
+- Which orders and line items are performing best by spend and conversions?
+- How is my budget distributed across different line item types?
+
+## Before you start
+
+**What you need:**
+
+- [Amazon DSP account connected](/help-center/data-setup/ads-account) in DataHawk
+- **Setup:** Download and configure the Power BI template. See [Connect to Power BI](/help-center/connect-tools/powerbi).
+
+**Data history:** The last 60 days of load when you connect. Over time, the dashboard can show up to 1 year of data once you've been connected for at least 9 months.
+
+## Dashboard tabs at a glance
+
+| Tab | What it shows |
+|---|---|
+| **Ads DSP Reporting** | Full DSP performance: KPIs, charts, budget distribution, and explorer |
+| **Metrics Definition** | In-dashboard glossary of all DSP metrics |
+
+## How the dashboard is structured
+
+The main report page (Ads DSP Reporting) is organised into several analytical blocks:
+
+**Summary table (top row)** — Key metrics for the selected period: Order Budget, Total Cost, Total Sales, Total New to Brand Sales, Impressions, Clicks, eCPM, CTR, eCP DPV, DPVR, and Purchase Rate.
+
+**Bar and line chart** — Time-based view of Total Sales, Total Cost, and RoAS. Adjust the time granularity (day, week, month, etc.) using the calendar control at the top left.
+
+**Budget distribution** — A 100% stacked bar chart showing how budget is allocated across different line item types.
+
+**Metric and legend charts** — Two sets of stacked bar charts and a pie chart, each controlled by independent Metric and Legend slicers. The pie chart breaks down your chosen metric by country.
+
+**New-to-brand gauge** — Shows the percentage of New-to-Brand Product Sales relative to Total Sales.
+
+**Category & targeting table** — Breaks down key metrics by Category and Targeting Type (requires custom filter parameters to be configured — see below).
+
+**Explorer** — Custom chart and table for flexible ad hoc analysis, grouped by Advertiser, Order Name, Line Item Type, Line Item Name, Creative Type, or Creative Name.
+
+## Filters
+
+**Date filters** — Select the date range and time granularity (Year / Quarter / Month / Week / Day).
+
+**General filters:**
+
+| Filter | What it does |
+|---|---|
+| **Advertiser** | Filter to a specific advertiser account |
+| **Country** | Filter by country |
+| **Currency** | Choose the display currency |
+
+**Entity-specific filters:**
+
+| Level | Filters available |
+|---|---|
+| **Order** | Order Name |
+| **Line Item** | Line Item Name, Line Item Type |
+| **Creative** | Creative Type, Creative Name, Creative Size |
+
+**Custom filters** — Category, Targeting Type, Audience, and other dimensions derived from your Order or Line Item names. Requires configuration in the Data Model (see below).
+
+## Setting up custom filters
+
+Custom filters work by extracting keywords from your Order or Line Item names. To configure them:
+
+- In Power BI, click the three dots next to the **Data Model** and go to **Settings \> Parameters**.
+- For each parameter (Category, Targeting Type, Audience, etc.), enter the terms that appear in your Order or Line Item names, separated by commas.
+- **Parameters are case-sensitive** and must match exactly. `Toys` and `TOYS` are different values.
+- Leave a parameter blank if you don't use it.
+
+---
+
+## For analysts & developers
+
+### Metrics reference
+
+- **Impressions** — Number of times your ads were displayed
+- **Clicks** — Times users clicked on your ads
+- **Gross Clicks** — All clicks including potentially fraudulent or invalid ones
+- **CTR** — Clicks ÷ Impressions
+- **Detail Page Views (DPV)** — Product detail page views within 14 days of an ad click or view
+- **Detail Page Views Rate (DPVR)** — DPV ÷ Impressions
+- **Total Cost** — Total investment in DSP campaigns
+- **eCPM** — Total Cost ÷ Impressions × 1,000 (cost per thousand impressions)
+- **eCP DPV** — Total Cost ÷ DPV (effective cost per detail page view)
+- **Order Budget** — Total budget allocated to a DSP order (latest value)
+- **Line Item Budget** — Total budget allocated to a line item (latest value)
+- **Sales** — Sales within 14 days of an ad click or view (promoted products only)
+- **Total Sales** — Revenue generated as a direct result of DSP campaigns
+- **Units Sold** — Ad-attributed units sold within 14 days of a click or view
+- **Total Units Sold** — Units purchased across all brand products, attributed to the campaign
+- **New to Brand Product Sales** — Sales to first-time brand shoppers from promoted products
+- **Total New to Brand Sales** — Sales to first-time brand shoppers across all brand products
+- **Purchases Count** — Attributed conversion events within 14 days of a click or view
+- **Purchase Rate** — Purchases ÷ Impressions
+- **RoAS** — Total Sales ÷ Total Cost
+
+### Entity definitions
+
+- **Order** — High-level budget grouping within a DSP campaign
+- **Line Item** — Defines targeting, bidding, and delivery settings within an order
+- **Creative** — The individual ad asset used in a campaign
+- **Creative Type** — Format of the creative (display, video, etc.)
+- **Creative Size** — Dimensions of the creative asset (e.g. 300×250)
+
+<Callout type="info">
+  **Data source:** Data comes from [Amazon's Ads API](https://advertising.amazon.com/API/docs/en-us/info/api-overview) via DataHawk's processing pipeline.
+</Callout>

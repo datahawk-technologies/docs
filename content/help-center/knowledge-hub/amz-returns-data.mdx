@@ -1,0 +1,88 @@
+---
+title: Amazon Returns Data
+description: DataHawk's granular access to Amazon customer return records — FBA and FBM returns, disposition statuses, reason codes, and SQL examples.
+---
+
+DataHawk gives you granular access to Amazon customer return records, covering both FBA (Fulfilled by Amazon) and FBM (Fulfilled by Merchant) orders. This data helps you understand not just how many products are coming back, but why — and what happens to them when they do.
+
+## What you can analyse
+
+- Which products are returned most frequently
+- When returns peak and how patterns change over time
+- Why customers are returning items (based on Amazon's reason codes)
+- What condition returned items are in and whether they can be resold
+
+## Understanding return dispositions (FBA)
+
+When a customer returns an FBA item, Amazon inspects it and assigns a disposition:
+
+| Disposition | What it means |
+|---|---|
+| **Sellable** | Item is in good condition and returned to your inventory |
+| **Damaged** | Damaged by carrier or fulfillment centre — Amazon reimburses you |
+| **Customer Damaged** | Packaging opened or item altered by customer — not resellable, stays in inventory |
+| **Defective** | Product is faulty or non-functional |
+| **Expired** | Product is nearing its expiration date — may be removed or disposed of |
+
+## Common return reasons
+
+Amazon assigns a reason code to each return based on the customer's selection:
+
+| Reason | What it signals |
+|---|---|
+| Unwanted item | Buyer's remorse — consider improving product images and descriptions |
+| Not as described | Listing accuracy issue — review your content |
+| Defective item | Product quality issue — investigate with your supplier |
+| Wrong size / Wrong style | Variant confusion — consider clearer size guides or variant naming |
+| Never arrived | Fulfillment or logistics issue |
+| Found better price elsewhere | Pricing competitiveness issue |
+| Damaged by carrier | Packaging issue — consider reinforcing packaging |
+
+---
+
+## ⚙️ For Developers & Analysts
+
+### Available Data Tables
+
+Returns data is available in the `SELLING_PARTNER` schema.
+
+| Table | Coverage | Available since | Description |
+|---|---|---|---|
+| `RETURNS_DATA_SRC` | FBM (Fulfilled by Merchant) orders only | June 2023 | Return records keyed by return date. Includes ASIN, SKU, return quantities, reason codes, and metadata. |
+| `FBA_CUSTOMER_RETURNS_SRC` | FBA (Fulfilled by Amazon) orders | — | Detailed FBA return records including Fulfillment Centre ID, disposition, customer comments, and reason codes. |
+
+### Joining with Order Data
+
+To enrich returns with order-level context, join against `finance.finance_orders`:
+
+```sql
+SELECT
+  o.fulfillment_channel,
+  r.*
+FROM SELLING_PARTNER.RETURNS_DATA_SRC r
+LEFT OUTER JOIN finance.finance_orders o
+  ON o.order_id = r.order_id
+```
+
+### Full Return Reason Code Reference
+
+| Reason | FBM Code | FBA Code |
+|---|---|---|
+| Unwanted item | CR-UNWANTED_ITEM | UNWANTED_ITEM |
+| Defective item | CR-DEFECTIVE | DEFECTIVE |
+| Product not as described | AMZ-PG-BAD-DESC | NOT_AS_DESCRIBED |
+| Found better price | CR-FOUND_BETTER_PRICE | FOUND_BETTER_PRICE |
+| Damaged by carrier | CR-DAMAGED_BY_CARRIER | DAMAGED_BY_CARRIER |
+| Damaged by fulfillment centre | CR-DAMAGED_BY_FC | DAMAGED_BY_FC |
+| Missing parts | CR-MISSING_PARTS | MISSING_PARTS |
+| Wrong size | WRONG_SIZE | WRONG_SIZE |
+| Wrong style | AMZ-PG-APP-STYLE | APPAREL_STYLE |
+| Apparel too small | AMZ-PG-APP-TOO-SMALL | APPAREL_TOO_SMALL |
+| Apparel too large | AMZ-PG-APP-TOO_LARGE | APPAREL_TOO_LARGE |
+| Never arrived | NEVER_ARRIVED | NEVER_ARRIVED |
+| Ordered wrong item | CR-ORDERED_WRONG_ITEM | ORDERED_WRONG_ITEM |
+| Received wrong item | CR-SWITCHEROO | SWITCHEROO |
+| Quality not acceptable | CR-QUALITY_UNACCEPTABLE | QUALITY_UNACCEPTABLE |
+| Missed delivery window | CR-MISSED_ESTIMATED_DELIVERY | MISSED_ESTIMATED_DELIVERY |
+| Unauthorized purchase | CR-UNAUTHORIZED_PURCHASE | UNAUTHORIZED_PURCHASE |
+| Extra item received | CR-EXTRA_ITEM | EXTRA_ITEM |

@@ -1,0 +1,80 @@
+---
+title: Recipient groups & email setup
+description: Manage who receives which alerts — create, edit, and delete recipient groups to route alert emails to the right teams.
+---
+
+A recipient group is a list of email addresses that receive a particular alert. Each alert sends a single daily email to its recipient group when one or more triggers fire.
+
+## When to use recipient groups
+
+- **Different teams** — Buy Box alerts to your paid-media team, listing alerts to your content team
+- **Different priorities** — top-seller alerts to leadership, full catalogue alerts to operations
+- **Per-client** — agencies can route alerts to each client's stakeholders
+
+## Create a group
+
+1. Open **Apps → Alerts**
+2. `+ Alert`
+3. Select your triggers
+4. `Continue`
+5. Select your product(s) to be alerted from
+6. Select **"Create a new alert group"**
+
+{/* TODO: Replace this Notion image with a local copy in /public/images/modules/alerts/ */}
+
+7. Add the group name
+8. Select the members of the workspace that would be able to receive notifications
+9. Name your alert
+10. `Create Alert`
+
+## Edit a group
+
+From the same screen:
+
+- Open **Apps → Alerts**
+- **Manage your Alerts**
+- You see the list of groups, select the 3 dots on the side of the group you want to modify
+
+{/* TODO: Replace this Notion image with a local copy in /public/images/modules/alerts/ */}
+
+- **`Edit Group`**
+- **Rename the group**
+- **Add or remove members**
+
+{/* TODO: Replace this Notion image with a local copy in /public/images/modules/alerts/ */}
+
+- `Save`
+
+## Delete a group
+
+- Open **Apps → Alerts**
+- **Manage your Alerts**
+- You see the list of groups, select the 3 dots on the side of the group you want to delete
+
+{/* TODO: Replace this Notion image with a local copy in /public/images/modules/alerts/ */}
+
+## What the email looks like
+
+Each daily email contains:
+
+- A summary line per triggered event (max 20)
+- If you have more than 20, you can go on "See more changes in app (XXX total changes)"
+- The product or tag the event relates to
+- A link back to the relevant DataHawk report
+
+{/* TODO: Replace this Notion image with a local copy in /public/images/modules/alerts/ */}
+
+## When emails are sent
+
+DataHawk runs the trigger checks once per day and bundles all events into a single email.
+
+Every day at 12pm CET.
+
+## Other delivery channels
+
+If you need delivery somewhere other than email today, you can build a workflow with [DataHawk MCP](/help-center/modules/datahawkmcp) and a tool like n8n or Make — they can read your DataHawk data and post to wherever you need.
+
+## What's next
+
+- [Manage alerts](/help-center/modules/alerts/manage-alerts) — change which group an alert sends to
+- [Alerts FAQ & troubleshooting](/help-center/modules/alerts/faq-troubleshooting) — "why didn't I get an email?"

@@ -1,0 +1,169 @@
+---
+title: Advertising Dashboard User Guide
+description: Complete guide to DataHawk's Advertising Power BI Dashboard — covering all campaign types from account level down to keyword and creative.
+---
+
+The Advertising Dashboard is DataHawk's central reporting tool for Amazon and Walmart advertisers. It consolidates performance data across all campaign types — Sponsored Products, Sponsored Brands, Sponsored Display, Sponsored Videos, and DSP — at every level from account down to keyword and creative.
+
+## Questions this dashboard helps answer
+
+- How much am I spending on advertising and what revenue is it generating (ACoS / RoAS)?
+- Which campaigns are performing best, and which need optimisation?
+- How are my keywords performing — am I getting clicks and conversions from the right terms?
+- Which products are driving the most ad-attributed revenue (Sponsored Products + Display)?
+- How has my advertising performance changed week over week or month over month?
+- How is my Brand Store performing in terms of traffic and engagement?
+- How do my DSP campaigns compare in terms of spend, sales, and new-to-brand impact?
+
+## Before you start
+
+**What you need:**
+
+- Amazon and/or Walmart Advertising accounts connected in DataHawk
+
+**Setup:** Download and configure the Power BI template. See [Download Power BI Templates](https://docs.datahawk.co/download-power-bi-templates) and [Connect to Power BI](/help-center/connect-tools/powerbi).
+
+## Dashboard tabs at a glance
+
+| Tab | What it shows |
+|---|---|
+| **Account Overview** | Aggregated totals for all ad metrics across all accounts |
+| **Account History** | Ad performance trends over time at the account level |
+| **Campaign Overview** | Ad metrics and KPIs per campaign, with previous period comparison |
+| **Campaign History** | Campaign performance trends over time |
+| **Product Overview** | Product-level ad metrics (SP + SD only) with previous period comparison |
+| **Product History** | Product ad performance trends over time |
+| **Keyword Overview** | Keyword and search term performance with match type breakdown |
+| **Keyword History** | Keyword performance trends over time |
+| **Brand Store Overview** | Brand Store ad performance aggregated totals |
+| **Brand Store History** | Brand Store performance trends over time |
+| **DSP Overview** | Amazon DSP performance: spend, sales, impressions, new-to-brand, and more |
+| **Explorer** | Custom chart and table for flexible ad hoc analysis |
+
+## How the dashboard works
+
+All tabs share:
+
+- A **date range selector** at the top
+- A left panel with **entity filters** (channel, account, marketplace, campaign, product, keyword, etc.)
+- A **Currency** selector
+
+**Overview tabs** include Grouping & Metrics slicers at the top of each table, so you can choose what to display as rows and columns. KPI cards show the selected period's totals alongside a comparison to the prior period (the same number of days, immediately before the selected range).
+
+**History tabs** include a **Timeline By** selector (Year / Quarter / Month / Week / Day) that controls both the chart and the table below it. Two axis slicers let you compare multiple metrics on the left axis against a single metric on the right — for example, Impressions and Clicks (left) vs. Conversion Rate (right).
+
+## Tab by tab
+
+**Account Overview** — Aggregated ad metrics and KPIs across all your accounts for the selected period. Shows totals for spend, sales, impressions, clicks, CTR, CVR, ACoS, and RoAS, with comparisons to the prior period.
+
+**Account History** — Time-based view of account performance. Customisable chart (left and right axis metrics) and a table broken down by the selected Timeline By granularity. Filter by channel, account, or other dimensions.
+
+**Campaign Overview** — Summary of ad performance per campaign, with totals and prior-period comparisons. A bar chart lets you compare campaigns by a chosen metric. Includes a **Campaign Status** filter (most recent status). Channel-specific slicers: **Portfolio** and **Portfolio ID** are Amazon only; **Ad Group** and **Ad Group ID** are Walmart only. Supports **Custom Filters** based on parameters extracted from Campaign Name or Ad Group Name (Category, Targeting Type, Audience, etc.). Parameters are case-sensitive.
+
+**Campaign History** — Time-based breakdown of campaign performance. Same dual-axis chart and granularity controls as Account History, but at campaign level.
+
+**Product Overview** — Product-level performance for **Sponsored Products and Sponsored Display** only. Includes totals, prior-period comparisons, and a bar chart for ranking products by a chosen metric. Extra filters: Product Name, Product Tag, and Brand. Product Tags are created in the DataHawk app.
+
+**Product History** — Time-based breakdown of product ad performance. Supports Product Name, Product Tag, and Brand filters.
+
+**Keyword Overview** — Keyword and search term performance for the selected period. You can view data by **Keyword** or **Search Term**. Additional filters: Search Term, Match Type, Keyword Tag, Ad Group Name, and Ad Group ID (both available for Amazon and Walmart).
+
+**Keyword History** — Timeline-based analysis of keyword performance. Useful for tracking trends in CTR, CVR, or spend for specific keywords or match types.
+
+**Brand Store Overview** — Aggregated Brand Store advertising performance: impressions, clicks, CTR, and other key metrics. Bar chart for comparing stores by a selected metric.
+
+**Brand Store History** — Time-based view of Brand Store performance trends using the same dual-axis chart controls as other History tabs.
+
+**DSP Overview** — Amazon DSP performance in a single view. Includes:
+
+- KPI summary table: Total Cost, Sales, Impressions, Clicks, RoAS, New-to-Brand, eCPM, CTR, eCP DPV, DPVR, Purchase Rate
+- Bar and line chart: Total Sales, Total Cost, RoAS over time
+- Budget distribution chart (100% stacked by line item type)
+- Stacked and pie charts controlled by Metric and Legend slicers
+- New-to-brand gauge (% of New-to-Brand Product Sales relative to Total Sales)
+- Category & Targeting breakdown table (requires custom filter parameters)
+
+DSP filters: Advertiser, Country, Currency; entity filters for Order, Line Item, and Creative. Supports Custom Filters.
+
+**Explorer** — Flexible, ad hoc analysis tool. Build a custom graph (left and right axis metrics) and a custom table grouped by any dimension. Separate predefined summary table groups metrics by Advertiser, Order Name, Line Item Type, Line Item Name, Creative Type, and Creative Name.
+
+---
+
+## Custom filters (Campaign and DSP tabs)
+
+Custom filters extract dimensions from Campaign, Ad Group, Order, or Line Item names. To configure:
+
+1. In Power BI, go to **Data Model settings \> Parameters**.
+2. Enter the terms you use in naming your campaigns or orders, separated by commas.
+3. Assign them to the relevant parameter (Category, Targeting Type, Audience, etc.).
+4. **Parameters are case-sensitive.** `Retargeting` and `retargeting` are treated as different values.
+
+---
+
+## For analysts & developers
+
+**Ad entities**
+
+- **Ad Account** — Seller name (Amazon) or account key (Walmart)
+- **Marketplace** — Amazon or Walmart, by country
+- **Campaign** — A set of ad groups and keywords targeting a specific audience or goal
+- **Portfolio (Amazon only)** — Grouping of campaigns for shared budget management
+- **Ad Group** — Subset of a campaign organising ads and targeting settings
+- **Product** — Item being promoted (available for SP and SD only)
+- **Search Term** — The exact phrase a user typed into the search bar
+- **Keyword** — The targeting criterion set by the advertiser (not always the same as the search term)
+- **Brand Entity ID / Brand Name** — Brand-level identifier for Brand Store campaigns
+- **Order (DSP)** — High-level budget grouping within a DSP campaign
+- **Line Item (DSP)** — Specific targeting and delivery settings within an order
+- **Creative (DSP)** — Individual ad asset including type (display/video) and size
+
+**Campaign types**
+
+- **Sponsored Products (SP)** — Individual products in search results and detail pages
+- **Sponsored Brands (SB)** — Brand logo, headline, and product selection in search results
+- **Sponsored Videos** — Video ads in search results
+- **Sponsored Display (SD)** — Ads on Amazon and third-party sites based on audience targeting
+
+**Core metrics**
+
+- **Ad Spend** — Total advertising spend
+- **Ad Sales** — Revenue from ad-attributed sales
+- **Ad Sales Same-SKU** — Revenue from the advertised product itself
+- **Ad Sales Other-SKU** — Revenue from other products bought after clicking the ad
+- **Impressions** — Times the ad was shown
+- **Clicks** — Times the ad was clicked
+- **Orders** — Total orders from the campaign
+
+**KPI metrics**
+
+- **CTR** — Clicks ÷ Impressions × 100%
+- **CPC** — Total Spend ÷ Clicks
+- **CVR** — Orders ÷ Clicks × 100%
+- **ACoS** — Ad Spend ÷ Ad Sales × 100%. Lower = more efficient. ACoS of 30% = you spend 30% of ad revenue on ads
+- **RoAS** — Ad Sales ÷ Ad Spend. Higher = more efficient. RoAS of 5 = you earn 5× your ad spend in revenue
+- **New to Brand Sales** — Revenue from first-time brand shoppers (SB, SD, DSP)
+- **New to Brand Orders** — Orders from first-time brand shoppers (SB, SD)
+- **New to Brand DPV** — Detail page views from new-to-brand shoppers (SD only)
+
+**DSP-specific metrics**
+
+- **Gross Clicks** — All clicks including potentially invalid ones
+- **DPV** — Product detail page views within 14 days of ad interaction
+- **DPVR** — DPV ÷ Impressions
+- **Total Cost** — Total DSP investment
+- **eCPM** — Total Cost ÷ Impressions × 1,000
+- **eCP DPV** — Total Cost ÷ DPV
+- **Purchase Rate** — Purchases ÷ Impressions
+
+<Callout type="info">
+  **Data source:** Data is sourced from [Amazon's Ads API](https://advertising.amazon.com/API/docs/en-us/info/api-overview) and [Walmart Connect](https://advertising.walmart.com/signin). For a full column reference, see the [Exhaustive Column Referential](https://docs.google.com/spreadsheets/d/1gYGqKQP9Z71nz1lOb4y0wJ15i27NvsUzdliIJeIx0HY/edit#gid=175439716). For dataset details, see the [Amazon Advertising account data model](https://docs.datahawk.co/docs/amazon-advertising-account).
+</Callout>
+
+<Callout type="info">
+  **Changelog (January 2026):**
+  - Added Brand Store Overview and Brand Store History tabs
+  - Introduced dedicated DSP Overview tab with DSP-specific metrics, advanced filters, and Explorer tools
+  - Added Custom Filters to Campaign Overview and Campaign History
+  - Expanded New-to-Brand metrics for Sponsored Brands and Sponsored Display
+  - Added New-to-Brand DPV metrics for Sponsored Display campaigns
+</Callout>

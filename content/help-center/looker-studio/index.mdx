@@ -1,0 +1,154 @@
+---
+title: Explore Looker Studio Dashboard
+description: Guide to DataHawk's Analytics Essentials Looker Studio template — a unified dashboard covering products, keywords, advertising, sales, finance, traffic, and inventory.
+---
+
+DataHawk's Analytics Essentials is a ready-to-use Looker Studio template built on best practices from brands and agencies. It connects directly to your BigQuery database and gives you a single, unified dashboard covering your full Amazon business — products, keywords, advertising, sales, finance, traffic, and inventory — without any setup beyond connecting your data sources.
+
+## Questions this template helps answer
+
+- How are my tracked products performing in terms of BSR, pricing, Buy Box, and listing quality?
+- Which keywords am I ranking for organically, and where are competitors showing up in sponsored results?
+- How is my advertising spend and return performing across campaigns and products?
+- What are my actual sales, returns, and revenue broken down by product and geography?
+- What is my P&L — including Amazon fees, COGS, and net profit?
+- How are my page views, sessions, and Buy Box win rate evolving over time?
+- What is my current FBA inventory status and how has it changed historically?
+
+## Before you start
+
+**What you need:**
+
+1. **An active BigQuery database** — DataHawk must be connected to a BigQuery instance. See [Send data to your tool](/help-center/connect-tools).
+2. **Sources configured** — Your Amazon seller, vendor, or advertising accounts must be added as sources in DataHawk.
+3. **A Google account** — Access is shared via Google invitation. The email address used must be registered on your [BigQuery Database page](https://analytics.datahawk.co/app/destinations/bigquery-ecosystem) in the DataHawk app. Make sure this is set up before requesting access, or you won't receive the invitation.
+
+## How to get access
+
+<Callout type="info">
+  Self-serve access is coming. In the near future you will be able to access the template directly from the DataHawk app. Until then, access is granted by the DataHawk team via the steps below.
+</Callout>
+
+1. Go to the [Report Templates](https://analytics.datahawk.co/app/report-templates) page in the DataHawk app.
+2. Find the **Analytics Essentials** template and click **Request Access**.
+
+{/* TODO: Replace this Notion image with a local copy in /public/images/looker-studio/ */}
+
+3. A draft message will be prepared — click **Send** to submit your request.
+4. A member of the DataHawk team will reach out and share the dashboard with you.
+5. You will receive a Google email invitation to access the template. Make sure the correct Google email is registered on your [BigQuery Database page](https://analytics.datahawk.co/app/destinations/bigquery-ecosystem) before requesting.
+
+## What's inside Analytics Essentials
+
+The template is organised into **9 sections**, each containing multiple report pages. All sections share a consistent theme and are designed to work together as a single source of truth for your Amazon business.
+
+### 1. Overview
+
+An orientation section that sets the context for the rest of the template.
+
+| Page | What it shows |
+|---|---|
+| **DataHawk Workspace** | A live summary of your DataHawk connections — showing which accounts and sources are active and contributing data to the template |
+| **Tracked Products Report** | A list of all products currently being tracked in DataHawk |
+| **Dashboard Legend** | Definitions of key terms, icons, and conventions used throughout the template |
+
+### 2. Product
+
+Product-level intelligence across rankings, pricing, Buy Box, listing quality, and keyword suggestions.
+
+| Page | What it shows |
+|---|---|
+| **Product Metrics** | Key metrics for your tracked products: price, ratings, review count, estimated sales, BSR |
+| **Product Sales Ranks** | Best Sellers Rank (BSR) trends over time, by product and category |
+| **Product Search Ranks** | Organic search ranking positions for your tracked keywords, by product |
+| **Buy Box Analytics** | Buy Box ownership rate and competitor Buy Box activity |
+| **Listing Quality Analysis** | Listing Quality Score (LQS) breakdown and recommendations |
+| **Keyword Suggestion** | Keyword ideas to improve organic visibility based on your product catalogue |
+
+### 3. Keyword
+
+Keyword ranking and visibility across both organic and sponsored placements.
+
+| Page | What it shows |
+|---|---|
+| **Keywords Metrics** | Overview of tracked keywords with ranking positions, search volume, and trend indicators |
+| **Organic Products** | Which of your products rank organically for each tracked keyword, and at what position |
+| **Sponsored Products** | Which products appear in sponsored results for each tracked keyword, and their ad rank |
+
+### 4. Advertising
+
+Advertising performance across campaigns and products for Amazon Ads.
+
+| Page | What it shows |
+|---|---|
+| **Advertising Overview** | Account-level totals: ad spend, ad sales, impressions, clicks, ACoS, RoAS |
+| **Campaign Analytics** | Campaign-level breakdown with spend, performance, and efficiency metrics |
+| **Product Analysis** | Product-level ad performance for Sponsored Products and Sponsored Display |
+
+### 5. Sales
+
+Sales performance, geographic breakdown, purchasing behaviour, and FBA returns.
+
+| Page | What it shows |
+|---|---|
+| **Sales Performance** | Revenue, units sold, and order trends over time |
+| **Sales Localization** | Sales breakdown by marketplace and geography |
+| **Purchase Analysis** | Order patterns, repeat purchase behaviour, and basket analysis |
+| **FBA Returns Analytics** | Return rates, return reasons, and the financial impact of FBA returns |
+
+### 6. Finance
+
+Profit and loss reporting at summary, detailed, and historical levels.
+
+| Page | What it shows |
+|---|---|
+| **Profit & Loss — Summary** | High-level P&L: revenue, Amazon fees, COGS, advertising costs, and net profit |
+| **Profit & Loss — Detailed** | Line-by-line breakdown of all revenue and cost components |
+| **Profit & Loss — History** | Monthly P&L trend showing how profitability has evolved over time |
+
+The Finance section requires your **Cost of Goods Sold (COGS)** to be uploaded to DataHawk. Without COGS data, gross profit, operating profit, and net profit figures will not be accurate. See [Upload Amazon Product Expenses (COGS)](/help-center/data-setup/cogs-amz-upload) for the step-by-step upload guide.
+
+### 7. Traffic
+
+Customer traffic analysis covering page views, sessions, and Buy Box win rates.
+
+| Page | What it shows |
+|---|---|
+| **Page Views & Sessions** | Trends in product page views and unique sessions over time |
+| **Buy Box** | Buy Box win rate history and product-level Buy Box performance |
+
+### 8. Inventory
+
+FBA inventory status at the latest snapshot and over time.
+
+| Page | What it shows |
+|---|---|
+| **Metrics — Latest** | Current inventory snapshot: available units, inbound, reserved, and unfulfillable stock |
+| **Metrics — Historical** | How inventory levels have changed over time for each tracked ASIN |
+
+### 9. Feedback
+
+| Page | What it shows |
+|---|---|
+| **Feedback Form** | A form to submit feedback on the template directly to the DataHawk team |
+
+Use the Feedback Form to report issues, request new report pages, or suggest improvements. The DataHawk team monitors submissions actively.
+
+## Template details
+
+| | |
+|---|---|
+| **Template name** | Analytics Essentials |
+| **Version** | 1.1 |
+| **Data source** | Google BigQuery (DataHawk-hosted or customer-hosted) |
+| **Compatible tools** | Looker Studio (Google Data Studio) |
+
+---
+
+## For analysts & developers
+
+**Data source** — The Analytics Essentials template connects to your BigQuery database. All DataHawk data models available in BigQuery are accessible from within the template. For a full reference of available tables and columns, see the [Exhaustive Column Referential](https://docs.google.com/spreadsheets/d/1gYGqKQP9Z71nz1lOb4y0wJ15i27NvsUzdliIJeIx0HY/edit#gid=175439716).
+
+**Customising the template** — When DataHawk shares the Analytics Essentials template with you, you receive your own **personal copy**. This means you can freely customise it — add new charts, adjust filters, rename pages, or connect additional BigQuery data — without affecting other users or the master template.
+
+**Template updates** — When DataHawk publishes a new version of the Analytics Essentials template, updates **propagate automatically** to your copy. You do not need to re-request access or take any action — improvements and new report pages will appear in your dashboard directly.

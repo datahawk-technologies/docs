@@ -1,0 +1,71 @@
+---
+title: Snowflake
+description: Connect DataHawk to Snowflake — a cloud-native data warehouse for use with Power BI, Excel, Tableau, and any SQL-compatible tool.
+---
+
+Snowflake is a cloud-native data warehouse built for performance and scale. DataHawk uses Snowflake as the hosted database for users who work with Power BI, Excel, Tableau, or any SQL-compatible tool outside of Google's ecosystem.
+
+## Your DataHawk Snowflake database
+
+When you set up a Snowflake destination, DataHawk creates and manages a dedicated database containing all your collected data. You don't need to configure or maintain anything — we handle setup, scaling, and maintenance.
+
+What's included:
+
+- Daily updated tables, fresh and analysis-ready
+- Optimised views, cleaned and enriched by DataHawk
+- No infrastructure management on your side
+
+DataHawk refreshes your Snowflake database every day. Not all data arrives at the same time — some datasets are populated later in the day depending on when Amazon's API makes them available. See the individual dataset pages in the Knowledge Hub for dataset-specific freshness details.
+
+## Option 1 — DataHawk-hosted Snowflake (recommended for most users)
+
+This is the default setup. DataHawk creates and hosts the Snowflake database for you.
+
+### How to find your credentials
+
+In your DataHawk workspace, navigate to **Setup \> Destinations \> Snowflake \> See Credentials**.
+
+{/* TODO: Replace this Notion image with a local copy in /public/images/connect-tools/ */}
+
+Your credentials page will contain the following:
+
+| Field | Description |
+|---|---|
+| **User** | Your Snowflake username |
+| **Password** | Your Snowflake password |
+| **Server** | The Snowflake account URL (e.g. `xyz123.eu-west-1.snowflakecomputing.com`) |
+| **Database** | The name of your DataHawk database |
+| **Warehouse** | The compute warehouse to use for queries |
+
+Keep these credentials safe. You'll use them to connect your database to your BI tool or SQL editor.
+
+## Option 2 — Self-hosted Snowflake (advanced)
+
+If you already use Snowflake and prefer to have DataHawk write data into your own Snowflake account, this is possible.
+
+To get started, contact your Account Manager and share your:
+
+- [Snowflake account identifier](https://docs.snowflake.com/en/user-guide/admin-account-identifier)
+- Cloud hosting provider (AWS, Azure, GCP) and region
+
+## Snowflake Credits
+
+DataHawk-hosted Snowflake databases consume Snowflake credits. Credits are used when your warehouse is active (running queries).
+
+Contact your DataHawk representative for details on how to track and manage your usage.
+
+## Compatible tools
+
+Snowflake connects natively to most modern data tools. Common examples:
+
+| Category | Tools |
+|---|---|
+| Business Intelligence | Power BI, Tableau, Metabase, Sigma Computing |
+| SQL & Analytics | Hex, Deepnote, Streamlit |
+| Data Science & ML | dbt, Python / R notebooks |
+
+## Connecting to Power BI
+
+Power BI is the recommended tool for DataHawk users on Snowflake. DataHawk provides pre-built Power BI templates covering sales, advertising, keywords, profitability, and more.
+
+See [Connect to Power BI](/help-center/connect-tools/powerbi) for the full setup guide, including both the template route and manual connection steps.

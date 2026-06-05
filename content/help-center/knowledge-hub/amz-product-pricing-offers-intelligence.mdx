@@ -1,0 +1,63 @@
+---
+title: Amazon Product Pricing & Offers Intelligence
+description: How DataHawk tracks daily product offers, prices, and Buy Box information — and the data structure behind it.
+---
+
+DataHawk tracks daily product offers, prices, and featured offer (Buy Box) information for every product you monitor. This gives you a continuous, historical view of pricing movements and competitive offer dynamics on Amazon.
+
+## What you can use it for
+
+- **Price monitoring and alerts** — track how your prices and competitors' prices change day to day
+- **Buy Box tracking** — see who holds the Buy Box, how often it rotates, and whether it is being suppressed
+- **Offer-level competition analysis** — understand how many sellers are competing on a listing and how their fulfillment methods (FBA vs FBM) differ
+- **Long-term trend analysis** — build a daily snapshot history of pricing and offer conditions for any product on Amazon
+- **Integration into BI tools, reporting, or ML models** — data is structured for direct use in dashboards and automated workflows
+
+## Refresh frequency
+
+Data is delivered **daily by default**. Refresh frequency can be adjusted on demand — for example, twice a day or weekly — depending on your needs.
+
+## Data history
+
+History is collected **moving forward from the date tracking is activated**. There is no backfill of historical data before activation.
+
+## Which products are covered
+
+**Manually tracked products** — Pricing & Offers Intelligence is enabled for all products you track in DataHawk. This data is available for any product on Amazon, not just your own catalogue.
+
+**Automatic ingestion from connected accounts** *(enabled on demand)* — DataHawk can automatically ingest active product listings from your linked Amazon accounts. Contact your DataHawk account manager to enable this.
+
+---
+
+## ⚙️ For Developers & Analysts
+
+### Data table
+
+`PRODUCT.AMZN_PRODUCT_FEATURED_OFFER`
+
+### Available columns
+
+| Column | Description | Status |
+|---|---|---|
+| `OBSERVATION_DATE` | Date of the snapshot | Live |
+| `OBSERVATION_TIME` | Time of the snapshot | Live |
+| `MARKETPLACE_KEY` | Marketplace identifier | Live |
+| `ASIN` | Amazon Standard Identification Number | Live |
+| `HAS_FEATURED_OFFER` | Whether the listing has a featured offer (Buy Box) | Live |
+| `IS_FEATURED_OFFER_SUPPRESSED` | Whether the featured offer is suppressed | Live |
+| `FEATURED_LANDED_PRICE` | Total price including shipping for the featured offer | Live |
+| `FEATURED_LISTING_PRICE` | Listed price for the featured offer | Live |
+| `FEATURED_SHIPPING_PRICE` | Shipping price for the featured offer | Live |
+| `FEATURED_CURRENCY_CODE` | Currency of the featured offer price | Live |
+| `FEATURED_ITEM_CONDITION` | Condition of the featured offer item | Live |
+| `FEATURED_FULFILLMENT_TYPE` | Fulfillment type of the featured offer (FBA/FBM) | Live |
+| `FEATURED_SELLER_ID` | Seller ID of the featured offer holder | Live |
+| `FEATURED_SELLER_NAME` | Name of the featured offer seller | 🔜 Coming soon |
+| `FEATURED_SELLER_FEEDBACK_COUNT` | Feedback count for the featured offer seller | 🔜 Coming soon |
+| `FEATURED_SELLER_POSITIVE_FEEDBACK_RATING` | Positive feedback rating for the featured offer seller | 🔜 Coming soon |
+| `TOTAL_FEATURED_OFFERS_COUNT` | Total number of featured offers on the listing | Live |
+| `TOTAL_OFFERS_COUNT` | Total number of all offers (new + used) | Live |
+| `TOTAL_OFFERS_NEW_COUNT` | Number of new condition offers | Live |
+| `TOTAL_OFFERS_USED_COUNT` | Number of used condition offers | Live |
+| `TOTAL_OFFERS_FBA_COUNT` | Number of FBA offers | Live |
+| `TOTAL_OFFERS_FBM_COUNT` | Number of FBM offers | Live |
