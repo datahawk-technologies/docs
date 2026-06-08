@@ -2,5 +2,5 @@
   "title": "Help Center",
   "description": "Self-serve answers and how-tos",
   "root": true,
-  "pages": ["datahawk-app", "data-setup", "connect-tools","powerbi-dashboards","looker-studio","modules","knowledge-hub","tips-advanced-use"]
+  "pages": ["index", "datahawk-app", "data-setup", "connect-tools","powerbi-dashboards","looker-studio","modules","knowledge-hub","tips-advanced-use"]
 }

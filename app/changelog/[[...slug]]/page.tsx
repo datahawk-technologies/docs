@@ -4,7 +4,8 @@
  * Installed at: app/changelog/[[...slug]]/page.tsx
  *
  * If no slug (URL is /changelog) → render the filterable list.
- * If slug present (URL is /changelog/foo) → render the corresponding MDX entry.
+ * If slug present (URL is /changelog/foo) → render the corresponding MDX entry
+ *   with Older/Newer pager at the bottom.
  */
 
 import { changelogSource } from '@/lib/source';
@@ -12,6 +13,21 @@ import { DocsPage, DocsBody, DocsDescription, DocsTitle } from 'fumadocs-ui/layo
 import { notFound } from 'next/navigation';
 import { mdxComponents } from '@/mdx-components';
 import { ChangelogList, type ChangelogEntry, type Tag } from '@/components/ChangelogList';
+import { ChangelogPager } from '@/components/ChangelogPager';
+
+// Shared helper — reads all dated entries from the changelog source.
+function getDatedEntries() {
+  return changelogSource
+    .getPages()
+    .map((p) => ({
+      title: p.data.title,
+      description: p.data.description ?? '',
+      date: (p.data as any).date ?? '',
+      tags: ((p.data as any).tags ?? []) as Tag[],
+      url: p.url,
+    }))
+    .filter((e) => e.date);
+}
 
 export default async function Page(props: { params: Promise<{ slug?: string[] }> }) {
   const params = await props.params;
@@ -19,17 +35,9 @@ export default async function Page(props: { params: Promise<{ slug?: string[] }>
 
   // ─── Landing: render the filterable list ──────────────────────────────
   if (!slug || slug.length === 0) {
-    const entries: ChangelogEntry[] = changelogSource
-      .getPages()
-      .map((p) => ({
-        title: p.data.title,
-        description: p.data.description ?? '',
-        date: (p.data as any).date ?? '',
-        tags: ((p.data as any).tags ?? []) as Tag[],
-        url: p.url,
-      }))
-      .filter((e) => e.date) // skip pages without a date
-      .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+    const entries: ChangelogEntry[] = getDatedEntries().sort(
+      (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
+    );
 
     return (
       <DocsPage>
@@ -44,17 +52,20 @@ export default async function Page(props: { params: Promise<{ slug?: string[] }>
     );
   }
 
-  // ─── Individual release: render the MDX page ──────────────────────────
+  // ─── Individual release: render the MDX page + pager ───────────────────
   const page = changelogSource.getPage(slug);
   if (!page) notFound();
 
   const MDX = page.data.body;
+  const allEntries = getDatedEntries();
+
   return (
     <DocsPage toc={page.data.toc} full={page.data.full}>
       <DocsTitle>{page.data.title}</DocsTitle>
       <DocsDescription>{page.data.description}</DocsDescription>
       <DocsBody>
         <MDX components={mdxComponents} />
+        <ChangelogPager currentUrl={page.url} allEntries={allEntries} />
       </DocsBody>
     </DocsPage>
   );

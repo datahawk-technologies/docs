@@ -1,4 +1,4 @@
 {
   "title": "DataHawk Modules",
-  "pages": ["index", "alerts", "insights", "ai-copywriter", "datahawkmcp", "sherlock"]
+  "pages": ["alerts", "insights", "ai-copywriter", "datahawkmcp", "sherlock"]
 }

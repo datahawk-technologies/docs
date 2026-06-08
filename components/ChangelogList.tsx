@@ -12,6 +12,12 @@
 import { useState, useMemo } from 'react';
 import Link from 'next/link';
 
+// ─── Feature flags ────────────────────────────────────────────────────────
+// Toggle these to true once you have enough content to make filtering worthwhile.
+// The code stays in the file, just hidden until reactivated.
+const SHOW_FILTERS = false;  // tag filter chips (All / ✨ New / ⚠️ Breaking / ...)
+const SHOW_SEARCH  = false;  // full-text search bar
+
 // ─── Tag config ───────────────────────────────────────────────────────────
 export type Tag =
   | 'new'
@@ -61,8 +67,8 @@ export function ChangelogList({ entries }: { entries: ChangelogEntry[] }) {
 
   const filtered = useMemo(() => {
     return entries.filter((e) => {
-      if (activeTag !== 'all' && !e.tags.includes(activeTag)) return false;
-      if (search) {
+      if (SHOW_FILTERS && activeTag !== 'all' && !e.tags.includes(activeTag)) return false;
+      if (SHOW_SEARCH && search) {
         const q = search.toLowerCase();
         if (
           !e.title.toLowerCase().includes(q) &&
@@ -85,54 +91,60 @@ export function ChangelogList({ entries }: { entries: ChangelogEntry[] }) {
 
   return (
     <div className="changelog-list not-prose">
-      {/* Search */}
-      <input
-        type="search"
-        placeholder="🔍 Search releases…"
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-        className="w-full mb-4 px-4 py-2 rounded-lg border bg-fd-card text-fd-foreground"
-      />
+      {/* ─── Search (hidden behind SHOW_SEARCH flag) ─────────────────── */}
+      {SHOW_SEARCH && (
+        <input
+          type="search"
+          placeholder="🔍 Search releases…"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          className="w-full mb-4 px-4 py-2 rounded-lg border bg-transparent text-fd-foreground"
+        />
+      )}
 
-      {/* Filter chips */}
-      <div className="flex flex-wrap gap-2 mb-8">
-        <button
-          onClick={() => setActiveTag('all')}
-          className={`px-3 py-1 rounded-full text-sm transition border ${
-            activeTag === 'all'
-              ? 'bg-fd-primary text-fd-primary-foreground border-fd-primary'
-              : 'bg-fd-card hover:bg-fd-accent border-fd-border'
-          }`}
-        >
-          All ({entries.length})
-        </button>
-        {(Object.keys(TAG_META) as Tag[]).map((tag) => {
-          const count = entries.filter((e) => e.tags.includes(tag)).length;
-          if (count === 0) return null;
-          return (
-            <button
-              key={tag}
-              onClick={() => setActiveTag(tag)}
-              className={`px-3 py-1 rounded-full text-sm transition border ${
-                activeTag === tag
-                  ? 'bg-fd-primary text-fd-primary-foreground border-fd-primary'
-                  : 'bg-fd-card hover:bg-fd-accent border-fd-border'
-              }`}
-            >
-              {TAG_META[tag].emoji} {TAG_META[tag].label} ({count})
-            </button>
-          );
-        })}
-      </div>
+      {/* ─── Filter chips (hidden behind SHOW_FILTERS flag) ──────────── */}
+      {SHOW_FILTERS && (
+        <div className="flex flex-wrap gap-2 mb-8">
+          <button
+            onClick={() => setActiveTag('all')}
+            className={`px-3 py-1 rounded-full text-sm transition border ${
+              activeTag === 'all'
+                ? 'bg-fd-primary text-fd-primary-foreground border-fd-primary'
+                : 'bg-transparent hover:bg-fd-accent border-fd-border'
+            }`}
+          >
+            All ({entries.length})
+          </button>
+          {(Object.keys(TAG_META) as Tag[]).map((tag) => {
+            const count = entries.filter((e) => e.tags.includes(tag)).length;
+            if (count === 0) return null;
+            return (
+              <button
+                key={tag}
+                onClick={() => setActiveTag(tag)}
+                className={`px-3 py-1 rounded-full text-sm transition border ${
+                  activeTag === tag
+                    ? 'bg-fd-primary text-fd-primary-foreground border-fd-primary'
+                    : 'bg-transparent hover:bg-fd-accent border-fd-border'
+                }`}
+              >
+                {TAG_META[tag].emoji} {TAG_META[tag].label} ({count})
+              </button>
+            );
+          })}
+        </div>
+      )}
 
-      {/* Empty state */}
+      {/* ─── Empty state ─────────────────────────────────────────────── */}
       {grouped.length === 0 && (
         <p className="text-fd-muted-foreground py-12 text-center">
-          No releases match your filter. Try clearing search or selecting a different tag.
+          {SHOW_FILTERS || SHOW_SEARCH
+            ? 'No releases match your filter. Try clearing search or selecting a different tag.'
+            : 'No releases yet.'}
         </p>
       )}
 
-      {/* Grouped entries */}
+      {/* ─── Grouped entries ─────────────────────────────────────────── */}
       {grouped.map(([month, entriesInMonth]) => (
         <section key={month} className="mb-10">
           <h2 className="text-sm font-semibold uppercase tracking-wide text-fd-muted-foreground mb-3">
@@ -143,7 +155,7 @@ export function ChangelogList({ entries }: { entries: ChangelogEntry[] }) {
               <Link
                 key={entry.url}
                 href={entry.url}
-                className="block p-5 rounded-xl border bg-fd-card hover:border-fd-primary transition no-underline"
+                className="block p-5 rounded-xl border bg-transparent hover:border-fd-primary transition no-underline"
               >
                 <div className="flex items-center justify-between mb-2 flex-wrap gap-2">
                   <div className="flex gap-2 flex-wrap">
