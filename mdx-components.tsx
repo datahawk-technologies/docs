@@ -7,6 +7,7 @@ import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
 import { File, Files, Folder } from 'fumadocs-ui/components/files';
 import { TypeTable } from 'fumadocs-ui/components/type-table';
 import { InlineTOC } from 'fumadocs-ui/components/inline-toc';
+import Image from 'next/image';
 import type { ReactNode } from 'react';
 
 // ─── Callout: emoji icon override ──────────────────────────────────────────
@@ -62,4 +63,7 @@ export const mdxComponents = {
   Folder,
   TypeTable,
   InlineTOC,
+
+    // Optimized images
+  Image,
 };

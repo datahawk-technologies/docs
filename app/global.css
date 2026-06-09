@@ -367,7 +367,7 @@ article > div.grid:last-child {
 
 /* --- Pager card styling --------------------------------------- */
 article > div.grid:last-child > a {
-  background-color: #fff3d4 !important;
+  background-color: #faf7ef !important;
   color: #122c47 !important;
   padding: 1.5rem;
   transition: background-color 0.2s ease;
