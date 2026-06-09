@@ -13,11 +13,11 @@ DataHawk includes five modules that sit on top of your data and help you act on 
 
 | Module | What it does | Best for |
 |---|---|---|
-| [**Alerts**](/help-center/modules/alerts) | Notifies you when something changes on your tracked products | Monitoring & reacting quickly |
-| [**Insights**](/help-center/modules/insights) | Surfaces patterns and anomalies in your data automatically | Spotting trends without manual analysis |
-| [**AI Copywriter**](/help-center/modules/ai-copywriter) | Generates and optimises Amazon listing content using AI | Writing and improving product listings |
-| 🆕 [**Sherlock**](/help-center/modules/sherlock) | Diagnoses *why* your performance changed and guides you to root causes | Understanding what happened and what to do |
-| 🆕 [**MCP**](/help-center/modules/datahawkmcp) | Connects DataHawk to your favourite AI assistant (Claude, ChatGPT, n8n, and more) | Asking questions and automating workflows in the tools you already use |
+| **Alerts** | Notifies you when something changes on your tracked products | Monitoring & reacting quickly |
+| **Insights**| Surfaces patterns and anomalies in your data automatically | Spotting trends without manual analysis |
+| **AI Copywriter** | Generates and optimises Amazon listing content using AI | Writing and improving product listings |
+| 🆕 **Sherlock** | Diagnoses *why* your performance changed and guides you to root causes | Understanding what happened and what to do |
+| 🆕 **MCP** | Connects DataHawk to your favourite AI assistant (Claude, ChatGPT, n8n, and more) | Asking questions and automating workflows in the tools you already use |
 
 ---
 
@@ -102,6 +102,10 @@ DataHawk's MCP server lets external AI assistants — Claude, ChatGPT, Cursor, n
 
 ## How the modules work together
 
+<Callout type="info">
+You don't need to use all five — start with whichever fits the problem you're trying to solve today.
+</Callout>
+
 These five modules complement each other. A typical workflow might look like:
 
 1. **Insights** surfaces a drop in conversion rate on one of your ASINs
@@ -110,4 +114,29 @@ These five modules complement each other. A typical workflow might look like:
 4. **Sherlock** diagnoses the root cause — a competitor undercut your price by 8%
 5. **MCP** lets you ask Claude to draft a Slack update for your team, with the latest numbers pulled live
 
-You don't need to use all five — start with whichever fits the problem you're trying to solve today.
+### Scenario 1: Conversion rate drops on a key ASIN
+
+A common Monday-morning problem.
+
+1. **Insights** flags a conversion rate drop on ASIN B0XXXXXX in your Findings or Anomalies list
+2. **Alerts** confirms the Buy Box was lost two days ago — the alert email arrived Sunday morning
+3. **Sherlock** diagnoses the root cause: a competitor undercut your price by 8%
+4. **MCP** lets you ask Claude to draft a Slack update for your team, with the latest numbers pulled live
+
+**Time saved:** what used to be a half-day of manual digging now takes about 20 minutes.
+
+### Scenario 2: Catching an inventory risk before it costs sales
+
+1. **Alerts** notifies you when a tracked ASIN drops below 30 days of cover
+2. **Insights** flags any anomaly in units-sold velocity — useful when demand is rising faster than your last forecast assumed
+3. **Sherlock** answers "is my stock health good across the catalogue?" in plain English, prioritised by impact
+4. **MCP** wires this into n8n or Make to trigger a daily Slack digest in your inventory channel
+
+### Scenario 3: Weekly performance review
+
+A weekly habit that ties everything together.
+
+1. **MCP** pulls a fresh executive summary into Claude or ChatGPT every Monday morning — revenue, ACOS, top movers, biggest drops
+2. **Insights** has the week's Findings ready to review (top-performing ad campaigns, listings that need refreshing)
+3. **Sherlock** is on hand for any "why did this happen?" follow-ups
+4. **AI Copywriter** helps you action listing changes before the week starts
