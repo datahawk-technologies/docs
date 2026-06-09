@@ -51,7 +51,7 @@ export function baseOptions(): BaseLayoutProps {
     links: [
       {
         text: 'DataHawk App',
-        url: 'https://app.datahawk.co',
+        url: 'https://analytics.datahawk.co/',
         external: true,
       },
       {
