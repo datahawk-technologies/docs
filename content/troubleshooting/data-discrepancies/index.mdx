@@ -1,0 +1,422 @@
+---
+title: Data discrepancies
+description: Numbers in DataHawk don't match Seller Central, Vendor Central, your BI tool, or your accounting system — find the most common causes and fixes.
+---
+
+Numbers in DataHawk look different from another source you trust? This is the most common issue category and usually has a known explanation. Most discrepancies fall into one of eight categories below — find yours and follow the checks.
+
+## Run these four checks first
+Most "discrepancy" cases are actually mismatched filters between the two reports you're comparing.
+
+1. **Same date range?** — Including / excluding today matters. Try expanding by one day on each side.
+2. **Same time zone?** — Amazon reports are typically UTC. Your local timezone in the DataHawk app might be different.
+3. **Same currency?** — DataHawk converts to your workspace's display currency. Native amounts in source reports differ.
+4. **Same marketplace + account scope?** — Multi-account customers sometimes compare "All accounts" in DataHawk against a single account in Seller Central.
+
+
+
+## Find your discrepancy
+
+<Accordions>
+
+<Accordion title="💰 Sales / Revenue don't match Seller Central or Vendor Central">
+
+**Common symptoms:**
+- DataHawk sales totals lower or higher than Seller Central by 5-30%
+- Vendor sales in DataHawk are missing recent days or undercount specific marketplaces
+- Sales in DataHawk match for some marketplaces but not others (e.g. matches UK but not BE/PL/NL)
+
+**Most likely causes:**
+
+1. **Sourcing vs Manufacturing (Vendor accounts).** If your product is only *sourcing* in Vendor Central (not *manufacturing*), DataHawk only sees partial data via Amazon's sourcing view. Read [I can't see data in Manufacturing views, but I see it in Sourcing](/troubleshooting/i-cannot-see-data-in-manufacturing-views,-but-i-see-it-in-sourcing) for the full explanation.
+2. **Vendor data lag.** Vendor reports take 4–7 days to stabilize at Amazon. If your comparison date range includes the last week, DataHawk numbers may legitimately be lower until Amazon backfills.
+3. **Deferred transactions.** DataHawk's `finance_orders` and `finance_profit_ledger` distinguish deferred sales (B2B, Delivery Date +7) from released ones. Seller Central often shows the released amount only.
+4. **Refunds inclusion.** Some Seller Central reports show net (sales − refunds); others gross. DataHawk separates them.
+
+**Investigation steps:**
+
+<Steps>
+<Step>
+### Confirm the comparison view in Seller Central / Vendor Central
+
+Take note of the exact report name and any filters (date, marketplace, fulfillment type, currency). DataHawk's reconciliation is only as good as the inputs.
+</Step>
+
+<Step>
+### Run the same query in the relevant DataHawk table
+
+For Seller orders: `FINANCE.FINANCE_ORDERS_SUCCESS`
+For Seller profit: `FINANCE.FINANCE_PROFIT`
+For Vendor sales: `SELLING_PARTNER.VENDOR_SALES_*`
+
+Filter by the exact same date range, marketplace, and account.
+</Step>
+
+<Step>
+### Check the transaction status
+
+In `FINANCE_PROFIT_LEDGER`, filter to `transaction_status = 'RELEASED'` to match what Seller Central typically shows. If your number now matches, deferred transactions are the cause.
+</Step>
+
+<Step>
+### For Vendor specifically — check selling program
+
+In `VENDOR_SALES_*`, filter by `selling_program`. If a marketplace appears empty but the customer has activity there, it's likely a sourcing-only marketplace where DataHawk has limited visibility.
+</Step>
+</Steps>
+
+**If still stuck:** email `support@datahawk.co` with your workspace ID, the marketplace, the date range, the exact Seller/Vendor Central report name, and a screenshot of both numbers side-by-side.
+
+</Accordion>
+
+<Accordion title="📣 Ad spend or ad sales look inflated or wrong">
+
+**Common symptoms:**
+- Ad spend in seller/vendor dashboards is way higher than what you see in Amazon Ads Console
+- Ad sales > total sales (nonsensical)
+- Walmart `WMT_SP_AD_ITEM` shows AD_SPEND that includes Brand and Video, not just Sponsored Products
+- Same campaign appears with different metrics in the Advertising dashboard vs the Seller dashboard
+- Ad data appears under the wrong account type (Vendor vs Seller)
+
+<Callout type="info">
+For ad data showing under the wrong account type specifically, see the dedicated article: [Ads data appearing under the wrong account type](/troubleshooting/ads-data-appearing-under-the-wrong-account-type).
+</Callout>
+
+**Most likely causes:**
+
+1. **Sponsored type mixing (Walmart).** In `WMT_SP_AD_ITEM`, the AD_SPEND column previously included all sponsored types — Products, Brands, and Video — even though every row was labeled `SPONSORED_TYPE = 'SponsoredProducts'`.
+   - **Fix:** Use `advertising.wmt_ad_item` instead (released May 12, 2026), which correctly attributes spend by sponsored type. The old `wmt_sp_ad_item` is now deprecated. See the [changelog entry](/changelog/2026-05-12-walmart-wmt-ad-item) for details.
+
+2. **Cross-dashboard rounding / aggregation.** The Advertising dashboard uses a different aggregation level (campaign) than the Seller/Vendor dashboards (account / ASIN). For accurate ad performance, always trust the **Advertising dashboard** — it pulls directly from `advertising.amzn_*` tables and matches Amazon Ads Console.
+
+3. **Multi-account attribution.** If you have multiple ad accounts under the same Seller, ad spend may be summing across all of them while you're comparing to a single account in Amazon Ads.
+
+**Investigation steps:**
+
+<Steps>
+<Step>
+### Start from the Advertising dashboard, not the Seller/Vendor dashboard
+
+The Advertising dashboard is the source of truth for ads. If you started from Seller Analytics, switch to the Advertising dashboard first.
+</Step>
+
+<Step>
+### Match filters exactly
+
+Amazon Ads Console defaults: date range = "Last 30 days," currency = account default. DataHawk: customizable. Reconcile both to the same date and currency before comparing.
+</Step>
+
+<Step>
+### Check sponsored type
+
+For Walmart, confirm you're using `advertising.wmt_ad_item` (not the deprecated `wmt_sp_ad_item`). For Amazon, confirm whether you want Sponsored Products only or all types combined.
+</Step>
+</Steps>
+
+</Accordion>
+
+<Accordion title="↩️ Refund amounts don't match across tables or Seller Central">
+
+**Common symptoms:**
+- Refund total in `FINANCE_PROFIT_LEDGER` differs from `FINANCE_EVENTS`
+- An order shows a sale event for one product and a refund event for another, even though the order had two of the same product
+- Seller Central Transaction Report differs from DataHawk's refund total
+- Sellerboard refunds different from DataHawk
+
+**Most likely causes:**
+
+1. **Different tables, different purposes.** DataHawk has three layers:
+   - `FINANCE_EVENTS` — raw events from Amazon, kept for completeness
+   - `FINANCE_PROFIT_LEDGER` — events deduplicated, categorized for profit calculation (this is the **canonical refund source**)
+   - `FINANCE_PROFIT` — daily aggregations
+   
+   Use the **ledger** for refund reconciliation.
+
+2. **Deferred refunds.** Like sales, refunds can be deferred. Filter `transaction_status` to compare apples-to-apples.
+
+3. **Recorded date vs accrual date.** Since July 2025, DataHawk supports both Accrual and Recorded methodologies. `FINANCE_PROFIT_LEDGER` exposes both `accrual_date` and `recorded_date`. Seller Central's Transaction Report uses recorded date — match accordingly.
+   - For matching Seller Central → use `recorded_date`
+   - For matching purchase-aligned reporting → use `accrual_date`
+
+**Investigation steps:**
+
+<Steps>
+<Step>
+### Use `FINANCE_PROFIT_LEDGER` as the source of truth
+
+```sql
+SELECT SUM(amount)
+FROM finance.finance_profit_ledger
+WHERE event_category = 'Refund'
+  AND recorded_date BETWEEN '2026-05-01' AND '2026-05-31'
+  AND marketplace_key = 'Amazon-US'
+  AND workspace_id = YOUR_WSID;
+```
+</Step>
+
+<Step>
+### Pick the right date field
+
+Match `recorded_date` for Seller Central comparisons; match `accrual_date` for purchase-aligned reporting.
+</Step>
+
+<Step>
+### Check transaction_status
+
+Add `WHERE transaction_status = 'RELEASED'` if you want only finalized refunds.
+</Step>
+</Steps>
+
+**Known edge case:** if a single order contains two units of the same product and you see one "sale" and one "refund" with different ASIN keys, there may be a ledger bug. Email support with the order ID — this is the kind of case Anna debugs case-by-case.
+
+</Accordion>
+
+<Accordion title="📊 COGS and tax discrepancies in Profit data">
+
+**Common symptoms:**
+- Profit lower in DataHawk than expected because tax was treated as a fee
+- Sales Tax Charge appears to include VAT
+- "Adjustments" category amount unclear
+- Marketing metric ≠ Ad Spend + Coupons + Promotions
+- Shipped COGS in `VENDOR_SALES_MANUFACTURING_SRC` doesn't match Vendor Central
+
+**Most likely causes:**
+
+1. **November 2, 2025 tax breakdown change.** DataHawk now separates tax from fees. Tax portions are marked `is_tax = TRUE` in the ledger and the related fee marked `is_tax = FALSE`. If your custom queries assumed taxes were part of fees, **net profit is now slightly higher** because tax is extracted. See [the breaking change entry](/changelog/2026-11-02-tax-management-profit).
+
+2. **VAT inclusion in Seller Central but not in raw amounts.** Some EU Sales reports in Seller Central are tax-inclusive by default. DataHawk's `FINANCE_PROFIT.NET_REVENUE` excludes VAT. For matching EU sales, ensure both reports are on the same tax treatment.
+
+3. **Marketing metric scope.** The "Marketing" metric in seller dashboards = Ad Spend + Coupons + Promotions. If Ad Spend > Marketing in your view, your dashboard may be summing only partial categories. Use the raw `advertising_account_metrics` table for the unambiguous total.
+
+**Investigation steps:**
+
+<Steps>
+<Step>
+### Check if your custom queries assume old tax behavior
+
+If your queries summed fees including tax, you're now double-counting tax. Update queries to filter `is_tax = TRUE` separately.
+</Step>
+
+<Step>
+### For Vendor Shipped COGS
+
+Query `SELLING_PARTNER.VENDOR_SALES_MANUFACTURING_SRC` directly:
+
+```sql
+SELECT marketplace_key, SUM(shipped_cogs_amount)
+FROM SELLING_PARTNER.VENDOR_SALES_MANUFACTURING_SRC
+WHERE YEAR(start_date) = 2025
+GROUP BY marketplace_key;
+```
+
+If a marketplace shows much less than expected, check whether your products are in sourcing-only mode for that marketplace.
+</Step>
+
+<Step>
+### For Tax Liability metric specifically
+
+In `FINANCE_PROFIT_METRICS`, the *Tax Liability* and *Net Profit* metrics were recalculated in November 2025. If you cached older snapshots, they won't match current values.
+</Step>
+</Steps>
+
+</Accordion>
+
+<Accordion title="📦 Inventory levels don't match Amazon">
+
+**Common symptoms:**
+- `RAW_INVENTORY.RAW_INVENTORY_FBA` shows different totals than Manage Inventory in Seller Central
+- Reserved / FC Transfer / Receiving inventory missing
+- Restock recommendations show different reserved qty than the raw inventory table
+- All listings report shows `ITEM_NAME = NULL` when product names are set in Seller Central
+
+**Most likely causes:**
+
+1. **Snapshot vs live.** `RAW_INVENTORY_FBA` is a daily snapshot taken at Amazon's report timestamp, not real-time. Comparing to Seller Central's live counts will always show some drift.
+
+2. **Status-specific exclusions.** Some snapshots may exclude items in Reserved or FC Transfer status until they're acknowledged. This was a regression noticed in May 2026 (Campman's report).
+
+3. **All Listings report fields.** `SELLER_INVENTORY_ALL_LISTINGS` had a regression in May 2026 returning `ITEM_NAME = NULL`. This was tracked and fixed. If you still see nulls, file a ticket.
+
+4. **`ASIN` vs `ASIN1` column.** In `SELLER_INVENTORY_ALL_LISTINGS`, you'll see both `ASIN` and `ASIN1`. The `ASIN` column is DataHawk's normalized ID; `ASIN1`, `ASIN2`, `ASIN3` come from Amazon's All Listings Report. They should match for primary listings; differ for multi-ASIN bundles.
+
+**Investigation steps:**
+
+<Steps>
+<Step>
+### Use country-level ledgers for reconciliation
+
+For accurate country-level inventory analysis, use:
+- `SELLING_PARTNER.SELLER_INVENTORY_LEDGER_DETAIL`
+- `SELLING_PARTNER.SELLER_INVENTORY_LEDGER_SUMMARY`
+
+These were introduced in November 2025 and are the recommended source. Fulfillment-center-based ledgers are still available but not suitable for country-level reporting.
+</Step>
+
+<Step>
+### Check observation date
+
+`SELLER_INVENTORY_ALL_LISTINGS_HISTORY` should have one row per day per SKU. If you see multiple observations on a single day (Mar 21 was a known issue), that's a data pipeline anomaly — report it.
+</Step>
+</Steps>
+
+</Accordion>
+
+<Accordion title="🔍 Tracked keywords or products missing from data">
+
+**Common symptoms:**
+- Added N keywords in the DataHawk UI, fewer than N appear in BigQuery/Snowflake
+- Some tracked ASINs have no `seo_product_organic_rank` data
+- Brand-specific keywords don't appear, but generic ones do
+- Newly added products show no data for 24+ hours
+
+**Most likely causes:**
+
+1. **Initial collection delay.** Newly added products and keywords are collected on a 24-hour cycle. Data only starts appearing 24 hours after addition — there's no retroactive backfill.
+
+2. **Marketplace coverage.** Some keyword volumes aren't supported in every marketplace. `SEO_KEYWORD_VOLUME_V3` covers a specific marketplace list (NA, EU, Far East subset). If your marketplace isn't in the list, you'll see no keyword data.
+
+3. **Marketplace launch delays.** Some marketplaces support `REPORTS_SEO_PRODUCT_ORGANIC_RANK` and `SEO_KEYWORD_VOLUME_V3` later than others. Amazon Ireland and Amazon Belgium, for example, have been on a delayed timeline.
+
+4. **Keyword filtering.** DataHawk filters out keywords with insufficient search volume signal. Brand-specific or highly niche keywords may be dropped if their signal is too weak.
+
+5. **Sponsored Ranks retired (July 2025).** Amazon Standard Sponsored Ranks data was retired in July 2025 due to quality issues. If you're missing `SEO.SEO_PRODUCT_SPONSORED_RANK` data, you need the [Premium Keywords add-on](/help-center/modules#premium-keywords).
+
+**Investigation steps:**
+
+<Steps>
+<Step>
+### Wait 24 hours after adding
+
+If you just added keywords/products today, check again tomorrow.
+</Step>
+
+<Step>
+### Check marketplace coverage
+
+For keyword volume, supported marketplaces are: NA (`US`, `CA`, `MX`, `BR`), EU (`GB`, `DE`, `FR`, `ES`, `IT`, `NL`, `SE`, `IN`, `TR`), Far East (`AU`, `JP`, `AE`, `SG`).
+</Step>
+
+<Step>
+### Verify the keywords were actually saved
+
+In the DataHawk UI, go to the keyword tracking section and confirm your batch is listed.
+</Step>
+</Steps>
+
+</Accordion>
+
+<Accordion title="📈 Sales Estimates very different from actuals">
+
+**Common symptoms:**
+- Sales Estimates show 2-3x more than your real Vendor sales
+- Or 50% less than expected
+- Estimates inconsistent between months
+
+**Most likely causes:**
+
+1. **Estimates are at parent level, not child level.** A key source of confusion. If your real data is at child-ASIN granularity and you compare it to DataHawk's parent-level estimate, the parent rolls up multiple children → looks much bigger.
+
+2. **Model updates.** Sales Estimates were re-modeled in March 2025 with 2024+ data reprocessed for higher accuracy. Historical comparisons before vs after the model change won't match exactly.
+
+3. **Coverage improvements (November 2025).** As of November 2025, daily estimations now include ranks 1–100 for tracked categories, including missing products estimated via the category's weekly median price. This can shift totals up or down vs older snapshots.
+
+**Investigation steps:**
+
+<Steps>
+<Step>
+### Confirm you're comparing parent-level vs parent-level
+
+If your real data is by child ASIN, aggregate to parent before comparing.
+</Step>
+
+<Step>
+### Use `REPORTS.REPORT_MARKET_BEST_SELLER_RANK_AND_ESTIMATES`
+
+This is the current recommended view. The older `REPORT_MARKET_PRODUCT_SALES_RANK_AND_ESTIMATES` is being deprecated.
+</Step>
+
+<Step>
+### Don't compare sub-month windows
+
+The model is calibrated for at least weekly windows. Daily-level comparisons against real sales will be noisy by design.
+</Step>
+</Steps>
+
+</Accordion>
+
+<Accordion title="🏷️ Buy Box / pricing / catalog field discrepancies">
+
+**Common symptoms:**
+- All sellers showing identical Buy Box metrics (bug from before July 2025)
+- `SELLER_INVENTORY_ALL_LISTINGS` returning NULL prices despite Seller Central having prices
+- "Competitive Price" from Seller Central not visible in DataHawk
+- Featured Offer / Buy Box owner inconsistent across reports
+
+**Most likely causes:**
+
+1. **Product Dashboard bug (fixed July 2, 2025).** Before this date, the Product Dashboard returned the same Buy Box metrics for all sellers due to a join bug. If you cached older results, you may still see this pattern. Refresh from current data.
+
+2. **NULL prices in `SELLER_INVENTORY_ALL_LISTINGS`.** Known issue — the table can return NULL prices for some active listings. Workaround: use `PRODUCT.AMZN_PRODUCT_FEATURED_OFFER` (released November 25, 2025) for accurate Buy Box and offer data.
+
+3. **Competitive Price not collected.** DataHawk doesn't currently collect the "Competitive Price" field from the Manage Inventory screen. Use Featured Offer pricing instead.
+
+**Investigation steps:**
+
+<Steps>
+<Step>
+### Switch to Featured Offer dataset
+
+For price monitoring and Buy Box tracking, prefer:
+
+```sql
+SELECT * FROM PRODUCT.AMZN_PRODUCT_FEATURED_OFFER
+WHERE asin = 'B00F9X725Y'
+ORDER BY observation_date DESC LIMIT 7;
+```
+</Step>
+
+<Step>
+### Check Alerts data freshness
+
+Alerts on Buy Box-related fields are now sourced from Catalog + Featured Offer datasets (as of Nov 27, 2025). Older alerts based on legacy sources may differ.
+</Step>
+</Steps>
+
+</Accordion>
+
+</Accordions>
+
+## Specific problems
+
+If you have a more specific scenario, jump directly to the article:
+
+<div className="card-grid">
+
+  <Card
+    title="Ads data appearing under the wrong account type"
+    href="/troubleshooting/ads-data-appearing-under-the-wrong-account-type"
+    description="When ad data shows up under your Vendor account but should be under Seller, or vice versa."
+  />
+
+  <Card
+    title="I can't see data in Manufacturing views, but I see it in Sourcing"
+    href="/troubleshooting/i-cannot-see-data-in-manufacturing-views,-but-i-see-it-in-sourcing"
+    description="The Sourcing vs Manufacturing data difference for Vendor accounts — explained."
+  />
+
+</div>
+
+## Still stuck?
+
+**Before contacting support, gather:**
+- Your workspace ID
+- The exact two reports being compared (DataHawk table/dashboard name + the source-of-truth report name)
+- Date range, marketplace, account, and currency for both
+- The two numbers with the exact difference
+- Screenshots of both sides (cropped to show filters and totals)
+
+This information cuts our investigation time by ~80%. Send to **[support@datahawk.co](mailto:support@datahawk.co)** with "Discrepancy" in the subject.
+
+<Callout type="warn">
+**For active production reports** — if a customer-facing dashboard is showing wrong numbers right now, add "production issue" to your email subject for priority handling.
+</Callout>

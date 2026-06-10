@@ -1,0 +1,62 @@
+---
+title: Connection failures
+description: Errors when connecting Amazon/Walmart accounts, Snowflake/BigQuery warehouses, or Power BI to your data.
+---
+
+You're trying to wire up an integration — Amazon Seller, Walmart, Snowflake, BigQuery, Power BI — and getting an error. Most connection failures fall into one of three patterns: expired credentials, missing permissions, or network restrictions.
+
+## Quick checks first
+
+1. **Are you the account owner on the source side?** Some integrations (Amazon Advertising DSP, Vendor Central) require owner-level access on the source. Read-only or marketing-user roles often fail.
+2. **Is your IP allowlisted?** If you or your customer enforces a firewall, DataHawk's IPs may need to be added to the allow list.
+3. **Are you reconnecting an old account?** OAuth tokens have a lifetime. If the integration has been disconnected for over 30 days, full re-auth (not "refresh") is required.
+
+## Specific problems
+
+<div className="card-grid">
+
+  <Card
+    title="I don't see data after connecting my DSP account"
+    href="/troubleshooting/i-don't-see-data-after-connecting-my-dsp-account"
+    description="DSP connections that succeed initially but show 'No Profile' or empty data afterward."
+  />
+
+  <Card
+    title="Accessing the Snowflake database from behind a firewall"
+    href="/troubleshooting/accessing-our-snowflake-database-from-behind-a-firewall"
+    description="Network configuration when connecting to DataHawk's Snowflake share from a firewalled environment."
+  />
+
+</div>
+
+## Common error patterns
+
+### Snowflake / BigQuery warehouse connections
+
+| Error | Likely cause | Fix |
+|---|---|---|
+| "Failed to test the connection to your data source" (in Power BI) | Snowflake credentials copy-paste error or expired | Re-copy from Workspace → Integrations and paste fresh |
+| "Data Set Configuration Error" (Looker Studio with BigQuery) | Service account permissions missing | Grant `BigQuery Data Viewer` role to the service account |
+| "Access Denied: Permission `bigquery.tables.create` denied" | Read-only role assigned where write needed | Upgrade service account role or work in a project where you have write access |
+
+### Amazon DSP
+
+| Error | Likely cause | Fix |
+|---|---|---|
+| "No Profile" after successful auth | The connecting user has no DSP entity access | Connect with a user that has explicit DSP advertiser access |
+| 300+ advertisers added unexpectedly | Connecting user has access to too many entities | Create a dedicated DataHawk user with access only to your specific DSP profiles |
+
+### OAuth flow failures
+
+| Error | Likely cause | Fix |
+|---|---|---|
+| Stuck on "Connecting..." | Browser blocked the OAuth popup | Disable popup blockers and retry |
+| Auth succeeds but immediately disconnects | Account permission revoked on source side | Check Seller Central → User Permissions for any "Remove DataHawk" actions |
+
+## Still stuck?
+
+Email [support@datahawk.co](mailto:support@datahawk.co) with:
+- Your workspace ID
+- The integration you're trying to connect (Snowflake / BigQuery / DSP / etc.)
+- The exact error message (screenshot helpful)
+- Whether this is a first connection or a reconnect

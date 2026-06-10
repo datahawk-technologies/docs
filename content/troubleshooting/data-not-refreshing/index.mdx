@@ -1,0 +1,71 @@
+---
+title: Data not refreshing
+description: Stale numbers, missing recent days, refresh delays, or data that hasn't appeared yet after connecting an account.
+---
+
+Data in DataHawk hasn't updated when you expected it to. This is the second-most common issue category and usually resolves itself within 24 hours — but here's how to confirm.
+
+## Quick checks first
+These resolve about half of all "not refreshing" reports.
+
+1. **Did you connect the source within the last 24 hours?** First ingestion takes up to 24 hours. There is no retroactive backfill before the connection date.
+2. **Is the source account still healthy?** OAuth tokens expire. Check Workspace → Integrations → status indicator on the affected account.
+3. **Is this specific to one dataset?** Some datasets refresh on different cadences (advertising = daily, vendor = weekly, SQP = monthly).
+4. **Have you checked the [Changelog](/changelog) for recent breaking changes?** Methodology updates sometimes cause a one-time discontinuity.
+
+
+## Typical refresh cadences
+
+| Data type | Refresh cadence | First availability |
+|---|---|---|
+| Amazon Seller orders, finances, inventory | Multiple times daily | ~24 h after connection |
+| Amazon Vendor sales, manufacturing | Weekly (Amazon-side delay) | Up to 7 days after connection |
+| Amazon Advertising | Daily | ~24 h after connection |
+| Walmart Marketplace | Daily | ~24 h after connection |
+| Search Query Performance (weekly) | Weekly | One week after connection |
+| Search Query Performance (monthly) | Monthly | One month after connection |
+| Sales Estimates | Daily, D-1 at 8 AM CEST | Immediately for tracked categories |
+| Catalog & Product details | Daily | ~24 h |
+| Public market data (SoV, ranks) | Daily | ~24 h |
+
+If a dataset is older than its typical cadence + 24h grace period, it's worth investigating.
+
+## Common causes
+
+1. **OAuth token expired.** Most common cause after a few months of usage. Reconnect from Workspace → Integrations.
+
+2. **Permissions revoked by a teammate.** Someone in your org may have removed DataHawk's access during a routine permission cleanup. Verify in Amazon Seller Central → Settings → User Permissions.
+
+3. **Amazon-side outage or slow report generation.** Some Amazon reports take longer to stabilize, especially after Prime Day or quarterly closes. DataHawk surfaces the latest available data — if Amazon hasn't released it, neither can we.
+
+4. **Marketplace launch delays.** Some marketplaces have later support timelines (e.g. Amazon Ireland, Amazon Belgium for `SEO_KEYWORD_VOLUME_V3` and `REPORTS_SEO_PRODUCT_ORGANIC_RANK`).
+
+5. **Sponsored Ranks retired (July 2025).** Amazon Standard Sponsored Ranks data was retired due to quality issues. If you're missing `SEO.SEO_PRODUCT_SPONSORED_RANK` data, the Premium Keywords add-on is now required.
+
+## Specific problems
+
+If you have a more specific scenario, jump directly to the article:
+
+<div className="card-grid">
+
+  <Card
+    title="My advertising data is not populating"
+    href="/troubleshooting/my-advertising-data-is-not-populating"
+    description="Troubleshoot missing or partial ad data after connecting an advertising account."
+  />
+
+  <Card
+    title="I don't see traffic data for my ASIN"
+    href="/troubleshooting/i-don't-see-traffic-data-for-my-asin"
+    description="When traffic metrics are missing for one ASIN but present for others in the same marketplace."
+  />
+
+</div>
+
+## Still stuck?
+
+Email [support@datahawk.co](mailto:support@datahawk.co) with:
+- Your workspace ID
+- The affected dataset name or dashboard
+- The date you expected the data
+- A screenshot of the "Last refreshed" timestamp in the app

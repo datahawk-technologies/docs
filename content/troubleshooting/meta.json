@@ -2,5 +2,13 @@
   "title": "Troubleshooting",
   "description": "Common issues and fixes",
   "root": true,
-  "pages": ["index"]
+  "pages": [
+    "index",
+    "data-discrepancies",
+    "data-not-refreshing",
+    "dashboard-issues",
+    "connection-failures",
+    "access-permissions",
+    "account-billing"
+  ]
 }

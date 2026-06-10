@@ -1,0 +1,57 @@
+---
+title: Access & permissions
+description: Can't log in, password reset not working, missing workspace access, or user permission errors.
+---
+
+You or a teammate can't get into DataHawk, or you can see the app but data is missing because of permission settings. This page covers the common patterns.
+
+## Quick checks first
+
+1. **Is the user invited to the right workspace?** Workspace membership is per-workspace, not per-account. Check Workspace → Members.
+2. **Is two-factor authentication blocking?** Some users forget their authenticator after re-installing their phone. Recovery codes solve this.
+3. **Did you click the password reset link within 24 hours?** Reset links expire.
+
+
+## Common scenarios
+
+### Can't log in
+
+| Symptom | Likely cause | Fix |
+|---|---|---|
+| Password reset email never arrives | Email landed in spam, or email mismatch | Check spam, confirm the email matches your DataHawk account |
+| Password reset email arrives but link fails | Link expired (24h) | Request a fresh reset link |
+| 2FA code rejected | Phone clock out of sync | Sync phone time settings; or use a recovery code |
+| Stuck on impersonation page | Internal admin issue | Sign out fully, clear cookies for the DataHawk domain, sign back in |
+
+### Workspace access
+
+| Symptom | Likely cause | Fix |
+|---|---|---|
+| Invited user doesn't appear in workspace | Invite expired | Re-send invite from Workspace → Members |
+| User in workspace can't see specific data | Per-source permissions in DataHawk app | Workspace admin can grant per-source access |
+
+### Multi-workspace customers
+
+If you have several workspaces under one account:
+- The top-left workspace switcher is the canonical place to move between them
+- Permissions are isolated per workspace — a member of Workspace A is not automatically a member of Workspace B
+
+## Specific problems
+
+<div className="card-grid">
+
+  <Card
+    title="Restrict DataHawk access to specific DSP profiles"
+    href="/troubleshooting/i-want-to-restrict-datahawk-access-to-specific-dsp-profiles"
+    description="When you want DataHawk to see only certain advertisers/profiles rather than all of them."
+  />
+
+</div>
+
+## Still stuck?
+
+Email [support@datahawk.co](mailto:support@datahawk.co) with:
+- Your workspace ID
+- The email of the affected user
+- The exact error message you see (or a screenshot)
+- What the user is trying to do (log in, access a dashboard, etc.)
