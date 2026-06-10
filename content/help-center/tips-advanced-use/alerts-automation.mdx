@@ -37,7 +37,13 @@ By the end, you'll know which type of alert to use, how to connect it to Power A
 <Callout type="info">
   When you upload a `.pbix` file to Power BI Online, three entities are created automatically: the report, the dataset (semantic model), and the dashboard.
 
-  {/* TODO: Replace this Notion image with a local copy in /public/images/tips-advanced-use/ */}
+<img
+  src="/images/help-center/tips-advanced-use/alerts-automation/alerts-automation-1.png"
+  alt="Alerts Automation 1"
+  width={600}
+  height={340}
+  className="rounded-lg border"
+/>
 
   - The report contains the visuals and interactive charts you created.
   - The dataset is the underlying data with tables, relationships, and measures.
@@ -62,7 +68,13 @@ By the end, you'll know which type of alert to use, how to connect it to Power A
 
 Open your report in Power BI Service, click edit, choose card / KPI / gauge that you'd want to follow, and click Pin to the dashboard. For the simplicity choose the dashboard with the same name.
 
-{/* TODO: Replace this Notion image with a local copy in /public/images/tips-advanced-use/ */}
+<img
+  src="/images/help-center/tips-advanced-use/alerts-automation/alerts-automation-2.png"
+  alt="Alerts Automation 8"
+  width={1200}
+  height={680}
+  className="rounded-lg border"
+/>
 
 <Callout type="error">
   Note: if you'll click the bell icon on this stage, Power BI will either subscribe you to a trial of Fabric capacity, or will show you that you have no workspaces with Fabric licenses to create an alert.
@@ -76,7 +88,13 @@ Open your report in Power BI Service, click edit, choose card / KPI / gauge that
 
 Go to the Dashboard, hover over just pinned visual, click three dots → **Manage Alerts**.
 
-{/* TODO: Replace this Notion image with a local copy in /public/images/tips-advanced-use/ */}
+<img
+  src="/images/help-center/tips-advanced-use/alerts-automation/alerts-automation-3.png"
+  alt="Alerts Automation 9"
+  width={1200}
+  height={680}
+  className="rounded-lg border"
+/>
 
 </Step>
 
@@ -114,14 +132,41 @@ Here you can activate the alert, configure alert conditions (above/below a thres
 
 From the same menu of managing alerts in the dashboard, click **Use Power Automate**.
 
-{/* TODO: Replace this Notion image with a local copy in /public/images/tips-advanced-use/ */}
+<img
+  src="/images/help-center/tips-advanced-use/alerts-automation/alerts-automation-4.png"
+  alt="Alerts Automation 10"
+  width={1200}
+  height={680}
+  className="rounded-lg border"
+/>
 
 It will take you to the Power Automate website, where the new flow will be automatically created. Click the first block to open the menu on the left, which will allow you to choose the alert ID to track.
 
-{/* TODO: Replace this Notion image with a local copy in /public/images/tips-advanced-use/ */}
+<img
+  src="/images/help-center/tips-advanced-use/alerts-automation/alerts-automation-5.png"
+  alt="Alerts Automation 11"
+  width={1200}
+  height={680}
+  className="rounded-lg border"
+/>
 
 <Callout type="info">
-  **Alternatively:** In Power Automate, create a new flow. Use trigger: **Power BI → When a data-driven alert is triggered**.
+  **Alternatively:** In Power Automate, create a new flow. 
+<img
+  src="/images/help-center/tips-advanced-use/alerts-automation/alerts-automation-6.png"
+  alt="Alerts Automation 2"
+  width={1200}
+  height={680}
+  className="rounded-lg border"
+/>
+  Use trigger: **Power BI → When a data-driven alert is triggered**.
+<img
+  src="/images/help-center/tips-advanced-use/alerts-automation/alerts-automation-7.png"
+  alt="Alerts Automation 3"
+  width={1200}
+  height={680}
+  className="rounded-lg border"
+/>
 </Callout>
 
 </Step>
@@ -140,7 +185,24 @@ Add an action, e.g.:
   **Example of the email flow:**
 
   1. Click **Add action**, choose **Mail**.
+
+<img
+  src="/images/help-center/tips-advanced-use/alerts-automation/alerts-automation-8.png"
+  alt="Alerts Automation 4"
+  width={1200}
+  height={680}
+  className="rounded-lg border"
+/>
+
   2. Put in the list of recipients, the topic, and for the message, click function and use `concat` to combine words with dynamic content.
+
+<img
+  src="/images/help-center/tips-advanced-use/alerts-automation/alerts-automation-9.png"
+  alt="Alerts Automation 5"
+  width={600}
+  height={340}
+  className="rounded-lg border"
+/>
 
   Example message:
 
@@ -149,6 +211,15 @@ Add an action, e.g.:
   ```
 
   3. Click **Add**. Publish the flow, and your alert is set.
+
+<img
+  src="/images/help-center/tips-advanced-use/alerts-automation/alerts-automation-10.png"
+  alt="Alerts Automation 6"
+  width={1200}
+  height={680}
+  className="rounded-lg border"
+/>
+
 </Callout>
 
 </Step>
@@ -176,9 +247,14 @@ Add an action, e.g.:
 
 In workspace → create a **Scorecard**.
 
-{/* TODO: Replace this Notion image with a local copy in /public/images/tips-advanced-use/ */}
+<img
+  src="/images/help-center/tips-advanced-use/alerts-automation/alerts-automation-11.png"
+  alt="Alerts Automation 12"
+  width={600}
+  height={340}
+  className="rounded-lg border"
+/>
 
-{/* TODO: Replace this Notion image with a local copy in /public/images/tips-advanced-use/ */}
 
 </Step>
 
@@ -190,13 +266,31 @@ Change the name of the scorecard on top left as well as goal name.
 
 For current value click **Set up → Connect to data**.
 
-{/* TODO: Replace this Notion image with a local copy in /public/images/tips-advanced-use/ */}
+<img
+  src="/images/help-center/tips-advanced-use/alerts-automation/alerts-automation-12.png"
+  alt="Alerts Automation 13"
+  width={1200}
+  height={680}
+  className="rounded-lg border"
+/>
 
 Select the report, and the card / KPI / gauge that you want to follow. In the scorecard also set up the goal, due date, and you also have an ability to set up rules for the status change.
 
-{/* TODO: Replace this Notion image with a local copy in /public/images/tips-advanced-use/ */}
+<img
+  src="/images/help-center/tips-advanced-use/alerts-automation/alerts-automation-13.png"
+  alt="Alerts Automation 14"
+  width={1200}
+  height={680}
+  className="rounded-lg border"
+/>
 
-{/* TODO: Replace this Notion image with a local copy in /public/images/tips-advanced-use/ */}
+<img
+  src="/images/help-center/tips-advanced-use/alerts-automation/alerts-automation-14.png"
+  alt="Alerts Automation 15"
+  width={1200}
+  height={680}
+  className="rounded-lg border"
+/>
 
 </Step>
 
@@ -206,7 +300,13 @@ Select the report, and the card / KPI / gauge that you want to follow. In the sc
 
 From here click **Create a flow**.
 
-{/* TODO: Replace this Notion image with a local copy in /public/images/tips-advanced-use/ */}
+<img
+  src="/images/help-center/tips-advanced-use/alerts-automation/alerts-automation-15.png"
+  alt="Alerts Automation 16"
+  width={1200}
+  height={680}
+  className="rounded-lg border"
+/>
 
 </Step>
 
@@ -216,7 +316,13 @@ From here click **Create a flow**.
 
 On Power Automate website click **"When current value of a goal changes"**. Depending on your desired outcome, you might want to choose when the goal changes, or when status of a goal changes.
 
-{/* TODO: Replace this Notion image with a local copy in /public/images/tips-advanced-use/ */}
+<img
+  src="/images/help-center/tips-advanced-use/alerts-automation/alerts-automation-16.png"
+  alt="Alerts Automation 17"
+  width={1200}
+  height={680}
+  className="rounded-lg border"
+/>
 
 </Step>
 
@@ -226,7 +332,13 @@ On Power Automate website click **"When current value of a goal changes"**. Depe
 
 Click the first block that appeared, and choose the workspace, scorecard ID and goal ID.
 
-{/* TODO: Replace this Notion image with a local copy in /public/images/tips-advanced-use/ */}
+<img
+  src="/images/help-center/tips-advanced-use/alerts-automation/alerts-automation-17.png"
+  alt="Alerts Automation 18"
+  width={1200}
+  height={680}
+  className="rounded-lg border"
+/>
 
 </Step>
 
@@ -238,10 +350,23 @@ As next step you can connect it to email sending, or posting a Slack message.
 
 Click **Add an action** and find **Slack: Post message**.
 
-{/* TODO: Replace this Notion image with a local copy in /public/images/tips-advanced-use/ */}
+<img
+  src="/images/help-center/tips-advanced-use/alerts-automation/alerts-automation-18.png"
+  alt="Alerts Automation 19"
+  width={1200}
+  height={680}
+  className="rounded-lg border"
+/>
 
 <Callout type="info">
   You'll have to sign in to Slack and allow Microsoft access to your Slack Workspace. You might need to ask your admin to grant permissions.
+<img
+  src="/images/help-center/tips-advanced-use/alerts-automation/alerts-automation-19.png"
+  alt="Alerts Automation 7"
+  width={600}
+  height={340}
+  className="rounded-lg border"
+/>
 </Callout>
 
 Fill in the channel where you want to post a message. For the message you might use this example:
@@ -250,7 +375,13 @@ Fill in the channel where you want to post a message. For the message you might 
 concat('The sales have changed from ', triggerOutputs()?['body/oldCurrentValue'], ' to ', triggerOutputs()?['body/newCurrentValue'])
 ```
 
-{/* TODO: Replace this Notion image with a local copy in /public/images/tips-advanced-use/ */}
+<img
+  src="/images/help-center/tips-advanced-use/alerts-automation/alerts-automation-20.png"
+  alt="Alerts Automation 7"
+  width={1200}
+  height={680}
+  className="rounded-lg border"
+/>
 
 </Step>
 
