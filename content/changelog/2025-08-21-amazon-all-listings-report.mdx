@@ -1,0 +1,15 @@
+---
+title: Amazon All Listings Report integrated into data sharing
+description: Two new tables expose Amazon's GET_MERCHANT_LISTINGS_ALL_DATA - a latest snapshot and a historical record of seller listings.
+date: 2025-08-21
+tags: [new]
+---
+
+Amazon's **All Listings Report** (`GET_MERCHANT_LISTINGS_ALL_DATA`) has been integrated into the data sharing.
+
+Two new tables are now available in the `selling_partner` schema:
+
+- `seller_inventory_all_listings` — latest snapshot of seller listings (active + inactive).
+- `seller_inventory_all_listings_history` — full historical record of listings over time.
+
+Both contain detailed listing attributes (SKU, ASIN, product IDs, price, quantity, condition, fulfillment channel, etc.).

@@ -1,0 +1,16 @@
+---
+title: Profit Ledger ServiceFee categorization fix
+description: Non-categorized ServiceFee events were misclassified under Refunds > Other; they are now correctly under Others > ServiceFee.
+date: 2025-09-17
+tags: [fix]
+---
+
+**Profit Ledger (Old) bug fix.**
+
+Non-categorized ServiceFee events were categorized in Refunds > Other. They are now correctly categorized in the Others > ServiceFee category.
+
+**Impacted tables:**
+
+- `finance_profit`
+- `finance_profit_ledger`
+- `finance_profit_metrics`

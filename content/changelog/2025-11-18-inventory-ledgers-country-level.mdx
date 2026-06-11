@@ -1,0 +1,20 @@
+---
+title: Country-level Inventory Ledgers replace FC-level legacy tables
+description: New country-level seller inventory ledger tables replace the FC-level legacy tables, which had an unreliable Country column.
+date: 2025-11-18
+tags: [new, breaking]
+---
+
+We are adding **country-level inventory ledgers**:
+
+- `SELLING_PARTNER.SELLER_INVENTORY_LEDGER_DETAIL`
+- `SELLING_PARTNER.SELLER_INVENTORY_LEDGER_SUMMARY`
+
+These replace the old **fulfillment-center-level** ledgers:
+
+- `RAW_INVENTORY.RAW_INVENTORY_LEDGER_DETAIL`
+- `RAW_INVENTORY.RAW_INVENTORY_LEDGER_SUMMARY`
+
+<Callout type="warn">
+The FC-level ledgers are marked as legacy (not removed for new users yet). They should not be used anymore — their Country column is not reliable.
+</Callout>

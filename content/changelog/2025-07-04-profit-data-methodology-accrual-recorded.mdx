@@ -1,0 +1,27 @@
+---
+title: Profit dataset adds Accrual and Recorded methodology alternatives
+description: Profit now exposes both accrual and recorded date methods, with new tables for daily profit aggregated on recorded date.
+date: 2025-07-04
+tags: [improvement, new]
+---
+
+Following the migration to accrual, some customers asked to roll back to the previous recorded/posted based method. While we want to keep the new default to accrual, we are releasing alternative tables to provide both methodologies.
+
+**Profit methods:**
+
+- `Accrual Profit` / Order Date / Profit is recognized when the customer places the order. Best for forecasting and tracking business activity. *This is our new default.*
+- `Posted or Recorded Profit` / Posted Date / Profit is recognized when Amazon officially posts the transaction to your ledger. This reflects Amazon's internal accounting timeline. *This was our previous default.*
+- `Cash Profit` / Disbursement Date / Profit is recognized when funds are actually transferred to your bank account. *We do not support this method.*
+
+**Changes:**
+
+- No breaking change to current behavior.
+- **Changes to existing models:**
+  - `FINANCE_PROFIT_LEDGER` — addition of `accrual_date` and `recorded_date` (each reflecting events date depending on the method type). `posted_date` remains as an alias of `accrual_date`.
+  - `FINANCE_PROFIT` — addition of `date_day` (alias of `posted_date`).
+  - `FINANCE_PROFIT_METRICS` — addition of `date_day` (alias of `posted_date`).
+- **New models:**
+  - `FINANCE_PROFIT_RECORDED_BASIS` — daily profit aggregated on recorded date.
+  - `FINANCE_PROFIT_METRICS_RECORDED_BASIS` — daily profit aggregated on recorded date.
+
+With this change, the ledger exposes both dates, and we provide pre-aggregated profit analysis models for each method.

@@ -1,0 +1,38 @@
+---
+title: Profit Dataset improvements with deferred transactions and expanded fees
+description: Profit reports now include deferred transactions and more event coverage; profit may shift but accuracy improves. No schema-breaking changes.
+date: 2025-09-26
+tags: [improvement]
+---
+
+Major enhancements to the Profit dataset: your reports and dashboards now include more complete transaction data, with no changes required on your side.
+
+**What you can expect:**
+
+- **Profit dataset now shows most recent Amazon transactions** — reports and dashboards include these previously hidden amounts, giving a truer picture of profitability.
+- **Your Profit metrics might evolve** — profit metrics now include deferred transactions and new cost events, which can make reported profit lower but more accurate.
+
+**Impacted tables:**
+
+- `finance_profit`
+- `finance_profit_metrics`
+- `finance_profit_ledger`
+- `finance_profit_metrics_recorded_basis`
+- `finance_profit_recorded_basis`
+- Any dashboard or workflow built on this data, including the Seller Analytics Power BI Dashboard Template.
+
+**Technical highlights:**
+
+- **Visibility on deferred (delayed) transactions with new columns (Ledger table only):**
+  - New `transaction_status` column with values: `DEFERRED`, `DEFERRED_RELEASED`, `RELEASED`
+  - New `deferral_reason` column with values: `DD7` (Delivery Date +7), `B2B`
+- **Expanded event coverage:**
+  - Promotion Discount events now captured in Events (previously only in Orders)
+  - More coverage for these FBA fees: Inbound Defect Fee, Per Unit Fulfillment Fee, Disposal Fee (may be delayed in Financial Events)
+  - Customer Return Per Unit Fee (may be delayed in Financial Events)
+- **Richer product and marketplace data:**
+  - ASIN now available alongside SKU for every Order/Refund event
+  - More marketplace details on fees for better clustering
+  - More `order_id` coverage for grouping by Orders
+
+No schema-breaking changes — existing queries will continue to work.

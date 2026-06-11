@@ -1,0 +1,28 @@
+---
+title: EMS v6 introduces a daily units-sold methodology
+description: Four experimental EMS v6 datasets in data sharing, with a new daily ratio between observed sales and units bought per product.
+date: 2025-12-16
+tags: [new]
+---
+
+Four experimental datasets are now (or soon) available in data sharing, updating EMS with a new daily units-sold methodology.
+
+**PRODUCT schema:**
+
+```
+DATAHAWK_SHARE_V2.PRODUCT.product_sales_estimates_v6_child
+DATAHAWK_SHARE_V2.PRODUCT.product_sales_estimates_v6_raw
+DATAHAWK_SHARE_V2.PRODUCT.product_sales_estimates_v6
+```
+
+**MARKET schema:**
+
+```
+DATAHAWK_SHARE_V2.MARKET.product_sales_estimates_v6_raw
+```
+
+Each mirrors its `_v5` counterpart but with new logic, so the content differs.
+
+**TL;DR**
+
+We've introduced a daily ratio comparing observed sales to units bought for each product. It's an early step toward a seasonality-aware EMS. The ratio isn't perfect yet — coverage depends on available sales data and will expand as we gather more. We plan to improve it by clamping extreme values, testing alternate calculations (sum/avg/median), incorporating Amazon calendar events (Black Week, Prime Day), and boosting unit-bought coverage.

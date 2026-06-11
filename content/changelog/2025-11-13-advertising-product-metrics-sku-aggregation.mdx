@@ -1,0 +1,16 @@
+---
+title: Advertising Product Metrics now aggregate correctly across SKUs
+description: Fixed multi-SKU/ASIN aggregation in Advertising Product Metrics and added a new asin+sku level dataset.
+date: 2025-11-13
+tags: [fix, new]
+---
+
+In the Amazon Advertising `product_metrics` table, there was an issue for accounts that have multiple `sku` for the same ASIN. The aggregated table in the data sharing randomly skipped one of those SKUs instead of aggregating all the data at ASIN level.
+
+**What has been done:**
+
+- The `sku` column on the `product_metrics_source` table has been added.
+- The `advertising_product_metrics` dataset now produces correct aggregations at the ASIN level, summing all metrics.
+- A new dataset `advertising_product_sku_metrics` is now available, displaying product metrics aggregated at the `asin`+`sku` level.
+
+**Why we discovered this now:** we are now relying on `product_metrics_source` to provide correct campaign-level metrics (aligned with the Amazon Ads Console). Checking for improvements revealed that some accounts still had incorrect figures, which led to the investigation and the issue discovery.

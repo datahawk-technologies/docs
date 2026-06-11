@@ -1,0 +1,18 @@
+---
+title: product_detailed enriched from ASIN Data API as fallback
+description: When classic scraping can't get a value, product_detailed now falls back to ASIN Data API for several key fields.
+date: 2025-09-29
+tags: [improvement]
+---
+
+The `product_detailed` dataset is now updated with the following fields from the ASIN Data API when we are not able to get the value from the classic scraping collection:
+
+- rating
+- rating_count
+- price
+- buy_box_price
+- shipping_price
+- description_text
+- with_a_plus
+
+Starting from today's data.

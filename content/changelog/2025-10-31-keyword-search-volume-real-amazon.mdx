@@ -1,0 +1,23 @@
+---
+title: Keyword Search Volume now powered by real Amazon signals
+description: SEO_KEYWORD_VOLUME_V2 now uses real Amazon search volume from the search terms performance report, with less missing data.
+date: 2025-10-31
+tags: [improvement]
+---
+
+Starting Monday midday, the dataset `DATAHAWK_SHARE_V2.SEO.SEO_KEYWORD_VOLUME_V2` is powered with new estimation models.
+
+We are now directly using real Amazon Search Volume coming from a subset of keywords we can access using the **search terms performance** report.
+
+**To be aware of:**
+
+- Due to limited history access, the data is available **starting May 1, 2024**.
+  - For `AE` and `SG`, data is available **starting August 15, 2024**.
+- There is **no change in marketplace coverage** compared to the previous version.
+- There is **less missing data** compared to the previous version (a smoothing is applied).
+
+**Covered marketplaces:**
+
+- North America: `US`, `CA`, `MX`, `BR`
+- Europe: `GB`, `DE`, `FR`, `ES`, `IT`, `NL`, `SE`, `IN`, `TR`
+- Far East: `AU`, `JP`, `AE`, `SG`

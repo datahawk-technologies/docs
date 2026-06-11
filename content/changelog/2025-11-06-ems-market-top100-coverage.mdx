@@ -1,0 +1,38 @@
+---
+title: EMS Market improvements for complete top-100 coverage
+description: Sales estimates now cover the full top-100 ranks per category, with weekly median price fallback when product info is missing.
+date: 2025-11-06
+tags: [improvement]
+---
+
+The EMS market dataset is now more accurate by always covering the best sellers top 100.
+
+We sometimes struggled to collect the entire best sellers top 100 (list of products), which led to partial market sales estimation when products were missing.
+
+**What has been implemented:**
+
+- Sales estimations are run every day for all tracked categories for the first 100 ranks (regardless of product presence). Result: we have the units sold for all ranks without holes.
+- Then we map the rank to the observed product, if present:
+  - If we have a product: sales are computed with **product price**, and the data is enriched with product info.
+  - If we don't have a product: sales are computed with the **weekly median price** of the category, and product info is set to null or "Unknown".
+
+This methodology ensures complete coverage of the top 100, especially for the past, where bestsellers collection was sometimes missing.
+
+**Impacted views:**
+
+- `REPORTS.REPORT_MARKET_BEST_SELLER_RANK_AND_ESTIMATES`
+- `REPORTS.REPORT_MARKET_PRODUCT_SALES_RANK_AND_ESTIMATES`
+
+**Fallback values** when product info is missing:
+
+- `product_key` — null
+- `channel_product_id` — null
+- `group_channel_product_id` — null
+- `name` — Unknown
+- `brand` — Unknown
+- `brand_catalog` — Unknown
+- `price` — Weekly median price of the category
+- `rating` — null
+- `rating_count` — null
+- `picture_url` — null
+- `is_membership_program` — null

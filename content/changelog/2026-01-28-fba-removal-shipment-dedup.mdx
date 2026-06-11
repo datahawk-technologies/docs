@@ -1,0 +1,12 @@
+---
+title: FBA Removal Shipment deduplicated
+description: The unique key in fba_removal_shipment_detail is now fully reliable and historical duplicates have been removed.
+date: 2026-01-28
+tags: [fix]
+---
+
+`SELLING_PARTNER.FBA_REMOVAL_SHIPMENT_DETAIL` no longer contains duplications.
+
+The definition of the `_unique_key` of the table has been changed after we discovered that the `shipment_date` can change over time. The `_unique_key` is now fully reliable and the dataset has been fully refreshed to remove all duplicated keys.
+
+**Concerned table:** `SELLING_PARTNER.FBA_REMOVAL_SHIPMENT_DETAIL`

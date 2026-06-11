@@ -1,0 +1,25 @@
+---
+title: New referential_advertising_account_reports dataset
+description: New referential dataset surfaces Amazon Advertising report status (category level) per account, marketplace, and workspace.
+date: 2025-10-09
+tags: [new]
+---
+
+A new dataset `referential_advertising_account_reports` is available in data sharing.
+
+```
+select *
+from REFERENTIAL.referential_advertising_account_reports
+```
+
+**Columns:**
+
+- `account_key` — Account identifier
+- `seller_name` — Name of the seller
+- `marketplace_key` — Marketplace identifier
+- `ads_category` — Advertising report category (aliased for Sponsored Type)
+- `can_collect_data` — Data collection permission flag (can be driven by several factors)
+- `min_date` — Earliest report date (aggregated minimum)
+- `max_date` — Latest report date (aggregated maximum)
+- `latest_extract_time` — Most recent sync timestamp (aggregated maximum)
+- `workspace_id` — Workspace identifier

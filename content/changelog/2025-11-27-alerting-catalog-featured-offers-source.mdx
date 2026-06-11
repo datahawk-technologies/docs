@@ -1,0 +1,32 @@
+---
+title: Alerting moved to catalog and featured_offers sources
+description: In-app alerts now use catalog and featured_offers datasets, with semantic changes to Top Sales Rank and buybox fields.
+date: 2025-11-27
+tags: [breaking, improvement]
+---
+
+In-app alerting has new sources (`catalog` and `featured_offers` datasets) for the following fields:
+
+- Buybox Enabled
+- Buybox Seller Id
+- Buybox Owner (97% coverage)
+- Price
+- Number Of Sellers
+- Top Sales Rank
+- Item Name
+- Brand
+
+<Callout type="warn">
+Some fields are now null since we don't have the data in the catalog / pricing tables:
+
+- `buy_box_seller_uri`
+
+We only have "New" buybox information, and no longer "Used" buybox like we did with crawling.
+</Callout>
+
+**Semantic change of Top Sales Rank:**
+
+- Before, we picked the best rank among all ranking categories.
+- Now, we pick the rank of the top-level category.
+
+This keeps things consistent for performance monitoring by limiting node switches.
