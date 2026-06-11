@@ -3,7 +3,8 @@
  *
  * Installed at: app/changelog/[[...slug]]/page.tsx
  *
- * If no slug (URL is /changelog) → render the filterable list.
+ * If no slug (URL is /changelog) → render the slim subscribe banner above
+ *   the filterable list. The banner is collapsed by default — just one line.
  * If slug present (URL is /changelog/foo) → render the corresponding MDX entry
  *   with Older/Newer pager at the bottom.
  */
@@ -14,6 +15,7 @@ import { notFound } from 'next/navigation';
 import { mdxComponents } from '@/mdx-components';
 import { ChangelogList, type ChangelogEntry, type Tag } from '@/components/ChangelogList';
 import { ChangelogPager } from '@/components/ChangelogPager';
+import { SubscribeForm } from '@/components/SubscribeForm';
 
 // Shared helper — reads all dated entries from the changelog source.
 function getDatedEntries() {
@@ -33,7 +35,7 @@ export default async function Page(props: { params: Promise<{ slug?: string[] }>
   const params = await props.params;
   const slug = params.slug;
 
-  // ─── Landing: render the filterable list ──────────────────────────────
+  // ─── Landing: slim subscribe banner + filterable list ─────────────────
   if (!slug || slug.length === 0) {
     const entries: ChangelogEntry[] = getDatedEntries().sort(
       (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
@@ -46,6 +48,7 @@ export default async function Page(props: { params: Promise<{ slug?: string[] }>
           Every update, improvement, and fix shipped to DataHawk.
         </DocsDescription>
         <DocsBody>
+          <SubscribeForm />
           <ChangelogList entries={entries} />
         </DocsBody>
       </DocsPage>

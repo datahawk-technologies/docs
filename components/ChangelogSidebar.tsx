@@ -4,15 +4,17 @@
  * Installed at: components/ChangelogSidebar.tsx
  * Used by:      app/changelog/layout.tsx (passed via sidebar.banner prop)
  *
- * Shows the 5 most recent releases (passed in from the server component)
- * plus a "Subscribe (RSS)" link at the bottom.
+ * Shows:
+ *   - 5 most recent releases
+ *   - Subscribe section with both Email + RSS options
  *
- * This is a server component — no client-side state, no event handlers.
- * Data is computed in layout.tsx and passed via the latestEntries prop.
+ * The "Subscribe by email" button targets the SubscribeForm at the top of
+ * the changelog landing — it opens the form and scrolls to it.
  */
 
 import Link from 'next/link';
 import { Rss } from 'lucide-react';
+import { EmailSubscribeButton } from './EmailSubscribeButton';
 
 export type LatestEntry = {
   title: string;
@@ -58,18 +60,27 @@ export function ChangelogSidebar({ latestEntries }: { latestEntries: LatestEntry
         </Link>
       </section>
 
-      {/* ─── Subscribe (RSS) ─────────────────────────────────── */}
-      <section className="pt-4 border-t border-fd-border">
+      {/* ─── Subscribe section ───────────────────────────────── */}
+      <section className="pt-4 border-t border-fd-border space-y-1">
+        <h3 className="text-xs font-semibold uppercase tracking-wider text-fd-muted-foreground mb-2 px-1">
+          Subscribe
+        </h3>
+
+        {/* Email button — opens the SubscribeForm at the top of the page */}
+        <EmailSubscribeButton />
+
+        {/* RSS link — opens /feed.xml in a new tab */}
         <a
           href="/feed.xml"
           target="_blank"
           rel="noopener noreferrer"
           className="flex items-center gap-2 px-2 py-1.5 rounded hover:bg-fd-accent transition text-sm font-medium text-fd-primary no-underline"
         >
-          <Rss className="size-4" />
-          Subscribe (RSS)
+          <Rss className="size-4 shrink-0" />
+          Subscribe via RSS
         </a>
-        <p className="text-xs text-fd-muted-foreground px-2 mt-1">
+
+        <p className="text-xs text-fd-muted-foreground px-2 pt-2">
           Get notified when new releases ship.
         </p>
       </section>
