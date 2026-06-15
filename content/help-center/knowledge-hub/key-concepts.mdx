@@ -11,7 +11,7 @@ A few core concepts come up constantly in DataHawk dashboards and datasets. This
 
 ## ASIN — What it is and why it matters
 
-An **ASIN** (Amazon Standard Identification Number) is Amazon's internal identifier for a product. Every product listed on Amazon has one. Think of it as Amazon's own product ID — separate from any reference you or your supplier use.
+An **<Term>ASIN</Term>** (Amazon Standard Identification Number) is Amazon's internal identifier for a product. Every product listed on Amazon has one. Think of it as Amazon's own product ID — separate from any reference you or your supplier use.
 
 ASINs are **marketplace-specific**: the same physical product sold on Amazon.com (US) and Amazon.co.uk (UK) will have different ASINs in each country.
 
@@ -19,7 +19,7 @@ DataHawk uses ASINs as the primary key to identify and track products across all
 
 ## SKU — Your internal product reference
 
-A **SKU** (Stock Keeping Unit) is the product identifier *you* assign — it's your own internal code, not Amazon's. While ASINs are assigned by Amazon and shared across all sellers who list that product, a SKU is specific to your seller account.
+A **<Term>SKU</Term>** (Stock Keeping Unit) is the product identifier *you* assign — it's your own internal code, not Amazon's. While ASINs are assigned by Amazon and shared across all sellers who list that product, a SKU is specific to your seller account.
 
 One ASIN can be linked to multiple SKUs (for example, if you sell the same product through different fulfilment methods), and one SKU maps to one ASIN.
 
@@ -42,7 +42,7 @@ This distinction matters in DataHawk because some data is reported at the parent
 
 ## BSR — Best Seller Rank
 
-**BSR** (Best Seller Rank) is a number Amazon assigns to each product within a category, based on recent sales velocity. A BSR of 1 means the product is the top seller in that category.
+**<Term>BSR</Term>** (Best Seller Rank) is a number Amazon assigns to each product within a category, based on recent sales velocity. A BSR of 1 means the product is the top seller in that category.
 
 A few things worth knowing:
 
@@ -58,7 +58,7 @@ DataHawk uses BSR as one of the signals in its sales estimation model and surfac
 In Amazon's terminology:
 
 - A **marketplace** is a country-level storefront: Amazon.com, Amazon.co.uk, Amazon.de, etc.
-- A **channel** (sometimes called a selling channel or fulfilment channel) refers to how products are fulfilled: FBA (Fulfilled by Amazon) vs FBM/MFN (Fulfilled by Merchant).
+- A **channel** (sometimes called a selling channel or fulfilment channel) refers to how products are fulfilled: <Term>FBA</Term> (Fulfilled by Amazon) vs <Term>FBM</Term>/<Term>MFN</Term> (Fulfilled by Merchant).
 
 DataHawk tracks data **per marketplace**. If you sell in multiple countries, each has its own data collection, and metrics are not aggregated across countries by default in the raw datasets.
 
@@ -85,7 +85,7 @@ DataHawk tracks data **per marketplace**. If you sell in multiple countries, eac
 | `ASIN` | Amazon Standard Identification Number | All product-level tables |
 | `PARENT_ASIN` | Groups child ASINs into a product family | `PRODUCT.*`, sales estimates tables |
 | `CHILD_ASIN` | Specific purchasable variant | `PRODUCT_SALES_ESTIMATES`, variant-level tables |
-| `SKU` | Seller-defined identifier | Private data tables (orders, inventory, COGS) |
+| `SKU` | Seller-defined identifier | Private data tables (orders, inventory, <Term>COGS</Term>) |
 | `MARKETPLACE_ID` | Amazon's numeric marketplace identifier | All tables with marketplace scope |
 | `MARKETPLACE` | Human-readable marketplace name (e.g., `Amazon.com`) | Reporting tables |
 | `BSR` | Best Seller Rank within a category | `PRODUCT.PRODUCT_LISTING`, `PRODUCT.PRODUCT_HISTORY` |

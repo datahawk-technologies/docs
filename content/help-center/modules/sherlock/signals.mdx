@@ -5,7 +5,7 @@ description: Sherlock's daily starting point — every product with a meaningful
 
 
 <Callout type="warn">
-  Sherlock is in active development. If something on screen doesn't match this page, drop a note via the assistant and we'll catch up.
+  <Term>Sherlock</Term> is in active development. If something on screen doesn't match this page, drop a note via the assistant and we'll catch up.
 </Callout>
 
 ## How the app is organised
@@ -13,7 +13,7 @@ description: Sherlock's daily starting point — every product with a meaningful
 The left sidebar has two groups:
 
 - **Investigate** → *Signals*. The full, filterable list of every meaningful product movement.
-- **Cases** → *Zombie Ad Spend*, *Return Anomalies*, *Ad Spend Drop*, *Price CVR Drop*, *FBA Stockout*, *Buy Box Loss*. Each Case is a curated shortcut for a specific risk pattern.
+- **Cases** → *Zombie Ad Spend*, *Return Anomalies*, *Ad Spend Drop*, *Price CVR Drop*, *<Term>FBA</Term> Stockout*, *<Term>Buy Box</Term> Loss*. Each Case is a curated shortcut for a specific risk pattern.
 
 If you don't know where to start, open **Signals**. If you already have a hunch ("I think we have an ad-spend issue"), jump straight to the matching Case.
 
@@ -23,7 +23,7 @@ When you open Signals, you'll see a list of products with these columns:
 
 | Column | What it means |
 |---|---|
-| **Product** | Product title, marketplace flag, parent and child ASIN (each with a copy icon) |
+| **Product** | Product title, marketplace flag, parent and child <Term>ASIN</Term> (each with a copy icon) |
 | **Trend** | A small sparkline of the metric Sherlock is flagging |
 | **Growth** | % change — toggle the header between **WoW** and **MoM** to switch the view. Green = up, red = down |
 | **\$ Impact** | Absolute revenue difference between the current period and the prior equivalent period, in the product's sales currency. Follows the WoW / MoM toggle. Click the header to sort |
@@ -126,7 +126,7 @@ A heatmap of every key metric over the analysed period, grouped by:
 - **Sales Performance** — orders, units, refunds, shipments
 - **Pricing** — selling, listing, landed, shipping price
 - **Traffic & Engagement** — buy box %, sessions, conversion
-- **Advertising** — ad sales, ad spend, ACOS, ad orders, ad units
+- **Advertising** — ad sales, ad spend, <Term>ACOS</Term>, ad orders, ad units
 
 Green cells sit above baseline, red cells below. Use the **T0 / T1 / All** toggle to focus on a single window or compare both.
 
@@ -153,7 +153,7 @@ Top-right of any investigation:
 
 Every Sherlock investigation runs through the same 5-step pipeline:
 
-1. **Fetch metrics** — pull 30 days of daily arrays from Snowflake: revenue, sessions, CVR, Buy Box, ads, inventory, price, rank.
+1. **Fetch metrics** — pull 30 days of daily arrays from <Term>Snowflake</Term>: revenue, sessions, CVR, Buy Box, ads, inventory, price, rank.
 2. **Compute evidences** — compare the last 7 days vs the previous 7, and the last 3 vs the previous 3. Build deltas, decomposition, event start dates, and scored root causes.
 3. **Fetch events** — external events (Prime Day, holidays), seller annotations, and product changes.
 4. **Load knowledge playbook** — apply DataHawk's library of diagnostics and causality rules.
