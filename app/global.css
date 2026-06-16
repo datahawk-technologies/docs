@@ -188,12 +188,15 @@ article h1 {
   margin-bottom: 0.5rem;
 }
 
-/* --- Page description (subtitle below H1, italic, faded navy) - */
+/* --- Page description (subtitle below H1) ---------------------- */
+/* Body-text size with a muted navy-gray color so the subtitle reads
+   as supporting metadata, not competing with the main content.    */
 article > p.text-lg.text-fd-muted-foreground {
-  color: #122c47c4;
+  color: #5a7090;
   font-weight: 400;
-  font-size: 1.125rem;
-  font-style: italic;
+  font-size: 1rem;
+  font-style: normal;
+  margin-bottom: 1.75rem;
 }
 
 /* --- H2: Major section headings -------------------------------- */
