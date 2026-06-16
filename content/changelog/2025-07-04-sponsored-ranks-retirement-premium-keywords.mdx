@@ -9,17 +9,47 @@ tags: [breaking, new]
 **Standard Sponsored Ranks Data is being retired on July 8th** due to quality issues.
 </Callout>
 
-- An optional **premium alternative** for Sponsored Keywords is now available as a paid add-on.
-- Current subscriptions **continue with all other features** and improvements intact.
+We track where products appear in Amazon search results for specific keywords. This includes both **organic rankings** (natural placement) and **sponsored rankings** (ads like Sponsored Products and Sponsored Brands). 
 
-**Impacted datasets and dashboards:**
+**TLDR:**
 
-- Search Power BI Dashboard
-- Analytics Essentials Looker Studio Dashboard
-- `SEO.SEO_PRODUCT_SPONSORED_RANK` table
-- Any custom report built on top of this data
+- **Amazon Standard Sponsored Ranks Data is being retired** due to quality issues on **July 8th.**
+- An optional premium **alternative** for Sponsored Keywords is now available as a paid add-on.
+- Your current subscription **continues with all other features** and improvements intact.
+- **Impacted datasets/dashboards**: Search Power BI Dashboard, Analytics Essentials Looker Studio Dashboard, `SEO.SEO_PRODUCT_SPONSORED_RANK` table, any custom report built on top of this data
+- **Walmart** Sponsored Ranks are **not impacted**
 
-**Documentation:**
+## **What Changed**
 
-- [Announcement](https://docs.datahawk.co/sponsored-ranks-tracking-changes)
-- [Premium Keywords](https://docs.datahawk.co/premium-keywords)
+Amazon has recently made it significantly more complex and expensive to collect sponsored rank data accurately, due to evolving content policies and increased detection mechanisms. As a result, the quality and consistency of sponsored rankings in Standard Keywords has declined.
+
+## **Our Response**
+
+[**Introducing Premium Keywords**](/help-center/data-setup/premium-keywords-tracking.mdx)
+
+To address this, we’ve upgraded our sponsored ranking systems to ensure accuracy, but this comes with much higher technical costs. To maintain quality and sustainability, we are now offering two types of keyword tracking:
+
+| **Unit Type** | **Organic Ranks** | **Sponsored Ranks** | **Search Depth** | **Notes** |
+| --- | --- | --- | --- | --- |
+| **Standard Keywords** | ✅ Yes | ⚠️ Best-effort only (being deprecated on July 8th) | 5 Pages | Cost-efficient organic tracking only. Sponsored ranks are being retired. |
+| **Premium Keywords** | ✅ Yes  | ✅ Sponsored Products & Sponsored Brands | Organic: 5 Pages
+Sponsored: 2 Pages | Accurate and fully supported. Ideal for complete visibility. |
+
+We kept **Standard Keywords** focused on organic results to keep tracking cost-effective when paid data isn’t necessary. For advertisers and teams needing **complete visibility**, **Premium Keywords** are now available as a paid add-on.
+
+## Impact on Dashboards & Data Tables
+
+As of **July 8th**, standard sponsored rank data will be **fully removed** from the following datasets and dashboards:
+
+- **Search Power BI Dashboard**
+- **Analytics Essentials Looker Studio Dashboard**
+- **`SEO.SEO_PRODUCT_SPONSORED_RANK` table** in the database
+- Any **custom dashboard, query, or report** built using the sponsored rank fields in Standard Keywords
+
+You will continue to see **organic rankings** as normal. If you wish to continue tracking sponsored rankings, you will need to enable Premium Keywords.
+
+## What's Next
+
+**Important**: You cannot mix Standard and Premium Keywords within the same <Term>workspace</Term>. The upgrade to Premium happens at the **workspace level**.
+
+Reach out to us if you’d like a quote to convert your current volume into Premium, or if you have any questions about how this change may affect your reports or dashboards.

@@ -32,7 +32,7 @@ DataHawk's Vendor Analytics Dashboard gives Vendor Central managers a complete v
 |---|---|
 | **Executive Report** | Top KPIs across sales, inventory, and advertising — weekly or monthly |
 | **Traffic** | Glance views, conversion rate, and period-over-period traffic trends |
-| **Sales** | Shipped revenue, shipped COGS, units, returns, and ordered revenue |
+| **Sales** | Shipped revenue, shipped <Term>COGS</Term>, units, returns, and ordered revenue |
 | **Advertising** | Account-level and product-level ad performance (SP + <Term>SD</Term> + <Term>SB</Term>) |
 | **Inventory Snapshot** | On-hand inventory, purchase order status, and Amazon demand forecast |
 | **Search** | Share of voice by brand and keyword across organic and sponsored placements |
@@ -53,7 +53,7 @@ For simple metrics (e.g. revenue), changes show as a percentage. For ratio metri
 
 ## Tab by tab
 
-**Executive Report** — A high-level summary of KPIs for the selected period. Includes a summary bar with top metrics and their PoP and YTD changes, line charts comparing current vs. prior year, a configurable main table (choose your metrics with the slicer), and a drill-down section that breaks performance changes by Country, Brand, Tag, and <Term>ASIN</Term>. Note: advertising metrics here are at the account level (SB + SP + SD), but automatically switch to product level when a product filter (Tag, Brand, ASIN, or Vendor Account) is applied.
+**Executive Report** — A high-level summary of KPIs for the selected period. Includes a summary bar with top metrics and their PoP and YTD changes, line charts comparing current vs. prior year, a configurable main table (choose your metrics with the slicer), and a drill-down section that breaks performance changes by Country, Brand, Tag, and <Term>ASIN</Term>. Note: advertising metrics here are at the account level (SB + SP + SD), but automatically switch to product level when a product filter (Tag, Brand, <Term>ASIN</Term>, or Vendor Account) is applied.
 
 **Traffic** — Shows glance views (GVs) and conversion rate (GVs to shipped units). Includes a summary bar, line charts vs. prior year, a metrics table by period and dimension, a distribution table (% of total GVs and ordered revenue per breakdown row), and a product performance section highlighting the biggest week-over-week movers. Note: GVs are counted at the ASIN level and only when Retail (Amazon) is the featured seller. A value of 0 means there was a sales event but no glance view; a null value means no sales activity at all.
 
@@ -63,7 +63,7 @@ For simple metrics (e.g. revenue), changes show as a percentage. For ratio metri
 
 **Inventory Snapshot** — Overview of your current inventory position with Amazon. Shows open purchase order quantities, sellable on-hand inventory, and a historical inventory chart. The forecast section visualises your projected inventory depletion based on shipped units and a 6-week moving average, alongside Amazon's demand forecast (selectable between Mean, P70, P80, and P90 confidence levels). Useful for planning replenishment before stockouts occur.
 
-**Search** — Share of voice (<Term>SoV</Term>) analysis at the brand level, based on your tracked keywords. You can filter by search type — Organic, Sponsored (SB + SP), Sponsored SB only, or Sponsored SP only — and by page range. Charts include: competitive SoV breakdown for the current month, historical SoV over 12 months by brand, owned brand comparison, and a two-brand comparative chart. A keyword count table at the bottom shows how many distinct keywords were tracked each month. Note: SoV is calculated monthly from daily data and depends on the keywords tracked at the time. Changes in your keyword tracking set will affect how SoV trends are interpreted.
+**Search** — Share of voice (<Term>SoV</Term>) analysis at the brand level, based on your tracked keywords. You can filter by search type — Organic, Sponsored (SB + SP), Sponsored SB only, or Sponsored SP only — and by page range. Charts include: competitive <Term>SoV</Term> breakdown for the current month, historical SoV over 12 months by brand, owned brand comparison, and a two-brand comparative chart. A keyword count table at the bottom shows how many distinct keywords were tracked each month. Note: SoV is calculated monthly from daily data and depends on the keywords tracked at the time. Changes in your keyword tracking set will affect how SoV trends are interpreted.
 
 **Explorer** — Build a custom chart and table by choosing any two metrics from the available list. Hierarchies go from Country → Tag → Brand → ASIN. Granularity can be set to year, month, week, or day. Metrics are at the product level and include prior-year comparators for each metric.
 
@@ -76,7 +76,7 @@ All tabs share a common filter panel:
 | Filter | What it does |
 |---|---|
 | **Vendor Account** | Filter to one or more vendor accounts |
-| **Marketplace** | Filter to specific marketplaces |
+| **<Term>Marketplace</Term>** | Filter to specific marketplaces |
 | **Brand** | Filter by brand name |
 | **Tags** | Filter to products assigned a specific tag in DataHawk |
 | [**Distribution View**](/help-center/knowledge-hub/amz-vendor-account-sourcing-manufacturing) | Switch between Manufacturing and Sourcing views for inventory metrics |
@@ -120,11 +120,11 @@ All tabs share a common filter panel:
 **Advertising metrics**
 
 - **Ad Spend** — Total advertising spend
-- **Ad Sales** — Ad-attributed revenue (Same-<Term>SKU</Term> and Other-SKU)
+- **Ad Sales** — Ad-attributed revenue (Same-<Term>SKU</Term> and Other-<Term>SKU</Term>)
 - **Ad Sales Ratio** — Ad Sales as % of Shipped Revenue
-- **ACoS** — Ad Spend ÷ Ad Sales × 100%
-- **RoAS** — Ad Sales ÷ Ad Spend
-- **TACoS** — Ad Spend ÷ Shipped COGS × 100%
+- **<Term>ACoS</Term>** — Ad Spend ÷ Ad Sales × 100%
+- **<Term>RoAS</Term>** — Ad Sales ÷ Ad Spend
+- **<Term>TACoS</Term>** — Ad Spend ÷ Shipped COGS × 100%
 - **CVR** — Ad Orders ÷ Clicks
 - **CTR** — Clicks ÷ Impressions
 

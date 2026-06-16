@@ -3,7 +3,7 @@ title: How to write effective MCP prompts
 description: How to phrase DataHawk MCP prompts so you get the right answer the first time — anatomy, domain vocabulary, patterns, and iteration tips.
 ---
 
-Your AI assistant is only as good as the question you give it. This guide shows you how to phrase prompts so DataHawk <Term>MCP</Term> returns the right answer the first time.
+Your AI assistant is only as good as the question you give it. This guide shows you how to phrase prompts so DataHawk MCP returns the right answer the first time.
 
 <Callout type="info">
   **New to DataHawk MCP?** Start with [Ready-to-use prompts](/help-center/modules/datahawkmcp/ready-prompts) to get a feel for what's possible, then come back here to learn how to write your own.
@@ -14,7 +14,7 @@ Your AI assistant is only as good as the question you give it. This guide shows 
 Most disappointing answers come from a vague prompt. A solid DataHawk MCP prompt usually names six things:
 
 1. **The metric** — what you want to measure (revenue, <Term>ACOS</Term>, units, sessions, on-hand inventory, rating…)
-2. **The dimension** — how to break it down (by <Term>ASIN</Term>, by campaign, by keyword, by marketplace, by day…)
+2. **The dimension** — how to break it down (by <Term>ASIN</Term>, by campaign, by keyword, by <Term>marketplace</Term>, by day…)
 3. **The time range** — be explicit ("March 2026", "last 30 days", "Q1 2026")
 4. **The marketplace** — "US", "all European marketplaces", "US + UK", etc.
 5. **The filter** — narrow the scope ("Sponsored Products only", "vendor brand X", "spend > \$500")
@@ -26,7 +26,7 @@ You won't need all six every time, but the more you include, the closer the firs
 > *"How are my ads doing?"*
 
 **Sharper prompt:**
-> *"Show me ACOS by campaign for Sponsored Products in the US marketplace over the last 30 days, as a table ranked by spend, filtered to campaigns with spend above \$500."*
+> *"Show me <Term>ACOS</Term> by campaign for Sponsored Products in the US marketplace over the last 30 days, as a table ranked by spend, filtered to campaigns with spend above \$500."*
 
 The sharper version names every element. The AI has nothing to guess.
 
@@ -39,7 +39,7 @@ DataHawk organizes data into domains. Using the right vocabulary for each domain
 | Sales | revenue, ordered product sales, units ordered, average selling price (ASP), B2B sales |
 | Advertising | ACOS, <Term>ROAS</Term>, ad spend, ad sales, impressions, clicks, CPC, Sponsored Products / Brands / Display, campaign, ad group |
 | <Term>DSP</Term> | total cost, attributed sales, new-to-brand, detail-page views, eCPM, creative |
-| Catalog | price, rating, review count, buy box, A+ content, variation, browse node |
+| Catalog | price, rating, review count, <Term>buy box</Term>, A+ content, variation, browse node |
 | Traffic | sessions, page views, buy box %, browser vs. mobile-app split |
 | SEO | organic rank, sponsored rank, keyword visibility, search volume |
 | Inventory | <Term>FBA</Term> on-hand, reserved, inbound, unsellable, <Term>MFN</Term> fulfillable, days of cover |
@@ -88,7 +88,7 @@ Works well for: PPC analyst, inventory planner, brand manager, financial control
 
 When one question depends on another, chain them in a single prompt:
 
-> *"First, find my 10 worst-performing campaigns by ROAS last 30 days. Then, for each, list the top 3 keywords pulling ACOS up. Finally, recommend which keywords to pause."*
+> *"First, find my 10 worst-performing campaigns by <Term>ROAS</Term> last 30 days. Then, for each, list the top 3 keywords pulling ACOS up. Finally, recommend which keywords to pause."*
 
 The AI will run the steps in order, using each result as input to the next.
 
@@ -103,7 +103,7 @@ The AI will surface the exact filters, date range, and view it used. Most issues
 
 **Step 2 — Narrow the scope.**
 
-If the result is empty or strange, shrink the question. Try one ASIN, one marketplace, one week. Once you see real numbers, expand back out.
+If the result is empty or strange, shrink the question. Try one <Term>ASIN</Term>, one marketplace, one week. Once you see real numbers, expand back out.
 
 **Step 3 — Cross-check with the DataHawk app.**
 
@@ -137,7 +137,7 @@ If the AI gives you a number without running a query, it might be guessing. Push
 
 The AI can join data across domains in a single question:
 
-> *"For my top 10 ASINs by revenue last 30 days, show me sales, ad spend, ACOS, sessions, and current FBA on-hand — all in one table."*
+> *"For my top 10 ASINs by revenue last 30 days, show me sales, ad spend, ACOS, sessions, and current <Term>FBA</Term> on-hand — all in one table."*
 
 ### Set defaults for a session
 
@@ -160,7 +160,7 @@ When you send a prompt, your AI runs a four-step flow against DataHawk:
 1. **Plan** — your question gets routed to the right data view (sales, ads, inventory, etc.) along with required filters.
 2. **Discover** — if the view doesn't already have what's needed, the AI inspects the full catalog of metrics and dimensions.
 3. **Validate** — field names, filters, and date ranges get checked server-side before anything runs.
-4. **Load** — the query executes against your workspace and returns real numbers.
+4. **Load** — the query executes against your <Term>workspace</Term> and returns real numbers.
 
 For diagnostic questions (*"why did X happen?"*), the AI runs a parallel **investigate** flow that ranks hypotheses and gathers evidence across domains.
 

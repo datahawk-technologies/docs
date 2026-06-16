@@ -21,11 +21,11 @@ There are particular financial events that lack richness in accompanying informa
 
 **Advertising Reports** — Advertising cost events are replaced with events sourced from Advertising Reports to provide sponsored type and <Term>ASIN</Term> annotation. Advertising events are complete with a 2 year history up to T-2d from today.
 
-**<Term>FBA</Term> Removal Order and Detail Report** — Removal and disposal fee events are replaced to provide ASIN and <Term>SKU</Term> annotation. FBA reports are produced by Amazon once a month. Events can take up to one month to be present.
+**<Term>FBA</Term> Removal Order and Detail Report** — Removal and disposal fee events are replaced to provide <Term>ASIN</Term> and <Term>SKU</Term> annotation. <Term>FBA</Term> reports are produced by Amazon once a month. Events can take up to one month to be present.
 
 **FBA Storage Fee Charges Report** — Storage Fee events are replaced to provide ASIN annotation. FBA reports are produced by Amazon once a month.
 
-**FBA Longterm Storage Fee Charges Report** — Longterm Storage Fee events are replaced to provide ASIN and SKU annotation. FBA reports are produced by Amazon once a month.
+**FBA Longterm Storage Fee Charges Report** — Longterm Storage Fee events are replaced to provide ASIN and <Term>SKU</Term> annotation. FBA reports are produced by Amazon once a month.
 
 ### Cost of Goods
 
@@ -60,11 +60,11 @@ A ledger of profit events compiled from a comprehensive selection of seller fina
 
 Our **default aggregated Profit reporting tables follow an accrual methodology**, which recognizes profit events based on their incurred date (such as purchase date) rather than payout date.
 
-**`finance.finance_profit`** — A daily summary of the profit ledger, aggregated by date, seller account, marketplace, ASIN, SKU, and event signature.
+**`finance.finance_profit`** — A daily summary of the profit ledger, aggregated by date, seller account, <Term>marketplace</Term>, ASIN, SKU, and event signature.
 
 **`finance.finance_profit_metrics`** — A collection of profit metrics:
 
-- **Gross Revenue**: Sales including Tax Charges (VAT)
+- **Gross Revenue**: Sales including Tax Charges (<Term>VAT</Term>)
 - **Net Revenue**: Gross Revenue - Refunds
 - **Gross Profit**: Net Revenue - Cost of Goods
 - **Operating Profit**: Gross Profit - Amazon Fees - Marketing

@@ -18,7 +18,7 @@ Some data is publicly visible on Amazon and Walmart's websites — anyone can se
 Public data includes:
 
 - **Product information** — titles, descriptions, images, ratings, review counts
-- **Pricing** — listed price, buy box price, competitor pricing
+- **Pricing** — listed price, <Term>buy box</Term> price, competitor pricing
 - **Best Seller Rank (<Term>BSR</Term>)** — category rankings
 - **Sales estimates** — estimated units sold per <Term>ASIN</Term> (DataHawk's own model, based on public signals)
 - **Keyword search volumes** — estimated monthly search frequency per keyword
@@ -47,8 +47,8 @@ Even after connecting your account, not all data appears instantly. The delay de
 
 | Data type | Typical freshness | Reason |
 |---|---|---|
-| Product listings, pricing, BSR | Daily | DataHawk crawls public pages daily |
-| Keyword rankings | Daily | Crawled per keyword, per marketplace |
+| Product listings, pricing, <Term>BSR</Term> | Daily | DataHawk crawls public pages daily |
+| Keyword rankings | Daily | Crawled per keyword, per <Term>marketplace</Term> |
 | Sales estimates | Daily | Model runs on daily crawl data |
 | Orders (Seller) | Daily (D+1 to D+3) | Amazon <Term>SP-API</Term> has a settlement delay |
 | Inventory | Daily | API snapshot |
@@ -89,13 +89,13 @@ DataHawk organises datasets into schemas that reflect this public/private split:
 | `KEYWORD` | Public keyword data (search volume, SERP rankings) | No |
 | `CATEGORY` | Public category structure and rankings | No |
 | `SELLER` | Private Seller Central data (orders, inventory, fees) | Seller account |
-| `VENDOR` | Private Vendor Central data (POs, shipped COGS) | Vendor account |
+| `VENDOR` | Private Vendor Central data (POs, shipped <Term>COGS</Term>) | Vendor account |
 | `ADVERTISING` | Private Advertising data (campaigns, spend, performance) | Advertising account |
 | `REPORTS` | Processed DataHawk report tables (mixed public/private) | Varies |
 
 ### API source references
 
-- Amazon private data is fetched via the **Selling Partner API (SP-API)**
+- Amazon private data is fetched via the **Selling Partner API (<Term>SP-API</Term>)**
 - Amazon advertising data is fetched via the **Amazon Advertising API**
 - Walmart data is fetched via the **Walmart Marketplace API** and **Walmart Connect API**
 - Public product and keyword data is collected through DataHawk's own proprietary crawling infrastructure

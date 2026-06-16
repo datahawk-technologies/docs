@@ -11,21 +11,21 @@ No. Your AI handles the query construction entirely. The data layer exists so po
 
 **Q: Can the AI hallucinate numbers?**
 
-Every number comes from a real `datahawk_load_data` call against your actual data. The validation step catches invalid queries before they run, and the router enforces required filters so you can't accidentally get data from the wrong marketplace or time window. That said, LLMs can still misrepresent results in their prose summary — always cross-check specific numbers against the tool output in the conversation.
+Every number comes from a real `datahawk_load_data` call against your actual data. The validation step catches invalid queries before they run, and the router enforces required filters so you can't accidentally get data from the wrong <Term>marketplace</Term> or time window. That said, LLMs can still misrepresent results in their prose summary — always cross-check specific numbers against the tool output in the conversation.
 
 **Q: Which AI clients are supported?**
 
-Any client supporting <Term>MCP</Term> servers with <Term>OAuth</Term> authentication.
+Any client supporting MCP servers with <Term>OAuth</Term> authentication.
 
 Claude (Desktop, Web, Mobile), ChatGPT (Plus, Team, Enterprise), Cursor, Windsurf, Lovable, Replit, n8n, Make, and any custom client speaking MCP. See the installation guides on the [setup page](/help-center/modules/datahawkmcp/setup).
 
 **Q: How long does setup take?**
 
-Under 2 minutes for any OAuth-based client (Claude, ChatGPT, Cursor). Slightly longer for token-based clients (n8n, Make) because you also need to generate an API token.
+Under 2 minutes for any <Term>OAuth</Term>-based client (Claude, ChatGPT, Cursor). Slightly longer for token-based clients (n8n, Make) because you also need to generate an API token.
 
 ## Security and privacy
 
-**Q: Does my data leave my workspace?**
+**Q: Does my data leave my <Term>workspace</Term>?**
 
 Query results flow to the AI that asked the question — the same AI you're already talking to. DataHawk doesn't send your data anywhere else.
 

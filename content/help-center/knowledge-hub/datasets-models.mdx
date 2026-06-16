@@ -11,7 +11,7 @@ An exhaustive list of all tables and their respective columns, labeled by schema
 
 **How can I see data on sessions and page views of my products?**
 
-Currently, this data is available as a preview in the `PREVIEW_RAW_SELLER` schema. Here, you'll find data on sessions and page views broken down by platform (browser vs. mobile app). This data is available at <Term>SKU</Term>-level, Child <Term>ASIN</Term>-level, and Parent ASIN-level.
+Currently, this data is available as a preview in the `PREVIEW_RAW_SELLER` schema. Here, you'll find data on sessions and page views broken down by platform (browser vs. mobile app). This data is available at <Term>SKU</Term>-level, Child <Term>ASIN</Term>-level, and Parent <Term>ASIN</Term>-level.
 
 **How can I check which brands dominate a specific category?**
 
@@ -73,7 +73,7 @@ Financial and order-related data — Seller accounts only. Vendor data is not in
 |---|---|
 | `FINANCE_ACCOUNT_METRICS` | Daily aggregated order data (orders, units sold, sales) |
 | `FINANCE_COGS` | Cost of goods sold data |
-| `FINANCE_COGS_SKU` | SKU-level <Term>COGS</Term> data |
+| `FINANCE_COGS_SKU` | <Term>SKU</Term>-level <Term>COGS</Term> data |
 | `FINANCE_PROFIT` | Daily profit events (Amazon Finance API + enrichment) |
 | `FINANCE_PROFIT_LEDGER` | Full ledger of profit events |
 | `FINANCE_PROFIT_METRICS` | Daily SKU-level profit metrics |
@@ -82,7 +82,7 @@ Financial and order-related data — Seller accounts only. Vendor data is not in
 | `FINANCE_EVENTS` | Daily financial events (linked to orders/ASINs where applicable) |
 | `FINANCE_ORDERS` | Daily order records (successful & canceled) |
 | `FINANCE_ORDERS_SUCCESS` | Daily successful orders only |
-| `WMT_MARKETPLACE_ITEMS` | Walmart marketplace items data | 
+| `WMT_MARKETPLACE_ITEMS` | Walmart <Term>marketplace</Term> items data | 
 | `WMT_MARKETPLACE_ORDERS` | Walmart marketplace orders data |
 
 ### PRODUCT
@@ -110,7 +110,7 @@ Product catalog, tracking, and listing quality data.
 
 | Table | Description |
 |---|---|
-| `RAW_INVENTORY_FBA` | Latest FBA inventory status and breakdown |
+| `RAW_INVENTORY_FBA` | Latest <Term>FBA</Term> inventory status and breakdown |
 | `RAW_INVENTORY_FBA_HISTORY` | Historical FBA inventory snapshots |
 | `RAW_INVENTORY_LEDGER_DETAIL` | Granular inventory movement events |
 | `RAW_INVENTORY_LEDGER_SUMMARY` | Daily aggregated inventory events |
