@@ -28,7 +28,7 @@ Most "discrepancy" cases are actually mismatched filters between the two reports
 
 **Most likely causes:**
 
-1. **Sourcing vs Manufacturing (Vendor accounts).** If your product is only *sourcing* in Vendor Central (not *manufacturing*), DataHawk only sees partial data via Amazon's sourcing view. Read [I can't see data in Manufacturing views, but I see it in Sourcing](/troubleshooting/i-cannot-see-data-in-manufacturing-views,-but-i-see-it-in-sourcing) for the full explanation.
+1. **Sourcing vs Manufacturing (Vendor accounts).** If your product is only *sourcing* in Vendor Central (not *manufacturing*), DataHawk only sees partial data via Amazon's sourcing view. Read [I can't see data in Manufacturing views, but I see it in Sourcing](/troubleshooting/data-discrepancies/manufacturing-vs-sourcing-views) for the full explanation.
 2. **Vendor data lag.** Vendor reports take 4–7 days to stabilize at Amazon. If your comparison date range includes the last week, DataHawk numbers may legitimately be lower until Amazon backfills.
 3. **Deferred transactions.** DataHawk's `finance_orders` and `finance_profit_ledger` distinguish deferred sales (B2B, Delivery Date +7) from released ones. Seller Central often shows the released amount only.
 4. **Refunds inclusion.** Some Seller Central reports show net (sales − refunds); others gross. DataHawk separates them.
@@ -400,7 +400,7 @@ If you have a more specific scenario, jump directly to the article:
 
   <Card
     title="I can't see data in Manufacturing views, but I see it in Sourcing"
-    href="/troubleshooting/i-cannot-see-data-in-manufacturing-views,-but-i-see-it-in-sourcing"
+    href="/troubleshooting/data-discrepancies/manufacturing-vs-sourcing-views"
     description="The Sourcing vs Manufacturing data difference for Vendor accounts — explained."
   />
 
