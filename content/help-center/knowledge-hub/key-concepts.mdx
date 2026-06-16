@@ -21,7 +21,7 @@ DataHawk uses ASINs as the primary key to identify and track products across all
 
 A **<Term>SKU</Term>** (Stock Keeping Unit) is the product identifier *you* assign — it's your own internal code, not Amazon's. While ASINs are assigned by Amazon and shared across all sellers who list that product, a SKU is specific to your seller account.
 
-One ASIN can be linked to multiple SKUs (for example, if you sell the same product through different fulfilment methods), and one SKU maps to one ASIN.
+One ASIN can be linked to multiple SKUs (for example, if you sell the same product through different fulfillment methods), and one SKU maps to one ASIN.
 
 In DataHawk, SKUs appear in private data (orders, inventory, profit) because they come from your Seller or Vendor account. Public data (rankings, estimates, keyword visibility) is indexed by ASIN only.
 
@@ -32,7 +32,7 @@ Amazon groups product variations together using a **parent/child structure**:
 - A **parent ASIN** is a virtual container that groups related variations — it doesn't exist as a buyable product itself. You can't add a parent ASIN to your cart.
 - A **child ASIN** is a specific, purchasable version of that product — for example, a blue t-shirt in size M.
 
-**Example:** A t-shirt sold in 3 colours and 4 sizes would have 12 child ASINs, all grouped under one parent ASIN.
+**Example:** A t-shirt sold in 3 colors and 4 sizes would have 12 child ASINs, all grouped under one parent ASIN.
 
 This distinction matters in DataHawk because some data is reported at the parent level (e.g., total product visibility in search) and other data at the child level (e.g., individual sales or inventory per variant). The platform will usually indicate which level a metric refers to.
 
@@ -58,7 +58,7 @@ DataHawk uses BSR as one of the signals in its sales estimation model and surfac
 In Amazon's terminology:
 
 - A **marketplace** is a country-level storefront: Amazon.com, Amazon.co.uk, Amazon.de, etc.
-- A **channel** (sometimes called a selling channel or fulfilment channel) refers to how products are fulfilled: <Term>FBA</Term> (Fulfilled by Amazon) vs <Term>FBM</Term>/<Term>MFN</Term> (Fulfilled by Merchant).
+- A **channel** (sometimes called a selling channel or fulfillment channel) refers to how products are fulfilled: <Term>FBA</Term> (Fulfilled by Amazon) vs <Term>FBM</Term>/<Term>MFN</Term> (Fulfilled by Merchant).
 
 DataHawk tracks data **per marketplace**. If you sell in multiple countries, each has its own data collection, and metrics are not aggregated across countries by default in the raw datasets.
 

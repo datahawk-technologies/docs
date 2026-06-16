@@ -9,7 +9,7 @@ You are an agent working inside the DataHawk Fumadocs documentation repository. 
 This is a **Fumadocs UI 16.x** docs site running on **Next.js 16.x** with **pnpm**. Pages live in `content/` as MDX. There are four top-level tabs, each backed by a content folder:
 
 - `content/welcome/` → Welcome tab (overview, getting-started)
-- `content/help/` → Help Center tab (the bulk of the docs)
+- `content/help-center/` → Help Center tab (the bulk of the docs)
 - `content/troubleshooting/` → Troubleshooting tab
 - `content/api-reference/` → API Reference tab (currently hidden)
 
@@ -171,7 +171,7 @@ Another step.
 
 Brief description of what this step covers.
 
-[Read the full guide →](/help/data-setup/seller-account)
+[Read the full guide →](/help-center/data-setup/seller-account)
 
 </Step>
 ```
@@ -259,8 +259,8 @@ Example:
 
 - Notion URL: `https://docs.datahawk.co/Manage-your-Account-33b4aa5f57fa801e9f98cf4822282f93`
 - Find that URL in `content-structure.csv`
-- Convert MDX path `content/help/datahawk-app/account-management.mdx` → web path `/help/datahawk-app/account-management`
-- Use `[Manage your Account](/help/datahawk-app/account-management)` in MDX
+- Convert MDX path `content/help-center/datahawk-app/account-management.mdx` → web path `/help-center/datahawk-app/account-management`
+- Use `[Manage your Account](/help-center/datahawk-app/account-management)` in MDX
 
 **Always strip the `content/` prefix and the `.mdx` extension** when converting MDX paths to URL paths. `index.mdx` becomes the folder root URL.
 
@@ -296,8 +296,8 @@ Example:
 Use the **MDX path** column from `content-structure.csv` as the literal target. The agent must create any missing parent directories.
 
 Examples:
-- `content/help/datahawk-app/account-management.mdx` → file at that exact path
-- `content/help/datahawk-app/index.mdx` → the section index page (rendered at `/help/datahawk-app`)
+- `content/help-center/datahawk-app/account-management.mdx` → file at that exact path
+- `content/help-center/datahawk-app/index.mdx` → the section index page (rendered at `/help-center/datahawk-app`)
 
 Each folder containing MDX files needs a `meta.json` to control sidebar ordering. If a folder doesn't have one, create:
 

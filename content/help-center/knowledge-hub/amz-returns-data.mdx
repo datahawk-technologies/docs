@@ -5,7 +5,7 @@ description: DataHawk's granular access to Amazon customer return records — FB
 
 DataHawk gives you granular access to Amazon customer return records, covering both <Term>FBA</Term> (Fulfilled by Amazon) and <Term>FBM</Term> (Fulfilled by Merchant) orders. This data helps you understand not just how many products are coming back, but why — and what happens to them when they do.
 
-## What you can analyse
+## What you can analyze
 
 - Which products are returned most frequently
 - When returns peak and how patterns change over time
@@ -19,7 +19,7 @@ When a customer returns an FBA item, Amazon inspects it and assigns a dispositio
 | Disposition | What it means |
 |---|---|
 | **Sellable** | Item is in good condition and returned to your inventory |
-| **Damaged** | Damaged by carrier or fulfillment centre — Amazon reimburses you |
+| **Damaged** | Damaged by carrier or fulfillment center — Amazon reimburses you |
 | **Customer Damaged** | Packaging opened or item altered by customer — not resellable, stays in inventory |
 | **Defective** | Product is faulty or non-functional |
 | **Expired** | Product is nearing its expiration date — may be removed or disposed of |
@@ -49,7 +49,7 @@ Returns data is available in the `SELLING_PARTNER` schema.
 | Table | Coverage | Available since | Description |
 |---|---|---|---|
 | `RETURNS_DATA_SRC` | <Term>FBM</Term> (Fulfilled by Merchant) orders only | June 2023 | Return records keyed by return date. Includes <Term>ASIN</Term>, <Term>SKU</Term>, return quantities, reason codes, and metadata. |
-| `FBA_CUSTOMER_RETURNS_SRC` | FBA (Fulfilled by Amazon) orders | — | Detailed FBA return records including Fulfillment Centre ID, disposition, customer comments, and reason codes. |
+| `FBA_CUSTOMER_RETURNS_SRC` | FBA (Fulfilled by Amazon) orders | — | Detailed FBA return records including Fulfillment Center ID, disposition, customer comments, and reason codes. |
 
 ### Joining with Order Data
 
@@ -73,7 +73,7 @@ LEFT OUTER JOIN finance.finance_orders o
 | Product not as described | AMZ-PG-BAD-DESC | NOT_AS_DESCRIBED |
 | Found better price | CR-FOUND_BETTER_PRICE | FOUND_BETTER_PRICE |
 | Damaged by carrier | CR-DAMAGED_BY_CARRIER | DAMAGED_BY_CARRIER |
-| Damaged by fulfillment centre | CR-DAMAGED_BY_FC | DAMAGED_BY_FC |
+| Damaged by fulfillment center | CR-DAMAGED_BY_FC | DAMAGED_BY_FC |
 | Missing parts | CR-MISSING_PARTS | MISSING_PARTS |
 | Wrong size | WRONG_SIZE | WRONG_SIZE |
 | Wrong style | AMZ-PG-APP-STYLE | APPAREL_STYLE |
