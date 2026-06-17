@@ -37,9 +37,12 @@ import { TypeTable } from 'fumadocs-ui/components/type-table'; ❌ NEVER
 import { InlineTOC } from 'fumadocs-ui/components/inline-toc'; ❌ NEVER
 import Image from 'next/image'; ❌ NEVER
 import { Term } from '@/components/Term'; ❌ NEVER
+import { PageFeedback } from '@/components/PageFeedback'; ❌ NEVER
 ```
 
 The component tags (`<Callout>`, `<Cards>`, `<Term>`, `<Image>`, etc.) DO work — just don't import them.
+
+**Also don't add `<PageFeedback />` to any MDX file by hand.** It's injected globally by every catchall `page.tsx` (help-center, troubleshooting, welcome, changelog, api-reference) with an auto-computed `lastUpdated` date sourced from the file's last git commit. Adding it to an MDX file produces a duplicate widget.
 
 **To verify a converted MDX file is clean:**
 
@@ -382,6 +385,50 @@ Mirror the content folder structure so images are easy to find.
 
 ---
 
+## 11b. Horizontal rules (`---`)
+
+Use `---` only once per page, and only to mark the transition from main content to a navigation or meta-footer section ("Where to go next," "Related articles," "Still stuck?" callouts, or a `## ⚙️ For analysts & developers` walled-off section). **Never between content H2 sections.** Most pages don't need one at all.
+
+**Correct usage:**
+
+```mdx
+## Main content section
+
+Content here…
+
+## Another main content section
+
+More content…
+
+---
+
+## ⚙️ For analysts & developers   ← HR before the dev-only section
+…
+```
+
+or
+
+```mdx
+## Main content section
+
+…
+
+---
+
+## Where to go next   ← HR before the navigation footer
+
+<div className="card-grid">…</div>
+```
+
+**Wrong (don't do this):**
+
+- HR between two content H2s — the H2 itself is already the separator.
+- Multiple HRs on the same page — degrades the visual signal.
+- HR right after the frontmatter — the subtitle already provides visual separation.
+- HR used as decoration with no purpose.
+
+---
+
 ## 12. Code blocks
 
 Standard MDX fenced code blocks. Specify language for syntax highlighting:
@@ -605,6 +652,7 @@ Custom components in `components/`:
 | Component | Purpose | Where used |
 |---|---|---|
 | `Term.tsx` | Inline glossary tooltip — wraps a term in a dotted-underline span with hover tooltip | Anywhere in MDX |
+| `PageFeedback.tsx` | "Last updated: …" + 👍 / 👎 widget at the bottom of every page | Injected by catchall `page.tsx` — never add to MDX |
 | `ChangelogList.tsx` | Filterable card list of changelog entries | Changelog landing page |
 | `ChangelogPager.tsx` | Older/Newer release navigation at the bottom of individual entries | Individual changelog pages |
 | `ChangelogSidebar.tsx` | Sidebar showing latest 5 releases + Subscribe options | Changelog tab sidebar (via `sidebar.banner` prop) |
@@ -615,7 +663,24 @@ Custom components in `components/`:
 
 ---
 
-## 22. When in doubt
+## 22. Feedback widget — how it works
+
+Every page (help-center, troubleshooting, welcome, changelog entry, api-reference) renders `<PageFeedback>` automatically. Authors never add it to MDX. It does two things:
+
+- Shows **"Last updated: Mon DD, YYYY"** — pulled from the file's last git commit at build time via `lib/git-last-modified.ts`. No frontmatter field to maintain. (Exception: changelog entries use the frontmatter `date` instead, so a typo fix doesn't make an old release look fresh.)
+- Renders **👍 / 👎** buttons. On click, the component POSTs to `/api/feedback` (fire-and-forget, `keepalive: true`). That route fans out:
+  - **Slack `#docs-gaps`** — only on 👎. The optional comment ("What was missing?") is included. Configured via `SLACK_FEEDBACK_WEBHOOK_URL`.
+  - **PostHog** — every vote, as event `docs_feedback` with `{ rating, page, comment }`. Use this for "worst pages over time" dashboards and to tune Slack alerts in PostHog itself if `#docs-gaps` ever gets noisy.
+
+A visitor's vote is also cached in `localStorage` keyed by pathname so the same browser doesn't re-vote on the same page.
+
+**Required env vars** (see `.env.local.example`): `SLACK_FEEDBACK_WEBHOOK_URL`, `POSTHOG_API_KEY`, optionally `POSTHOG_HOST`. With nothing set, the API route still returns 200 — the dispatch is just a no-op. That keeps local dev quiet without breaking the widget.
+
+**Slack webhook setup:** the `#docs-gaps` channel is baked into the webhook URL at creation time. To re-target the channel later, regenerate a webhook from `https://api.slack.com/apps` against the new channel and swap the env var.
+
+---
+
+## 23. When in doubt
 
 - **Faithful conversion** when porting from Notion — don't rewrite content, just structurally translate Notion blocks → Fumadocs components
 - **Ask before deleting** — if a block doesn't translate cleanly, leave it as an MDX comment `{/* original block content */}` rather than dropping silently

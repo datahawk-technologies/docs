@@ -12,10 +12,13 @@
 import { changelogSource } from '@/lib/source';
 import { DocsPage, DocsBody, DocsDescription, DocsTitle } from 'fumadocs-ui/layouts/notebook/page';
 import { notFound } from 'next/navigation';
+import { join } from 'node:path';
 import { mdxComponents } from '@/mdx-components';
 import { ChangelogList, type ChangelogEntry, type Tag } from '@/components/ChangelogList';
 import { ChangelogPager } from '@/components/ChangelogPager';
 import { SubscribeForm } from '@/components/SubscribeForm';
+import { PageFeedback } from '@/components/PageFeedback';
+import { getLastModified } from '@/lib/git-last-modified';
 
 // Shared helper — reads all dated entries from the changelog source.
 function getDatedEntries() {
@@ -61,6 +64,10 @@ export default async function Page(props: { params: Promise<{ slug?: string[] }>
 
   const MDX = page.data.body;
   const allEntries = getDatedEntries();
+  // For changelog entries, prefer the published `date` over the last git
+  // commit — typo fixes shouldn't make a 6-month-old release look fresh.
+  const filePath = join(process.cwd(), 'content/changelog', (page as any).file?.path ?? '');
+  const lastUpdated = (page.data as any).date || getLastModified(filePath);
 
   return (
     <DocsPage toc={page.data.toc} full={page.data.full}>
@@ -69,6 +76,7 @@ export default async function Page(props: { params: Promise<{ slug?: string[] }>
       <DocsBody>
         <MDX components={mdxComponents} />
         <ChangelogPager currentUrl={page.url} allEntries={allEntries} />
+        <PageFeedback lastUpdated={lastUpdated} />
       </DocsBody>
     </DocsPage>
   );

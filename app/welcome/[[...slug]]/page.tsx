@@ -1,8 +1,10 @@
 import { welcomeSource } from '@/lib/source';
 import { DocsPage, DocsBody, DocsDescription, DocsTitle } from 'fumadocs-ui/layouts/notebook/page';
 import { notFound } from 'next/navigation';
-import defaultMdxComponents from 'fumadocs-ui/mdx';
+import { join } from 'node:path';
 import { mdxComponents } from '@/mdx-components';
+import { PageFeedback } from '@/components/PageFeedback';
+import { getLastModified } from '@/lib/git-last-modified';
 
 export default async function Page(props: { params: Promise<{ slug?: string[] }> }) {
   const params = await props.params;
@@ -10,6 +12,8 @@ export default async function Page(props: { params: Promise<{ slug?: string[] }>
   if (!page) notFound();
 
   const MDX = page.data.body;
+  const filePath = join(process.cwd(), 'content/welcome', (page as any).file?.path ?? '');
+  const lastUpdated = getLastModified(filePath);
 
   return (
     <DocsPage toc={page.data.toc} full={page.data.full}>
@@ -17,6 +21,7 @@ export default async function Page(props: { params: Promise<{ slug?: string[] }>
       <DocsDescription>{page.data.description}</DocsDescription>
       <DocsBody>
         <MDX components={mdxComponents} />
+        <PageFeedback lastUpdated={lastUpdated} />
       </DocsBody>
     </DocsPage>
   );

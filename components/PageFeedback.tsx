@@ -15,8 +15,10 @@
  *   - On 👎, optional text field for "What's missing?"
  *   - After submit, shows "Thanks for your feedback!"
  *
- * V1 has NO backend wiring — feedback is captured in localStorage only.
- * To pipe to PostHog/HubSpot later, replace the `recordFeedback` function.
+ * Backend: POSTs each vote to /api/feedback (fire-and-forget). That route
+ * fans out to Slack #docs-gaps (on 👎 only) and PostHog (every vote).
+ * localStorage still tracks local-browser state so a returning visitor
+ * doesn't re-vote on the same page.
  */
 
 import { useEffect, useState } from 'react';
@@ -39,13 +41,19 @@ export function PageFeedback({ lastUpdated }: { lastUpdated?: string }) {
   const [comment, setComment] = useState('');
   const [submitted, setSubmitted] = useState(false);
 
-  // Restore previous vote if user already voted on this page
+  // Restore previous vote if user already voted on this page.
+  // Reading localStorage in useEffect is the correct hydration-safe pattern:
+  // we can't read it during render (SSR has no localStorage) or in a useState
+  // initializer (same reason). The "set state in effect" lint rule fires
+  // because of the three setState calls, but they're batched by React 18+
+  // into a single render — this is legitimate one-time hydration sync.
   useEffect(() => {
     try {
       const prior = localStorage.getItem(storageKey);
       if (prior) {
         const parsed = JSON.parse(prior);
         if (parsed.rating === 'up' || parsed.rating === 'down') {
+          // eslint-disable-next-line react-hooks/set-state-in-effect
           setRating(parsed.rating);
           setSubmitted(true);
           setShowThanks(true);
@@ -54,35 +62,58 @@ export function PageFeedback({ lastUpdated }: { lastUpdated?: string }) {
     } catch {}
   }, [storageKey]);
 
-  function recordFeedback(r: Rating, c: string = '') {
+  // Persist locally so a returning visitor doesn't re-vote on the same page.
+  function persistLocal(r: Rating, c: string = '') {
     try {
       localStorage.setItem(
         storageKey,
         JSON.stringify({ rating: r, comment: c, ts: Date.now() }),
       );
     } catch {}
-    // Future: dispatch to PostHog or HubSpot here
-    // window.posthog?.capture('page_feedback', { page: pathname, rating: r, comment: c });
+  }
+
+  // Fire-and-forget POST to /api/feedback. Called exactly once per vote so
+  // Slack/PostHog don't see duplicate events for a single user action.
+  function dispatchFeedback(r: Rating, c: string = '') {
+    if (!r) return;
+    fetch('/api/feedback', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        rating: r,
+        page: pathname,
+        ...(c ? { comment: c } : {}),
+      }),
+      keepalive: true, // survive navigation away mid-request
+    }).catch(() => {
+      // Silently swallow — the user already saw their click registered locally.
+    });
   }
 
   function handleVote(r: Rating) {
     setRating(r);
-    recordFeedback(r);
+    persistLocal(r);
     if (r === 'up') {
+      // 👍 has no follow-up step — dispatch immediately.
+      dispatchFeedback('up');
       setShowThanks(true);
       setSubmitted(true);
     } else {
-      setShowThanks(false); // hold "Thanks" until comment is submitted (or skipped)
+      // 👎 waits for the optional comment so Slack/PostHog receive one event.
+      setShowThanks(false);
     }
   }
 
   function handleSubmitComment() {
-    recordFeedback(rating, comment);
+    persistLocal(rating, comment);
+    dispatchFeedback(rating, comment);
     setShowThanks(true);
     setSubmitted(true);
   }
 
   function handleSkipComment() {
+    // User declined the comment — still send the 👎 so Slack hears about it.
+    dispatchFeedback(rating);
     setShowThanks(true);
     setSubmitted(true);
   }
