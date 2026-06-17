@@ -6,14 +6,18 @@ description: Monitor key data from Amazon and Walmart product pages including ra
 Product tracking monitors key data from Amazon and Walmart product pages — ratings, sales rank, sales, <Term>buy box</Term> ownership, and dozens of other attributes — so you can track performance, detect changes, and make informed decisions. Each tracked product produces a daily snapshot that feeds dashboards, Alerts, Insights, and Sherlock downstream.
 
 <Callout type="info">
-  By combining it with [Amazon Keywords Tracking](/help/data-setup/keywords-tracking), you can monitor the changes in the rankings of your tracked products.
+  By combining it with [Keywords Tracking](/help-center/data-setup/keywords-tracking), you can monitor the changes in the rankings of your tracked products.
 </Callout>
 
 ## DataHawk Product Tracking Capabilities
 
-### What data does DataHawk collect from Amazon?
+### What data does DataHawk collect?
 
-For each product you track on Amazon, DataHawk will provide a daily snapshot of the main attributes, such as:
+For each tracked product, DataHawk captures a daily snapshot of dozens of attributes. The fields vary slightly between marketplaces — pick your platform.
+
+<Tabs items={['Amazon', 'Walmart']}>
+
+<Tab value="Amazon">
 
 - brand
 - title
@@ -23,7 +27,7 @@ For each product you track on Amazon, DataHawk will provide a daily snapshot of 
 - number of media
 - the product's price
 - stars rating
-- numbers of ratings
+- number of ratings
 - the number of Sellers competing for the <Term>Buy Box</Term>
 - displayed categories and corresponding best seller ranks
 - its group <Term>ASIN</Term>
@@ -32,15 +36,15 @@ For each product you track on Amazon, DataHawk will provide a daily snapshot of 
 - out-of-stock status
 - and many more.
 
-We further include these computed metrics:
+Plus these computed metrics:
 
-- its Estimated Monthly Sales
-- a Competitiveness Score
-- and a Listing Quality Score
+- Estimated Monthly Sales
+- Competitiveness Score
+- Listing Quality Score
 
-### What data does DataHawk collect from Walmart?
+</Tab>
 
-For each product you track, DataHawk will provide a daily snapshot of the main attributes such as:
+<Tab value="Walmart">
 
 - brand
 - title
@@ -50,14 +54,18 @@ For each product you track, DataHawk will provide a daily snapshot of the main a
 - number of media
 - the product's price
 - stars rating
-- numbers of ratings, including reviews
-- the number of Sellers competing for the Buy Box
+- number of ratings, including reviews
+- the number of Sellers competing for the <Term>Buy Box</Term>
 - displayed categories and corresponding best seller ranks
-- its group <Term>ASIN</Term>
+- its group Item ID
 - number of variations
 - Walmart+ status
 - out-of-stock status
-- and many more…
+- and many more.
+
+</Tab>
+
+</Tabs>
 
 ### Supported regions
 
@@ -133,127 +141,167 @@ Select **Amazon or Walmart**, then choose **Product**.
 
 ### Choose your preferred method
 
-Choose your preferred method:
+DataHawk supports four ways to add products. Pick the tab that matches your input.
 
-- **URL**
-- **ASIN**
-- **CSV Import** (recommended for more than 500 products)
-- **Brand Selection** *(coming soon)*
-
-
-<Accordions>
-  <Accordion title="Adding via URL">
-    1. Enter or paste the product URLs.
-
-    <img
-  src="/images/help-center/data-setup/products-tracking/products-tracking-3.png"
-  alt="Products Tracking 3"
-  width={600}
-  height={340}
-  className="rounded-lg border"
-/>
-
-    2. (Optional) Toggle to add all associated variations.
-
-    <img
-  src="/images/help-center/data-setup/products-tracking/products-tracking-4.png"
-  alt="Products Tracking 4"
-  width={600}
-  height={340}
-  className="rounded-lg border"
-/>
-
-    3. (Optional) [Assign tags](/help/data-setup/tags) for better organization.
-
-    <img
-  src="/images/help-center/data-setup/products-tracking/products-tracking-5.png"
-  alt="Products Tracking 5"
-  width={600}
-  height={340}
-  className="rounded-lg border"
-/>
-
-    4. Click **`Add Products`** (bottom right hand side) to finish.
-  </Accordion>
-  <Accordion title="Adding via ASIN or Walmart ID">
-    1. Select the marketplace.
-
-    <img
-  src="/images/help-center/data-setup/products-tracking/products-tracking-6.png"
-  alt="Products Tracking 6"
-  width={600}
-  height={340}
-  className="rounded-lg border"
-/>
-
-    2. Enter or paste the product ASINs.
-
-    <img
-  src="/images/help-center/data-setup/products-tracking/products-tracking-7.png"
-  alt="Products Tracking 7"
-  width={600}
-  height={340}
-  className="rounded-lg border"
-/>
-
-    3. (Optional) Toggle to add all associated variations.
-    4. (Optional) [Assign tags](/help/data-setup/tags) for better organization.
-    5. Click **`Add Products`** (bottom right hand side) to finish.
-  </Accordion>
-  <Accordion title="Adding via CSV (Recommended for Bulk Uploads)">
-    1. Download the CSV template.
-    2. Fill in the template with:
-       - **Marketplace:** Domain name (Amazon/Walmart marketplace).
-       - **Product ID:** ASIN (Amazon) or Product ID (Walmart).
-       - **Include Variations:** `True` to include variations, `False` to exclude.
-       - **Tags (Optional):** Use semicolons (`;`) to separate multiple tags.
-    3. Save the file in **CSV UTF-8 format**.
-    4. Upload the CSV file.
-    5. Review and correct any errors if needed.
-    6. Click **Finish**.
-  </Accordion>
-  <Accordion title="Adding via Brand Selection">
-    This feature is coming soon! Contact our team for more details.
-  </Accordion>
-</Accordions>
-
-<Callout type="info">
+<Callout type="warn">
   If you choose to track variations, DataHawk will automatically monitor all discovered variations linked to the parent product.
 </Callout>
+
+<Tabs items={['URL', 'ASIN / Walmart ID', 'CSV Import', 'Brand Selection']}>
+
+<Tab value="URL">
+
+Best for adding a handful of products from links you already have.
+
+1. Enter or paste the product URLs.
+
+   <img
+     src="/images/help-center/data-setup/products-tracking/products-tracking-3.png"
+     alt="Paste product URLs"
+     width={600}
+     height={340}
+     className="rounded-lg border"
+   />
+
+2. *(Optional)* Toggle to add all associated variations.
+
+   <img
+     src="/images/help-center/data-setup/products-tracking/products-tracking-4.png"
+     alt="Toggle to include variations"
+     width={300}
+     height={170}
+     className="rounded-lg border"
+   />
+
+3. *(Optional)* [Assign tags](/help-center/data-setup/tags) for better organization.
+
+   <img
+     src="/images/help-center/data-setup/products-tracking/products-tracking-5.png"
+     alt="Assign tags"
+     width={600}
+     height={340}
+     className="rounded-lg border"
+   />
+
+4. Click **Add Products** (bottom right) to finish.
+
+</Tab>
+
+<Tab value="ASIN / Walmart ID">
+
+Best when you already have the identifiers in a list.
+
+1. Select the marketplace.
+
+   <img
+     src="/images/help-center/data-setup/products-tracking/products-tracking-6.png"
+     alt="Select marketplace"
+     width={600}
+     height={340}
+     className="rounded-lg border"
+   />
+
+2. Enter or paste the product ASINs (or Walmart IDs).
+
+   <img
+     src="/images/help-center/data-setup/products-tracking/products-tracking-7.png"
+     alt="Paste ASINs or Walmart IDs"
+     width={600}
+     height={340}
+     className="rounded-lg border"
+   />
+
+3. *(Optional)* Toggle to add all associated variations.
+4. *(Optional)* [Assign tags](/help-center/data-setup/tags) for better organization.
+5. Click **Add Products** (bottom right) to finish.
+
+</Tab>
+
+<Tab value="CSV Import">
+
+**Recommended for more than 500 products.** Lets you set tags and variation rules per row in a spreadsheet.
+
+1. Download the CSV template.
+2. Fill in the template with:
+   - **Marketplace** — domain name (Amazon/Walmart marketplace).
+   - **Product ID** — <Term>ASIN</Term> (Amazon) or Product ID (Walmart).
+   - **Include Variations** — `True` to include variations, `False` to exclude.
+   - **Tags (optional)** — separate multiple tags with semicolons (`;`).
+3. Save the file in **CSV UTF-8 format**.
+4. Upload the CSV file.
+5. Review and correct any errors if needed.
+6. Click **Finish**.
+
+</Tab>
+
+<Tab value="Brand Selection">
+
+<Callout type="warn">
+  This method is **coming soon**. In the meantime, contact our team if you'd like early access or help adding a whole brand catalog.
+</Callout>
+
+</Tab>
+
+</Tabs>
 
 </Step>
 
 </Steps>
 
 ## How to archive a tracked product
-- Go on your DataHawk App > Sources > Products
-- Search for the product to be archived
-- Select the product by ticking the box
+
+Archiving stops collecting new data for a product but keeps its history intact. Use it when you no longer need fresh snapshots for a SKU you used to track.
+
+<Steps>
+
+<Step>
+### Open your tracked products list
+
+In the DataHawk App, go to **Sources → Products**.
+</Step>
+
+<Step>
+### Find the products you want to archive
+
+Use the search to locate a specific product, or scroll the list to pick several.
+</Step>
+
+<Step>
+### Select the products
+
+Tick the box next to each product you want to archive.
 
 <img
   src="/images/help-center/data-setup/products-tracking/products-tracking-8.png"
-  alt="Products Tracking 2"
-  width={600}
-  height={340}
+  alt="Tick the checkbox next to each product"
+  width={1200}
+  height={680}
   className="rounded-lg border"
 />
 
-- Click on "Select all products", if you want to select all the products tracked
+To archive everything you currently track, click **Select all products** instead.
 
 <img
   src="/images/help-center/data-setup/products-tracking/products-tracking-9.png"
-  alt="Products Tracking 2"
-  width={600}
-  height={340}
+  alt="Click Select all products to archive every tracked product at once"
+  width={1200}
+  height={680}
   className="rounded-lg border"
 />
+</Step>
 
-- Then click on "Archive in <Term>Workspace</Term>"
+<Step>
+### Archive
+
+Click **Archive in <Term>Workspace</Term>**. The selected products stop receiving new daily snapshots immediately.
 
 <img
   src="/images/help-center/data-setup/products-tracking/products-tracking-10.png"
-  alt="Products Tracking 2"
-  width={600}
-  height={340}
+  alt="Click Archive in Workspace to finish"
+  width={1200}
+  height={680}
   className="rounded-lg border"
 />
+</Step>
+
+</Steps>

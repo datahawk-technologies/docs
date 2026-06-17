@@ -1,0 +1,195 @@
+---
+title: Walmart Advertising Data
+description: Walmart Connect advertising reports in DataHawk — ad-group, item, brand, keyword, page-type, placement, and platform performance.
+---
+
+This page is the reference for Walmart Connect advertising data in DataHawk. All tables live in the `ADVERTISING` schema and are prefixed with `WMT_`. Data is refreshed daily, with a second pass 15 days after the first download since Walmart finalizes reports on a 14-day delay.
+
+<Callout type="info">
+  To connect your Walmart Connect account so these tables start populating, see [Connect a Walmart Connect Account](/help-center/data-setup/connect-account).
+</Callout>
+
+## Ad-group and item performance
+
+These are the two foundational reports — every Walmart advertiser has them, and most analyses start here.
+
+<Accordions>
+
+<Accordion title="WMT_AD_GROUP — Ad-group performance">
+
+Performance metrics aggregated at the ad-group level. Use it to compare ad groups within a single campaign or roll up across campaigns.
+
+**Data table:** `ADVERTISING.WMT_AD_GROUP`
+
+</Accordion>
+
+<Accordion title="WMT_SP_AD_ITEM — Sponsored Products item performance">
+
+Per-item performance metrics across all Sponsored Products campaigns. Use it to find your best- and worst-performing items, and to improve current or future Sponsored Products campaigns.
+
+**Data table:** `ADVERTISING.WMT_SP_AD_ITEM`
+
+<Callout type="warn">
+  The legacy `WMT_SP_AD_ITEM` table previously included AD_SPEND from Sponsored Products, Brands, and Video lumped together, even though every row was labeled `SPONSORED_TYPE = 'SponsoredProducts'`. The replacement table `ADVERTISING.WMT_AD_ITEM` (released May 12, 2026) correctly attributes spend by sponsored type. See the [changelog entry](/changelog/2026-05-12-walmart-wmt-ad-item) for migration details.
+</Callout>
+
+</Accordion>
+
+</Accordions>
+
+## Brand and category performance (1P only)
+
+These two reports are **only available to Walmart 1P suppliers** (vendors selling directly to Walmart). 3P sellers will see these tables empty.
+
+<Accordions>
+
+<Accordion title="WMT_BRAND — Brand performance">
+
+Performance broken down by brand within a campaign.
+
+**Data table:** `ADVERTISING.WMT_BRAND`
+
+</Accordion>
+
+<Accordion title="WMT_CATEGORY — Category performance">
+
+Performance broken down by the category of the items in a campaign.
+
+**Data table:** `ADVERTISING.WMT_CATEGORY`
+
+</Accordion>
+
+</Accordions>
+
+## Item health
+
+<Accordions>
+
+<Accordion title="WMT_ITEM_HEALTH_V2 — Item Health diagnostics">
+
+The Item Health report flags the health of sponsored items so advertisers can take corrective actions to improve performance and reach campaign goals. Use it as a pre-flight check before launching new campaigns and as a recurring sweep on existing ones.
+
+**Data table:** `ADVERTISING.WMT_ITEM_HEALTH_V2`
+
+</Accordion>
+
+</Accordions>
+
+## Keyword performance
+
+Two complementary tables describe how your items perform against the search queries customers used.
+
+<Accordions>
+
+<Accordion title="WMT_SP_ITEM_KEYWORD — Item × keyword performance">
+
+Indicates which keywords your advertised items are being served against and how each item performs against each keyword. Use it differently depending on campaign type:
+
+- **Automatic campaigns:** Identify keywords that showed your ads in Search In-Grid placements and delivered high performance. Promote those into Manual campaigns.
+- **Manual campaigns:** Bid higher on the keywords your best items convert on; remove the underperformers.
+
+**Data table:** `ADVERTISING.WMT_SP_ITEM_KEYWORD`
+
+</Accordion>
+
+<Accordion title="WMT_KEYWORD — Keyword-level performance (Manual campaigns only)">
+
+Available in Manual / Keyword-bidding campaigns only. Includes two columns that don't appear in `WMT_SP_ITEM_KEYWORD`:
+
+- **Bid** — the maximum you'll pay for a click when this target triggers your ad.
+- **Average CPC** — the average amount you actually paid for a click.
+
+The `searched_keyword` column tells you where your ad showed:
+
+- If alphabetical or alphanumeric → your ad appeared on the Search In-Grid position for that keyword.
+- If numeric → your ad appeared on the <Term>Buy Box</Term> or Item Carousel for that item ID.
+
+Data is included in the Keyword Performance report only if at least one of these is true for the row:
+
+- Impressions > 10
+- Ad spend > $0.00
+- Attributed sales > $0.00
+
+**Data table:** `ADVERTISING.WMT_KEYWORD`
+
+</Accordion>
+
+</Accordions>
+
+## Where ads appeared — context and placement
+
+Three reports tell you *where* your ads were served. Combined with item / keyword data above, they form a full picture of campaign reach.
+
+<Accordions>
+
+<Accordion title="WMT_PAGE_TYPE — Page type performance">
+
+Performance of the page types where your campaign's items appeared.
+
+| Page type | What it means |
+|---|---|
+| `browse` | Sub-category pages with algorithmic item selection |
+| `item` | Specific item pages |
+| `search` | Search pages based on a customer's query |
+| `topic` | Custom curated search pages reached from external searches |
+| `category` | Category pages |
+| `homepage` | Home-page high-visibility personalization carousels (**Auto Campaigns only**) |
+| `other` | Pages our beacon couldn't track, or that don't fit any category above |
+
+**Data table:** `ADVERTISING.WMT_PAGE_TYPE`
+
+</Accordion>
+
+<Accordion title="WMT_PLACEMENT — Placement performance">
+
+Performance broken down by where the ad was served on the page. Use placement bid multipliers to tilt spend toward the placements that convert best.
+
+| Campaign type | Available placements |
+|---|---|
+| Keyword campaign | `Search In-grid`, `Carousel`, `Buybox`, `Others` |
+| Auto campaign | `Search In-grid`, `Carousel`, `Buybox`, `Browse In-Grid`, `Stock Up`, `Home Page`, `Others` |
+
+**Data table:** `ADVERTISING.WMT_PLACEMENT`
+
+</Accordion>
+
+<Accordion title="WMT_PLATFORM — Platform / device performance">
+
+Performance broken down by where the customer saw your ad.
+
+| Platform | What it means |
+|---|---|
+| `app` | The Walmart iOS and Android app |
+| `desktop` | The Walmart.com website on desktop and tablet |
+| `mobile` | The Walmart.com website on mobile web |
+| `others` | Platforms we couldn't detect at the time |
+
+**Data table:** `ADVERTISING.WMT_PLATFORM`
+
+</Accordion>
+
+</Accordions>
+
+---
+
+## Data freshness and history
+
+- **Backfill at connection:** up to **90 days** of historical data is pulled the first time you connect.
+- **Daily refresh:** new data lands every day.
+- **15-day reconciliation pass:** Walmart finalizes reports on a 14-day lag. DataHawk re-fetches each day's data 15 days after the first download so the consolidated numbers stick.
+- **Ongoing storage:** every day's data is backed up so you can run trend analyses across the full history of your account.
+
+## Where to go next
+
+<div className="card-grid">
+  <Card
+    title="Connect a Walmart Connect account"
+    href="/help-center/data-setup/connect-account"
+    description="Step-by-step setup to start populating these tables."
+  />
+  <Card
+    title="Walmart Advertising Reports official guide"
+    href="https://developer.walmart.com/doc/us/us-wmc-ads/us-wmc-ads-snapshot-reportsv2/"
+    description="Walmart's own developer documentation for the underlying reports."
+  />
+</div>

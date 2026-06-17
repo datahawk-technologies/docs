@@ -1,31 +1,133 @@
 ---
 title: On-Demand Sources
-description: Request custom integrations for data sources not currently supported by DataHawk through the On-Demand Integration Program.
+description: Request custom integrations for data sources outside DataHawk's standard coverage — delivered as a paid add-on through our Professional Services team.
 ---
 
-DataHawk natively supports Amazon and Walmart data, with new platforms added regularly. If you need a data source we don't yet cover — a vertical-specific marketplace, an internal API, a non-supported retailer, or your own custom feed — the On-Demand Integration Program lets you request it as a paid add-on, typically delivered within weeks.
+DataHawk natively supports Amazon and Walmart data, with new platforms added regularly. If you need a data source we don't yet cover — a vertical-specific marketplace, an internal API, a non-supported retailer, or a custom feed — the **On-Demand Integration Program** lets you request it as a paid add-on. Once built, the new source behaves like any other DataHawk source: warehouse access, dashboards, Alerts, and Insights all included.
 
-## How to request a new source
+## What's already supported
 
-### Supported sources today
+These sources are part of standard DataHawk and don't require an on-demand integration. They split into two groups:
 
-DataHawk collects and analyzes eCommerce data from Amazon and Walmart. We're continuously adding more platforms.
+**Account-level connections** — link your existing platform accounts to pull private data (sales, ads, inventory, profit):
 
-### Need an unsupported source?
+- **Amazon** — [Seller](/help-center/data-setup/seller-account), [Vendor](/help-center/data-setup/vendor-account), and [Advertising](/help-center/data-setup/ads-account) accounts
+- **Walmart** — [Marketplace](/help-center/data-setup/marketplace-account) and [Walmart Connect](/help-center/data-setup/connect-account) accounts
 
-Request custom integrations through our **On-Demand Integration Program**:
+**Item-level tracking** — add the specific products, keywords, or categories you want a daily snapshot for (works for both Amazon and Walmart, no account connection required):
 
-- We can add new sources (custom or popular platforms) in weeks
-- Payload and analyze data like any existing integration
+- [**Products**](/help-center/data-setup/products-tracking) — daily snapshot of attributes, pricing, BSR, ratings, and more
+- [**Keywords**](/help-center/data-setup/keywords-tracking) — organic and sponsored rank, plus [Premium Keywords](/help-center/data-setup/premium-keywords-tracking) for richer signals
+- [**Categories**](/help-center/data-setup/categories-tracking) — top products and category-level trends
 
-**Requirements:**
+For the full picture of how data flows in and what each source covers, see [How DataHawk Sources Your Data](/help-center/knowledge-hub/how-datahawk-sources-data). New platforms ship regularly — track them in the [Changelog](/changelog).
 
-✔ Integration fee
+## When to request a custom source
 
-✔ Minimum commitment period
+On-demand integrations cover **additional data that isn't already reachable** through tracked items (Products, Keywords, Categories) or connected accounts (Amazon Seller / Vendor / Advertising, Walmart Marketplace / Walmart Connect). If the data you need can't be pulled by any of those standard paths, this program is how you bring it into DataHawk.
 
-**How to Request:**
+{/* TODO: confirm and expand. Below are placeholder categories — replace with the kinds of additional sources Professional Services has built before, ideally with anonymized examples. */}
 
-→ [Email Professional Services](mailto:professionalservices@datahawk.co) with details about your desired source.
+Typical examples of additional data customers request:
 
-→ We'll respond with a quote and timeline.
+- A retailer outside our standard catalog (regional or vertical-specific marketplaces, e.g. non-Amazon / non-Walmart eCommerce platforms)
+- Your own internal systems (CRM, POS, ERP, finance, custom feeds)
+- A third-party tool that complements your eCommerce data (review platforms, ad networks beyond Amazon/Walmart, retail-media networks)
+- A non-eCommerce dataset you want to join with your DataHawk warehouse for cross-analysis
+
+{/* TODO: list past on-demand integrations as concrete examples (e.g. "We've added X for a home-goods brand, Y for a beauty vendor") — even anonymized references help readers self-qualify. */}
+
+### What we can't build
+
+{/* TODO: confirm and list anti-examples — sources we can't take on for legal, compliance, technical, or commercial reasons. Helps readers avoid asking for the impossible. */}
+
+## How it works
+
+<Steps>
+
+<Step>
+### Email Professional Services
+
+Send a request to [professionalservices@datahawk.co](mailto:professionalservices@datahawk.co) with a brief description of the source you'd like to integrate — name of the system, what kind of data you need from it, and your use case.
+</Step>
+
+<Step>
+### Discovery
+
+We'll set up a call to scope the integration: data shape, refresh requirements, volume, and how it should connect to your existing DataHawk workspace.
+</Step>
+
+<Step>
+### Quote and timeline
+
+You receive a written proposal with the integration fee, minimum commitment period, and expected delivery date.
+
+{/* TODO: typical timeline range — e.g. "4-8 weeks depending on complexity" */}
+</Step>
+
+<Step>
+### Build
+
+Our team builds the integration. We may ask for sample data, credentials, or technical contacts from your end during this phase.
+</Step>
+
+<Step>
+### UAT and rollout
+
+We hand over the new source for testing. Once you've validated the data, it lands in your warehouse on the agreed refresh cadence.
+</Step>
+
+</Steps>
+
+## What you get
+
+{/* TODO: confirm each of the four claims below before publishing. */}
+
+- The new source's data lands alongside your standard sources in the same data warehouse (Snowflake or BigQuery).
+- Compatible with DataHawk dashboards, Alerts, Insights, and Sherlock.
+- Default refresh cadence is daily — custom cadences possible if your use case requires it.
+- Storage and refresh are included in your existing workspace pricing; the integration fee is one-time.
+
+## Commercials
+
+{/* TODO: confirm pricing structure and minimum commitment. Below are placeholders — replace with actuals or remove this section if you'd rather quote per-request only. */}
+
+- **One-time integration fee** — quoted per source based on complexity.
+- **Minimum commitment period** — the source stays active and billed for a minimum duration agreed at signing.
+
+## What we need from you
+
+To scope and build, we typically need:
+
+- Documentation for the source (API docs, file format, sample export)
+- Access credentials or a path to obtain them
+- A technical point of contact on your side
+- A clear use case so we can prioritize the right fields
+
+{/*
+  FAQ section hidden for now — restore once answers are confirmed.
+  Questions ready to surface (each becomes one <Accordion> in an <Accordions> block):
+
+  1. How long does it take to deliver a new source?
+     → TODO: confirm timeline range and what drives the variance.
+
+  2. What sources have you built before?
+     → TODO: list anonymized examples of past on-demand integrations.
+
+  3. Can I bring a non-eCommerce source?
+     → TODO: confirm — does the program support finance data, marketing platforms, internal CRMs, etc.?
+
+  4. What happens to my data if I cancel?
+     → TODO: confirm data retention and cancellation policy for on-demand sources.
+
+  5. Can I see how other customers structure their integrations?
+     → TODO: confirm whether case studies / anonymized references are available.
+*/}
+
+---
+
+<Card
+  title="Ready to scope an on-demand source?"
+  href="mailto:professionalservices@datahawk.co"
+  description="Email professionalservices@datahawk.co with a brief description of the source and your use case — we'll respond with a quote and timeline."
+/>

@@ -287,6 +287,47 @@ Another step.
 </Steps>
 ```
 
+**When to use:** wrap a section in `<Steps>` if BOTH of these are true:
+1. The reader is supposed to perform actions in a specific order (clicks, inputs, navigation).
+2. There are at least 2 actions in the section.
+
+Sections describing what the reader will *see* on a screen (reference content, panel descriptions, capability tables) stay as prose or bullet lists. Single-click sections also stay as prose — wrapping `<Steps>` around one action is overkill.
+
+**Anti-pattern (don't do this):**
+
+```mdx
+## Update your password
+- Click Settings → Account
+- Click Change password
+- Enter old and new passwords
+- Click Save
+```
+
+**Correct pattern:**
+
+```mdx
+## Update your password
+
+<Steps>
+
+<Step>
+### Open Account settings
+Click **Settings → Account**.
+</Step>
+
+<Step>
+### Open the change-password dialog
+Click **Change password**.
+</Step>
+
+<Step>
+### Enter your passwords and save
+Type your current and new password. Requirements: 6+ characters, one uppercase, one lowercase, one number. Click **Save**.
+</Step>
+
+</Steps>
+```
+
 **Do not put links in Step headings.** Fumadocs auto-wraps headings in anchor tags, and nesting an `<a>` inside an `<a>` causes a hydration error. If a step needs a "Read more" link, put it BELOW the heading:
 
 ```mdx
@@ -320,7 +361,7 @@ Use when Notion has toggle blocks, when content is FAQ-style, or when a long pag
 
 ---
 
-## 10. Tabs — for content that varies by context
+## 10. Tabs — for parallel content selected by context
 
 ```mdx
 <Tabs items={['Amazon Seller', 'Amazon Vendor', 'Walmart']}>
@@ -336,7 +377,92 @@ Use when Notion has toggle blocks, when content is FAQ-style, or when a long pag
 </Tabs>
 ```
 
-Use when parallel sections differ only by platform/role/version.
+### When to use Tabs
+
+**Use Tabs whenever possible** when two or more sections cover the same topic but differ by one selectable axis — typically:
+
+- **Platform** — Amazon / Walmart
+- **Account type** — Seller / Vendor (Amazon), or 1P / 3P (Walmart)
+- **Region** — US / EU / Far East when the steps materially differ
+- **Method** — URL / ASIN / CSV / Brand Selection for the same action
+
+If a section reads "X for Amazon" and the next section reads "X for Walmart" with mostly the same content, that's a Tabs candidate. Convert it.
+
+### Why it matters
+
+- The page is roughly half (or less) the vertical height — only one tab body renders at a time.
+- Readers self-identify with their tab and stop reading content that doesn't apply to them.
+- The TOC stays focused on the topic itself instead of having two near-duplicate entries ("X for Amazon", "X for Walmart").
+
+### Anti-pattern (don't do this)
+
+```mdx
+### What data does DataHawk collect from Amazon?
+- brand
+- title
+- ASIN
+- A+ status
+…
+
+### What data does DataHawk collect from Walmart?
+- brand
+- title
+- Item ID
+- Walmart+ status
+…
+```
+
+Two parallel H3s with 90 %-identical bullet lists. Vertical sprawl, duplicated maintenance, and the TOC now has two near-duplicate entries.
+
+### Correct pattern
+
+```mdx
+### What data does DataHawk collect?
+
+For each tracked product, DataHawk captures a daily snapshot of dozens of attributes. The fields vary slightly between marketplaces — pick your platform.
+
+<Tabs items={['Amazon', 'Walmart']}>
+
+<Tab value="Amazon">
+
+- brand
+- title
+- ASIN
+- A+ status
+…
+
+</Tab>
+
+<Tab value="Walmart">
+
+- brand
+- title
+- Item ID
+- Walmart+ status
+…
+
+</Tab>
+
+</Tabs>
+```
+
+One H3, one TOC entry, half the visible height.
+
+### When NOT to use Tabs
+
+- The differences are too small to bother — a single-line difference can stay as a parenthetical note in prose.
+- The reader needs to **compare side by side** — Tabs hide everything but the active tab. Use a markdown table instead.
+- One option is clearly the recommended path and the others are edge cases — write the recommended path in prose and mention the alternatives briefly.
+
+### Tab label conventions
+
+- **Plain text only** — labels are a string prop (`items={['…']}`), so no markdown, no `<code>`, no `<Term>`.
+- **Sentence case**, 1–3 words: `URL`, `ASIN / Walmart ID`, `CSV Import`, `Brand Selection`.
+- Keep labels short — long labels wrap on mobile and look messy.
+
+### One-line rule
+
+**If you find yourself writing two H2 or H3 sections whose only meaningful difference is the platform / account type / method, stop and convert them to Tabs instead.**
 
 ---
 

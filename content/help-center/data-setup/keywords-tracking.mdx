@@ -5,41 +5,53 @@ description: Monitor the first 5 pages of Amazon search results daily to track c
 
 Keyword tracking captures where your products appear in Amazon's search results — the foundation of both SEO and PPC analysis. For each tracked keyword, DataHawk scans the first 5 pages of search results daily, giving you historical visibility into organic rank movements, content recommendations, and (with Premium Keywords) sponsored rank as well.
 
-## DataHawk Product Tracking Capabilities
+## DataHawk Keyword Tracking Capabilities
 
-### What data does DataHawk collect from Amazon?
+### What data does DataHawk collect?
 
-For each keyword you track, DataHawk will provide a daily snapshot of these primary product attributes:
+For each keyword you track, DataHawk records a daily snapshot of search ranks plus basic info on every product that shows up in the results. Available fields differ slightly between Amazon and Walmart — pick your platform.
+
+<Tabs items={['Amazon', 'Walmart']}>
+
+<Tab value="Amazon">
+
+**Primary attributes:**
 
 - organic search rank
 - organic page rank
-- sponsored page rank *(requires Amazon Premium Keywords)*
+- sponsored page rank *(requires [Amazon Premium Keywords](/help-center/data-setup/premium-keywords-tracking))*
 - content recommendations
 
-Each product will contain basic information such as:
+**Per-product info:**
 
 - title
 - price
 - stars rating
-- numbers of ratings, including reviews
+- number of ratings, including reviews
 
-### What data does DataHawk collect from Walmart?
+</Tab>
 
-For each keyword you track, DataHawk will provide a daily snapshot of these primary product attributes:
+<Tab value="Walmart">
+
+**Primary attributes:**
 
 - organic search rank
 - organic page rank
 - sponsored page rank
 - editorial recommendations
 
-Each product will contain basic information such as:
+**Per-product info:**
 
 - title
 - price
 - stars rating
-- numbers of ratings, including reviews
+- number of ratings, including reviews
 - A+ status
 - product image
+
+</Tab>
+
+</Tabs>
 
 ### Supported regions
 
@@ -103,41 +115,49 @@ Select **Amazon** or **Walmart**, then choose **Keyword**.
 
 ### Choose your preferred method
 
-Choose your preferred method:
+DataHawk supports two ways to add keywords. Pick the tab that matches your input.
 
-- **Manual Entry**
-- **CSV Import** (recommended for more than 500 keywords)
+<Tabs items={['Manual Entry', 'CSV Import']}>
 
-<Accordions>
-  <Accordion title="Adding via Manual Entry">
-    1. Select `Enter Keywords`
-    2. Select Marketplace
-    3. Enter or paste the keywords.
-    4. (Optional) [Assign tags](/help/data-setup/tags) for better organization.
-    5. Click **`Add Keywords`** to finish.
-  </Accordion>
-  <Accordion title="Adding via CSV Import">
-    1. Download the CSV template.
-    2. Fill in the template with:
+<Tab value="Manual Entry">
 
-    <img
-  src="/images/help-center/data-setup/keywords-tracking/keywords-tracking-2.png"
-  alt="Keywords Tracking 2"
-  width={1200}
-  height={680}
-  className="rounded-lg border"
-/>
+Best for adding a handful of keywords you can type or paste directly.
 
-       - **Marketplace:** Domain name.
-       - **Keyword:** The search term you want to track.
-       - [**Tags (Optional):**](/help/data-setup/tags) Use semicolons (`;`) to separate multiple tags.
+1. Click **Enter Keywords**.
+2. Select the marketplace.
+3. Enter or paste the keywords.
+4. *(Optional)* [Assign tags](/help-center/data-setup/tags) for better organization.
+5. Click **Add Keywords** to finish.
 
-    3. Save the file in **CSV UTF-8 format**.
-    4. Upload the CSV file.
-    5. Review and correct any errors if needed.
-    6. Click **Finish**.
-  </Accordion>
-</Accordions>
+</Tab>
+
+<Tab value="CSV Import">
+
+**Recommended for more than 500 keywords.** Lets you set tags per row in a spreadsheet.
+
+1. Download the CSV template.
+2. Fill in the template with:
+
+   <img
+     src="/images/help-center/data-setup/keywords-tracking/keywords-tracking-2.png"
+     alt="CSV template columns"
+     width={600}
+     height={340}
+     className="rounded-lg border"
+   />
+
+   - **Marketplace** — domain name.
+   - **Keyword** — the search term you want to track.
+   - **Tags (optional)** — separate multiple tags with semicolons (`;`). See [tagging](/help-center/data-setup/tags) for the conventions.
+
+3. Save the file in **CSV UTF-8 format**.
+4. Upload the CSV file.
+5. Review and correct any errors if needed.
+6. Click **Finish**.
+
+</Tab>
+
+</Tabs>
 
 </Step>
 

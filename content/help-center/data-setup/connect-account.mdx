@@ -1,167 +1,124 @@
 ---
-title: Walmart Private Data - Connect
-description: Connect your Walmart Connect advertising account to DataHawk to collect and store ad data combined with financial and search metrics.
+title: Connect a Walmart Connect Account
+description: Connect your Walmart Connect advertising account to DataHawk to pull daily ad performance alongside Marketplace sales and search data.
 ---
 
 Walmart Connect is Walmart's advertising platform — the equivalent of Amazon Advertising for Walmart Marketplace sellers. Once connected, DataHawk pulls campaign-level performance daily and joins it with your Marketplace sales and search data for a complete view of advertising ROI.
 
-## DataHawk Connection Capabilities
+## What you get
 
 ### Supported regions
 
-DataHawk connects only with US-registered accounts.
+DataHawk connects only with **US-registered** Walmart Connect accounts.
 
-### Data Coverage
+### Data coverage
 
-Walmart Advertising data can be found in the `ADVERTISING` schema. Tables are prefixed with `WMT`. Example: `ADVERTISING.WMT_SP_AD_ITEM`
+Walmart Connect data lands in the `ADVERTISING` schema, with all tables prefixed `WMT_` (for example `ADVERTISING.WMT_SP_AD_ITEM`). The full reference — every table, what's in it, and how to use it — lives on [Walmart Advertising Data](/help-center/knowledge-hub/wmt-advertising-data).
 
-Data is refreshed **daily**.
+### Historical data
 
-#### Tables
+At connection time, DataHawk retrieves up to **90 days** of past data. From then on we refresh daily and keep the full history available for trend analyses. Walmart finalizes reports on a 14-day lag, so a second reconciliation pass runs 15 days after the first download to capture the final numbers.
 
-- `WMT_AD_GROUP`
-  **AdGroup:** The performance of individual ad groups within your campaign
-- `WMT_SP_AD_ITEM`
-  **AdItem:** This report provides key performance metrics for the items in all of your campaigns. This information can help you improve current and future Sponsored Products campaigns
-- `WMT_BRAND`
-  **Brand:** The Performance of the different brands within your campaign available to Walmart suppliers (1p suppliers) only.
-- `WMT_CATEGORY`
-  **Category:** The performance of the categories of the items in your campaign. Available to Walmart suppliers (1p advertiser) only
-- `WMT_ITEM_HEALTH_V2`
-  **ItemHealthV2:** The Item Health report enables advertisers to see the health of their sponsored items and take corrective actions as needed, to improve item performance and reach their desired campaign goals.
-- `WMT_SP_ITEM_KEYWORD`
-  **ItemKeyword:** This report indicates which keywords your advertised items are being served against, and how well the advertised items are performing for those keywords. This information can help you improve current and future Sponsored Products campaigns.
-  - *Automatic campaigns:* Use this report to identify keywords that showed your ads in Search In-Grid placements and delivered high performance. You can then add these keywords to Manual campaigns.
-  - *Manual campaigns:* Use the additional information to optimize campaign performance: bid higher on more-valuable keywords and/or remove underperforming items.
-- `WMT_KEYWORD`
-  **Keyword:** This report indicates which keywords your advertised items are being served against. This information can help you optimize keyword bids *(available in Manual/Keyword bidding campaigns only).*
-  - Inside this report there are two new columns for Bid and Average CPC:
-    - Bid is the maximum you will pay for a click when this target triggers your ad.
-    - Average CPC is the average amount you paid for a click on an ad.
-  - If the Searched Keyword is alphabetical or alphanumeric, that means your ad was shown on the Search In-grid position of the given keyword.
-  - If the Searched Keyword is a number, that means your ad was shown on the <Term>Buy Box</Term> or Item Carousel of the given item ID.
-  - Data will only be included in the Keyword Performance report if at least one of the following is true:
-    - Impressions are greater than 10
-    - Ad spend is greater than \$0.00
-    - Attributed sales is greater than \$0.00.
-- `WMT_PAGE_TYPE`
-  **PageType:** The performance of those page types where the items in your campaign are showing on. E.g. Search Page, Browse Page, Item Page, Category page.
-  - **browse** – sub-category pages with algorithmic item selection
-  - **item** – specific item pages
-  - **search** – search pages based on a customer's query
-  - **topic** – custom curated search pages, found from searches outside of Walmart.com that lead back to Walmart.com
-  - **category** – category pages
-  - **homepage** – home page high visibility personalization carousels *(Note: This pageType report is only available for Auto Campaigns)*
-  - **other** – any other pages not falling into the categories above or if our beacon was unable to track which page type the user was visiting
-- `WMT_PLACEMENT`
-  **Placement:** This report provides key performance metrics for your campaigns by the placement the ads are served in. This information can help you to improve current and future Sponsored Products campaigns. Use bid multipliers to optimize placements based on their performance.
-  - For a keyword campaign: `Search In-grid`, `Carousel`, `Buybox`, `Others`
-  - For an Auto campaign: `Search In-grid`, `Carousel`, `Buybox`, `Browse In-Grid`, `Stock Up`, `Home Page`, `Others`
-- `WMT_PLATFORM`
-  **Platform:** The performance of which device type the products in your campaign are displaying on
-  - **app** – performance from the Walmart iOS and Android app
-  - **desktop** – performance from the Walmart.com website on desktop and tablets
-  - **mobile** – performance from the Walmart.com website on mobile web
-  - **others** – performance from a platform we are unable to detect at the time
+## Before you start
 
-### Historical data storage
+You'll need:
 
-Once you connect your Walmart <Term>Marketplace</Term> to DataHawk, we immediately retrieve a maximum of **90 days of data**. Then, we **securely store and back up** all your data **everyday**, enabling **more comprehensive reporting with extended historical insights**.
+- Your **advertising ID** — see [Walmart's official guide](https://advertisinghelp.walmart.com/s/guides?language=en_US&article=000009632) for where to find it.
+- To know whether your account is **1P or 3P** — see [Walmart user roles and permissions](https://advertisinghelp.walmart.com/s/guides?language=en_US&article=000009334) if you're unsure.
 
-### Refresh Frequency & Data Delay
-
-- **Data Refresh**: A second data refresh takes place 15 days after the first download.
-- **Data Updates**: Walmart does not update reports after 14 days, so we always fetch the most recent consolidated version available.
-
-## How to connect Walmart Connect Account
+## How to connect
 
 <Steps>
 
 <Step>
+### Go to the Sources page
 
-### Go to the Sources Page
-
-On DataHawk App, go to the [Sources Page](https://analytics.datahawk.co/app/sources).
-
+Open the [Sources page](https://analytics.datahawk.co/app/sources) in the DataHawk web app.
 </Step>
 
 <Step>
+### Add a source
 
-### Add Sources
-
-Click on `Sources` in your sidebar, then click `+ Add Sources` on the top right corner.
+Click **Sources** in the sidebar, then **+ Add Sources** in the top-right corner.
 
 <img
   src="/images/help-center/data-setup/connect-account/connect-account-0.png"
-  alt="connect-account"
+  alt="Click + Add Sources"
   width={1200}
   height={680}
   className="rounded-lg border"
 />
-
 </Step>
 
 <Step>
-
 ### Select Walmart Marketplace Account
 
 <img
   src="/images/help-center/data-setup/connect-account/connect-account-1.png"
-  alt="connect-account 1"
+  alt="Select Walmart Marketplace Account"
   width={600}
   height={340}
   className="rounded-lg border"
 />
-
 </Step>
 
 <Step>
+### Enter your Advertising ID
 
-### Advertising ID
+Paste the advertising ID you located earlier.
 
-Add your advertising ID. [Locate your advertising ID](https://advertisinghelp.walmart.com/s/guides?language=en_US&article=000009632)
 <img
   src="/images/help-center/data-setup/connect-account/connect-account-2.png"
-  alt="connect-account 2"
+  alt="Enter advertising ID"
   width={600}
   height={340}
   className="rounded-lg border"
 />
-
 </Step>
+
 <Step>
+### Select your seller type
 
-### Seller type
-
-Select your sellet type: 1P or 3P
-Here is [Walmart user roles and permissions guide](https://advertisinghelp.walmart.com/s/guides?language=en_US&article=000009334)
+Pick **1P** or **3P** to match your Walmart account.
 
 <img
   src="/images/help-center/data-setup/connect-account/connect-account-3.png"
-  alt="connect-account 3"
+  alt="Select 1P or 3P seller type"
   width={600}
   height={340}
   className="rounded-lg border"
 />
-
 </Step>
 
 <Step>
-
-### Add Walmart Connect Account
+### Confirm the connection
 
 <img
   src="/images/help-center/data-setup/connect-account/connect-account-4.png"
-  alt="connect-account 4"
+  alt="Walmart Connect account added"
   width={600}
   height={340}
   className="rounded-lg border"
 />
 
+Your account is now connected. The first 90 days of data start backfilling in the background — you can come back to the Sources page to check progress.
 </Step>
 
 </Steps>
 
-## Useful resources
+---
 
-[Walmart Advertising Reports official guide](https://developer.walmart.com/doc/us/us-wmc-ads/us-wmc-ads-snapshot-reportsv2/)
+## Where to go next
+
+<div className="card-grid">
+  <Card
+    title="Walmart Advertising Data reference"
+    href="/help-center/knowledge-hub/wmt-advertising-data"
+    description="Every Walmart ad table — what's in it, when to use it, and the quirks."
+  />
+  <Card
+    title="Walmart Advertising Reports (Walmart docs)"
+    href="https://developer.walmart.com/doc/us/us-wmc-ads/us-wmc-ads-snapshot-reportsv2/"
+    description="Walmart's own developer documentation for the underlying reports."
+  />
+</div>

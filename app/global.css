@@ -86,13 +86,13 @@ html > body[data-scroll-locked] {
   flex: 1;
 }
 
-/* --- Tab + Contact/Dashboard hover (yellow text, no bg) -------- */
+/* --- Tab + Contact/Dashboard hover (yellow text, no bg) --------
+   Scoped to the navbar only — anchors inside #nd-subnav (Contact button,
+   Dashboard button, tab links) hover with yellow text on transparent bg.
+   In-article mailto and dashboard links use the standard article-link
+   hover (yellow background + navy text) from section 5a.                */
 #nd-subnav a:hover,
-#nd-subnav a:hover *,
-a[href^="mailto:"]:hover,
-a[href^="mailto:"]:hover *,
-a[href^="https://app.datahawk.co"]:hover,
-a[href^="https://app.datahawk.co"]:hover * {
+#nd-subnav a:hover * {
   color: #ffd573 !important;
   background-color: transparent !important;
 }
@@ -383,12 +383,16 @@ article a.bg-fd-card h3 {
    - Internal card padding:  edit padding in pager card rule
    ───────────────────────────────────────────────────────────── */
 
-/* --- Pager container (separator + spacing above) -------------- */
+/* --- Pager container (separator + spacing above) --------------
+   The PageFeedback widget already lands directly above the pager
+   on every page, with its own border-t divider. Keeping a tight
+   2rem here avoids floating the pager away from feedback. The
+   pager's own border-top is also dropped since PageFeedback gives
+   the visual section break.                                       */
 article > div.grid:last-child {
-  margin-top: 4rem;
-  padding-top: 2rem;
+  margin-top: 2rem;
+  padding-top: 0;
   gap: 1.5rem;
-  border-top: 1px solid #eeeeee;
 }
 
 /* --- Pager card styling --------------------------------------- */
