@@ -1,25 +1,28 @@
-# DataHawk Docs — Conversion Rulebook for Claude Code
+# DataHawk Docs — Authoring Rulebook for Claude Code
 
-You are an agent working inside the DataHawk Fumadocs documentation repository. This file describes the conventions you MUST follow when authoring or editing MDX content. Read it carefully — these rules were established through iteration and exist for specific reasons.
+You are an agent working inside the DataHawk Fumadocs documentation repository. This file describes the conventions you MUST follow when authoring or editing MDX content and components. Read it carefully — these rules were established through iteration and exist for specific reasons.
 
 ---
 
 ## 1. Repository overview
 
-This is a **Fumadocs UI 16.x** docs site running on **Next.js 16.x** with **pnpm**. Pages live in `content/` as MDX. There are four top-level tabs, each backed by a content folder:
+This is a **Fumadocs UI 16.x** docs site running on **Next.js 16.x** with **pnpm**. Pages live in `content/` as MDX. The site has four user-visible top-level tabs and one hidden one:
 
-- `content/welcome/` → Welcome tab (overview, getting-started)
-- `content/help-center/` → Help Center tab (the bulk of the docs)
-- `content/troubleshooting/` → Troubleshooting tab
-- `content/api-reference/` → API Reference tab (currently hidden)
+- `content/welcome/` → **Welcome** tab — onboarding for new customers
+- `content/help-center/` → **Help Center** tab — main reference content (98+ pages)
+- `content/troubleshooting/` → **Troubleshooting** tab — problem/solution guides
+- `content/changelog/` → **Changelog** tab — release notes, one MDX per release
+- `content/api-reference/` → **API Reference** tab — currently hidden in `lib/tabs.ts`
 
-The corresponding `app/{tab}/[[...slug]]/page.tsx` routes render those pages. Each page.tsx imports the custom `mdxComponents` from `@/mdx-components` and passes it to the MDX renderer — so all registered components are globally available without per-file imports.
+Each tab has its own catchall route at `app/<tab>/[[...slug]]/page.tsx` that renders MDX via the registered global components.
+
+The full content tree is mirrored in `app/` for routing and in `lib/source.ts` for Fumadocs source loaders. **Don't change folder names** without also updating those two locations.
 
 ---
 
 ## 2. The cardinal rule — NEVER import these in MDX
 
-The following components are registered globally in `mdx-components.tsx` at the repo root. They are available in EVERY MDX file automatically. **Importing them at the top of an MDX file will SHADOW the global registration** and break the custom Callout emoji icons (and any other future overrides).
+The following components are registered globally in `mdx-components.tsx` at the repo root. They are available in EVERY MDX file automatically. **Importing them at the top of an MDX file will SHADOW the global registration** and break the custom Callout emoji icons, Term tooltips, and any other future overrides.
 
 **Do not add any of these imports to MDX files:**
 
@@ -32,14 +35,16 @@ import { Tab, Tabs } from 'fumadocs-ui/components/tabs'; ❌ NEVER
 import { File, Files, Folder } from 'fumadocs-ui/components/files'; ❌ NEVER
 import { TypeTable } from 'fumadocs-ui/components/type-table'; ❌ NEVER
 import { InlineTOC } from 'fumadocs-ui/components/inline-toc'; ❌ NEVER
+import Image from 'next/image'; ❌ NEVER
+import { Term } from '@/components/Term'; ❌ NEVER
 ```
 
-The component tags (`<Callout>`, `<Cards>`, etc.) DO work — just don't import them.
+The component tags (`<Callout>`, `<Cards>`, `<Term>`, `<Image>`, etc.) DO work — just don't import them.
 
 **To verify a converted MDX file is clean:**
 
 ```bash
-grep "from 'fumadocs-ui/components/" content/path/to/file.mdx
+grep "from 'fumadocs-ui/components/\|from '@/components/Term\|from 'next/image'" content/path/to/file.mdx
 ```
 
 Expected output: nothing.
@@ -53,26 +58,60 @@ Every MDX file MUST start with frontmatter:
 ```mdx
 ---
 title: Page Title Here
-description: One-sentence description that appears under the H1 and in search results.
+description: One-sentence description that appears as the subtitle under the H1 and in search results.
 ---
 ```
 
-- `title` is required, will render as H1 — so the MDX body should NOT start with `#` heading
-- `description` is required, keep it under 160 characters
+### Universal rules
 
-Optional fields:
+- `title` is required — renders as the H1, so the MDX body must NOT start with `#`
+- `description` is required — keep it **≤160 characters** (search snippets truncate beyond that)
+- Description must NOT be repeated in the first body paragraph (see Section 7 on intro paragraphs)
+
+### Section-specific frontmatter
+
+**Changelog entries** have additional required fields:
+
+```mdx
+---
+title: "Release title — short headline"
+description: "One-sentence factual summary of what changed. Quoted to be safe with YAML."
+date: "2026-06-15"
+tags: ["improvement", "breaking"]
+---
+```
+
+- **Quote any string that contains a colon, dash, or other YAML-special character** — the changelog descriptions consistently use double quotes. This avoids the `bad indentation of a mapping entry` build error.
+- `date` is required as `"YYYY-MM-DD"` — must match the filename's date prefix
+- `tags` array uses ONLY these 7 values (the established taxonomy):
+
+| Tag | Use when… |
+|---|---|
+| `new` | New dataset, table, dashboard, or feature |
+| `improvement` | Existing feature got measurably better |
+| `fix` | Bug squashed |
+| `breaking` | Deprecation, schema change, methodology shift — customer may need to update queries/dashboards |
+| `maintenance` | Infra change, schema additions, internal cleanup |
+| `dashboard` | Power BI or Looker Studio template update |
+| `company` | Company news (acquisition, leadership) |
+
+Combine tags freely (e.g. `["new", "breaking"]` for a new dataset that deprecates an old one).
+
+### Optional frontmatter
 
 ```mdx
 ---
 title: Page Title
 description: Description text.
-full: true   # use for landing pages that don't need a sidebar TOC
+full: true   # use for landing pages that should not show the right-side TOC
 ---
 ```
 
 ---
 
 ## 4. Callout — use emoji icons, never import
+
+Five Callout types are pre-styled with emoji icons via `mdx-components.tsx`:
 
 ```mdx
 <Callout type="info">
@@ -92,7 +131,7 @@ full: true   # use for landing pages that don't need a sidebar TOC
 </Callout>
 ```
 
-Notion callouts map to these as follows:
+Notion-style mapping:
 
 | Notion icon | MDX `type` |
 |---|---|
@@ -104,7 +143,43 @@ Notion callouts map to these as follows:
 
 ---
 
-## 5. Cards — always wrap in `<div className="card-grid">`
+## 5. Term — inline glossary tooltips
+
+Wrap technical terms with `<Term>` to give readers a hover tooltip with a short definition + a link to the full glossary entry. Terms are defined once in `lib/glossary.ts` and used everywhere.
+
+```mdx
+The <Term>ASIN</Term> for this product appears on the page.
+The <Term>**ASIN**</Term> in your CSV must be a valid 10-character ID.   ← bold inside Term also works
+```
+
+### Wrapping rules — read carefully
+
+1. **Wrap the FIRST occurrence on each page**, not every one. Once a reader has seen the tooltip, they don't need it again on the same page.
+2. **Don't wrap a term on a page that's specifically about that term.** If the page title, URL slug, or H2/H3 heading defines the term, the tooltip would be circular. Example: don't wrap `<Term>Sherlock</Term>` on `/help-center/modules/sherlock/`. Don't wrap glossary terms inside the glossary page itself.
+3. **Don't wrap a term inside a markdown heading** (`## Foo`, `### Bar`). Headings auto-link in Fumadocs and the Term wrapper conflicts.
+4. **Lookup is case-insensitive** — `<Term>ASIN</Term>`, `<Term>Asin</Term>`, `<Term>asin</Term>` all resolve to the same glossary entry.
+5. **If a term isn't in `lib/glossary.ts`, the component renders the children as plain text** with no decoration. Safe to wrap experimental terms — they'll degrade gracefully until added to the glossary.
+
+### Adding a new term
+
+Edit `lib/glossary.ts`. Append:
+
+```ts
+NEW_TERM: {
+  title: 'Full descriptive name',
+  short: 'One or two sentence definition.',
+},
+```
+
+Available immediately across all MDX files. No restart needed for content changes.
+
+### Terms currently in the glossary
+
+ASIN, SKU, FNSKU, Marketplace, FBA, FBM, MFN, SnS, ACoS, TACoS, ROAS, DSP, DPV, NTB, SoV, SP, SB, SD, COGS, VAT, Buy Box, BSR, SQP, MCP, Workspace, WSID, Sherlock, Capacity, Snowflake, BigQuery, OAuth, SP-API, 1P, 3P.
+
+---
+
+## 6. Cards — always wrap in `<div className="card-grid">`
 
 The repo's CSS (`app/global.css`) defines a custom `.card-grid` class that gives Cards proper grid alignment. **Do NOT use Fumadocs's built-in `<Cards>` wrapper** — it doesn't align card heights correctly.
 
@@ -129,16 +204,63 @@ The repo's CSS (`app/global.css`) defines a custom `.card-grid` class that gives
 ```
 
 The CSS auto-adjusts:
+
 - 3 cards → 3-column grid
 - Even count (2, 4, 8, 10) → 2-column grid
 - 6 or 9 cards → 3-column grid (multiples of 3)
 - Mobile → 1-column
 
-If a Notion page's content reads like a hub/index (links to sub-pages with short descriptions), convert to Cards. If it reads like a procedure, convert to Steps (see next section).
+When to use cards vs other patterns:
+
+- **Cards** — index/hub pages where each item is a link to a sub-page with a short description
+- **Steps** — sequential procedures the reader follows in order
+- **Accordions** — FAQ-style content where the reader scans for their specific question
 
 ---
 
-## 6. Steps — for numbered procedures
+## 7. Headings hierarchy and intro paragraphs
+
+- **H1 comes from the frontmatter `title`** — DO NOT write `# Heading` at the top of the body
+- **Every page must start its body with a paragraph**, not an H2 — this is the "intro paragraph" convention
+- The intro paragraph **must add context the frontmatter description doesn't already cover** — repeating the description verbatim makes the page look amateur. A good intro:
+  - Defines key concepts the page assumes
+  - Sets up the first H2 ("here's what you'll find below")
+  - Anchors the topic in the larger DataHawk model (e.g., "Equivalent to Amazon Seller Central for the Walmart ecosystem")
+- Start body H2s with `##`, sub-sections with `###`, H4 (`####`) sparingly
+- Avoid H5/H6 — restructure the content instead
+
+**Anti-pattern (don't do this):**
+
+```mdx
+---
+title: Walmart Marketplace Account
+description: Connect your Walmart Marketplace account to DataHawk to collect US seller data.
+---
+
+## Your Walmart Marketplace Account                    ← redundant with title
+
+Walmart Marketplace is a platform for selling on Walmart.com.   ← belongs in an intro paragraph
+DataHawk lets you connect unlimited accounts.
+```
+
+**Correct pattern:**
+
+```mdx
+---
+title: Walmart Marketplace Account
+description: Connect your Walmart Marketplace account to DataHawk to collect US seller data.
+---
+
+Walmart Marketplace is Walmart's third-party seller platform — the equivalent of Amazon Seller Central for the Walmart ecosystem. Connect your account to DataHawk to automatically pull sales, fulfillment, and item-level data. There's no limit on the number of US-registered Marketplace accounts you can link.
+
+## DataHawk Connection Capabilities                    ← first real H2
+```
+
+The intro adds the "equivalent of Amazon Seller Central" anchor and the unlimited-accounts detail — neither was in the description, neither is in the H2 below. That's how you add value.
+
+---
+
+## 8. Steps — for numbered procedures
 
 ```mdx
 <Steps>
@@ -162,7 +284,7 @@ Another step.
 </Steps>
 ```
 
-**Do not put links in Step headings** — Fumadocs auto-wraps headings in anchor tags, and nesting an `<a>` inside an `<a>` causes a hydration error. If a step needs a "Read more" link, put it BELOW the heading:
+**Do not put links in Step headings.** Fumadocs auto-wraps headings in anchor tags, and nesting an `<a>` inside an `<a>` causes a hydration error. If a step needs a "Read more" link, put it BELOW the heading:
 
 ```mdx
 <Step>
@@ -178,7 +300,7 @@ Brief description of what this step covers.
 
 ---
 
-## 7. Accordion — for FAQs and collapsibles
+## 9. Accordion — for FAQs and collapsibles
 
 ```mdx
 <Accordions>
@@ -191,11 +313,11 @@ Brief description of what this step covers.
 </Accordions>
 ```
 
-Use when Notion has toggle blocks or "show more" patterns.
+Use when Notion has toggle blocks, when content is FAQ-style, or when a long page would benefit from collapsible sections.
 
 ---
 
-## 8. Tabs — for content that varies by context
+## 10. Tabs — for content that varies by context
 
 ```mdx
 <Tabs items={['Amazon Seller', 'Amazon Vendor', 'Walmart']}>
@@ -211,27 +333,56 @@ Use when Notion has toggle blocks or "show more" patterns.
 </Tabs>
 ```
 
-Use when Notion has parallel sections that only differ by platform/role/version.
+Use when parallel sections differ only by platform/role/version.
 
 ---
 
-## 9. Images
+## 11. Images
 
-Notion image URLs (`https://prod-files-secure.s3...`) WILL expire and break. For migration:
+Static images live in `public/` and are referenced via root-relative URLs.
 
-1. **Try to download the image** into `public/images/{section}/` and reference it as `/images/{section}/filename.png`
-2. **If you can't download**, leave a placeholder and a comment for Christine:
+| File on disk | URL in MDX |
+|---|---|
+| `public/foo.png` | `/foo.png` |
+| `public/images/help-center/dashboard.png` | `/images/help-center/dashboard.png` |
 
-```mdx
-{/* TODO: Replace this Notion image with a local copy in /public/images/{section}/ */}
-![Description](https://prod-files-secure.s3.us-west-2.amazonaws.com/...)
+### Three rules to internalize
+
+1. **Always start with `/`** — absolute path from site root
+2. **Never include `public/`** — Next.js maps that folder to root automatically
+3. **Case-sensitive in production** — `Dashboard.png` ≠ `dashboard.png`
+
+### Embedding methods
+
+| Method | Syntax | Best for | Optimization |
+|---|---|---|---|
+| Markdown | `![alt](/images/foo.png)` | Inline images, animated GIFs (preserves animation) | None |
+| HTML | `<img src="..." width="700" />` | When you need size or className control | None |
+| `<Image>` (registered globally) | `<Image src="/..." width={1200} height={680} alt="..." />` | Hero images, screenshots above 500KB | Auto WebP, lazy load, responsive |
+
+**Two `<Image>` gotchas:**
+
+1. **`width` and `height` are required** (or use `fill` for parent-sized images). Without them Next.js errors at build.
+2. **GIFs lose animation when wrapped in `<Image>`.** Use plain markdown `![]()` or `<img>` for animated GIFs.
+
+### Folder convention
+
+```
+public/images/
+├── welcome/
+├── help-center/
+│   ├── datahawk-app/
+│   ├── data-setup/
+│   └── modules/
+├── changelog/
+└── shared/
 ```
 
-Always include alt text.
+Mirror the content folder structure so images are easy to find.
 
 ---
 
-## 10. Code blocks
+## 12. Code blocks
 
 Standard MDX fenced code blocks. Specify language for syntax highlighting:
 
@@ -251,31 +402,57 @@ import { source } from 'fumadocs-source';
 
 ---
 
-## 11. Internal links
+## 13. Internal links
 
-Convert all `docs.datahawk.co/Page-Name-{hash}` URLs to local Fumadocs paths from the spreadsheet's MDX path column.
+Convert all `docs.datahawk.co/Page-Name-{hash}` URLs to local Fumadocs paths. The URL is the file path under `content/` with the `.mdx` extension stripped and `index` collapsed to the folder root.
 
-Example:
+Examples:
 
-- Notion URL: `https://docs.datahawk.co/Manage-your-Account-33b4aa5f57fa801e9f98cf4822282f93`
-- Find that URL in `content-structure.csv`
-- Convert MDX path `content/help-center/datahawk-app/account-management.mdx` → web path `/help-center/datahawk-app/account-management`
-- Use `[Manage your Account](/help-center/datahawk-app/account-management)` in MDX
+| File on disk | URL |
+|---|---|
+| `content/help-center/datahawk-app/account-management.mdx` | `/help-center/datahawk-app/account-management` |
+| `content/help-center/datahawk-app/index.mdx` | `/help-center/datahawk-app` |
+| `content/troubleshooting/data-discrepancies/manufacturing-vs-sourcing-views.mdx` | `/troubleshooting/data-discrepancies/manufacturing-vs-sourcing-views` |
 
-**Always strip the `content/` prefix and the `.mdx` extension** when converting MDX paths to URL paths. `index.mdx` becomes the folder root URL.
+**Always strip the `content/` prefix and the `.mdx` extension.**
+
+### URL redirects
+
+Old URLs that have moved or been renamed are preserved via `next.config.mjs` `redirects()`. **Never delete a redirect** — they protect customer bookmarks, support team email links, and search engine indexes.
+
+When you rename or move a file:
+1. Add a redirect from the OLD URL to the NEW URL in `next.config.mjs` with `permanent: true`
+2. Update any internal references to use the new URL
+3. Restart the dev server (Next.js doesn't hot-reload `next.config.mjs`)
 
 ---
 
-## 12. Headings hierarchy
+## 14. Filename conventions
 
-- H1 comes from frontmatter `title` — DO NOT write `# Heading` at the top of the body
-- Start the body with H2 (`##`) for top-level sections
-- Use H3 (`###`) for sub-sections, H4 (`####`) sparingly
-- Avoid H5/H6 — restructure the content instead
+- **Always lowercase**
+- **Use hyphens** between words — never underscores, spaces, commas, or apostrophes
+- **Don't use punctuation** — no commas, apostrophes, parentheses, or question marks in filenames
+- **Keep slugs short** — under 50 characters where possible. URLs are customer-facing surfaces
+
+Examples:
+
+```
+✓ manufacturing-vs-sourcing-views.mdx
+✓ no-data-after-dsp-connect.mdx
+✓ amz-vendor-account-sourcing-manufacturing.mdx
+
+❌ i-cannot-see-data-in-manufacturing-views,-but-i-see-it-in-sourcing.mdx
+❌ i-don't-see-data-after-connecting-my-dsp-account.mdx
+❌ How_To_Connect_DSP.MDX
+```
+
+When renaming an existing file, add a redirect in `next.config.mjs` for the old URL.
 
 ---
 
-## 13. Notion-specific patterns to translate
+## 15. Notion-specific patterns to translate
+
+Some older content was migrated from Notion. When you encounter Notion-style patterns:
 
 | Notion pattern | Fumadocs MDX equivalent |
 |---|---|
@@ -286,75 +463,165 @@ Example:
 | Synced block / Database view | NOT supported in MDX — replace with regular content or a Card grid |
 | Equation block | Inline as code, or use a remark-math plugin (not currently installed) |
 | Video embed (YouTube/Loom) | `<iframe src="..." />` — but ideally upload to a hosted spot first |
-| Image | Download to `/public/images/...` and link locally (see section 9) |
+| Image | Download to `/public/images/...` and link locally (see section 11) |
 | File attachment | Upload to `/public/files/...` and link |
+| `docs.datahawk.co/Page-Name-{hash}` URL | Convert to local Fumadocs path (see section 13) |
 
 ---
 
-## 14. File location convention
+## 16. Language and style conventions
 
-Use the **MDX path** column from `content-structure.csv` as the literal target. The agent must create any missing parent directories.
+### American English
 
-Examples:
-- `content/help-center/datahawk-app/account-management.mdx` → file at that exact path
-- `content/help-center/datahawk-app/index.mdx` → the section index page (rendered at `/help-center/datahawk-app`)
+**Use American English throughout.** Common conversions:
 
-Each folder containing MDX files needs a `meta.json` to control sidebar ordering. If a folder doesn't have one, create:
+| British | American |
+|---|---|
+| -ise/-isation | -ize/-ization (analyze, organize, optimize) |
+| -our | -or (color, behavior, favor) |
+| -re | -er (center, meter) |
+| catalogue | catalog |
+| fulfilment | fulfillment |
+| programme | program |
+| whilst | while |
+| amongst | among |
+
+### Brand naming
+
+Match the brand owner's official capitalization:
+
+- **DataHawk** — capital D, capital H. Not "Datahawk", not "DATAHAWK"
+- **Power BI** — space between Power and BI (Microsoft's convention)
+- **Looker Studio** — not "Data Studio" (old name, deprecated)
+- **BigQuery** — single word, capital B and Q
+- **Snowflake** — single word, capital S
+
+### Quotes
+
+Use **straight quotes** (`'` and `"`), never curly (`'` `"` `‘` `’`). MDX text editors may auto-insert curly quotes — they get stripped during builds and look inconsistent.
+
+---
+
+## 17. Sidebar configuration via meta.json
+
+Each folder containing MDX files can have a `meta.json` controlling sidebar appearance:
+
+### Top-level (e.g. `content/help-center/meta.json`)
 
 ```json
 {
-  "title": "Section Title",
-  "pages": ["index", "page-1", "page-2"]
+  "title": "Help Center",
+  "description": "Self-serve answers and how-tos",
+  "root": true,
+  "pages": ["index", "datahawk-app", "data-setup", "modules", ...]
 }
 ```
 
-The `pages` array controls the order in the sidebar. List MDX filenames without the `.mdx` extension. `index` is always first if present.
+- `root: true` marks this as the top of a tab's sidebar
+- `pages` array controls sidebar order — list MDX filenames without `.mdx`, and folder names for nested sections
+
+### Subfolder (e.g. `content/troubleshooting/data-discrepancies/meta.json`)
+
+```json
+{
+  "title": "Data discrepancies",
+  "pages": [""]
+}
+```
+
+The `pages: [""]` pattern is intentional in troubleshooting — it hides the individual articles from the sidebar so only the category index shows. Users navigate to articles via cross-links inside the category index, not via the sidebar tree.
 
 ---
 
-## 15. The migration loop (when running content-structure.csv)
+## 18. Subtitle / page description styling
 
-For each row in the CSV:
+The frontmatter `description` renders as the subtitle under the H1. Custom CSS in `app/global.css` sets it to body-text size with a muted navy-gray color (not larger or italic, as Fumadocs defaults). The current rule:
 
-1. Skip if Status is `LIVE`
-2. Skip if Notion URL is empty (these are landing pages — they need different treatment)
-3. Read the Notion page via the Notion MCP using the URL
-4. Convert content following rules 1–14 above
-5. Write the MDX file to the path in column E (create parent directories as needed)
-6. If the file's parent folder lacks a `meta.json`, create one
-7. Update the CSV row's Status column from `NOT CREATED` to `LIVE`
-8. Every 10 pages, write a brief summary to the user and pause for spot-checking
+```css
+article > p.text-lg.text-fd-muted-foreground {
+  color: #5a7090;
+  font-weight: 400;
+  font-size: 1rem;
+  font-style: normal;
+  margin-bottom: 1.75rem;
+}
+```
 
-**Pages with empty Notion URL but listed as LIVE** are hand-written landing pages (like `content/welcome/getting-started/index.mdx`). LEAVE THEM ALONE.
-
-**Pages with Status IN PROCESS** — read the existing file at the MDX path first, understand what's there, then decide whether to overwrite or merge. Default to merging.
+**Implication for authors:** the description shows up at the same size as body text. Don't write descriptions that look weird at body size — keep them concise, declarative, and ≤160 characters.
 
 ---
 
-## 16. Quality bar before marking a page LIVE
+## 19. Quality bar before marking a page LIVE
 
-A converted page passes if:
+A converted or new page passes if:
 
-- ✅ Frontmatter has `title` and `description`
-- ✅ Body starts with H2, not H1
-- ✅ No `import { ... } from 'fumadocs-ui/components/...'` lines
-- ✅ All Notion-style URLs (`docs.datahawk.co/...`) replaced with local Fumadocs paths from the CSV
+- ✅ Frontmatter has `title` and `description` (and `date` + `tags` for changelog entries)
+- ✅ Description is ≤160 characters and does NOT contain a colon-space pattern (or is double-quoted)
+- ✅ Body starts with a paragraph (not H2) that adds context beyond the description
+- ✅ No `import { ... } from 'fumadocs-ui/components/...'` or `from '@/components/Term'` lines
+- ✅ All `docs.datahawk.co/...` URLs replaced with local Fumadocs paths
 - ✅ Callouts use the right `type` for their intent
-- ✅ Numbered procedures are wrapped in `<Steps>`
-- ✅ Sub-page link clusters are wrapped in `<div className="card-grid">` + `<Card>`
-- ✅ The file is at the exact path the CSV specifies
-- ✅ The parent folder has a `meta.json` if needed
+- ✅ Numbered procedures wrap in `<Steps>`
+- ✅ Sub-page link clusters wrap in `<div className="card-grid">` (not `<Cards>`)
+- ✅ At least one technical term is wrapped in `<Term>` if any appear on the page (unless the page is ABOUT that term)
+- ✅ Filenames are lowercase kebab-case with no punctuation
+- ✅ Internal links resolve (test by navigating in the dev server)
+- ✅ Description and intro paragraph don't repeat the same information
+- ✅ American English throughout (no British spellings)
 
-If any of these fails, leave Status as `IN PROCESS` and write a note in the Notes column instead of marking LIVE.
-
----
-
-## 17. When in doubt
-
-- **Faithful 1:1 conversion** — don't rewrite content. Just structurally translate Notion → Fumadocs.
-- **Ask before deleting** — if a Notion block doesn't translate cleanly, leave it as MDX comment `{/* original block content */}` rather than dropping it silently.
-- **Verify with `pnpm dev`** — if the user reports a build error, read the terminal output to find the exact file and line.
+If any of these fails, leave Status as `IN PROCESS` and write a note rather than marking LIVE.
 
 ---
 
-End of rulebook. These conventions apply to every MDX file in the repo.
+## 20. Building and running
+
+```bash
+# Install dependencies
+pnpm install
+
+# Start dev server
+pnpm dev
+
+# Clean restart (do this after renames, config changes, or "Cannot find module" errors)
+rm -rf .next .source && pnpm dev
+```
+
+**Cache-busting cheat sheet:**
+
+| Symptom | Fix |
+|---|---|
+| `Cannot find module './vendor-chunks/...'` | `rm -rf .next && pnpm dev` |
+| Frontmatter schema errors after editing source.config.ts | `rm -rf .next .source && pnpm dev` |
+| Redirects added but URL still 404s | Restart dev server (Next.js doesn't hot-reload `next.config.mjs`) |
+| MDX changes don't appear | Hard refresh browser (⌘ + Shift + R) |
+| `pnpm dev` says port 3000 in use | `lsof -ti:3000 \| xargs kill -9` then retry |
+
+---
+
+## 21. Component reference
+
+Custom components in `components/`:
+
+| Component | Purpose | Where used |
+|---|---|---|
+| `Term.tsx` | Inline glossary tooltip — wraps a term in a dotted-underline span with hover tooltip | Anywhere in MDX |
+| `ChangelogList.tsx` | Filterable card list of changelog entries | Changelog landing page |
+| `ChangelogPager.tsx` | Older/Newer release navigation at the bottom of individual entries | Individual changelog pages |
+| `ChangelogSidebar.tsx` | Sidebar showing latest 5 releases + Subscribe options | Changelog tab sidebar (via `sidebar.banner` prop) |
+| `EmailSubscribeButton.tsx` | Sidebar button that opens/scrolls to the subscribe form | Inside ChangelogSidebar |
+| `SubscribeForm.tsx` | Collapsible HubSpot embed for email signup | Changelog landing top |
+
+**You generally don't author these — they're stable plumbing.** If you need to change customer-facing copy in any of them, edit the component file; if you need to change behavior, ask first.
+
+---
+
+## 22. When in doubt
+
+- **Faithful conversion** when porting from Notion — don't rewrite content, just structurally translate Notion blocks → Fumadocs components
+- **Ask before deleting** — if a block doesn't translate cleanly, leave it as an MDX comment `{/* original block content */}` rather than dropping silently
+- **Verify with `pnpm dev`** — if a build breaks, read the terminal output to find the exact file and line
+- **Test internal links by clicking** — the redirect chain catches many broken links but not all
+
+---
+
+End of rulebook. These conventions apply to every MDX file and every component edit in the repo.

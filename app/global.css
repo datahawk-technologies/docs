@@ -223,6 +223,29 @@ article .prose > h4 {
   font-size: 1.25rem;
 }
 
+/* --- Anchor-link hover icon on H2/H3/H4 ------------------------ */
+/* Fumadocs auto-wraps each heading in an <a href="#section-id">.
+   Default: invisible. On hover, show a subtle "#" icon next to the
+   heading so readers can deep-link or copy the URL to share.        */
+article h2 > a[href^="#"]::after,
+article h3 > a[href^="#"]::after,
+article h4 > a[href^="#"]::after {
+  content: '#';
+  margin-left: 0.5rem;
+  opacity: 0;
+  color: #5a7090;
+  font-weight: 400;
+  transition: opacity 0.18s ease;
+}
+article h2:hover > a[href^="#"]::after,
+article h3:hover > a[href^="#"]::after,
+article h4:hover > a[href^="#"]::after,
+article h2 > a[href^="#"]:focus::after,
+article h3 > a[href^="#"]:focus::after,
+article h4 > a[href^="#"]:focus::after {
+  opacity: 0.7;
+}
+
 /* --- Headings wrapped in links - no underline ---------------------------------------- */
 article h1 a,
 article h2 a,

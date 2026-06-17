@@ -3,9 +3,11 @@ title: Alerts FAQ & troubleshooting
 description: Quick answers to the most common Alerts questions — from missing emails to noisy alerts.
 ---
 
+Most Alerts questions trace back to a handful of patterns — daily check timing, paused rules, recipient groups, or data that simply isn't exposed by the marketplace. Skim the headings for the symptom that matches yours, then jump in.
 
-## "Why didn't I get an alert?"
+<Accordions>
 
+<Accordion title="Why didn't I get an alert?">
 A few common reasons:
 
 - **The trigger didn't fire** — DataHawk checks once a day. If the change happened *after* the daily check, you'll see it tomorrow.
@@ -13,40 +15,43 @@ A few common reasons:
 - **The recipient group is empty or wrong** — check the group's members.
 - **The email landed in spam** — whitelist [noreply@datahawk.co](mailto:noreply@datahawk.co)
 - **The data isn't available** — Walmart doesn't expose all properties (see [Triggers & properties](/help-center/modules/alerts/triggers)).
+</Accordion>
 
-## "Why am I getting too many alerts?"
-
+<Accordion title="Why am I getting too many alerts?">
 - **Triggers are too sensitive** — tighten the threshold (e.g. "decreases by 5%" → "decreases by 15%").
 - **Alert covers too many products** — narrow it to a tag or specific ASINs.
 - **Multiple overlapping alerts** — consolidate into one alert with multiple triggers and a single recipient group.
+</Accordion>
 
-## "When are alerts sent?"
-
+<Accordion title="When are alerts sent?">
 DataHawk runs the daily check once per day and emails the recipient group everyday at 12pm CET.
+</Accordion>
 
-## "Can I send alerts to Slack, Teams, or a webhook?"
-
+<Accordion title="Can I send alerts to Slack, Teams, or a webhook?">
 DataHawk Alerts module does not offer this natively. If you need non-email delivery today, build a workflow with [DataHawk <Term>MCP</Term>](/help-center/modules/datahawkmcp) and a tool like n8n or Make — they can pull your DataHawk data and post anywhere.
+</Accordion>
 
-## "How long is alert history kept?"
-
+<Accordion title="How long is alert history kept?">
 Alert events are retained for **3 months**.
+</Accordion>
 
-## "What's the difference between preset and custom triggers?"
-
+<Accordion title="What's the difference between preset and custom triggers?">
 - **Preset** — pre-built templates for the most common situations. Fast to set up.
 - **Custom** — build your own rule using property + operator + value. More flexible.
 
 See [Custom triggers](/help-center/modules/alerts/custom-triggers).
+</Accordion>
 
-## "Can I monitor competitors' products?"
-
+<Accordion title="Can I monitor competitors' products?">
 Yes — you just need to track them in your <Term>workspace</Term> first. Once tracked, you can attach any alert to them.
+</Accordion>
 
-## "Walmart support is missing for properties I need"
-
+<Accordion title="Walmart support is missing for properties I need">
 Walmart's API doesn't expose every data point Amazon does. The full parity matrix is in [Triggers & properties](/help-center/modules/alerts/triggers). If you need a missing property, tell support — feature requests inform our roadmap.
+</Accordion>
 
-## Still stuck?
-
+<Accordion title="Still stuck?">
 Email [support@datahawk.co](mailto:support@datahawk.co).
+</Accordion>
+
+</Accordions>

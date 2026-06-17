@@ -9,7 +9,8 @@ import { TypeTable } from 'fumadocs-ui/components/type-table';
 import { InlineTOC } from 'fumadocs-ui/components/inline-toc';
 import Image from 'next/image';
 import type { ReactNode } from 'react';
-import { Term } from '@/components/Term'; 
+import { Term } from '@/components/Term';
+import { PageFeedback } from '@/components/PageFeedback';
 
 // ─── Callout: emoji icon override ──────────────────────────────────────────
 type CalloutType = 'info' | 'warn' | 'warning' | 'error' | 'success';
@@ -68,4 +69,7 @@ export const mdxComponents = {
 
     // Optimized images
   Image,
+
+  // Per-page feedback widget (last updated + 'was this helpful?')
+  PageFeedback,
 };
