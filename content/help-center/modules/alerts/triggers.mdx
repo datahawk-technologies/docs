@@ -15,10 +15,10 @@ Preset triggers are DataHawk's most-used templates. Pick one when you want to ge
 | Trigger | What it watches |
 |---|---|
 | Going out of stock | Stock drops, or status changes from "in stock" to "out of stock" |
-| Losing the <Term>Buy Box</Term> | Anyone loses or wins the <Term>Buy Box</Term>, including price |
+| Losing the <Term>Buy Box</Term> | Anyone loses or wins the Buy Box, including price |
 | New seller on the Buy Box | A new seller starts competing for the Buy Box |
 | Entering top 10 <Term>BSR</Term> | Products enter the top 10 in sales rank |
-| Dropping out of top 10 <Term>BSR</Term> | Products drop out of the top 10 |
+| Dropping out of top 10 BSR | Products drop out of the top 10 |
 | Becoming a best seller | Product reaches #1 in sales rank |
 | Significant price decrease (10%+) | Buy Box price drops by more than 10% |
 | Any price change | Any change in Buy Box price (range customisable) |
@@ -30,31 +30,75 @@ Preset triggers are DataHawk's most-used templates. Pick one when you want to ge
 
 You can set up as many preset triggers as you like.
 
-## Properties — Amazon vs. Walmart
+## Properties you can monitor
 
-| Property | Amazon | Walmart |
-|---|---|---|
-| **Listing details** | | |
-| Title | ✅ | ✅ |
-| Description | ✅ | ✅ |
-| Bullet points | ✅ | ✅ |
-| A+ content availability | ✅ | ✅ |
-| Number of images | ✅ | ✅ |
-| Number of videos | ✅ | ⚠️ No |
-| **Reviews and ratings** | | |
-| Rating | ✅ | ✅ |
-| Number of ratings | ✅ | ✅ |
-| % of critical (1–2 star) ratings | ✅ | ✅ |
-| % of positive (4–5 star) ratings | ✅ | ✅ |
-| **Buy Box and pricing** | | |
-| Buy Box price | ✅ | ✅ |
-| Sales rank (BSR) | ✅ | ⚠️ No |
-| Number of sellers | ✅ | ✅ |
-| Buy Box owner | ✅ | ✅ |
-| Buy Box availability / status | ✅ | ⚠️ No |
-| Listing availability / status | ✅ | ✅ |
+Pick your platform to see the full list of properties available to alert on.
 
-⚠️ Walmart parity gaps exist because Walmart's API doesn't expose those data points. If a missing property matters to you, let support know — feature requests help us prioritize.
+<Tabs items={['Amazon', 'Walmart']}>
+
+<Tab value="Amazon">
+
+**Listing details**
+
+- Title
+- Description
+- Bullet points
+- A+ content availability
+- Number of images
+- Number of videos
+
+**Reviews and ratings**
+
+- Rating
+- Number of ratings
+- % of critical (1–2 star) ratings
+- % of positive (4–5 star) ratings
+
+**Buy Box and pricing**
+
+- <Term>Buy Box</Term> price
+- Sales rank (<Term>BSR</Term>)
+- Number of sellers
+- Buy Box owner
+- Buy Box availability / status
+- Listing availability / status
+
+</Tab>
+
+<Tab value="Walmart">
+
+**Listing details**
+
+- Title
+- Description
+- Bullet points
+- A+ content availability
+- Number of images
+- ⚠️ Number of videos — *not available*
+
+**Reviews and ratings**
+
+- Rating
+- Number of ratings
+- % of critical (1–2 star) ratings
+- % of positive (4–5 star) ratings
+
+**Buy Box and pricing**
+
+- <Term>Buy Box</Term> price
+- ⚠️ Sales rank (BSR) — *not available*
+- Number of sellers
+- Buy Box owner
+- ⚠️ Buy Box availability / status — *not available*
+- Listing availability / status
+
+<Callout type="warn">
+  The three properties marked ⚠️ aren't available on Walmart because Walmart's API doesn't expose them. If a missing property matters to you, let support know — feature requests help us prioritize.
+</Callout>
+
+</Tab>
+
+</Tabs>
 
 ## Limits and retention
 
@@ -66,5 +110,15 @@ You can set up as many preset triggers as you like.
 
 ## What's next
 
-- [Custom triggers](/help-center/modules/alerts/custom-triggers) — build your own rules using operators
-- [Create your first alert](/help-center/modules/alerts/create) — walkthrough
+<div className="card-grid">
+  <Card
+    title="Custom triggers"
+    href="/help-center/modules/alerts/custom-triggers"
+    description="Build your own rules using property, operator, and value."
+  />
+  <Card
+    title="Create your first alert"
+    href="/help-center/modules/alerts/create"
+    description="5-minute walkthrough to set up your first alert."
+  />
+</div>

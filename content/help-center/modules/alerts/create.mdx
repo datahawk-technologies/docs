@@ -4,7 +4,7 @@ description: Walkthrough to create your first DataHawk alert — from picking a 
 ---
 
 <Callout type="info">
-  It takes about 5 minutes.
+It takes about 5 minutes.
 </Callout>
 
 ## Before you start
@@ -128,26 +128,38 @@ Give a name to your alert, then click **Create my Alert**. Your alert is now liv
 
 </Steps>
 
-DataHawk checks the conditions daily and sends an email when something matches. From the Alerts list, you can also:
-
-- Pause an alert without deleting it
-- Edit the trigger, products, or recipients
-- Delete an alert you no longer need
-
-<img
-  src="/images/help-center/modules/alerts/create/create-8.png"
-  alt="Create 8"
-  width={1200}
-  height={680}
-  className="rounded-lg border"
-/>
+<Callout type="info">
+DataHawk checks the conditions daily and sends an email when something matches.
+</Callout>
 
 ---
 
 ## What's next
 
-- [Triggers & properties](/help-center/modules/alerts/triggers) — full reference of what you can monitor
-- [Custom triggers](/help-center/modules/alerts/custom-triggers) — build your own rules
-- [Recipient groups & email setup](/help-center/modules/alerts/recipient-groups) — managing who gets what
-
-If you don't receive the email you expect, see [Alerts FAQ & troubleshooting](/help-center/modules/alerts/faq-troubleshooting).
+<div className="card-grid">
+  <Card
+    title="Manage your alerts"
+    href="/help-center/modules/alerts/manage-alerts"
+    description="Find, edit, pause, or delete the alerts you've already created."
+  />
+  <Card
+    title="Triggers & properties"
+    href="/help-center/modules/alerts/triggers"
+    description="Full reference of what you can monitor with an alert."
+  />
+  <Card
+    title="Custom triggers"
+    href="/help-center/modules/alerts/custom-triggers"
+    description="Build your own rules when the presets don't fit."
+  />
+  <Card
+    title="Recipient groups & email setup"
+    href="/help-center/modules/alerts/recipient-groups"
+    description="Manage who receives each alert."
+  />
+  <Card
+    title="Alerts FAQ & troubleshooting"
+    href="/help-center/modules/alerts/faq-troubleshooting"
+    description="Not receiving the emails you expect? Start here."
+  />
+</div>

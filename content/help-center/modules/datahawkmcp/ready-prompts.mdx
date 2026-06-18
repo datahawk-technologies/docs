@@ -61,30 +61,713 @@ When you first run a template, treat the suggested defaults as a starting point.
 
 ### Routine reports
 
-- **Weekly Executive Summary** — top-level KPIs across revenue, units, <Term>ACOS</Term>, and inventory for the past 7 days
-- **Monthly PPC Performance by Marketplace** — ad spend, <Term>ROAS</Term>, and conversion rate breakdown per marketplace
-- **Inventory Risk Radar** — ASINs at risk of stockout in the next 14/30 days
-- **<Term>Buy Box</Term> & Competitive Pricing** — products where you're not winning the <Term>Buy Box</Term> and what competitors are doing
+<Accordions>
+<Accordion title='Weekly Executive Sunnary'>
+A once-a-week, copy-paste prompt to generate a complete executive summary of your Amazon business. Designed for Claude and ChatGPT with DataHawk MCP connected.
+
+**Variables to set before running**
+
+- `[MARKETPLACE_SCOPE]` — *e.g., "the US marketplace"; "the US, UK, and DE marketplaces"; "all my active marketplaces"*
+- `[ACOS_FLAG]` — ACOS threshold for flagging campaigns. *Start at 40 (%)*
+- `[SPEND_FLAG]` — spend threshold for flagging campaigns. *Tune to your scale: $500 for ~$50K/week sellers, $5,000 for ~$5M/week sellers*
+- `[HIGH_SPEND_FLAG]` — higher spend threshold for ROAS-flag campaigns. *Roughly 2× your `[SPEND_FLAG]`*
+
+**What to expect**
+
+Typical output structure (actual length and formatting vary based on your data and AI client):
+
+- **Topline**: a table showing this week's metrics, last week's, and the percent change for each
+- **Marketplace breakdown**: same metrics, one row per marketplace, with any marketplace down >15% flagged
+- **Top movers**: two ranked lists of 5 ASINs each (growth and decline), with a one-line reason for each decliner
+- **Inventory risk**: a short list of at-risk ASINs — or "no inventory risks this week", which is a valid result
+- **Advertising flags**: a list of campaigns hitting your thresholds — often empty if nothing crosses them
+- **One thing to watch**: a single bolded recommendation at the bottom
+
+**The prompt**
+```
+Act as my senior analyst. Prepare my weekly Amazon executive summary for the week ending last Sunday.
+
+Scope: [MARKETPLACE_SCOPE].
+
+Use DataHawk MCP. Cite the DataHawk numbers and briefly explain anything that looks anomalous. If any number isn't available from DataHawk, say so rather than estimating.
+
+1. TOPLINE (last 7 days vs. prior 7 days)
+   - Gross revenue, units ordered, average selling price
+   - Ad spend, ACOS, ROAS
+   - Call out any metric that moved more than 10% week-over-week
+
+2. MARKETPLACE BREAKDOWN
+   - Same metrics split by marketplace
+   - Flag any marketplace with a week-over-week revenue drop above 15%
+
+3. TOP MOVERS
+   - Top 5 ASINs by revenue growth (absolute $) last 7 days
+   - Top 5 ASINs by revenue decline last 7 days
+   - For each decliner, note whether the issue looks like traffic, conversion, or inventory
+
+4. INVENTORY RISK
+   - Any ASIN with fewer than 30 days of cover
+   - Any ASIN currently out of stock that was in stock 7 days ago
+
+5. ADVERTISING FLAGS
+   - Campaigns with ACOS above [ACOS_FLAG]% and spend above $[SPEND_FLAG] last 7 days
+   - Campaigns with ROAS below 2x and spend above $[HIGH_SPEND_FLAG] last 7 days
+
+6. ONE THING TO WATCH NEXT WEEK
+   - Your single highest-priority callout based on the data above
+
+Format as a clean report with section headers. Use tables where helpful.
+```
+
+</Accordion>
+
+<Accordion title='Monthly PPC Performance by Marketplace'>
+A month-end PPC report split by marketplace, designed for owner or executive reporting on international advertising performance.
+
+
+**Variables to set before running**
+
+- `[REPORT_MONTH]` — month to report, *e.g., "March 2026"*
+- `[MARKETPLACE_SCOPE]` — *e.g., "all non-US marketplaces"; "all my European marketplaces"; "all my active marketplaces"*
+- `[MIN_SPEND_FILTER]` — exclude marketplaces with less than this spend. *Start at 1,000 ($)*
+
+**What to expect**
+
+Typical output structure (actual length and formatting vary based on your data and AI client):
+
+- **Topline**: total ad spend, ad sales, ACOS, ROAS for the month, plus comparison to the prior month
+- **Marketplace breakdown**: same metrics, one row per marketplace, ranked by spend
+- **Top campaigns per marketplace**: 3 biggest spenders in each marketplace, with their ACOS and ROAS
+- **Notable changes**: marketplaces where spend, ACOS, or ROAS moved more than 20% month-over-month
+- **Owner summary**: a 3-sentence non-technical summary suitable for emailing leadership
+
+**The prompt**
+```
+Act as my senior analyst. Prepare my weekly Amazon executive summary for the week ending last Sunday.
+
+Scope: [MARKETPLACE_SCOPE].
+
+Act as my senior PPC analyst. Prepare a monthly PPC report on my Amazon advertising for [REPORT_MONTH] using DataHawk MCP.
+
+Scope: [MARKETPLACE_SCOPE].
+Filter: exclude marketplaces with less than $[MIN_SPEND_FILTER] in ad spend for the month.
+
+Cite the DataHawk numbers. If any number isn't available from DataHawk, say so rather than estimating.
+
+1. TOPLINE
+   - Total ad spend, ad sales, ACOS, ROAS for the month
+   - Comparison to the prior month (absolute and percent change)
+
+2. MARKETPLACE BREAKDOWN
+   - Same metrics by marketplace, ranked by spend
+   - Flag any marketplace where ACOS moved more than 20% month-over-month
+
+3. TOP CAMPAIGNS BY MARKETPLACE
+   - For each marketplace included: the top 3 campaigns by spend
+   - Include each campaign's ACOS and ROAS
+
+4. NOTABLE CHANGES
+   - Any marketplace with significant performance shifts vs. prior month
+   - Suggest what to investigate
+
+5. OWNER SUMMARY
+   - A 3-sentence summary suitable for emailing the owner or leadership team
+   - Highlight the headline number and any action needed
+
+Format as a clean report with tables. Tone the owner summary at the bottom for a non-technical executive reader.
+```
+
+</Accordion>
+
+<Accordion title='Inventory Risk Radar'>
+Surface inventory problems before they become stockouts. Run weekly for best results.
+
+**Variables to set before running**
+
+- `[MARKETPLACE_SCOPE]` — *e.g., "the US marketplace"; "the US and UK marketplaces"*
+- `[COVER_DAYS_THRESHOLD]` — days-of-cover threshold to flag low stock. *Start at 30*
+- `[UNSELLABLE_PCT_THRESHOLD]` — unsellable percentage to flag. *Start at 10 (%)*
+- `[FULFILLMENT_TYPE]` — *FBA, MFN, or both — pick what applies to your business*
+
+**What to expect**
+
+Typical output structure (actual length and formatting vary based on your data and AI client):
+
+- **Currently out of stock**: a ranked table by lost revenue — could be empty if nothing's out of stock
+- **Low cover**: a table of ASINs approaching stockout with cover days and inbound quantities
+- **Inbound bottlenecks**: a short list — often empty if your supply chain is healthy
+- **Unsellable**: top ASINs with trapped inventory, with dollar values
+- **Vendor-specific**: present only if a vendor account is connected — otherwise skipped
+- **Action plan**: 3 specific items to fix this week, each with the dollar value at stake
+
+**The prompt**
+```
+Act as my inventory planner. Run an inventory risk scan on my Amazon business using DataHawk MCP.
+
+Scope: [MARKETPLACE_SCOPE], [FULFILLMENT_TYPE] inventory.
+
+Cite the DataHawk numbers. If any number isn't available from DataHawk, say so rather than estimating.
+
+1. CURRENT OUT OF STOCK
+   - All ASINs currently out of stock
+   - Rank them by last 30 days' revenue (biggest revenue at risk first)
+
+2. LOW COVER (approaching stockout)
+   - ASINs with on-hand inventory below [COVER_DAYS_THRESHOLD] days of cover, using last 30 days' average daily units
+   - Include current on-hand quantity, inbound shipped quantity, and inbound working quantity
+
+3. INBOUND BOTTLENECKS
+   - Any ASIN where inbound working quantity is more than 50% of total inbound and has been stuck for 14+ days
+
+4. UNSELLABLE
+   - ASINs where unsellable quantity is more than [UNSELLABLE_PCT_THRESHOLD]% of total on-hand
+   - Flag the top 5 by dollar value trapped
+
+5. VENDOR-SPECIFIC (skip if no vendor account is connected)
+   - Any ASIN with confirmation rate below 90% or fill rate below 85%
+   - Aged 90+ days sellable inventory by dollar value
+
+6. ACTION PLAN
+   - Which 3 items need immediate action
+   - For each: what action, and what it's worth if resolved
+
+Format as a clean report. Use tables where helpful.
+```
+
+</Accordion>
+
+<Accordion title='Buy Box & Competitive Pricing'>
+Monitor buy box share and competitive pricing pressure across your catalog.
+
+**Variables to set before running**
+
+- `[MARKETPLACE_SCOPE]` — *e.g., "the US marketplace"*
+- `[TOP_N_ASINS]` — how many top ASINs to analyze. *Start at 50*
+- `[BUY_BOX_DROP_THRESHOLD]` — percentage-point drop to flag. *Start at 10 (pp)*
+- `[LOOKBACK_PERIOD]` — *e.g., "14 days"*
+
+**What to expect**
+
+Typical output structure (actual length and formatting vary based on your data and AI client):
+
+- **Buy box loss**: a table of ASINs that lost buy box share, with the current winning seller and price comparison
+- **Price changes**: your recent price moves, plus any that didn't have the expected impact on buy box share
+- **New competitors**: ASINs where new sellers appeared in the period
+- **Rating / review shifts**: any ASINs trending down — could be empty if your reviews are stable
+- **Recommended actions**: 3 specific pricing moves with predicted impact on buy box percentage
+
+
+**The prompt**
+```
+Act as my pricing strategist. Analyze buy box and competitive pricing for my top [TOP_N_ASINS] ASINs by revenue (last 30 days) using DataHawk MCP.
+
+Scope: [MARKETPLACE_SCOPE], [LOOKBACK_PERIOD] lookback.
+
+Cite the DataHawk numbers and explain your reasoning briefly. If any number isn't available from DataHawk, say so rather than estimating.
+
+1. BUY BOX LOSS
+   - ASINs where buy box percentage dropped more than [BUY_BOX_DROP_THRESHOLD] percentage points over the lookback period
+   - For each: who's winning the buy box now, their price vs. mine
+
+2. PRICE CHANGES
+   - My price changes during the lookback period — which ASINs, up or down, by how much
+   - Any ASIN where I lowered the price but my buy box percentage still dropped?
+
+3. NEW COMPETITORS
+   - ASINs where the number of competing sellers increased by 2 or more in the last 30 days
+
+4. RATING / REVIEW SHIFTS
+   - Any of my top ASINs with a rating drop greater than 0.2 points in the last 30 days
+   - Any with review count growing less than 1 per day (potentially declining interest)
+
+5. RECOMMENDED ACTIONS
+   - Top 3 pricing moves to consider, with expected impact on buy box percentage
+   - Any product that should go into defensive mode (matching the lowest competitor)
+
+Format as a clean report. Use tables where helpful.
+```
+
+</Accordion>
+</Accordions>
+
 
 ### Deep-dives and diagnostics
 
-- **ACOS Deep-dive** — campaign-level analysis with keyword-level drill-down for underperformers
-- **Keyword Rank Recovery** — ASINs that dropped organically in the last 30 days with ranking context
-- **Single <Term>ASIN</Term> Product Profile** — full snapshot of one ASIN across sales, ads, traffic, listing, and inventory
-- **Price Change Impact Tracker** — revenue and conversion impact after price changes
+<Accordions>
+<Accordion title='ACOS Deep-dive'>
+A once-a-week, copy-paste prompt to generate a complete executive summary of your Amazon business. Designed for Claude and ChatGPT with DataHawk MCP connected.
+
+**Variables to set before running**
+
+- `[MARKETPLACE_SCOPE]` — *e.g., "the US marketplace"*
+- `[ANALYSIS_PERIOD]` — *e.g., "last 28 days"*
+- `[ACOS_DRILL_THRESHOLD]` — campaigns above this ACOS get flagged for review. *Start at 35 (%)*
+- `[TOP_N_CAMPAIGNS]` — how many campaigns to drill into. *Start at 10*
+
+**What to expect**
+
+Typical output structure (actual length and formatting vary based on your data and AI client):
+
+- **Overall ACOS trend**: a small table of weekly ACOS plus a one-line attribution (driven by spend, sales, or both)
+- **ACOS by ad type**: a table comparing Sponsored Products, Brands, and Display
+- **Campaign-level drill**: a table of the top N campaigns with current ACOS, week-over-week change, and any flags
+- **Keyword investigation**: smaller tables for the 3 worst campaigns, listing top-spending keywords
+- **Recommended actions**: a bulleted list of specific campaigns and keywords to pause, reduce, or investigate
+
+**The prompt**
+```
+Act as my senior PPC analyst. Do an ACOS deep-dive on my Amazon advertising using DataHawk MCP.
+
+Scope: [MARKETPLACE_SCOPE], [ANALYSIS_PERIOD].
+
+Cite the DataHawk numbers and briefly explain your reasoning. If any number isn't available from DataHawk, say so rather than estimating.
+
+1. OVERALL ACOS TREND
+   - Weekly ACOS for the analysis period, compared to the equivalent prior period
+   - Was the change driven primarily by spend, sales, or both?
+
+2. ACOS BY AD TYPE
+   - Split ACOS by Sponsored Products, Sponsored Brands, and Sponsored Display
+   - Which ad type moved the most?
+
+3. CAMPAIGN-LEVEL DRILL
+   - Top [TOP_N_CAMPAIGNS] campaigns by spend
+   - For each: ACOS, week-over-week change, units attributed
+   - Flag any campaign with ACOS above [ACOS_DRILL_THRESHOLD]% that grew spend week-over-week
+
+4. KEYWORD INVESTIGATION (for the 3 worst campaigns from step 3)
+   - Top spending keywords and their ACOS
+   - Any keyword with CPC up more than 20% but conversion rate down?
+
+5. RECOMMENDED ACTIONS
+   - What to pause, what to reduce bids on, what to investigate further
+   - Be specific — name campaigns and keywords
+
+Format as a clean report. Use tables where helpful.
+```
+
+</Accordion>
+
+<Accordion title='Keyword Rank Recovery'>
+Find organic rankings you're losing and what to do about it.
+
+**Variables to set before running**
+
+- `[MARKETPLACE_SCOPE]` — *e.g., "the US marketplace"*
+- `[TOP_N_ASINS]` — how many top ASINs to analyze. *Start at 20*
+- `[RANK_DROP_THRESHOLD]` — positions dropped to flag. *Start at 5*
+- `[LOOKBACK_PERIOD]` — *e.g., "14 days"*
+
+**What to expect**
+
+Typical output structure (actual length and formatting vary based on your data and AI client):
+
+- **Lost rankings**: a table per ASIN of dropped keywords with old rank, new rank, and search volume
+- **Sponsored vs. organic gap**: keywords where you have paid visibility but not organic — listed as opportunities
+- **Competitor gains**: who took your rankings, by keyword, with any pattern noted
+- **Possible causes**: cross-referenced findings across catalog, review velocity, inventory, and price changes
+- **Action plan**: top 3 keywords to recover with the lever to pull for each (content, ads, pricing, or inventory)
+
+**The prompt**
+```
+Act as my SEO analyst. Do a keyword rank recovery analysis on my top [TOP_N_ASINS] ASINs by revenue using DataHawk MCP.
+
+Scope: [MARKETPLACE_SCOPE], [LOOKBACK_PERIOD] lookback.
+
+Cite the DataHawk numbers and explain your reasoning briefly. If any number isn't available from DataHawk, say so rather than estimating.
+
+1. LOST RANKINGS
+   - For each top ASIN: keywords where organic rank dropped [RANK_DROP_THRESHOLD] or more positions during the lookback period
+   - Include the keyword, current rank, rank at the start of the lookback, and search volume if available
+
+2. SPONSORED VS. ORGANIC GAP
+   - Keywords where I rank in the top 10 sponsored but not in the top 30 organic
+   - These are opportunities to convert paid visibility into organic rank
+
+3. COMPETITOR GAINS
+   - For the 5 keywords with the biggest drops, who's moved up to take the ranking?
+   - Is there a pattern (same brand repeatedly, or scattered)?
+
+4. POSSIBLE CAUSES
+   - Cross-reference with: catalog changes on each ASIN (title, bullets, images), review velocity drop, inventory stockouts in the period, and price changes
+
+5. ACTION PLAN
+   - Top 3 keywords to prioritize recovering, and why
+   - What lever to pull for each (content, ads, pricing, or inventory)
+
+Format as a clean report. Use tables where helpful.
+```
+
+</Accordion>
+
+<Accordion title='Single ASIN Product Profile'>
+A comprehensive snapshot of one product: sales, traffic, rank, reviews, buy box, listing health, keyword performance. Useful before product review meetings, account check-ins, or any deep-dive.
+**Variables to set before running**
+
+- `[ASIN]` — the product you want to profile
+- `[MARKETPLACE_SCOPE]` — *e.g., "the US marketplace"*
+- `[LOOKBACK_PERIOD]` — analysis window, *e.g., "last 90 days"*
+
+**What to expect**
+
+Typical output structure (actual length and formatting vary based on your data and AI client):
+
+- **Header**: ASIN, title, brand, current price, rating, review count, plus a health flag (healthy / watch / issue)
+- **Sales & traffic over time**: weekly trended units, revenue, sessions, conversion rate
+- **Ranking & visibility**: BSR trend, top keywords ranking organic and sponsored, gap opportunities
+- **Buy box**: win rate and price over time, top competing sellers currently on the listing
+- **Listing health**: content completeness signals (title length, bullets, A+, images, video, variations)
+- **Headline & action**: one-paragraph summary plus the single most impactful next action
+
+**The prompt**
+```
+Act as my product manager. Give me a complete product profile for ASIN [ASIN] using DataHawk MCP.
+
+Scope: [MARKETPLACE_SCOPE], [LOOKBACK_PERIOD].
+
+Show me the ASIN's title alongside the ASIN in every table. Cite the DataHawk numbers. If any number isn't available from DataHawk, say so rather than estimating.
+
+1. HEADER
+   - ASIN, product title, brand, current price, rating, review count
+   - Single-line health flag: healthy, watch, or issue
+
+2. SALES & TRAFFIC OVER TIME
+   - Weekly units ordered, revenue, sessions, conversion rate
+   - Day-over-day change for the most recent week
+
+3. RANKING & VISIBILITY
+   - Current BSR and BSR trend
+   - Top 10 keywords this ASIN ranks for organic (with current rank and 7-day change)
+   - Top 10 keywords this ASIN ranks for sponsored (same)
+   - Keywords where I rank in sponsored but not organic (gap opportunities)
+
+4. BUY BOX
+   - Buy box win rate over the lookback period
+   - Daily price trend
+   - Top 3 competing sellers currently appearing on the listing, with their prices
+
+5. LISTING HEALTH
+   - Content completeness: title length, bullet count, A+ content present, image count, video present, variation count
+   - Flag anything that looks below standard
+
+6. HEADLINE & ACTION
+   - One-paragraph summary of how this ASIN is performing
+   - The single most impactful action to take next
+
+Format as a clean report. Use tables for all comparative data. Always show ASIN + product title side by side.
+```
+
+</Accordion>
+
+<Accordion title='Price Change Impact Tracker'>
+Measure how sales, traffic, and buy box moved after a price change on a specific SKU. Run 7+ days after the change to give it time to take effect.
+
+**Variables to set before running**
+
+- `[ASIN]` — the SKU you changed
+- `[MARKETPLACE_SCOPE]` — *e.g., "the US marketplace"*
+- `[CHANGE_DATE]` — when the price changed, *YYYY-MM-DD format*
+- `[LOOKBACK_DAYS]` — how many days before vs. after to compare. *Start at 7*
+
+**What to expect**
+
+Typical output structure (actual length and formatting vary based on your data and AI client):
+
+- **Price change confirmation**: the change date(s) DataHawk can see, with old and new price
+- **Before vs. after metrics**: side-by-side table of units, revenue, sessions, conversion, buy box %, ad spend, ACOS
+- **Daily breakdown**: a line-by-line view through the change date so you can see how quickly the change took effect
+- **Cause attribution**: did price alone explain the movement, or did something else change at the same time?
+- **Recommended action**: hold the new price, revert, or push further — with one-line reasoning
+
+
+**The prompt**
+```
+Act as my pricing analyst. Track the impact of a recent price change on ASIN [ASIN] using DataHawk MCP.
+
+Scope: [MARKETPLACE_SCOPE].
+Price change date: [CHANGE_DATE].
+Compare: the [LOOKBACK_DAYS] days before vs. the [LOOKBACK_DAYS] days after the change.
+
+Cite the DataHawk numbers and briefly explain your reasoning. If any number isn't available from DataHawk, say so rather than estimating.
+
+1. PRICE CHANGE CONFIRMATION
+   - Confirm the price change date(s) you can see in DataHawk for this ASIN
+   - Note the old price, new price, and percent change
+
+2. BEFORE VS. AFTER METRICS
+   - Side-by-side table: units ordered, revenue, sessions, conversion rate, buy box %, ad spend, ACOS — for the period before and after
+   - Highlight any metric that moved more than 15%
+
+3. DAILY BREAKDOWN
+   - Day-by-day table through the change date so I can see how quickly the change took effect
+
+4. CAUSE ATTRIBUTION
+   - Did price alone explain the movement, or did something else change at the same time (ad spend shift, buy box loss, new competitor, stock-out)?
+
+5. RECOMMENDED ACTION
+   - Based on the data: hold the new price, revert, or push further?
+   - One-line reasoning
+
+Format as a clean report. Use tables where helpful.
+```
+
+</Accordion>
+</Accordions>
 
 ### Launch and growth
 
-- **New Product Launch Tracker** — week-over-week progression of a new ASIN across <Term>BSR</Term>, reviews, and early sales
+<Accordions>
+<Accordion title='New Product Launch Tracker'>
+Track a new product launch against expectations — catch issues early when you can still course-correct.
+
+**Variables to set before running**
+
+- `[ASIN]` — the ASIN you're tracking
+- `[LAUNCH_DATE]` — *YYYY-MM-DD format, e.g., 2026-03-15*
+- `[MARKETPLACE_SCOPE]` — *e.g., "the US marketplace"*
+- `[CONVERSION_FLAG]` — percentage of running average to flag low-conversion days. *Start at 50 (%)*
+
+**What to expect**
+
+Typical output structure (actual length and formatting vary based on your data and AI client):
+
+- **Daily performance**: a day-by-day table from launch to today, with conversion-flag markers
+- **Traffic quality**: prose summary plus a session-trend table (ad vs. organic split)
+- **Ad performance**: weekly ad metrics since launch, plus the top campaigns driving attributed sales
+- **Keyword rankings**: a list of keywords this ASIN ranks for, with rank progression over the launch period
+- **Rating & reviews**: current state plus review velocity (per week)
+- **Red flags / green flags**: two bulleted lists — things working and things to investigate
+
+
+**The prompt**
+```
+Act as my launch manager. Give me a launch tracker for ASIN [ASIN] using DataHawk MCP.
+
+Scope: [MARKETPLACE_SCOPE].
+Launch date: [LAUNCH_DATE].
+
+Cite the DataHawk numbers and briefly explain anything that looks off. If any number isn't available from DataHawk, say so rather than estimating.
+
+1. DAILY PERFORMANCE SINCE LAUNCH
+   - Units ordered, revenue, sessions, and conversion rate, each day
+   - Flag any day where conversion rate was less than [CONVERSION_FLAG]% of the running average
+
+2. TRAFFIC QUALITY
+   - Session trend: growing, flat, or declining?
+   - Buy box percentage over the launch period
+   - Ad sessions vs. organic sessions
+
+3. AD PERFORMANCE
+   - Ad spend, ad sales, ACOS by week since launch
+   - Which campaigns and keywords are driving the bulk of attributed sales?
+
+4. KEYWORD RANKINGS
+   - Which keywords is this ASIN ranking for?
+   - Rank progression over the launch period
+   - Keywords where we appear in sponsored but not organic (opportunity)
+
+5. RATING & REVIEWS
+   - Current rating, review count, review velocity (reviews per week)
+
+6. RED FLAGS / GREEN FLAGS
+   - Anything that looks off compared to a healthy launch pattern
+   - Anything tracking better than expected
+
+Format as a clean report. Use tables where helpful.
+```
+
+</Accordion>
+</Accordions>
 
 ### Brand protection and market intelligence
 
-- **MAP Compliance Check** — flag ASINs where Buy Box prices are below MAP
-- **Market Share Snapshot** — category-level estimated share of voice vs. top competitors
+
+<Accordions>
+<Accordion title='MAP Compliance Check'>
+A scan for Minimum Advertised Price violations across your protected SKUs. Critical for regulated or brand-protected categories — tires, electronics, pharmaceuticals, premium goods.
+
+**Variables to set before running**
+
+- `[ASIN_LIST]` — your MAP-protected ASINs (comma-separated, or a brand name)
+- `[MARKETPLACE_SCOPE]` — *e.g., "the US marketplace"*
+- `[LOOKBACK_PERIOD]` — how far back to check, *e.g., "last 7 days"*
+- **MAP prices** — you'll paste these into the prompt (one ASIN + price per line)
+
+**What to expect**
+
+Typical output structure (actual length and formatting vary based on your data and AI client):
+
+- **Current violations**: ASINs where any seller is currently below MAP, with seller name and price gap
+- **Recent violation history**: all violations seen during the lookback period (current and resolved)
+- **Repeat offenders**: sellers who violated MAP more than once during the period
+- **Duplicate listings**: any duplicate or alternate ASIN that appears to carry the product below MAP
+- **Action list**: specific takedown or right-to-sell escalations to issue
+
+
+**The prompt**
+```
+Act as my brand protection analyst. Run a MAP compliance check across my protected SKUs using DataHawk MCP.
+
+Scope: [MARKETPLACE_SCOPE], [LOOKBACK_PERIOD].
+Protected ASINs: [ASIN_LIST].
+
+MAP prices (replace with your actual MAP for each ASIN):
+[ASIN_1]: $[PRICE_1]
+[ASIN_2]: $[PRICE_2]
+... (one per line)
+
+Cite the DataHawk numbers. If any number isn't available from DataHawk, say so rather than estimating.
+
+1. CURRENT VIOLATIONS
+   - ASINs where any current seller is below MAP
+   - Per violation: ASIN, product title, MAP price, current selling price, seller name, gap %
+
+2. RECENT VIOLATION HISTORY
+   - All violations seen during the lookback period (both current and resolved)
+   - Per violation: same fields as above plus date observed
+
+3. REPEAT OFFENDERS
+   - Sellers who appeared in violations more than once during the lookback period
+   - Total violations per seller
+
+4. DUPLICATE OR ALTERNATE LISTINGS
+   - Any duplicate listing variants for these products with potentially different ASINs
+   - Flag any that appear to be carrying the product below MAP
+
+5. ACTION LIST
+   - Specific takedown requests to issue
+   - Specific sellers to revoke right-to-sell from
+   - Any patterns worth escalating to Amazon brand support
+
+Format as a clean report with tables. Always show ASIN + product title side by side.
+```
+
+</Accordion>
+
+<Accordion title='Market Share Snapshot'>
+A category-level share-of-market report showing where your brand sits versus competitors. Designed for category management, brand strategy reviews, or internal "share-of-shelf" reporting.
+
+**Variables to set before running**
+
+- `[CATEGORY]` — Amazon category or browse node, or a set of keywords defining the category
+- `[MARKETPLACE_SCOPE]` — *e.g., "the US marketplace"*
+- `[PERIOD]` — analysis window, *e.g., "last 30 days"*
+- `[MY_BRAND]` — your brand name
+- `[TOP_N_COMPETITORS]` — how many competitors to surface. *Start at 10*
+
+
+**What to expect**
+
+Typical output structure (actual length and formatting vary based on your data and AI client):
+
+- **Category overview**: total estimated category sales, number of products, average price, average rating
+- **Top brands by estimated sales**: ranked table including your brand, with share % and ASIN count
+- **Share trend**: how your share moved over the period vs. top 3 competitors
+- **Top products per brand**: top 3 ASINs per top-5 brand by estimated sales
+- **Headline shifts**: brands gaining or losing share noticeably
+- **Strategic takeaways**: where you're winning, where you're losing ground, what to watch
+
+
+**The prompt**
+```
+Act as my category strategist. Give me a market share snapshot for [CATEGORY] using DataHawk MCP.
+
+Scope: [MARKETPLACE_SCOPE], [PERIOD].
+My brand: [MY_BRAND].
+Surface the top [TOP_N_COMPETITORS] competitors.
+
+Use DataHawk's catalog and sales estimate data. Cite the numbers. If any number isn't available from DataHawk, say so rather than estimating.
+
+1. CATEGORY OVERVIEW
+   - Total estimated category sales for the period
+   - Number of products tracked
+   - Average price, average rating
+
+2. TOP BRANDS BY ESTIMATED SALES
+   - Ranked table: [MY_BRAND] plus the top [TOP_N_COMPETITORS] competitors
+   - Estimated sales, share %, number of ASINs, average rating per brand
+
+3. SHARE TREND
+   - How [MY_BRAND]'s share has moved over the period (start vs. end)
+   - Compare to the top 3 competitors
+
+4. TOP PRODUCTS PER BRAND
+   - For each of the top 5 brands: top 3 ASINs by estimated sales (ASIN + product title side by side)
+
+5. HEADLINE SHIFTS
+   - Brands gaining share noticeably during the period
+   - Brands losing share noticeably
+
+6. STRATEGIC TAKEAWAYS
+   - Where [MY_BRAND] is winning
+   - Where [MY_BRAND] is losing ground
+   - The single most important thing to watch next month
+
+Format as a clean report with tables. Always show ASIN + product title side by side.
+```
+
+</Accordion>
+</Accordions>
 
 ### Maintenance
 
-- **Catalog & Keyword Hygiene Audit** — ASINs with missing images, short titles, or poor keyword coverage
+<Accordions>
+<Accordion title='Catalog & Keyword Hygiene Audit'>
+Surface stale ASINs and keywords no longer worth tracking, plus new ASINs and keywords you might be missing. Run quarterly to keep tracking lean.
+
+**Variables to set before running**
+
+- `[MARKETPLACE_SCOPE]` — *e.g., "the US marketplace"*
+- `[STALE_THRESHOLD_DAYS]` — days of low or no activity to flag a tracked item as stale. *Start at 90*
+- `[NEW_ASIN_REVENUE_FLOOR]` — minimum revenue an untracked ASIN must have to be worth adding. *Tune to your scale: $1,000 for ~$50K/week sellers, $10,000 for ~$5M/week sellers*
+
+**What to expect**
+
+Typical output structure (actual length and formatting vary based on your data and AI client):
+
+- **Stale tracked ASINs**: ASINs in your DataHawk that had low or no activity in the threshold period
+- **Untracked but earning ASINs**: ASINs not tracked in DataHawk but generating real revenue
+- **Stale tracked keywords**: tracked keywords with no rank movement or recorded activity
+- **Missing keywords**: high-traffic keywords where your products appear but the keyword isn't tracked
+- **Recommended cleanup**: top 10 to remove and top 10 to add
+
+
+**The prompt**
+```
+Act as my catalog manager. Run a hygiene audit on my DataHawk tracking using MCP.
+
+Scope: [MARKETPLACE_SCOPE].
+Stale threshold: [STALE_THRESHOLD_DAYS] days of low or no activity.
+Revenue floor for new ASINs: $[NEW_ASIN_REVENUE_FLOOR] over the last 90 days.
+
+Cite the DataHawk numbers. If any number isn't available from DataHawk, say so rather than estimating.
+
+1. STALE TRACKED ASINS
+   - ASINs being tracked that had no orders or fewer than $100 revenue in the last [STALE_THRESHOLD_DAYS] days
+   - Rank by lowest activity first
+
+2. UNTRACKED BUT EARNING ASINS
+   - ASINs generating more than $[NEW_ASIN_REVENUE_FLOOR] in the last 90 days that aren't being tracked in DataHawk
+   - List with revenue contribution
+
+3. STALE TRACKED KEYWORDS
+   - Keywords being tracked that have shown no rank movement or recorded clicks in the last [STALE_THRESHOLD_DAYS] days
+   - Likely candidates to remove
+
+4. MISSING KEYWORDS
+   - High-traffic keywords where my products appear in organic or sponsored results but the keyword isn't being tracked
+   - Rank by traffic potential
+
+5. RECOMMENDED CLEANUP
+   - Top 10 items to remove from tracking
+   - Top 10 items to add to tracking
+   - Estimated impact on tracking coverage and cost
+
+Format as a clean report. Use tables for the lists. Always show ASIN + product title side by side.
+```
+
+</Accordion>
+</Accordions>
 
 ## Pin them for one-click use
 
@@ -100,6 +783,20 @@ Once pinned, running your weekly summary is one click.
 
 ## What's next
 
-- [How to write effective MCP prompts](/help-center/modules/datahawkmcp/write-prompts) — how to write prompts that return what you expect
-- [Going further with the MCP](/help-center/modules/datahawkmcp/going-further) — performance and fallback guidance
-- [FAQ](/help-center/modules/datahawkmcp/faq-troubleshooting) — troubleshooting and common questions
+<div className="card-grid">
+  <Card
+    title="How to write effective MCP prompts"
+    href="/help-center/modules/datahawkmcp/write-prompts"
+    description="Write prompts that return what you expect the first time."
+  />
+  <Card
+    title="Going further with the MCP"
+    href="/help-center/modules/datahawkmcp/going-further"
+    description="Performance, verification, and fallback guidance for power users."
+  />
+  <Card
+    title="FAQ"
+    href="/help-center/modules/datahawkmcp/faq-troubleshooting"
+    description="Troubleshooting and common questions about DataHawk MCP."
+  />
+</div>
