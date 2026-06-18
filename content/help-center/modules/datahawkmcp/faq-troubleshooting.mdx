@@ -1,78 +1,73 @@
 ---
-title: MCP - Frequently Asked Questions (FAQ)
+title: Frequently Asked Questions (FAQ)
 description: Common questions about DataHawk MCP — getting started, security, multi-workspace, troubleshooting, and roadmap.
 ---
 
 Questions about DataHawk <Term>MCP</Term> cluster around the same themes — setup, what the AI can and can't see, multi-workspace access, and what's coming next. The sections below mirror that order. If you're looking for installation steps, see the [setup guide](/help-center/modules/datahawkmcp/setup) instead.
 
-## Getting started
 
-**Q: Do I need to know SQL query syntax?**
+<Accordions>
 
+<Accordion title='Do I need to know SQL query syntax?'>
 No. Your AI handles the query construction entirely. The data layer exists so power users can drop down to it via the API, but conversational users never touch it.
+</Accordion>
 
-**Q: Can the AI hallucinate numbers?**
-
+<Accordion title='Can the AI hallucinate numbers?'>
 Every number comes from a real `datahawk_load_data` call against your actual data. The validation step catches invalid queries before they run, and the router enforces required filters so you can't accidentally get data from the wrong <Term>marketplace</Term> or time window. That said, LLMs can still misrepresent results in their prose summary — always cross-check specific numbers against the tool output in the conversation.
+</Accordion>
 
-**Q: Which AI clients are supported?**
-
+<Accordion title='Which AI clients are supported?'>
 Any client supporting MCP servers with <Term>OAuth</Term> authentication.
 
 Claude (Desktop, Web, Mobile), ChatGPT (Plus, Team, Enterprise), Cursor, Windsurf, Lovable, Replit, n8n, Make, and any custom client speaking MCP. See the installation guides on the [setup page](/help-center/modules/datahawkmcp/setup).
+</Accordion>
 
-**Q: How long does setup take?**
-
+<Accordion title='How long does setup take?'>
 Under 2 minutes for any <Term>OAuth</Term>-based client (Claude, ChatGPT, Cursor). Slightly longer for token-based clients (n8n, Make) because you also need to generate an API token.
+</Accordion>
 
-## Security and privacy
-
-**Q: Does my data leave my <Term>workspace</Term>?**
-
+<Accordion title='Does my data leave my workspace?'>
 Query results flow to the AI that asked the question — the same AI you're already talking to. DataHawk doesn't send your data anywhere else.
+</Accordion>
 
-**Q: Who in my organization can connect?**
-
+<Accordion title='Who in my organization can connect?'>
 Anyone with an active login to your DataHawk workspace. Admin-only restrictions are on the roadmap — for now, use DataHawk's workspace roles to control who has access.
+</Accordion>
 
-## Multi-workspace / agencies
-
-**Q: I run DataHawk for multiple brands — can I connect them all to one AI?**
-
+<Accordion title='I run DataHawk for multiple brands — can I connect them all to one AI?'>
 Yes. All brands connected in one DataHawk workspace are accessible through the MCP.
+</Accordion>
 
-**Q: Can I restrict what data specific team members see?**
-
+<Accordion title='Can I restrict what data specific team members see?'>
 Access follows your DataHawk workspace roles — if a user can see something in DataHawk, they can query it via MCP. If they can't see it in DataHawk, they can't query it.
+</Accordion>
 
-## Troubleshooting
-
-**Q: "No data returned" — what's wrong?**
-
+<Accordion title='"No data returned" — what&apos;s wrong?'>
 Usually one of: (1) your Amazon account isn't connected/syncing in DataHawk, (2) the date range you specified has no data yet, (3) a required filter was rejected by the validator. Ask the AI to show the tool call output — it usually pinpoints the issue.
+</Accordion>
 
-**Q: The AI is giving me a different number than the DataHawk app.**
-
+<Accordion title='The AI is giving me a different number than the DataHawk app.'>
 Most common causes: different date range (MCP uses last 90 days by default), different marketplace filter, or different currency. Ask the AI to show the exact query it ran — copy the date range and filters and run them in the app to reconcile.
+</Accordion>
 
-**Q: I'm hitting rate limits.**
-
+<Accordion title="I'm hitting rate limits.">
 MCP is tuned for interactive use. For high-volume workloads, switch to the <Term>BigQuery</Term> export or contact [support@datahawk.co](mailto:support@datahawk.co) for elevated limits.
+</Accordion>
 
-**Q: OAuth fails when I try to connect.**
-
+<Accordion title='OAuth fails when I try to connect.'>
 Make sure you're signed into the correct DataHawk workspace in your browser before clicking authorize. If you have multiple workspaces, sign out of all but the target one, then retry.
+</Accordion>
 
-## Roadmap questions
-
-**Q: When is the native ChatGPT / Claude app coming?**
-
+<Accordion title='When is the native ChatGPT / Claude app coming?'>
 In active development. Watch your emails for the news.
+</Accordion>
 
-**Q: When will deeper Amazon data be available?**
-
+<Accordion title='When will deeper Amazon data be available?'>
 We're continuously expanding. Recent additions: <Term>DSP</Term> creative-level detail, vendor data, profit ledger line items. Next up: broader brand analytics and finance surfaces.
+</Accordion>
 
-**Q: Can I request a new metric or view?**
-
+<Accordion title='Can I request a new metric or view?'>
 Yes — email [support@datahawk.co](mailto:support@datahawk.co) with your use case. If multiple users request the same thing, it moves up the priority list fast.
+</Accordion>
+
+</Accordions>
