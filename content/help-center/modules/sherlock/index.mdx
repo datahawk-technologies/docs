@@ -1,5 +1,5 @@
 ---
-title: Sherlock
+title: Introduction
 description: DataHawk's AI-powered diagnostic engine for Amazon sellers — watch your business daily, spot what changed, explain why, and recommend what to do next.
 ---
 
@@ -12,33 +12,55 @@ Sherlock has two surfaces in the left sidebar: **Investigate** and **Cases**.
 
 ### Investigate
 
-📈 **Signals** — your daily starting point. A single, filterable list of every product whose sales moved in a meaningful way week-over-week. Pick a *Momentum* (Growing, Recovering, Slowing, Declining, Sudden spike, Sudden drop), filter by *Tier* (Hero / Core / Meaningful), brand, or <Term>marketplace</Term>, and Sherlock will rank the list by dollar impact so the biggest problems sit at the top.
+- **Signals** — your daily starting point. A single, filterable list of every product whose sales moved in a meaningful way week-over-week. Pick a *Momentum* (Growing, Recovering, Slowing, Declining, Sudden spike, Sudden drop), filter by *Tier* (Hero / Core / Meaningful), brand, or <Term>marketplace</Term>, and Sherlock will rank the list by dollar impact so the biggest problems sit at the top.
 
 ### Cases
 
 Cases are **curated shortcuts**, each built around a single, well-defined risk pattern. They run on the same engine as Signals but pre-filter the list to one story at a time.
 
-🧟 **Zombie Ad Spend** — Ad groups spending for 10+ days without a single conversion. Pause them or fix them before they drain the budget.
+- **Zombie Ad Spend** — Ad groups spending for 10+ days without a single conversion. Pause them or fix them before they drain the budget.
 
-⚠️ **Return Anomalies** — Products whose return rate has jumped at least 50% above the 90-day baseline. Often the first sign of a listing mismatch, sizing issue, or quality problem.
+- **Return Anomalies** — Products whose return rate has jumped at least 50% above the 90-day baseline. Often the first sign of a listing mismatch, sizing issue, or quality problem.
 
-📉 **Ad Spend Drop** — Products where ad spend fell ≥10% week-over-week, pulling traffic and revenue down with it.
+- **Ad Spend Drop** — Products where ad spend fell ≥10% week-over-week, pulling traffic and revenue down with it.
 
-💲 **Price CVR Drop** — Products where ASP rose ≥5%, conversion fell, and revenue followed. The classic *"we priced ourselves out"* pattern.
+- **Price CVR Drop** — Products where ASP rose ≥5%, conversion fell, and revenue followed. The classic *"we priced ourselves out"* pattern.
 
-📦 **<Term>FBA</Term> Stockout** — Products that went out of stock on <Term>FBA</Term> this week, lost the <Term>Buy Box</Term>, and saw revenue collapse.
+- **<Term>FBA</Term> Stockout** — Products that went out of stock on <Term>FBA</Term> this week, lost the <Term>Buy Box</Term>, and saw revenue collapse.
 
-🏆 **<Term>Buy Box</Term> Loss** — Listings where ASP rose ≥5% and Buy Box dropped ≥10pp.
+- **<Term>Buy Box</Term> Loss** — Listings where ASP rose ≥5% and Buy Box dropped ≥10pp.
 
 ## How Sherlock works
 
 Every investigation runs through the same 5-step pipeline:
 
-1. **Fetch metrics** — pull 30 days of daily data: revenue, sessions, CVR, Buy Box, ads, inventory, price, rank.
-2. **Compute evidence** — compare the last 7 days vs the previous 7, and the last 3 vs the previous 3. Build deltas, decomposition, and scored root causes.
-3. **Fetch events** — pull external events (Prime Day, holidays), seller annotations you've logged, and product changes.
-4. **Load the knowledge playbook** — apply DataHawk's library of diagnostics and causality rules.
-5. **Present** — a single LLM call combines all of the above and produces three outputs: **Summary**, **Explanations**, **Suggestions**.
+<Steps>
+<Step>
+**Fetch metrics**
+
+Pull 30 days of daily data: revenue, sessions, CVR, Buy Box, ads, inventory, price, rank.
+</Step>
+<Step>
+**Compute evidence** 
+
+Compare the last 7 days vs the previous 7, and the last 3 vs the previous 3. Build deltas, decomposition, and scored root causes.
+</Step>
+<Step>
+**Fetch events**
+
+Pull external events (Prime Day, holidays), seller annotations you've logged, and product changes.
+</Step>
+<Step>
+**Load the knowledge playbook** 
+
+Apply DataHawk's library of diagnostics and causality rules.
+</Step>
+<Step>
+**Present**
+
+A single LLM call combines all of the above and produces three outputs: Summary, Explanations, Suggestions.
+</Step>
+</Steps>
 
 ## Chat with Sherlock
 
@@ -48,7 +70,7 @@ Every investigation has an **assistant** built in. Open it to:
 - **Log a seller annotation** (e.g. "we launched a media campaign 7 days ago") that will appear in the Timeline and feed every future investigation.
 - Give thumbs-up or thumbs-down feedback so Sherlock improves over time.
 
-You can also open the assistant from any page in *<Term>workspace</Term> mode* to deep-dive into your full DataHawk data layer.
+You can also open the assistant from any page in aim menu of Signals to deep-dive into your full DataHawk data layer.
 
 ## What you need to get started
 
@@ -63,7 +85,7 @@ Sherlock works out of the box once your DataHawk workspace is connected to **Ama
 ## Where to go next
 
 <div className="card-grid">
-  <Card title="Navigate through Signals" href="/help-center/modules/sherlock/signals" description="Your daily filterable list of every meaningful product movement." />
+  <Card title="Signals" href="/help-center/modules/sherlock/signals" description="Your daily filterable list of every meaningful product movement." />
   <Card title="Zombie Ad Spend" href="/help-center/modules/sherlock/zombie-ad-spend" description="Find wasted ad dollars." />
   <Card title="Return Anomalies" href="/help-center/modules/sherlock/return-anomalies" description="Catch return spikes early." />
   <Card title="Ad Spend Drop" href="/help-center/modules/sherlock/ad-spend-drop" description="Spot quiet ad pullbacks." />

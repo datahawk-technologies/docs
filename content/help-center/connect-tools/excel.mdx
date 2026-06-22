@@ -9,31 +9,32 @@ Instead of exporting data manually, you can connect your DataHawk-powered <Term>
   Estimated setup time: **under 5 minutes.**
 </Callout>
 
-## Prerequisite
+## Prerequisites
 
-- Your data sources (Amazon / Walmart accounts) should be connected and collecting data.
-  - If you did not connect any data sources, go to [Set up data](/help-center/data-setup)
-- An activated DataHawk-hosted **<Term>Snowflake</Term>** database.
-  - If you haven't set one up yet, go to [Send data to your tool](/help-center/connect-tools)
-  - Once set up, it will take up to 4 hours to show as **Enabled**
-- Retrieve your credentials
-  - On your DataHawk App account, **Setup \> Destinations \> Snowflake \> See Credentials**.
+Before connecting Excel, make sure you have:
+
+- **Data sources connected** — your Amazon and/or Walmart accounts are connected and collecting data. If not yet, see [Set up data](/help-center/data-setup) first.
+- **A DataHawk <Term>Snowflake</Term> database** — activated and showing **Enabled** in your DataHawk App. Provisioning can take up to 4 hours; see [Send data to your tool](/help-center/connect-tools) if you haven't set one up.
+- **Your Snowflake credentials** — available from **Setup → Destinations → Snowflake → See Credentials** in the DataHawk App.
 
 ## Set up
 
-### Step 1 — Install the Snowflake ODBC driver
+<Steps>
+
+<Step>
+### Install the Snowflake ODBC driver
 
 Download and install the Snowflake ODBC driver for your operating system:
 
 - [Windows 64-bit](https://sfc-repo.snowflakecomputing.com/odbc/win64/latest/index.html)
 - [Windows 32-bit](https://sfc-repo.snowflakecomputing.com/odbc/win32/latest/index.html)
 - [macOS](https://community.snowflake.com/s/article/How-to-configure-Excel-on-MacOS-to-use-Snowflake-using-ODBC-driver)
+</Step>
 
-### Step 2 — Configure the ODBC data source
+<Step>
+### Configure the ODBC data source
 
-1. Search for **ODBC** on your computer to open the **ODBC Data Source Administrator**.
-2. In the **User DSN** tab, click **Add \> SnowflakeDSIIDriver \> Finish**.
-3. Fill in the fields using your DataHawk Snowflake credentials:
+Search for **ODBC** on your computer to open the **ODBC Data Source Administrator**. In the **User DSN** tab, click **Add \> SnowflakeDSIIDriver \> Finish**, then fill in the fields using your DataHawk Snowflake credentials:
 
 | ODBC field | DataHawk credential |
 |---|---|
@@ -43,17 +44,18 @@ Download and install the Snowflake ODBC driver for your operating system:
 | Server | Your Snowflake server URL |
 | Database | Your DataHawk database name |
 | Warehouse | Your Snowflake warehouse |
+</Step>
 
-### Step 3 — Connect Excel to your data source
+<Step>
+### Connect Excel to your data source
 
-1. In Excel, go to **Data \> Get Data \> From Other Sources \> From ODBC**.
-2. Select the data source you just created.
-3. Re-enter your **User** and **Password** when prompted.
-4. Browse and select the tables you want to load.
+In Excel, go to **Data \> Get Data \> From Other Sources \> From ODBC**. Select the data source you just created, re-enter your **User** and **Password** when prompted, then browse and select the tables you want to load.
 
 If you want to load only part of a table (specific columns, a date range, or merged data), use **Transform Data** to open the Power Query Editor before loading. See the **Transform data with Power Query** section below.
+</Step>
 
-### Step 4 — Schedule automatic refreshes
+<Step>
+### Schedule automatic refreshes
 
 To keep your file up to date:
 
@@ -65,6 +67,9 @@ To keep your file up to date:
 <Callout type="info">
   **Why 999 minutes?** Excel's maximum scheduled refresh interval is 999 minutes (approximately 16 hours). Since DataHawk updates data once per day, refreshing when opening the file is sufficient for most users — the 999-minute option is only useful if you keep the file open across days.
 </Callout>
+</Step>
+
+</Steps>
 
 ## Transform data with Power Query
 

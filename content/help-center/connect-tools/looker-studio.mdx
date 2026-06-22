@@ -7,23 +7,45 @@ Looker Studio is Google's free dashboarding tool. DataHawk connects to Looker St
 
 ## Prerequisites
 
-- An activated DataHawk-hosted **<Term>BigQuery</Term>** database.
-  - If you haven't set one up yet, go to [Send data to your tool](/help-center/connect-tools)
-- Your data sources (Amazon / Walmart accounts) should be connected and collecting data.
-  - If you did not connect any data sources, go to [Set up data](/help-center/data-setup)
-- Your Google email address must be registered on your BigQuery database page
-  - Go to your DataHawk App Account, **Setup \> Destinations \> BigQuery \> Access**. DataHawk uses this to share access to templates.
+Before connecting Looker Studio, make sure you have:
+
+- **A DataHawk <Term>BigQuery</Term> database** — activated in your DataHawk App. If you haven't set one up yet, see [Send data to your tool](/help-center/connect-tools).
+- **Data sources connected** — your Amazon and/or Walmart accounts are connected and collecting data. If not yet, see [Set up data](/help-center/data-setup) first.
+- **Your Google email registered on the BigQuery access list** — go to **Setup → Destinations → BigQuery → Access** in the DataHawk App and add your email. DataHawk uses this to share access to templates.
 
 ## Option 1 — Use a DataHawk template
 
 DataHawk provides a ready-to-use Looker Studio template called **Analytics Essentials**, covering product, keywords, advertising, sales, finance, traffic, and inventory views — all pre-built and connected to your BigQuery data.
 
-**To request access:**
+To request access:
 
-1. In the DataHawk app, go to [Report Templates](https://analytics.datahawk.co/app/report-templates).
-2. Find the Looker Studio template and click **Request Access**.
-3. A DataHawk team member will share the template to your Google email.
-4. You will receive an email invitation — accept it to open the report in Looker Studio.
+<Steps>
+
+<Step>
+### Open Report Templates
+
+In the DataHawk app, go to [Report Templates](https://analytics.datahawk.co/app/report-templates).
+</Step>
+
+<Step>
+### Request the template
+
+Find the Looker Studio template and click **Request Access**.
+</Step>
+
+<Step>
+### Wait for the share
+
+A DataHawk team member will share the template to your Google email.
+</Step>
+
+<Step>
+### Open the report
+
+You will receive an email invitation — accept it to open the report in Looker Studio.
+</Step>
+
+</Steps>
 
 See [Looker Studio Template](/help-center/looker-studio) for the full template guide.
 
@@ -31,14 +53,55 @@ See [Looker Studio Template](/help-center/looker-studio) for the full template g
 
 If you want to build your own Looker Studio reports from scratch, you can connect directly to your DataHawk BigQuery database using Looker Studio's native BigQuery connector.
 
-1. Go to [lookerstudio.google.com](https://lookerstudio.google.com/) and create a new report or data source.
-2. Click **Add data** and select **BigQuery**.
-3. Select the DataHawk BigQuery project associated with your <Term>workspace</Term>.
-4. Choose a dataset (schema) and table, or write a custom SQL query.
-5. Click **Add** to connect.
+<Steps>
+
+<Step>
+### Open Looker Studio
+
+Go to [lookerstudio.google.com](https://lookerstudio.google.com/) and create a new report or data source.
+</Step>
+
+<Step>
+### Add a BigQuery data source
+
+Click **Add data** and select **BigQuery**.
+</Step>
+
+<Step>
+### Pick your DataHawk project
+
+Select the DataHawk BigQuery project associated with your <Term>workspace</Term>.
+</Step>
+
+<Step>
+### Choose a dataset or write a query
+
+Choose a dataset (schema) and table, or write a custom SQL query.
+</Step>
+
+<Step>
+### Connect
+
+Click **Add** to connect.
+</Step>
+
+</Steps>
 
 Data in Looker Studio refreshes based on BigQuery's underlying data, which DataHawk updates daily.
 
+---
+
 ## Going deeper
 
-- [Looker Studio Template](/help-center/looker-studio) — full guide to the Analytics Essentials template
+<div className="card-grid">
+  <Card
+    title="Looker Studio Template"
+    href="/help-center/looker-studio"
+    description="Full guide to the Analytics Essentials template — products, keywords, ads, finance, traffic, and inventory."
+  />
+  <Card
+    title="BigQuery destination"
+    href="/help-center/connect-tools/bigquery"
+    description="Set up the BigQuery database that powers your Looker Studio reports."
+  />
+</div>

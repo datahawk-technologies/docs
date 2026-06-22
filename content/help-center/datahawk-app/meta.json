@@ -1,4 +1,4 @@
 {
   "title": "DataHawk App",
-  "pages": ["navigating-datahawk-app","account-management", "workspace-management", "members-management", "subscription-management"]
+  "pages": ["index","navigating-datahawk-app","account-management", "workspace-management", "members-management", "subscription-management"]
 }

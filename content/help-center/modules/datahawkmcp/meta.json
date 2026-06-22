@@ -1,4 +1,4 @@
 {
   "title": "DataHawk MCP",
-  "pages": ["setup", "write-prompts", "ready-prompts", "going-further", "faq-troubleshooting"]
+  "pages": ["index","setup", "write-prompts", "ready-prompts", "going-further", "faq-troubleshooting"]
 }

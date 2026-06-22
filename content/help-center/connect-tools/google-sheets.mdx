@@ -11,62 +11,131 @@ Instead of exporting data manually, you can connect your DataHawk-powered <Term>
 
 ## Prerequisites
 
-- An activated DataHawk-hosted **<Term>BigQuery</Term>** database.
-  - If you haven't set one up yet, go to [Send data to your tool](/help-center/connect-tools)
-- Your data sources (Amazon / Walmart accounts) should be connected and collecting data.
-  - If you did not connect any data sources, go to [Set up data](/help-center/data-setup)
-- Your Google email address must be registered on your BigQuery database page
-  - Go to your DataHawk App Account, **Setup \> Destinations \> BigQuery \> Access**. DataHawk uses this to share access to templates.
+Before connecting Google Sheets, make sure you have:
+
+- **A DataHawk <Term>BigQuery</Term> database** — activated in your DataHawk App. If you haven't set one up yet, see [Send data to your tool](/help-center/connect-tools).
+- **Data sources connected** — your Amazon and/or Walmart accounts are connected and collecting data. If not yet, see [Set up data](/help-center/data-setup) first.
+- **Your Google email registered on the BigQuery access list** — go to **Setup → Destinations → BigQuery → Access** in the DataHawk App and add your email. DataHawk uses this to share access to templates.
 
 ## Set up
 
-### Step 1 — Connect your BigQuery database
+Setting up Google Sheets takes three phases: connect your BigQuery data, create an Extract for the full results, then schedule automatic refreshes.
 
-1. Open or create a Google Sheets file.
-2. In the navigation menu, click **Data \> Data Connectors \> Connect to BigQuery**.
-3. Select the BigQuery project that DataHawk created for you.
-4. Select the schema you want to access (e.g. `PRODUCT`, `SELLER`, `ADVERTISING`).
-5. Either select a table to load it entirely, or write a SQL query to load partial data.
-6. Click **Connect**, then **Create an Extract**.
+### 1. Connect your BigQuery database
+
+<Steps>
+
+<Step>
+### Open or create a Google Sheets file
+</Step>
+
+<Step>
+### Open the BigQuery connector
+
+In the navigation menu, click **Data → Data Connectors → Connect to BigQuery**.
+</Step>
+
+<Step>
+### Select the BigQuery project
+
+Choose the BigQuery project that DataHawk created for you.
+</Step>
+
+<Step>
+### Select a schema
+
+Pick the schema you want to access (e.g. `PRODUCT`, `SELLER`, `ADVERTISING`).
+</Step>
+
+<Step>
+### Pick a table or write a query
+
+Either select a table to load it entirely, or write a SQL query to load partial data.
+</Step>
+
+<Step>
+### Connect
+
+Click **Connect**, then **Create an Extract**.
+</Step>
+
+</Steps>
 
 <Callout type="info">
-  **Note on case sensitivity in BigQuery queries:** When writing SQL queries in Google Sheets' BigQuery connector, use the following casing conventions:
+  **Case sensitivity in BigQuery queries:** when writing SQL in Google Sheets' BigQuery connector, follow these casing conventions:
+
   - Project name: **lowercase** (e.g. `sales-datahawk-bigquery`)
   - Schema: **UPPERCASE** (e.g. `PRODUCT`)
   - Table name: **lowercase** (e.g. `product_sales_rank`)
   - Surround the full path with backticks: `` `project.SCHEMA.table` ``
 </Callout>
 
-### Step 2 — Create an Extract
+### 2. Create an Extract
 
-After connecting, you'll initially see only a preview of the data. To get the full results, create an Extract.
+After connecting, you'll see only a preview of the data. An **Extract** loads the full results — up to 25,000 rows — with optional column selection, filters, and sorting.
 
-An Extract lets you:
+<Steps>
 
-- Load up to 25,000 rows of data
-- Select only the columns you need
-- Apply filters and sorting
+<Step>
+### Open the Extract editor
 
-To create one:
+In your query results, click **Extract**.
+</Step>
 
-1. In your query results, click **Extract**
-2. Choose whether to insert it in a **New sheet** or an **Existing sheet**
-3. In the Extract Editor, select columns, add filters, and apply sorting as needed
-4. Click **Apply**
+<Step>
+### Choose where to insert it
 
-The Extract stays in sync with your query — refresh it to pull fresh data.
+Pick **New sheet** or **Existing sheet**.
+</Step>
 
-### Step 3 — Schedule automatic refreshes
+<Step>
+### Select columns and apply filters
 
-To keep your file up to date without manual action:
+In the Extract Editor, choose the columns you need, add filters, and apply sorting.
+</Step>
 
-1. Click **Schedule refresh**
-2. Set the repeat interval to **every 1 day** (recommended) or every 12 hours
-3. Set a preferred time window
-4. Click **Save**
+<Step>
+### Apply
+
+Click **Apply**. The Extract stays in sync with your query — refresh it to pull fresh data.
+</Step>
+
+</Steps>
+
+### 3. Schedule automatic refreshes
+
+Keep your file up to date without manual action.
+
+<Steps>
+
+<Step>
+### Open Schedule refresh
+
+Click **Schedule refresh**.
+</Step>
+
+<Step>
+### Set the interval
+
+Choose **every 1 day** (recommended) or every 12 hours.
+</Step>
+
+<Step>
+### Pick a time window
+
+Set a preferred time of day for the refresh to run.
+</Step>
+
+<Step>
+### Save
+
+Click **Save**.
+</Step>
+
+</Steps>
 
 <Callout type="info">
-  There is no need to refresh more frequently — DataHawk updates data once per day.
+  No need to refresh more frequently — DataHawk updates data once per day.
 </Callout>
 
 ## SQL query examples
@@ -153,10 +222,29 @@ The best way to stay within these limits is to use filters in your queries — d
 
 For larger datasets, consider using [BigQuery](/help-center/connect-tools/bigquery) directly with Looker Studio, or [<Term>Snowflake</Term>](/help-center/connect-tools/snowflake) with Power BI.
 
-## Live demo
+---
 
-[View a read-only example spreadsheet](https://docs.google.com/spreadsheets/d/1LilGXrS0C5hSvC2a5_oYLi_ucMc4E5CeYim0TNNeWxU/edit?usp=sharing)
+## Where to go next
 
-## Further reading
-
-[Google's official BigQuery + Sheets documentation](https://support.google.com/docs/topic/9699960)
+<div className="card-grid">
+  <Card
+    title="Live demo spreadsheet"
+    href="https://docs.google.com/spreadsheets/d/1LilGXrS0C5hSvC2a5_oYLi_ucMc4E5CeYim0TNNeWxU/edit?usp=sharing"
+    description="View a read-only example of DataHawk data inside a Google Sheets file."
+  />
+  <Card
+    title="BigQuery destination"
+    href="/help-center/connect-tools/bigquery"
+    description="Set up the BigQuery database that powers your Google Sheets connection."
+  />
+  <Card
+    title="Connect to Looker Studio"
+    href="/help-center/connect-tools/looker-studio"
+    description="Build live dashboards on the same BigQuery data with Google's free reporting tool."
+  />
+  <Card
+    title="Google's BigQuery + Sheets docs"
+    href="https://support.google.com/docs/topic/9699960"
+    description="Official Google documentation for the BigQuery data connector in Sheets."
+  />
+</div>

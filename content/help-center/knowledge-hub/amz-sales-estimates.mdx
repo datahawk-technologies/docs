@@ -111,7 +111,7 @@ Each row in the dataset carries a `TRUST_INDEX` score indicating model confidenc
 | **`PRODUCT.PRODUCT_SALES_ESTIMATES`** | Child + Parent | **New (2026).** One row per tracked child ASIN per day. Contains both true child-level and parent-level fields. |
 | `PRODUCT.PRODUCT_SALES_ESTIMATES_V5` | Parent | Still available. Aggregated daily estimates at parent ASIN level. No change. |
 | `PRODUCT.PRODUCT_SALES_ESTIMATES_V5_RAW` | Parent | Still available. Raw estimates with extrapolation flags and reliability scoring. No change. |
-| `PRODUCT.PRODUCT_SALES_ESTIMATES_V5_CHILD` | Mapped to child | ⚠️ Maps *parent-level* estimates to child rows — not true child-level attribution. Use `PRODUCT_SALES_ESTIMATES` for genuine per-variant estimates. |
+| `PRODUCT.PRODUCT_SALES_ESTIMATES_V5_CHILD` | Mapped to child | **Caution:** maps *parent-level* estimates to child rows — not true child-level attribution. Use `PRODUCT_SALES_ESTIMATES` for genuine per-variant estimates. |
 | `REPORTS.REPORT_MARKET_BEST_SELLER_RANK_AND_ESTIMATES` | Product | Top 100 products per category with ranks and estimates. |
 | `REPORTS.REPORT_MARKET_PRODUCT_SALES_RANK_AND_ESTIMATES` | Product | Consolidated view joining rank and estimate data with brand metadata. |
 

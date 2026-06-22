@@ -38,7 +38,7 @@ Navigate to **Setup \> Destinations \> BigQuery \> Access**.
 
 The database is accessible to the Google email addresses listed on this page. Each email must be added individually.
 
-- ✅ **Ready** — the user has active access
+- **Ready** — the user has active access
 - You can add or remove users at any time by clicking **Add User**
 
 You can also connect via **Service Account** for automated workflows and integrations (advanced).
@@ -54,7 +54,10 @@ If you already use Google Cloud Platform (GCP) and prefer to host the database y
 Before starting, contact your DataHawk representative to receive a dedicated service account in the form:
 `<company>@<projectid>.iam.gserviceaccount.com`
 
-### Step 1 — Create your Google Cloud Project
+<Steps>
+
+<Step>
+### Create your Google Cloud Project
 
 Go to [https://console.cloud.google.com/](https://console.cloud.google.com/) and sign in.
 
@@ -75,8 +78,10 @@ Click the project selector and choose **New Project**. Name it as you like — w
   height={340}
   className="rounded-lg border"
 />
+</Step>
 
-### Step 2 — Grant DataHawk access
+<Step>
+### Grant DataHawk access
 
 In your project, navigate to **IAM & Admin \> IAM**.
 
@@ -92,8 +97,10 @@ Grant the following roles to the service account provided by your DataHawk repre
 
 - BigQuery Data Editor
 - BigQuery User
+</Step>
 
-### Step 3 — Share your project details with DataHawk
+<Step>
+### Share your project details with DataHawk
 
 <img
   src="/images/help-center/connect-tools/bigquery/bigquery-5.png"
@@ -106,9 +113,11 @@ Grant the following roles to the service account provided by your DataHawk repre
 Send the following to your DataHawk representative:
 
 - Project ID (differs from Project name)
-
 - Preferred [GCP region](https://cloud.google.com/about/locations) (default: `europe-west4`)
 - Email addresses to grant access to
+</Step>
+
+</Steps>
 
 ## Compatible tools
 
@@ -119,3 +128,25 @@ BigQuery connects natively to most modern data tools. Common examples:
 | Business Intelligence | Looker Studio, Tableau, Google Sheets, Looker |
 | Data Science & Analytics | Python (`google-cloud-bigquery`), R (`bigrquery`), Jupyter Notebooks, Apache Spark |
 | ETL & Data Pipelines | Google Cloud Dataflow, Airflow, Fivetran, Stitch Data |
+
+---
+
+## Where to go next
+
+<div className="card-grid">
+  <Card
+    title="Connect to Looker Studio"
+    href="/help-center/connect-tools/looker-studio"
+    description="Build live dashboards on your BigQuery data with Google's free reporting tool."
+  />
+  <Card
+    title="Connect to Google Sheets"
+    href="/help-center/connect-tools/google-sheets"
+    description="Link BigQuery tables directly into a sheet for auto-refreshed analyses."
+  />
+  <Card
+    title="Looker Studio Template"
+    href="/help-center/looker-studio"
+    description="Pre-built Analytics Essentials dashboard covering products, keywords, ads, and finance."
+  />
+</div>

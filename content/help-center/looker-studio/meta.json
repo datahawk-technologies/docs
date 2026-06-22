@@ -1,4 +1,4 @@
 {
   "title": "Explore Looker Studio Dashboard",
-  "pages": ["white-label"]
+  "pages": ["index", "analytics-essentials", "white-label"]
 }

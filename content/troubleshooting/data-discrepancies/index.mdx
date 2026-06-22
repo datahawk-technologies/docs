@@ -19,7 +19,7 @@ Most "discrepancy" cases are actually mismatched filters between the two reports
 
 <Accordions>
 
-<Accordion title="💰 Sales / Revenue don't match Seller Central or Vendor Central">
+<Accordion title="Sales / Revenue don't match Seller Central or Vendor Central">
 
 **Common symptoms:**
 - DataHawk sales totals lower or higher than Seller Central by 5-30%
@@ -69,7 +69,7 @@ In `VENDOR_SALES_*`, filter by `selling_program`. If a marketplace appears empty
 
 </Accordion>
 
-<Accordion title="📣 Ad spend or ad sales look inflated or wrong">
+<Accordion title="Ad spend or ad sales look inflated or wrong">
 
 **Common symptoms:**
 - Ad spend in seller/vendor dashboards is way higher than what you see in Amazon Ads Console
@@ -115,7 +115,7 @@ For Walmart, confirm you're using `advertising.wmt_ad_item` (not the deprecated 
 
 </Accordion>
 
-<Accordion title="↩️ Refund amounts don't match across tables or Seller Central">
+<Accordion title="Refund amounts don't match across tables or Seller Central">
 
 **Common symptoms:**
 - Refund total in `FINANCE_PROFIT_LEDGER` differs from `FINANCE_EVENTS`
@@ -171,7 +171,7 @@ Add `WHERE transaction_status = 'RELEASED'` if you want only finalized refunds.
 
 </Accordion>
 
-<Accordion title="📊 COGS and tax discrepancies in Profit data">
+<Accordion title="COGS and tax discrepancies in Profit data">
 
 **Common symptoms:**
 - Profit lower in DataHawk than expected because tax was treated as a fee
@@ -221,7 +221,7 @@ In `FINANCE_PROFIT_METRICS`, the *Tax Liability* and *Net Profit* metrics were r
 
 </Accordion>
 
-<Accordion title="📦 Inventory levels don't match Amazon">
+<Accordion title="Inventory levels don't match Amazon">
 
 **Common symptoms:**
 - `RAW_INVENTORY.RAW_INVENTORY_FBA` shows different totals than Manage Inventory in Seller Central
@@ -261,7 +261,7 @@ These were introduced in November 2025 and are the recommended source. Fulfillme
 
 </Accordion>
 
-<Accordion title="🔍 Tracked keywords or products missing from data">
+<Accordion title="Tracked keywords or products missing from data">
 
 **Common symptoms:**
 - Added N keywords in the DataHawk UI, fewer than N appear in BigQuery/Snowflake
@@ -305,7 +305,7 @@ In the DataHawk UI, go to the keyword tracking section and confirm your batch is
 
 </Accordion>
 
-<Accordion title="📈 Sales Estimates very different from actuals">
+<Accordion title="Sales Estimates very different from actuals">
 
 **Common symptoms:**
 - Sales Estimates show 2-3x more than your real Vendor sales
@@ -344,7 +344,7 @@ The model is calibrated for at least weekly windows. Daily-level comparisons aga
 
 </Accordion>
 
-<Accordion title="🏷️ Buy Box / pricing / catalog field discrepancies">
+<Accordion title="Buy Box / pricing / catalog field discrepancies">
 
 **Common symptoms:**
 - All sellers showing identical Buy Box metrics (bug from before July 2025)

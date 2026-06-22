@@ -673,6 +673,22 @@ Match the brand owner's official capitalization:
 
 Use **straight quotes** (`'` and `"`), never curly (`'` `"` `‘` `’`). MDX text editors may auto-insert curly quotes — they get stripped during builds and look inconsistent.
 
+### Emojis
+
+**Never add emoji to MDX text content.** No emoji in prose, headings, bullets, tables, link text, Card titles, Tab labels, or any other reader-facing string you type into a `.mdx` file.
+
+The only places emoji legitimately appear in this repo:
+
+- **Callout icons** — auto-rendered by the `<Callout>` component (💡 for info, ⚠️ for warn, ❌ for error, ✅ for success). These live in `mdx-components.tsx`, not in MDX content. You never type them into MDX yourself — picking `type="warn"` is enough.
+- **`## ⚙️ For analysts & developers` headings** — an established marker for the developer-only section on dense reference pages. Don't introduce new `⚙️`-marked headings on pages that don't already use the pattern.
+
+Specifically, don't do any of the following in MDX:
+
+- ✅ / ❌ inside comparison tables to mean "yes / no" — use plain text (`Yes`, `No`, `Not available`).
+- ⚠️ inline next to warnings — use a `<Callout type="warn">` instead, the component supplies the icon.
+- → / ✔ / • as custom bullet markers — use standard markdown bullets (`-`).
+- 📌 / 🎯 / 🚀 / etc. anywhere — no decorative emoji in body text.
+
 ---
 
 ## 17. Sidebar configuration via meta.json
@@ -692,6 +708,47 @@ Each folder containing MDX files can have a `meta.json` controlling sidebar appe
 
 - `root: true` marks this as the top of a tab's sidebar
 - `pages` array controls sidebar order — list MDX filenames without `.mdx`, and folder names for nested sections
+
+### Folder index conventions (three rules)
+
+These three rules apply to **every folder that has both a `meta.json` and an `index.mdx`**:
+
+1. **Always include `"index"` first in the `pages` array.**
+
+   ```json
+   { "title": "Send data to your tool",
+     "pages": ["index", "powerbi", "looker-studio", ...] }
+   ```
+
+   Omitting `"index"` makes the introduction page invisible in the sidebar even though the folder toggle still appears — readers can't navigate to it.
+
+2. **`meta.json` `title` reflects the folder's general purpose**, not a specific page inside it. Take the cue from the folder name and the index content. Example:
+   - `content/help-center/connect-tools/` → `"Send data to your tool"` (covers what the whole section does)
+   - `content/help-center/powerbi-dashboards/` → `"Explore Power BI Dashboards"`
+   - `content/help-center/data-setup/` → `"Set up data"`
+
+   This title is what the user sees as the sidebar toggle label, so it should describe the whole section, not echo the index page title.
+
+3. **`index.mdx` frontmatter `title` is always `Introduction`.**
+
+   ```mdx
+   ---
+   title: Introduction
+   description: ...
+   ---
+   ```
+
+   This avoids the "same name twice" duplication where the folder toggle and its first child item read identically (e.g. "Send data to your tool ▸ Send data to your tool"). With `Introduction` as the index title, the sidebar reads cleanly:
+
+   ```
+   ▾ Send data to your tool        ← from meta.json
+      Introduction                  ← from index.mdx
+      Connect to Power BI
+      Connect to Looker Studio
+      ...
+   ```
+
+   The H1 on the index page itself also renders as "Introduction" — that's the intended effect; the folder toggle gives the contextual category.
 
 ### Subfolder (e.g. `content/troubleshooting/data-discrepancies/meta.json`)
 

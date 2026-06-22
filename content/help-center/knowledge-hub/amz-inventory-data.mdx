@@ -18,11 +18,15 @@ This guide explains Amazon inventory datasets for tracking stock, resolving disc
 
 ## Inventory Datasets
 
+<Callout type="warn">
+  Tables labeled **No deduplication** below return raw snapshots with possible duplicate rows. Deduplicate in your own query (e.g. by `OBSERVATION_DATE` + `SKU` + `FULFILLMENT_CENTER`) before aggregating.
+</Callout>
+
 | Schema | View | Purpose | Data Freshness | Geographic Scope |
 |---|---|---|---|---|
-| **RAW_INVENTORY** | `RAW_INVENTORY_FBA` | Latest snapshot of FBA inventory (sellable/unsellable stock, inbound shipments) ⚠️ No deduplication | Daily | Region-based |
-| **RAW_INVENTORY** | `RAW_INVENTORY_FBA_HISTORY` | Daily historical snapshots of FBA inventory ⚠️ No deduplication | Daily | Region-based |
-| **SELLING_PARTNER** | `SELLER_INVENTORY_FBA_HISTORY_DAILY` | Daily seller-level inventory snapshots ⚠️ No deduplication | Daily | Region-based |
+| **RAW_INVENTORY** | `RAW_INVENTORY_FBA` | Latest snapshot of FBA inventory (sellable/unsellable stock, inbound shipments). **No deduplication** | Daily | Region-based |
+| **RAW_INVENTORY** | `RAW_INVENTORY_FBA_HISTORY` | Daily historical snapshots of FBA inventory. **No deduplication** | Daily | Region-based |
+| **SELLING_PARTNER** | `SELLER_INVENTORY_FBA_HISTORY_DAILY` | Daily seller-level inventory snapshots. **No deduplication** | Daily | Region-based |
 | **RAW_INVENTORY** | `RAW_INVENTORY_RESTOCK_RECOMMENDATIONS` | Amazon's restock advice for SKUs with ≤14 days of supply | Daily | MX, FR, DE, CA, JP, US, IT, ES, GB |
 | **SELLING_PARTNER** | `SELLER_INVENTORY_LEDGER_DETAIL` | Granular log of all inventory movements (shipments, returns, adjustments, removals) — past 18 months | Daily (≤3 day delay) | Region + Country + warehouse |
 | **SELLING_PARTNER** | `SELLER_INVENTORY_LEDGER_SUMMARY` | Daily aggregated view of inventory health | Daily (≤3 day delay) | Region + Country + warehouse |

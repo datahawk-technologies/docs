@@ -1,4 +1,4 @@
 {
   "title": "Insights",
-  "pages": ["explore", "findings-explained", "anomalies-explained", "good-practices", "triage-collaboration", "faq-troubleshooting"]
+  "pages": ["index","explore", "findings-explained", "anomalies-explained", "good-practices", "triage-collaboration", "faq-troubleshooting"]
 }

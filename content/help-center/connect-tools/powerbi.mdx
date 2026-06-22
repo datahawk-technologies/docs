@@ -9,15 +9,13 @@ Power BI is DataHawk's recommended dashboarding tool. DataHawk provides ready-to
   You can be up and running in under 5 minutes.
 </Callout>
 
-## Prerequisite
+## Prerequisites
 
-- Your data sources (Amazon / Walmart accounts) should be connected and collecting data.
-  - If you did not connect any data sources, go to [Set up data](/help-center/data-setup)
-- An activated DataHawk-hosted **<Term>Snowflake</Term>** database.
-  - If you haven't set one up yet, go to [Send data to your tool](/help-center/connect-tools)
-  - Once set up, it will take up to 4 hours to show as **Enabled**
-- Retrieve your credentials
-  - On your DataHawk App account, **Setup \> Destinations \> Snowflake \> See Credentials**.
+Before connecting Power BI, make sure you have:
+
+- **Data sources connected** — your Amazon and/or Walmart accounts are connected and collecting data. If not yet, see [Set up data](/help-center/data-setup) first.
+- **A DataHawk <Term>Snowflake</Term> database** — activated and showing **Enabled** in your DataHawk App. Provisioning can take up to 4 hours; see [Send data to your tool](/help-center/connect-tools) if you haven't set one up.
+- **Your Snowflake credentials** — available from **Settings → Destinations → Snowflake → See Credentials** in the DataHawk App.
 
 ## Option 1 — Use a DataHawk template
 
@@ -37,13 +35,51 @@ DataHawk provides pre-built Power BI templates in `.pbix` format. See [Download 
 
 **Estimated time: under 5 minutes.**
 
-1. Open the `.pbix` template file in Power BI Desktop.
-2. In the **Home** tab, click **Transform data** to open the Power Query Editor.
-3. Click **Manage Parameters**.
-4. Replace the values for **Database**, **Server**, and **Warehouse** with your DataHawk Snowflake credentials.
-5. Click **Close & Apply**.
-6. Enter your Snowflake **username** and **password** when prompted.
-7. Data will begin refreshing — this can take up to 30 minutes depending on your data volume.
+<Steps>
+
+<Step>
+### Open the template
+
+Open the `.pbix` template file in Power BI Desktop.
+</Step>
+
+<Step>
+### Open the Power Query Editor
+
+In the **Home** tab, click **Transform data**.
+</Step>
+
+<Step>
+### Open Manage Parameters
+
+Click **Manage Parameters**.
+</Step>
+
+<Step>
+### Paste your Snowflake credentials
+
+Replace the values for **Database**, **Server**, and **Warehouse** with your DataHawk Snowflake credentials.
+</Step>
+
+<Step>
+### Apply
+
+Click **Close & Apply**.
+</Step>
+
+<Step>
+### Sign in to Snowflake
+
+Enter your Snowflake **username** and **password** when prompted.
+</Step>
+
+<Step>
+### Wait for the refresh
+
+Data will begin refreshing — this can take up to 30 minutes depending on your data volume.
+</Step>
+
+</Steps>
 
 <Callout type="info">
   If you run into a refresh error, try closing and re-applying the parameters once or twice, then contact the DataHawk team if the issue persists.
@@ -64,14 +100,57 @@ DataHawk provides pre-built Power BI templates in `.pbix` format. See [Download 
 
 Once SSO is enabled:
 
-1. Go to [app.powerbi.com](https://app.powerbi.com/) and navigate to a <Term>workspace</Term> (or create one).
-2. Click **Upload** \> **Browse** and select your `.pbix` template file.
-3. Hover over the newly uploaded dataset, click the **⋯** menu, and select **Settings**.
-4. Under **Parameters**, replace **Database**, **Server**, and **Warehouse** with your DataHawk Snowflake credentials.
-5. Under **Data source credentials**, click **Edit credentials** and enter your Snowflake **username** and **password**.
-6. Under **Refresh**, enable the auto-refresh toggle and set it to run daily.
-7. Data will begin refreshing — this can take up to 30 minutes.
-8. Once refreshed, navigate back to your workspace to open the report.
+<Steps>
+
+<Step>
+### Open a Power BI workspace
+
+Go to [app.powerbi.com](https://app.powerbi.com/) and navigate to a <Term>workspace</Term> (or create one).
+</Step>
+
+<Step>
+### Upload the template
+
+Click **Upload → Browse** and select your `.pbix` template file.
+</Step>
+
+<Step>
+### Open the dataset settings
+
+Hover over the newly uploaded dataset, click the **⋯** menu, and select **Settings**.
+</Step>
+
+<Step>
+### Paste your Snowflake credentials
+
+Under **Parameters**, replace **Database**, **Server**, and **Warehouse** with your DataHawk Snowflake credentials.
+</Step>
+
+<Step>
+### Sign in to Snowflake
+
+Under **Data source credentials**, click **Edit credentials** and enter your Snowflake **username** and **password**.
+</Step>
+
+<Step>
+### Enable scheduled refresh
+
+Under **Refresh**, enable the auto-refresh toggle and set it to run daily.
+</Step>
+
+<Step>
+### Wait for the first refresh
+
+Data will begin refreshing — this can take up to 30 minutes.
+</Step>
+
+<Step>
+### Open the report
+
+Once refreshed, navigate back to your workspace to open the report.
+</Step>
+
+</Steps>
 
 ## Option 2 — Build your own reports
 
@@ -81,13 +160,49 @@ DataHawk's Power BI templates use **DirectQuery** mode. If you plan to build you
 
 ### Connect via Power BI Desktop
 
-1. Open Power BI Desktop.
-2. Click **Get Data \> More**, search for **Snowflake**, and click **Connect**.
-3. Enter the **Server** and **Warehouse** values from your DataHawk Snowflake credentials page.
-4. Select **Database** as the authentication mode.
-5. Enter your Snowflake **username** and **password**.
-6. Browse the schemas and tables, or write a custom SQL query.
-7. Click **Load** (or **Transform Data** to filter before loading).
+<Steps>
+
+<Step>
+### Open Power BI Desktop
+</Step>
+
+<Step>
+### Find the Snowflake connector
+
+Click **Get Data → More**, search for **Snowflake**, and click **Connect**.
+</Step>
+
+<Step>
+### Enter Server and Warehouse
+
+Paste the **Server** and **Warehouse** values from your DataHawk Snowflake credentials page.
+</Step>
+
+<Step>
+### Select authentication mode
+
+Choose **Database** as the authentication mode.
+</Step>
+
+<Step>
+### Sign in to Snowflake
+
+Enter your Snowflake **username** and **password**.
+</Step>
+
+<Step>
+### Pick your data
+
+Browse the schemas and tables, or write a custom SQL query.
+</Step>
+
+<Step>
+### Load
+
+Click **Load** (or **Transform Data** to filter before loading).
+</Step>
+
+</Steps>
 
 ### Connect via Power BI Online
 
@@ -104,14 +219,41 @@ Before connecting via Power BI Online, you need to enable Snowflake SSO in your 
 
 Once SSO is enabled, upload your `.pbix` file and point the parameters (Database, Server, Warehouse) to your DataHawk Snowflake credentials.
 
+---
+
 ## Going deeper
 
-Once connected, head to the dashboard guides for help using and interpreting what you see:
+Once connected, head to the dashboard guides for help using and interpreting what you see.
 
-- [Seller Analytics Dashboard User Guide](/help-center/powerbi-dashboards/seller-analytics-dashboard)
-- [Advertising Dashboard User Guide](/help-center/powerbi-dashboards/advertising-dashboard)
-- [Vendor Analytics Dashboard User Guide](/help-center/powerbi-dashboards/vendor-analytics-dashboard)
-- [Market Intelligence Dashboard User Guide](/help-center/powerbi-dashboards/market-intelligence-dashboard)
-- [Product Dashboard User Guide](/help-center/powerbi-dashboards/product-dashboard)
-- [Ads <Term>DSP</Term> Dashboard Documentation](/help-center/powerbi-dashboards/ads-dsp-dashboard)
-- [Creating Power BI Alerts in Power Automate](/help-center/tips-advanced-use/alerts-automation)
+<div className="card-grid">
+  <Card
+    title="Seller Analytics Dashboard"
+    href="/help-center/powerbi-dashboards/seller-analytics-dashboard"
+    description="SKU-level sales, traffic, profit, and unit economics for Seller accounts."
+  />
+  <Card
+    title="Advertising Dashboard"
+    href="/help-center/powerbi-dashboards/advertising-dashboard"
+    description="Account, campaign, product, and keyword performance for Amazon Ads."
+  />
+  <Card
+    title="Vendor Analytics Dashboard"
+    href="/help-center/powerbi-dashboards/vendor-analytics-dashboard"
+    description="Revenue, COGS, inventory, and ads for Vendor accounts."
+  />
+  <Card
+    title="Market Intelligence Dashboard"
+    href="/help-center/powerbi-dashboards/market-intelligence-dashboard"
+    description="Top-selling products, category insights, market size and share."
+  />
+  <Card
+    title="Product Dashboard"
+    href="/help-center/powerbi-dashboards/product-dashboard"
+    description="Ratings, BSR, price, listing quality, sales estimates, and Buy Box per product."
+  />
+  <Card
+    title="Ads DSP Dashboard"
+    href="/help-center/powerbi-dashboards/ads-dsp-dashboard"
+    description="Advertiser, order, line item, and creative performance for DSP."
+  />
+</div>

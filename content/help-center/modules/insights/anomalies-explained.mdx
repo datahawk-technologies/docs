@@ -1,18 +1,28 @@
 ---
 title: Anomalies explained
-description: How DataHawk Insights detects anomalies — unexpected changes in finance, SEO, product, and market metrics flagged automatically from your data.
+description: How DataHawk Insights detects anomalies — unexpected changes in finance, ads, SEO, product, and market metrics flagged automatically from your data.
 ---
 
-Anomalies are the day-to-day half of Insights — DataHawk compares each tracked metric against a 7-day baseline and flags anything outside the expected confidence range. This page covers how to read an anomaly chart and the full list of metrics monitored across Finance, Ads, SEO, Product, and Market.
+Anomalies are the day-to-day half of Insights. For every tracked metric, DataHawk compares each new value to a 7-day moving average and flags anything outside the expected confidence range as an anomaly. This page covers how anomalies are detected, how to read the chart that comes with each one, and the five categories of anomaly DataHawk surfaces — **Finance, Ads, SEO, Product, and Market**.
 
-## How to read an anomaly chart
+## How anomalies are detected
+
+DataHawk uses a simple but robust statistical model that runs on every tracked metric, every day:
+
+- The **expected value** for any given day is the 7-day moving average of the metric, excluding past anomalies so they don't pollute the baseline.
+- The **confidence range** is three standard deviations around that expected value — the natural day-to-day fluctuation we'd consider "normal."
+- A day's value is flagged as an anomaly when it lands **outside** the confidence range.
+
+The model runs across all five categories below. What changes between categories is the data source, the eligibility (which products / accounts produce anomalies for you), and the specific metrics being watched.
+
+### Reading the chart
 
 Each anomaly comes with a chart that shows the metric over time, the expected range, and where the anomaly was detected.
 
 **Anomaly indicator (top-right box):**
 
 - **Observed** — the actual value on a specific date
-- **Expected** — the value predicted by a 7-day moving average
+- **Expected** — the value predicted by the 7-day moving average
 - **Anomaly percentage** — how far the observed value deviates from expected. Outside the confidence range = flagged as an anomaly.
 
 **Chart components:**
@@ -21,67 +31,72 @@ Each anomaly comes with a chart that shows the metric over time, the expected ra
 - **Expected value (dashed line)** — 7-day moving average, excluding anomalies. The smoothed trend line.
 - **Confidence range (shaded area)** — three standard deviations around the expected value. The natural range of fluctuation.
 
-## What we monitor
-
-Anomalies cover four areas: **Finance, SEO, Product, and Market**. Here's the full list of metrics:
-
-| Anomaly | Practice | Data source |
-|---|---|---|
-| Gross Sales | Finance | Seller Central |
-| Units Sold | Finance | Seller Central |
-| Average Selling Price | Finance | Seller Central |
-| Fulfillment Fees | Finance | Seller Central |
-| Shipping Fees | Finance | Seller Central |
-| Storage Fees | Finance | Seller Central |
-| Taxes | Finance | Seller Central |
-| Ad Spend | Ads | Ads account |
-| Ad Sales | Ads | Ads account |
-| <Term>RoAS</Term> | Ads | Ads account |
-| Search Ranking | SEO | Owned, tracked products |
-| Reach Score | SEO | Owned, tracked products |
-| Listing Quality Score for Image | Product | Owned, tracked products |
-| Rating Score | Product | Owned, tracked products |
-| Sales Rank | Market | Owned, tracked products |
-| Median Number of Ratings — Top 100 per Category | Market | Owned, tracked products |
-| Median Rating Score — Top 100 per Category | Market | Owned, tracked products |
-| Median Price — Top 100 per Category | Market | Owned, tracked products |
-
 ## Finance anomalies
 
-Generated for products you sell or manage — auto-selected from the orders account connected to your <Term>workspace</Term>. Grouped by Seller Central account.
+Generated for products you sell or manage, auto-selected from the orders account connected to your <Term>workspace</Term>. Results are grouped by Seller Central account.
 
-We analyze 15 days of historical order data at the <Term>marketplace</Term> and product level to identify unexpected events. Because Amazon delivers data with a partial delay, **anomalies appear two days after the event** (e.g. Wednesday's email flags Monday's anomaly). The delay ensures we work with complete data.
+DataHawk analyzes 15 days of historical order data at the <Term>marketplace</Term> and product level to identify unexpected events. Because Amazon delivers data with a partial delay, **anomalies appear two days after the event** (e.g. Wednesday's email flags Monday's anomaly) — the delay ensures we work with complete data.
 
-Includes:
+**Data source:** Seller Central.
 
-- **Gross Sales Anomaly** — unexpected change in gross sales
-- **Units Sold Anomaly** — unexpected change in units sold
-- **Average Selling Price Anomaly** — outlying price value
-- **Taxes Anomaly** — outlying tax value
-- **Shipping Fee Anomaly** — outlying shipping cost
-- And other fee anomalies listed above
+| Metric | What gets flagged |
+|---|---|
+| Gross Sales | Unexpected change in gross sales |
+| Units Sold | Unexpected change in units sold |
+| Average Selling Price | Outlying selling price |
+| Fulfillment Fees | Outlying fulfillment fee |
+| Shipping Fees | Outlying shipping cost |
+| Storage Fees | Outlying storage fee |
+| Taxes | Outlying tax value |
+
+## Ads anomalies
+
+Generated for advertising accounts connected to your <Term>workspace</Term>.
+
+**Data source:** Ads account.
+
+| Metric | What gets flagged |
+|---|---|
+| Ad Spend | Unexpected change in ad spend |
+| Ad Sales | Unexpected change in ad sales |
+| <Term>RoAS</Term> | Unexpected change in return on ad spend |
+
+{/* TODO: confirm delivery cadence for Ads anomalies — Finance has a 2-day delay; document whether Ads has the same, a different delay, or runs in near-real-time. */}
 
 ## SEO anomalies
 
-Generated for products you sell **and** track. Use the **Set as owned** feature in Sources to help us identify which products are yours.
+Generated for products you sell **and** track. Use the **Set as owned** feature in Sources to help DataHawk identify which tracked products are yours.
 
-- **Search Ranking Anomaly** — unexpected change in organic rank for a keyword. If historical data is missing for a day, we leave the gap unfilled.
-- **Reach Score Anomaly** — unexpected change in reach score (estimated number of times a product has been seen across tracked keywords). Built on our Keyword Search Volume data.
+**Data source:** Owned, tracked products.
+
+| Metric | What gets flagged |
+|---|---|
+| Search Ranking | Unexpected change in organic rank for a tracked keyword. If historical data is missing for a day, we leave the gap unfilled. |
+| Reach Score | Unexpected change in reach score — the estimated number of times a product has been seen across tracked keywords. Built on our [Keyword Search Volume](/help-center/knowledge-hub/keyword-search-volume) data. |
 
 ## Product anomalies
 
 Generated for products you sell **and** track.
 
-- **Rating Score Anomaly** — unexpected change in a product's rating score
+**Data source:** Owned, tracked products.
+
+| Metric | What gets flagged |
+|---|---|
+| Rating Score | Unexpected change in a product's rating score |
+| Listing Quality Score for Image | Unexpected change in the image-component listing quality score |
 
 ## Market anomalies
 
-Generated for the categories your tracked products rank in.
+Generated for the categories your tracked products rank in. Market anomalies help you spot shifts in the competitive set around your products, not just changes to your own listings.
 
-- **Median Number of Ratings — Top 100 per Category** — unusual change in the median across the top 100 in a category
-- **Median Rating Score — Top 100 per Category** — same, for rating score
-- **Median Price — Top 100 per Category** — same, for price
-- **Sales Rank Anomalies** — unexpected change in a product's sales rank within a category
+**Data source:** Owned, tracked products (used to identify the categories monitored).
+
+| Metric | What gets flagged |
+|---|---|
+| Sales Rank | Unexpected change in a product's sales rank within a category |
+| Median Number of Ratings — Top 100 per Category | Unusual change in the median number of ratings across the top 100 products in a category |
+| Median Rating Score — Top 100 per Category | Unusual change in the median rating score across the top 100 products in a category |
+| Median Price — Top 100 per Category | Unusual change in the median price across the top 100 products in a category |
 
 ---
 

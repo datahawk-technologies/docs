@@ -1,4 +1,4 @@
 {
   "title": "Sherlock",
-  "pages": ["signals", "zombie-ad-spend", "return-anomalies", "ad-spend-drop", "price-cvr-drop", "fba-stockout", "buybox-loss", "faq-troubleshooting"]
+  "pages": ["index","signals", "zombie-ad-spend", "return-anomalies", "ad-spend-drop", "price-cvr-drop", "fba-stockout", "buybox-loss", "faq-troubleshooting"]
 }
