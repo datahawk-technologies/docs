@@ -8,7 +8,7 @@ The Advertising Dashboard is DataHawk's central reporting tool for Amazon and Wa
 ## Questions this dashboard helps answer
 
 - How much am I spending on advertising and what revenue is it generating (<Term>ACoS</Term> / <Term>RoAS</Term>)?
-- Which campaigns are performing best, and which need optimisation?
+- Which campaigns are performing best, and which need optimization?
 - How are my keywords performing — am I getting clicks and conversions from the right terms?
 - Which products are driving the most ad-attributed revenue (Sponsored Products + Display)?
 - How has my advertising performance changed week over week or month over month?
@@ -21,7 +21,9 @@ The Advertising Dashboard is DataHawk's central reporting tool for Amazon and Wa
 
 - Amazon and/or Walmart Advertising accounts connected in DataHawk
 
-**Setup:** Download and configure the Power BI template. See [Download Power BI Templates](/help-center/connect-tools/powerbi) and [Connect to Power BI](/help-center/connect-tools/powerbi).
+**Set up:** Download and configure the Power BI template. See [Connect to Power BI](/help-center/connect-tools/powerbi).
+
+**Data history:** {/* TODO: confirm the data history window for the Advertising Dashboard (e.g. "Up to 2 years of historical data. The dashboard refreshes daily.") */}
 
 ## Dashboard tabs at a glance
 
@@ -40,61 +42,145 @@ The Advertising Dashboard is DataHawk's central reporting tool for Amazon and Wa
 | **DSP Overview** | Amazon DSP performance: spend, sales, impressions, new-to-brand, and more |
 | **Explorer** | Custom chart and table for flexible ad hoc analysis |
 
-## How the dashboard works
+## Time periods and comparisons
 
-All tabs share:
+All tabs include a **date range selector** at the top. Two tab patterns determine how time is handled:
 
-- A **date range selector** at the top
-- A left panel with **entity filters** (channel, account, <Term>marketplace</Term>, campaign, product, keyword, etc.)
-- A **Currency** selector
+- **Overview tabs** compare the selected period against the **prior period** — the same number of days, immediately before the selected range. KPI cards show the selected-period totals alongside the prior-period comparison.
+- **History tabs** include a **Timeline By** selector (Year / Quarter / Month / Week / Day) that controls both the chart and the table below it. Two **axis slicers** let you compare multiple metrics on the left axis against a single metric on the right — for example, Impressions and Clicks (left) vs. Conversion Rate (right).
 
-**Overview tabs** include Grouping & Metrics slicers at the top of each table, so you can choose what to display as rows and columns. KPI cards show the selected period's totals alongside a comparison to the prior period (the same number of days, immediately before the selected range).
+## Dashboard filters
 
-**History tabs** include a **Timeline By** selector (Year / Quarter / Month / Week / Day) that controls both the chart and the table below it. Two axis slicers let you compare multiple metrics on the left axis against a single metric on the right — for example, Impressions and Clicks (left) vs. Conversion Rate (right).
+All tabs share a common filter panel in the left rail. The same data can be sliced by:
 
-## Tab by tab
+| Filter | What it does |
+|---|---|
+| **Channel** | Filter to Amazon or Walmart |
+| **Account** | Filter to one or more ad accounts |
+| **<Term>Marketplace</Term>** | Filter to specific marketplaces |
+| **Campaign** | Filter to specific campaigns |
+| **Product** | Filter to specific products |
+| **Keyword** | Filter to specific keywords |
+| **Currency** | Choose the display currency for monetary metrics |
 
-**Account Overview** — Aggregated ad metrics and KPIs across all your accounts for the selected period. Shows totals for spend, sales, impressions, clicks, CTR, CVR, <Term>ACoS</Term>, and <Term>RoAS</Term>, with comparisons to the prior period.
+**Overview tabs** include extra **Grouping & Metrics slicers** at the top of each table, letting you choose what to display as rows and columns.
 
-**Account History** — Time-based view of account performance. Customisable chart (left and right axis metrics) and a table broken down by the selected Timeline By granularity. Filter by channel, account, or other dimensions.
+## Dashboard reports tab by tab
 
-**Campaign Overview** — Summary of ad performance per campaign, with totals and prior-period comparisons. A bar chart lets you compare campaigns by a chosen metric. Includes a **Campaign Status** filter (most recent status). Channel-specific slicers: **Portfolio** and **Portfolio ID** are Amazon only; **Ad Group** and **Ad Group ID** are Walmart only. Supports **Custom Filters** based on parameters extracted from Campaign Name or Ad Group Name (Category, Targeting Type, Audience, etc.). Parameters are case-sensitive.
+<Accordions>
 
-**Campaign History** — Time-based breakdown of campaign performance. Same dual-axis chart and granularity controls as Account History, but at campaign level.
+<Accordion title="Account Overview">
+  Aggregated ad metrics and KPIs across all your accounts for the selected period. Shows totals for spend, sales, impressions, clicks, <Term>CTR</Term>, <Term>CVR</Term>, <Term>ACoS</Term>, and <Term>RoAS</Term>, with comparisons to the prior period.
 
-**Product Overview** — Product-level performance for **Sponsored Products and Sponsored Display** only. Includes totals, prior-period comparisons, and a bar chart for ranking products by a chosen metric. Extra filters: Product Name, Product Tag, and Brand. Product Tags are created in the DataHawk app.
+  {/* TODO: add screenshot at /images/help-center/powerbi-dashboards/advertising-dashboard/advertising-dashboard-1.gif */}
+</Accordion>
 
-**Product History** — Time-based breakdown of product ad performance. Supports Product Name, Product Tag, and Brand filters.
+<Accordion title="Account History">
+  Time-based view of account performance. Customizable chart (left and right axis metrics) and a table broken down by the selected Timeline By granularity. Filter by channel, account, or other dimensions.
 
-**Keyword Overview** — Keyword and search term performance for the selected period. You can view data by **Keyword** or **Search Term**. Additional filters: Search Term, Match Type, Keyword Tag, Ad Group Name, and Ad Group ID (both available for Amazon and Walmart).
+  {/* TODO: add screenshot at /images/help-center/powerbi-dashboards/advertising-dashboard/advertising-dashboard-2.gif */}
+</Accordion>
 
-**Keyword History** — Timeline-based analysis of keyword performance. Useful for tracking trends in CTR, CVR, or spend for specific keywords or match types.
+<Accordion title="Campaign Overview">
+  Summary of ad performance per campaign, with totals and prior-period comparisons. A bar chart lets you compare campaigns by a chosen metric. Includes a **Campaign Status** filter (most recent status). Channel-specific slicers: **Portfolio** and **Portfolio ID** are Amazon only; **Ad Group** and **Ad Group ID** are Walmart only. Supports **Custom Filters** based on parameters extracted from Campaign Name or Ad Group Name (Category, Targeting Type, Audience, etc.). Parameters are case-sensitive.
 
-**Brand Store Overview** — Aggregated Brand Store advertising performance: impressions, clicks, CTR, and other key metrics. Bar chart for comparing stores by a selected metric.
+  {/* TODO: add screenshot at /images/help-center/powerbi-dashboards/advertising-dashboard/advertising-dashboard-3.gif */}
+</Accordion>
 
-**Brand Store History** — Time-based view of Brand Store performance trends using the same dual-axis chart controls as other History tabs.
+<Accordion title="Campaign History">
+  Time-based breakdown of campaign performance. Same dual-axis chart and granularity controls as Account History, but at campaign level.
 
-**DSP Overview** — Amazon DSP performance in a single view. Includes:
+  {/* TODO: add screenshot at /images/help-center/powerbi-dashboards/advertising-dashboard/advertising-dashboard-4.gif */}
+</Accordion>
 
-- KPI summary table: Total Cost, Sales, Impressions, Clicks, RoAS, New-to-Brand, eCPM, CTR, eCP <Term>DPV</Term>, DPVR, Purchase Rate
-- Bar and line chart: Total Sales, Total Cost, RoAS over time
-- Budget distribution chart (100% stacked by line item type)
-- Stacked and pie charts controlled by Metric and Legend slicers
-- New-to-brand gauge (% of New-to-Brand Product Sales relative to Total Sales)
-- Category & Targeting breakdown table (requires custom filter parameters)
+<Accordion title="Product Overview">
+  Product-level performance for **Sponsored Products and Sponsored Display** only. Includes totals, prior-period comparisons, and a bar chart for ranking products by a chosen metric. Extra filters: Product Name, Product Tag, and Brand. Product Tags are created in the DataHawk app.
 
-DSP filters: Advertiser, Country, Currency; entity filters for Order, Line Item, and Creative. Supports Custom Filters.
+  {/* TODO: add screenshot at /images/help-center/powerbi-dashboards/advertising-dashboard/advertising-dashboard-5.gif */}
+</Accordion>
 
-**Explorer** — Flexible, ad hoc analysis tool. Build a custom graph (left and right axis metrics) and a custom table grouped by any dimension. Separate predefined summary table groups metrics by Advertiser, Order Name, Line Item Type, Line Item Name, Creative Type, and Creative Name.
+<Accordion title="Product History">
+  Time-based breakdown of product ad performance. Supports Product Name, Product Tag, and Brand filters.
+
+  {/* TODO: add screenshot at /images/help-center/powerbi-dashboards/advertising-dashboard/advertising-dashboard-6.gif */}
+</Accordion>
+
+<Accordion title="Keyword Overview">
+  Keyword and search term performance for the selected period. You can view data by **Keyword** or **Search Term**. Additional filters: Search Term, Match Type, Keyword Tag, Ad Group Name, and Ad Group ID (both available for Amazon and Walmart).
+
+  {/* TODO: add screenshot at /images/help-center/powerbi-dashboards/advertising-dashboard/advertising-dashboard-7.gif */}
+</Accordion>
+
+<Accordion title="Keyword History">
+  Timeline-based analysis of keyword performance. Useful for tracking trends in CTR, CVR, or spend for specific keywords or match types.
+
+  {/* TODO: add screenshot at /images/help-center/powerbi-dashboards/advertising-dashboard/advertising-dashboard-8.gif */}
+</Accordion>
+
+<Accordion title="Brand Store Overview">
+  Aggregated Brand Store advertising performance: impressions, clicks, CTR, and other key metrics. Bar chart for comparing stores by a selected metric.
+
+  {/* TODO: add screenshot at /images/help-center/powerbi-dashboards/advertising-dashboard/advertising-dashboard-9.gif */}
+</Accordion>
+
+<Accordion title="Brand Store History">
+  Time-based view of Brand Store performance trends using the same dual-axis chart controls as other History tabs.
+
+  {/* TODO: add screenshot at /images/help-center/powerbi-dashboards/advertising-dashboard/advertising-dashboard-10.gif */}
+</Accordion>
+
+<Accordion title="DSP Overview">
+  Amazon DSP performance in a single view. Includes:
+
+  - KPI summary table: Total Cost, Sales, Impressions, Clicks, RoAS, New-to-Brand, eCPM, CTR, eCP <Term>DPV</Term>, DPVR, Purchase Rate
+  - Bar and line chart: Total Sales, Total Cost, RoAS over time
+  - Budget distribution chart (100% stacked by line item type)
+  - Stacked and pie charts controlled by Metric and Legend slicers
+  - New-to-brand gauge (% of New-to-Brand Product Sales relative to Total Sales)
+  - Category & Targeting breakdown table (requires custom filter parameters)
+
+  DSP filters: Advertiser, Country, Currency; entity filters for Order, Line Item, and Creative. Supports Custom Filters.
+
+  {/* TODO: add screenshot at /images/help-center/powerbi-dashboards/advertising-dashboard/advertising-dashboard-11.gif */}
+</Accordion>
+
+<Accordion title="Explorer">
+  Flexible, ad hoc analysis tool. Build a custom graph (left and right axis metrics) and a custom table grouped by any dimension. Separate predefined summary table groups metrics by Advertiser, Order Name, Line Item Type, Line Item Name, Creative Type, and Creative Name.
+
+  {/* TODO: add screenshot at /images/help-center/powerbi-dashboards/advertising-dashboard/advertising-dashboard-12.gif */}
+</Accordion>
+
+</Accordions>
 
 ## Custom filters (Campaign and DSP tabs)
 
-Custom filters extract dimensions from Campaign, Ad Group, Order, or Line Item names. To configure:
+Custom filters extract dimensions from Campaign, Ad Group, Order, or Line Item names. To configure them:
 
-1. In Power BI, go to **Data Model settings \> Parameters**.
-2. Enter the terms you use in naming your campaigns or orders, separated by commas.
-3. Assign them to the relevant parameter (Category, Targeting Type, Audience, etc.).
-4. **Parameters are case-sensitive.** `Retargeting` and `retargeting` are treated as different values.
+<Steps>
+
+<Step>
+### Open Parameters
+
+In Power BI, go to **Data Model settings → Parameters**.
+</Step>
+
+<Step>
+### Enter the terms used in your naming
+
+Type the terms you use in naming your campaigns or orders, separated by commas.
+</Step>
+
+<Step>
+### Assign them to the relevant parameter
+
+Map your terms to the right parameter (Category, Targeting Type, Audience, etc.).
+</Step>
+
+</Steps>
+
+<Callout type="warn">
+  **Parameters are case-sensitive.** `Retargeting` and `retargeting` are treated as different values.
+</Callout>
 
 ---
 

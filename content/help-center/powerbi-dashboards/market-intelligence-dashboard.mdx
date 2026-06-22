@@ -6,7 +6,7 @@ description: Complete guide to DataHawk's Market Intelligence Power BI Dashboard
 The Market Intelligence dashboard is your go-to tool for understanding category-level performance on Amazon. It shows you how the top 100 best-selling products in your tracked categories are performing — including pricing, ratings, estimated sales, market share, and brand presence — giving you the competitive context to make informed decisions.
 
 <Callout type="warn">
-  Only available for Amazon
+  Only available for Amazon.
 </Callout>
 
 ## Questions this dashboard helps answer
@@ -25,9 +25,11 @@ The Market Intelligence dashboard is your go-to tool for understanding category-
 
 - At least one Amazon category added as a source in DataHawk (go to **Sources** in the DataHawk app)
 
+**Set up:** Download and configure the Power BI template. See [Connect to Power BI](/help-center/connect-tools/powerbi).
+
 **Data coverage:** The dashboard analyzes the top 100 best-selling products in each tracked category.
 
-**Setup:** Download and configure the Power BI template. See [Connect to Power BI](/help-center/connect-tools/powerbi).
+{/* TODO: confirm data history window for this dashboard */}
 
 ## Dashboard tabs at a glance
 
@@ -37,7 +39,13 @@ The Market Intelligence dashboard is your go-to tool for understanding category-
 | **Market Overview** | Totals for all entities (<Term>marketplace</Term>, category, brand, product) over the selected timeframe |
 | **Market History** | Monthly trends for your selected entities and metrics |
 
-## General controls
+## Time periods and comparisons
+
+All three tabs use the **Timeframe** filter to set the date range for analysis. **Market History** shows a monthly breakdown across that timeframe, while **Market Overview** aggregates totals across the entire selected period.
+
+{/* TODO: confirm prior-period or year-over-year comparison behavior for this dashboard */}
+
+## Dashboard filters
 
 All three tabs share the same set of filters:
 
@@ -51,20 +59,36 @@ All three tabs share the same set of filters:
 
 Each tab also includes a shortcut to **Add Sources**, letting you add more categories or products directly from within the dashboard.
 
-## Tab by tab
+## Dashboard reports tab by tab
 
-**Market Charts** — A visual exploration tool for comparing market data. Includes:
+<Accordions>
 
-- A **summary bar** with aggregate totals for the selected filters
-- A **bar chart** comparing a chosen primary metric across a chosen dimension (e.g. Estimated Market Share by Brand)
-- A **line chart** showing the evolution of that metric over time for a selected entity (click any bar to focus on it)
-- A **scatter chart** adding a second metric dimension for richer comparison (e.g. Market Share vs. Median Price by brand)
+<Accordion title="Market Charts">
+  A visual exploration tool for comparing market data. Includes:
 
-This tab is best for answering "who is winning?" and "how are rankings changing?"
+  - A **summary bar** with aggregate totals for the selected filters
+  - A **bar chart** comparing a chosen primary metric across a chosen dimension (e.g. Estimated Market Share by Brand)
+  - A **line chart** showing the evolution of that metric over time for a selected entity (click any bar to focus on it)
+  - A **scatter chart** adding a second metric dimension for richer comparison (e.g. Market Share vs. Median Price by brand)
 
-**Market Overview** — A table showing aggregated totals for your selected entities over the selected timeframe. Click on any row to see metrics specific to that entity. Use this tab for snapshot comparisons — e.g. all brands in a category ranked by estimated market share.
+  This tab is best for answering "who is winning?" and "how are rankings changing?"
 
-**Market History** — A monthly breakdown of how your selected entities have performed over time. Includes a line chart comparing the primary metric across brands, and a detailed table below it. Click on a row to focus on a specific entity. Use this tab for trend analysis — e.g. how a brand's <Term>BSR</Term> has moved over 12 months.
+  {/* TODO: add screenshot at /images/help-center/powerbi-dashboards/market-intelligence-dashboard/market-intelligence-dashboard-1.gif */}
+</Accordion>
+
+<Accordion title="Market Overview">
+  A table showing aggregated totals for your selected entities over the selected timeframe. Click on any row to see metrics specific to that entity. Use this tab for snapshot comparisons — e.g. all brands in a category ranked by estimated market share.
+
+  {/* TODO: add screenshot at /images/help-center/powerbi-dashboards/market-intelligence-dashboard/market-intelligence-dashboard-2.gif */}
+</Accordion>
+
+<Accordion title="Market History">
+  A monthly breakdown of how your selected entities have performed over time. Includes a line chart comparing the primary metric across brands, and a detailed table below it. Click on a row to focus on a specific entity. Use this tab for trend analysis — e.g. how a brand's BSR has moved over 12 months.
+
+  {/* TODO: add screenshot at /images/help-center/powerbi-dashboards/market-intelligence-dashboard/market-intelligence-dashboard-3.gif */}
+</Accordion>
+
+</Accordions>
 
 ## A note on unknown or missing data
 

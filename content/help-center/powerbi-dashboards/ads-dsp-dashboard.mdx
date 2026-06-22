@@ -3,7 +3,7 @@ title: Ads DSP Dashboard Documentation
 description: Complete guide to DataHawk's Ads DSP Power BI Dashboard — visibility into programmatic Amazon DSP campaigns from advertiser level down to individual creatives.
 ---
 
-The Ads DSP Dashboard gives Amazon DSP advertisers detailed visibility into their programmatic campaigns. It covers investment efficiency, audience engagement, and conversion performance — from advertiser and order level all the way down to individual creatives.
+The Ads DSP Dashboard gives Amazon <Term>DSP</Term> advertisers detailed visibility into their programmatic campaigns. It covers investment efficiency, audience engagement, and conversion performance — from advertiser and order level all the way down to individual creatives.
 
 ## Questions this dashboard helps answer
 
@@ -20,7 +20,8 @@ The Ads DSP Dashboard gives Amazon DSP advertisers detailed visibility into thei
 **What you need:**
 
 - [Amazon DSP account connected](/help-center/data-setup/ads-account) in DataHawk
-- **Setup:** Download and configure the Power BI template. See [Connect to Power BI](/help-center/connect-tools/powerbi).
+
+**Set up:** Download and configure the Power BI template. See [Connect to Power BI](/help-center/connect-tools/powerbi).
 
 **Data history:** The last 60 days of load when you connect. Over time, the dashboard can show up to 1 year of data once you've been connected for at least 9 months.
 
@@ -31,27 +32,13 @@ The Ads DSP Dashboard gives Amazon DSP advertisers detailed visibility into thei
 | **Ads DSP Reporting** | Full DSP performance: KPIs, charts, budget distribution, and explorer |
 | **Metrics Definition** | In-dashboard glossary of all DSP metrics |
 
-## How the dashboard is structured
+## Time periods and comparisons
 
-The main report page (Ads DSP Reporting) is organized into several analytical blocks:
+**Date filters** let you select the date range and time granularity (Year / Quarter / Month / Week / Day) for the dashboard. The bar and line chart adapts its time bucket to the granularity you choose.
 
-**Summary table (top row)** — Key metrics for the selected period: Order Budget, Total Cost, Total Sales, Total New to Brand Sales, Impressions, Clicks, eCPM, CTR, eCP <Term>DPV</Term>, DPVR, and Purchase Rate.
+{/* TODO: confirm prior-period or year-over-year comparison behavior for this dashboard */}
 
-**Bar and line chart** — Time-based view of Total Sales, Total Cost, and <Term>RoAS</Term>. Adjust the time granularity (day, week, month, etc.) using the calendar control at the top left.
-
-**Budget distribution** — A 100% stacked bar chart showing how budget is allocated across different line item types.
-
-**Metric and legend charts** — Two sets of stacked bar charts and a pie chart, each controlled by independent Metric and Legend slicers. The pie chart breaks down your chosen metric by country.
-
-**New-to-brand gauge** — Shows the percentage of New-to-Brand Product Sales relative to Total Sales.
-
-**Category & targeting table** — Breaks down key metrics by Category and Targeting Type (requires custom filter parameters to be configured — see below).
-
-**Explorer** — Custom chart and table for flexible ad hoc analysis, grouped by Advertiser, Order Name, Line Item Type, Line Item Name, Creative Type, or Creative Name.
-
-## Filters
-
-**Date filters** — Select the date range and time granularity (Year / Quarter / Month / Week / Day).
+## Dashboard filters
 
 **General filters:**
 
@@ -71,14 +58,55 @@ The main report page (Ads DSP Reporting) is organized into several analytical bl
 
 **Custom filters** — Category, Targeting Type, Audience, and other dimensions derived from your Order or Line Item names. Requires configuration in the Data Model (see below).
 
+## Dashboard reports tab by tab
+
+<Accordions>
+
+<Accordion title="Ads DSP Reporting">
+  The main report page is organized into several analytical blocks:
+
+  - **Summary table (top row)** — Key metrics for the selected period: Order Budget, Total Cost, Total Sales, Total New to Brand Sales, Impressions, Clicks, eCPM, <Term>CTR</Term>, eCP <Term>DPV</Term>, DPVR, and Purchase Rate.
+  - **Bar and line chart** — Time-based view of Total Sales, Total Cost, and RoAS. Adjust the time granularity (day, week, month, etc.) using the calendar control at the top left.
+  - **Budget distribution** — A 100% stacked bar chart showing how budget is allocated across different line item types.
+  - **Metric and legend charts** — Two sets of stacked bar charts and a pie chart, each controlled by independent Metric and Legend slicers. The pie chart breaks down your chosen metric by country.
+  - **New-to-brand gauge** — Shows the percentage of New-to-Brand Product Sales relative to Total Sales.
+  - **Category & targeting table** — Breaks down key metrics by Category and Targeting Type (requires custom filter parameters to be configured — see below).
+  - **Explorer** — Custom chart and table for flexible ad hoc analysis, grouped by Advertiser, Order Name, Line Item Type, Line Item Name, Creative Type, or Creative Name.
+
+  {/* TODO: add screenshot at /images/help-center/powerbi-dashboards/ads-dsp-dashboard/ads-dsp-dashboard-1.gif */}
+</Accordion>
+
+<Accordion title="Metrics Definition">
+  An in-dashboard glossary listing the definitions for every DSP metric used across the report. Use this tab as a quick reference when you're not sure how a specific metric (e.g. eCP DPV, DPVR, Purchase Rate) is computed.
+
+  {/* TODO: add screenshot at /images/help-center/powerbi-dashboards/ads-dsp-dashboard/ads-dsp-dashboard-2.gif */}
+</Accordion>
+
+</Accordions>
+
 ## Setting up custom filters
 
 Custom filters work by extracting keywords from your Order or Line Item names. To configure them:
 
-- In Power BI, click the three dots next to the **Data Model** and go to **Settings \> Parameters**.
-- For each parameter (Category, Targeting Type, Audience, etc.), enter the terms that appear in your Order or Line Item names, separated by commas.
-- **Parameters are case-sensitive** and must match exactly. `Toys` and `TOYS` are different values.
-- Leave a parameter blank if you don't use it.
+<Steps>
+
+<Step>
+### Open Parameters
+
+In Power BI, click the three dots next to the **Data Model** and go to **Settings > Parameters**.
+</Step>
+
+<Step>
+### Enter the terms used in your naming
+
+For each parameter (Category, Targeting Type, Audience, etc.), enter the terms that appear in your Order or Line Item names, separated by commas. Leave a parameter blank if you don't use it.
+</Step>
+
+</Steps>
+
+<Callout type="warn">
+  **Parameters are case-sensitive** and must match exactly. `Toys` and `TOYS` are different values.
+</Callout>
 
 ---
 
@@ -90,7 +118,7 @@ Custom filters work by extracting keywords from your Order or Line Item names. T
 - **Clicks** — Times users clicked on your ads
 - **Gross Clicks** — All clicks including potentially fraudulent or invalid ones
 - **CTR** — Clicks ÷ Impressions
-- **Detail Page Views (<Term>DPV</Term>)** — Product detail page views within 14 days of an ad click or view
+- **Detail Page Views (DPV)** — Product detail page views within 14 days of an ad click or view
 - **Detail Page Views Rate (DPVR)** — DPV ÷ Impressions
 - **Total Cost** — Total investment in DSP campaigns
 - **eCPM** — Total Cost ÷ Impressions × 1,000 (cost per thousand impressions)
