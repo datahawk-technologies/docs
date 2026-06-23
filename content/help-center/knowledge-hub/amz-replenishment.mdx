@@ -77,6 +77,10 @@ Access Amazon's projected subscription revenue for the next 30, 60, and 90 days 
 | `FBA_RESPLENISHMENT_SNS_PERFORMANCE` | Historical Subscribe & Save performance data |
 | `FBA_RESPLENISHMENT_SNS_FORECAST` | Amazon's forward-looking Subscribe & Save projections |
 
+<Callout type="warn">
+  **Deprecated and empty:** the legacy `SELLING_PARTNER.FBA_SNS_PERFORMANCE_SRC` and `SELLING_PARTNER.FBA_SNS_FORECAST_SRC` tables are no longer populated and are marked obsolete. Migrate any queries to the `FBA_RESPLENISHMENT_SNS_*` tables above. See the [changelog entry](/changelog/2026-01-21-amazon-replenishment-sns-datasets).
+</Callout>
+
 ### Granularity
 
 Both datasets follow the same grain: **1 row = 1 ASIN × 1 marketplace × 1 time interval (period)**

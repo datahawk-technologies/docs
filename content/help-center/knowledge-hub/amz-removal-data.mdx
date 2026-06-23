@@ -41,13 +41,17 @@ The Removal Shipment Detail Report gives you shipment-level visibility into remo
 ### Data Availability
 
 - **Frequency:** Daily
-- **Granularity:** One row per shipped item in a removal order, uniquely identified by order-id, sku, fnsku, and shipment-date
+- **Granularity:** One row per shipped item in a removal order, uniquely identified by `_unique_key` (order-id, sku, fnsku, and shipment-date)
 - **Backwards history:** 3 years
-- **Lookback:** Once, at D+30
+- **Lookback:** D+15 and D+30 — the dataset is re-fetched at both 15 and 30 days after the initial download to capture late-arriving shipment data.
 
 ### Data Table
 
 `SELLING_PARTNER.FBA_REMOVAL_SHIPMENT_DETAIL`
+
+<Callout type="info">
+  **Deduplication note (January 28, 2026).** The `_unique_key` definition was updated after we discovered that `shipment_date` can change over time, and the dataset was fully refreshed to remove historical duplicates. If you maintain joins or row-count comparisons against snapshots taken before that date, expect row counts to have changed. See the [changelog entry](/changelog/2026-01-28-fba-removal-shipment-dedup).
+</Callout>
 
 ## Sources
 

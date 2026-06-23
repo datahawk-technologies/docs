@@ -1,83 +1,81 @@
 ---
 title: Amazon Sales Estimates
-description: How DataHawk estimates daily sales for tracked products — including child-level estimates, data tables, and model methodology.
+description: How DataHawk estimates daily sales for tracked products and competitors — variant-level estimates by default, plus the V7 model methodology and table reference.
 ---
 
 Sales Estimates give you a daily view of how many units any tracked product sells — including competitors you don't have access to.
 
-<Callout type="info">
-  **April 2026 update — Child-level estimates now available**
+<Callout type="warn">
+  **June 15, 2026 — V7 model release.** DataHawk now generates sales estimates at the **variant (child <Term>ASIN</Term>) level** natively, with rollups to parent and brand. The full 2024+ history was reprocessed with the V7 algorithm on June 15, 2026.
 
-  DataHawk has always provided sales estimates at the **parent <Term>ASIN</Term> level** (combined sales across all variants). You can now also access **true child-level estimates** — individual sales figures per variant — available in the new `PRODUCT.PRODUCT_SALES_ESTIMATES` table alongside the parent totals.
-
-  Existing parent-level datasets (`PRODUCT_SALES_ESTIMATES_V5`, `PRODUCT_SALES_ESTIMATES_V5_RAW`) remain fully available and unchanged.
+  All V5 and V6 tables are now **deprecated aliases** pointing to V7 data — existing integrations continue to work, but you should migrate to the active table names below.
 </Callout>
 
-## What Business Decisions Can You Make?
+## What business decisions can you make?
 
 Combined with market share data, this powers decisions across three areas:
 
 ### Product research
 
-- Identify high-demand, low-competition products before entering a category.
-- Are there underserved niches worth entering?
-- Which of your variants actually drives most of the family's sales?
+- Identify high-demand, low-competition products before entering a category
+- Find underserved niches worth entering
+- Determine which of your variants actually drives most of the family's sales
 
 ### Competitor benchmarking
 
-- Is a competitor gaining or losing ground in your category?
-- Which brands dominate the top 100, and is that changing?
-- What is your brand's share of total category volume?
+- Track whether a competitor is gaining or losing ground in your category
+- See which brands dominate the top 100 and how that's changing
+- Measure your brand's share of total category volume
 
 ### Inventory planning
 
-- Use sales trend data to forecast demand and avoid stockouts or overstock situations.
-- Is demand in this category seasonal, and by how much?
+- Use sales trend data to forecast demand and avoid stockouts or overstock
+- Detect seasonality and how much it varies by category
 
-## Getting Started
+## Getting started
 
 To receive sales estimates, you need to track **at least one of the following:**
 
-**Track a category** → DataHawk collects Best Sellers Rank (<Term>BSR</Term>) data and calculates daily estimates for all top 100 products in that category. This is the primary way to get competitor estimates.
-
-**Track specific products** *(optional)* → Estimates for individual ASINs you add manually. History starts from the day you begin tracking.
-
-**Create product segments** *(optional)* → Group products with [tags](/help-center/data-setup/tags) to compare your catalog against a specific competitor set.
-
-**Connect your Seller account** *(optional but recommended)* → Your actual sales data helps calibrate the model for your own products, improving estimate accuracy.
+- **Track a category** → DataHawk collects Best Sellers Rank (<Term>BSR</Term>) data and calculates daily estimates for all top 100 products in that category. This is the primary way to get competitor estimates.
+- **Track specific products** *(optional)* → Estimates for individual ASINs you add manually. History starts from the day you begin tracking.
+- **Create product segments** *(optional)* → Group products with [tags](/help-center/data-setup/tags) to compare your catalog against a specific competitor set.
+- **Connect your Seller account** *(optional but recommended)* → Your actual sales data helps calibrate the model for your own products, improving estimate accuracy.
 
 <Callout type="info">
   Once you track a category, DataHawk begins collecting and estimating daily. The more history accumulates, the more reliable trend analysis becomes.
 </Callout>
 
-## Related Dashboards
+## Related dashboards
 
-| Dashboard | What It Shows | Best For |
+| Dashboard | What it shows | Best for |
 |---|---|---|
 | **Market Intelligence** (Power BI) | Market share trends, brand comparisons, top 100 analysis | Category-level competitive analysis |
 | **Product Dashboard** (Power BI) | Individual product performance and estimates | <Term>SKU</Term>-level and variant-level tracking |
 | **Analytics Essentials** (Looker Studio) | Cross-category overview with estimates | High-level monitoring |
 
-## Capabilities Overview
+## Capabilities overview
 
-### Product tracking vs. category tracking
+### Product tracking vs category tracking
 
-| | Category Tracking | Product Tracking |
+| | Category tracking | Product tracking |
 |---|---|---|
 | **Coverage** | All top 100 products in the category, including competitors | Only the ASINs you explicitly track |
 | **History** | Up to 2 years (from DataHawk collection start per <Term>marketplace</Term>) | From the day you start tracking |
 | **Best for** | Market sizing, brand share, competitive landscape | Focused monitoring of a specific competitor set or your own catalog |
 
-### Parent vs. child ASIN estimates
+### Variant, parent, and brand levels
+
+V7 generates estimates **natively at the variant (child ASIN) level**. From there, the same data rolls up to parent and brand for higher-level analysis.
 
 | Level | What it represents | When to use |
 |---|---|---|
-| **Parent** | Combined sales across all variations in the family | Market share analysis, brand-level comparisons, category sizing |
-| **Child** | Estimated sales for each individual variant | Variant-level decisions, specific <Term>SKU</Term> planning, understanding which size or color drives sales |
+| **Variant (child)** | Estimated daily sales for each individual variant | Variant-level decisions, specific <Term>SKU</Term> planning, understanding which size or color drives sales |
+| **Parent** | Sum of all variants in the family | Market share analysis, family-level comparisons, category sizing |
+| **Brand** | Sum of all parents owned by a brand | Brand-share and brand-vs-brand benchmarking |
 
 ## Data history by marketplace
 
-Two full years of history are maintained to support year-over-year analysis.
+Two full years of history are maintained to support year-over-year analysis. On June 15, 2026, the full June-2024-onwards history was reprocessed with the V7 model, so historical values may differ from what you saw under V5/V6.
 
 ## Precision
 
@@ -88,15 +86,49 @@ Two full years of history are maintained to support year-over-year analysis.
 
 Estimates are approximations, not exact figures. Revenue estimates depend on the accuracy of captured price data. Sudden rank changes (flash sales, stockouts) may cause temporary spikes that the model smooths over subsequent days.
 
-## How It Works
+## How it works
 
-1. **Collect Best Sellers Rank data** — DataHawk monitors <Term>BSR</Term> for all products in tracked categories daily.
-2. **Calibrate by category** — DataHawk trains a separate model per category, converting rank position into estimated daily units specific to that category's sales velocity.
-3. **Adjust for sales events** — Daily adjustments to estimates during high-velocity periods (Prime Day, Black Friday, etc.).
-4. **Distribute to child variants** — Parent-level estimates are distributed using direct purchase signals, 7-day rolling averages, or equal distribution when no signal exists.
-5. **Fill gaps** — When BSR data is temporarily unavailable, DataHawk applies linear extrapolation. Extrapolated rows are flagged (`IS_EXTRAPOLATED = true`).
+<Steps>
 
-## Accuracy & Reliability
+<Step>
+### Collect Best Sellers Rank data
+
+DataHawk monitors <Term>BSR</Term> for all products in tracked categories daily.
+</Step>
+
+<Step>
+### Apply the V7 model per category
+
+V7 uses an upgraded algorithm that considers more market signals to better reflect actual demand and to cover a broader set of products than previous versions.
+</Step>
+
+<Step>
+### Estimate at the variant level
+
+V7 outputs estimated daily units and revenue **at the variant (child ASIN) level** directly, without going through a parent-then-distribute step.
+</Step>
+
+<Step>
+### Roll up to parent and brand
+
+Variant estimates are aggregated to parent ASIN and brand for family-level and brand-level views.
+</Step>
+
+<Step>
+### Adjust for sales events
+
+Daily adjustments to estimates during high-velocity periods (Prime Day, Black Friday, etc.).
+</Step>
+
+<Step>
+### Fill gaps
+
+When BSR data is temporarily unavailable, DataHawk applies linear extrapolation. Extrapolated rows are flagged (`IS_EXTRAPOLATED = true`).
+</Step>
+
+</Steps>
+
+## Accuracy & reliability
 
 Each row in the dataset carries a `TRUST_INDEX` score indicating model confidence for that product and date. Rows where extrapolation was applied are flagged with `IS_EXTRAPOLATED`.
 
@@ -104,18 +136,32 @@ Each row in the dataset carries a `TRUST_INDEX` score indicating model confidenc
 
 ## ⚙️ Developer Reference
 
-### Datasets for tracked products
+### Active tables (use these)
 
-| Dataset | Level | Description |
-|---|---|---|
-| **`PRODUCT.PRODUCT_SALES_ESTIMATES`** | Child + Parent | **New (2026).** One row per tracked child ASIN per day. Contains both true child-level and parent-level fields. |
-| `PRODUCT.PRODUCT_SALES_ESTIMATES_V5` | Parent | Still available. Aggregated daily estimates at parent ASIN level. No change. |
-| `PRODUCT.PRODUCT_SALES_ESTIMATES_V5_RAW` | Parent | Still available. Raw estimates with extrapolation flags and reliability scoring. No change. |
-| `PRODUCT.PRODUCT_SALES_ESTIMATES_V5_CHILD` | Mapped to child | **Caution:** maps *parent-level* estimates to child rows — not true child-level attribution. Use `PRODUCT_SALES_ESTIMATES` for genuine per-variant estimates. |
-| `REPORTS.REPORT_MARKET_BEST_SELLER_RANK_AND_ESTIMATES` | Product | Top 100 products per category with ranks and estimates. |
-| `REPORTS.REPORT_MARKET_PRODUCT_SALES_RANK_AND_ESTIMATES` | Product | Consolidated view joining rank and estimate data with brand metadata. |
+| Schema | Table | Level | Description |
+|---|---|---|---|
+| `PRODUCT` | `PRODUCT_SALES_ESTIMATES` | Child + Parent | One row per tracked child ASIN per day. Contains both variant-level and parent-rollup fields. |
+| `MARKET` | `PRODUCT_SALES_ESTIMATES` | Product | Top 100 products per category with V7 estimates. |
+| `REPORTS` | `REPORT_MARKET_BEST_SELLER_RANK_AND_ESTIMATES` | Product | Top 100 per category with ranks and estimates. |
 
-### `PRODUCT_SALES_ESTIMATES` — Key Columns
+### Deprecated tables (aliases — work, but migrate away)
+
+These tables still resolve to the active V7 data, so existing queries continue to return correct numbers. They should not be used in new work — switch to the active tables above.
+
+| Deprecated alias | Points to |
+|---|---|
+| `PRODUCT.PRODUCT_SALES_ESTIMATES_V5` | `PRODUCT.PRODUCT_SALES_ESTIMATES` |
+| `PRODUCT.PRODUCT_SALES_ESTIMATES_V5_CHILD` | `PRODUCT.PRODUCT_SALES_ESTIMATES` |
+| `PRODUCT.PRODUCT_SALES_ESTIMATES_V5_RAW` | `PRODUCT.PRODUCT_SALES_ESTIMATES` |
+| `PRODUCT.PRODUCT_SALES_ESTIMATES_V6` | `PRODUCT.PRODUCT_SALES_ESTIMATES` |
+| `PRODUCT.PRODUCT_SALES_ESTIMATES_V6_CHILD` | `PRODUCT.PRODUCT_SALES_ESTIMATES` |
+| `PRODUCT.PRODUCT_SALES_ESTIMATES_V6_RAW` | `PRODUCT.PRODUCT_SALES_ESTIMATES` |
+| `MARKET.PRODUCT_SALES_ESTIMATES_V5_RAW` | `MARKET.PRODUCT_SALES_ESTIMATES` |
+| `MARKET.PRODUCT_SALES_ESTIMATES_V6_RAW` | `MARKET.PRODUCT_SALES_ESTIMATES` |
+| `REPORTS.REPORT_MARKET_BEST_SELLER_RANK_AND_ESTIMATES_V6` | `REPORTS.REPORT_MARKET_BEST_SELLER_RANK_AND_ESTIMATES` |
+| `REPORTS.REPORT_MARKET_PRODUCT_SALES_RANK_AND_ESTIMATES` | `REPORTS.REPORT_MARKET_BEST_SELLER_RANK_AND_ESTIMATES` |
+
+### `PRODUCT_SALES_ESTIMATES` — key columns
 
 | Column | Level | Description |
 |---|---|---|
@@ -132,22 +178,25 @@ Each row in the dataset carries a `TRUST_INDEX` score indicating model confidenc
 | `TRUST_INDEX` | Child | Model confidence score for this estimate |
 | `VARIATION_COUNT` | — | Number of known variants in the family |
 
-### Granularity & Refresh
+### Granularity & refresh
 
 | | |
 |---|---|
 | **Granularity** | One row per tracked child ASIN / marketplace / day |
 | **Refresh** | Daily |
-| **History** | Up to 2 full years (varies by marketplace) |
+| **History** | Up to 2 full years (varies by marketplace); full 2024+ history reprocessed with V7 on June 15, 2026 |
 | **Primary key** | `WORKSPACE_ID`, `OBSERVATION_DATE`, `MARKETPLACE_KEY`, `ASIN` |
 
 ### FAQ
 
-**I was already using parent-level estimates — do I need to change anything?**
-No. The existing `PRODUCT_SALES_ESTIMATES_V5` tables are unchanged. The new `PRODUCT_SALES_ESTIMATES` table is an addition, not a replacement.
+**I was using V5 or V6 tables — do my queries still work?**
+Yes. All V5 and V6 tables now resolve to V7 data via aliases, so existing queries return correct numbers without code changes. The numbers themselves may differ from what you saw before June 15, 2026 — V7 reprocessed the full 2024+ history with the new algorithm. If you need to retain pre-V7 estimate values, you needed to back them up before that date.
 
-**Why are child-level estimates different from the parent total?**
-Parent estimates represent total family sales. Child estimates distribute those sales across each variant. The sum of `UNITS_CHILD` across all variants should equal `UNITS_PARENT`.
+**Should I migrate my queries to the new table names?**
+Yes. Aliases work today but will not be maintained forever. Replace `PRODUCT_SALES_ESTIMATES_V5*` and `_V6*` references with `PRODUCT_SALES_ESTIMATES`, and likewise for `MARKET` and `REPORTS` tables (see the deprecation table above).
+
+**Why are child estimates different from the parent total?**
+Parent estimates represent total family sales — they're the sum of all variants. `UNITS_PARENT` equals the sum of `UNITS_CHILD` across all variants in that family on that date.
 
 **Can I get estimates for products I don't track directly?**
 Yes — if a product appears in a tracked category's top 100, you'll automatically receive estimates for it.
@@ -157,3 +206,6 @@ When BSR data is temporarily unavailable, DataHawk fills the gap using linear ex
 
 **What is `TRUST_INDEX`?**
 A per-row confidence score reflecting data quality for that product and date.
+
+**Did V7 change anything beyond accuracy?**
+Yes — V7 broadens catalog coverage (more products receive estimates than before), generates estimates natively at the variant level (rather than distributing parent-level estimates), and includes algorithm-level improvements that remove abnormal spikes from historical data. See the [V7 changelog entry](/changelog/2026-06-15-sales-estimates-v7) for the full migration notes.

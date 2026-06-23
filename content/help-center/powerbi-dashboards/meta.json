@@ -1,4 +1,4 @@
 {
   "title": "Explore Power BI Dashboards",
-  "pages": ["index","seller-analytics-dashboard", "advertising-dashboard", "vendor-analytics-dashboard", "market-intelligence-dashboard", "product-dashboard", "ads-dsp-dashboard"]
+  "pages": ["index","seller-analytics-dashboard", "vendor-analytics-dashboard", "seller-vendor-analytics-dashboard", "market-intelligence-dashboard", "advertising-dashboard", "ads-dsp-dashboard", "product-dashboard"]
 }

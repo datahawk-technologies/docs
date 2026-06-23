@@ -9,6 +9,10 @@ This page is the reference for Walmart Connect advertising data in DataHawk. All
   To connect your Walmart Connect account so these tables start populating, see [Connect a Walmart Connect Account](/help-center/data-setup/connect-account).
 </Callout>
 
+<Callout type="warn">
+  **Deprecated as of May 12, 2026:** `ADVERTISING.WMT_SP_AD_ITEM` is deprecated in favor of `ADVERTISING.WMT_AD_ITEM`, which properly attributes spend by `sponsored_type` (Sponsored Products vs Sponsored Brands vs Sponsored Video). Migrate at your earliest convenience. See the [changelog entry](/changelog/2026-05-12-walmart-wmt-ad-item).
+</Callout>
+
 ## Ad-group and item performance
 
 These are the two foundational reports — every Walmart advertiser has them, and most analyses start here.
@@ -23,14 +27,22 @@ Performance metrics aggregated at the ad-group level. Use it to compare ad group
 
 </Accordion>
 
-<Accordion title="WMT_SP_AD_ITEM — Sponsored Products item performance">
+<Accordion title="WMT_AD_ITEM — Item performance across sponsored types (recommended)">
+
+Per-item performance metrics across all Walmart Connect campaigns, with rows correctly attributed to their `sponsored_type` (Sponsored Products, Sponsored Brands, Sponsored Video). Use this table going forward instead of the legacy `WMT_SP_AD_ITEM`.
+
+**Data table:** `ADVERTISING.WMT_AD_ITEM`
+
+</Accordion>
+
+<Accordion title="WMT_SP_AD_ITEM — Sponsored Products item performance (deprecated)">
 
 Per-item performance metrics across all Sponsored Products campaigns. Use it to find your best- and worst-performing items, and to improve current or future Sponsored Products campaigns.
 
 **Data table:** `ADVERTISING.WMT_SP_AD_ITEM`
 
 <Callout type="warn">
-  The legacy `WMT_SP_AD_ITEM` table previously included AD_SPEND from Sponsored Products, Brands, and Video lumped together, even though every row was labeled `SPONSORED_TYPE = 'SponsoredProducts'`. The replacement table `ADVERTISING.WMT_AD_ITEM` (released May 12, 2026) correctly attributes spend by sponsored type. See the [changelog entry](/changelog/2026-05-12-walmart-wmt-ad-item) for migration details.
+  **Deprecated as of May 12, 2026.** The legacy `WMT_SP_AD_ITEM` table previously included AD_SPEND from Sponsored Products, Brands, and Video lumped together, even though every row was labeled `SPONSORED_TYPE = 'SponsoredProducts'`. The replacement table `ADVERTISING.WMT_AD_ITEM` correctly attributes spend by sponsored type. See the [changelog entry](/changelog/2026-05-12-walmart-wmt-ad-item) for migration details.
 </Callout>
 
 </Accordion>
@@ -89,6 +101,18 @@ Indicates which keywords your advertised items are being served against and how 
 - **Manual campaigns:** Bid higher on the keywords your best items convert on; remove the underperformers.
 
 **Data table:** `ADVERTISING.WMT_SP_ITEM_KEYWORD`
+
+<Callout type="info">
+  **Source migrated to v2.** After January 1, 2026, `WMT_SP_ITEM_KEYWORD` is powered by the v2 source so existing queries keep working without changes. For the new v2 metrics surface, see `WMT_SP_ITEM_KEYWORD_V2` below. See the [changelog entry](/changelog/2026-01-30-walmart-keyword-v2).
+</Callout>
+
+</Accordion>
+
+<Accordion title="WMT_SP_ITEM_KEYWORD_V2 — Item × keyword performance (v2 metrics)">
+
+The v2 surface of the item-keyword report, with updated metrics (sales, units, engagement) sourced directly from Walmart's v2 endpoint. Available alongside the legacy `WMT_SP_ITEM_KEYWORD` table for direct access to the v2 fields.
+
+**Data table:** `ADVERTISING.WMT_SP_ITEM_KEYWORD_V2`
 
 </Accordion>
 

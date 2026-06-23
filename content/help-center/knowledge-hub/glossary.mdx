@@ -190,7 +190,12 @@ Where your product appears in Amazon's search results for a given keyword, exclu
 
 ### Sponsored Rank
 
-Where your product appears among sponsored placements for a given keyword. **Amazon Standard Sponsored Ranks was retired in July 2025** due to quality issues. DataHawk now offers Premium Keywords as a paid add-on for high-quality sponsored rank tracking.
+Where your product appears among sponsored placements for a given keyword (Sponsored Products, Sponsored Brands). DataHawk distinguishes two tracking modes for Amazon:
+
+- **Standard Sponsored Rank — retired July 8, 2025.** The original best-effort sponsored rank collection on Standard Keywords was retired because Amazon's evolving content policies and detection mechanisms made the data inconsistent. The `SEO.SEO_PRODUCT_SPONSORED_RANK` table no longer receives Amazon Standard data, and the Search Power BI Dashboard and Analytics Essentials Looker Studio sponsored views show no Amazon Standard rows.
+- **Premium Sponsored Rank — current canonical source.** Available via the [Premium Keywords add-on](/help-center/data-setup/premium-keywords-tracking). Premium Keywords are the **only** way to access Amazon sponsored rank data going forward — Sponsored Products and Sponsored Brands, organic 5 pages plus sponsored 2 pages. The switch is at the workspace level (you cannot mix Standard and Premium in the same workspace).
+
+**Walmart sponsored ranks are unaffected** by the Standard retirement.
 
 ### Search Query Performance (SQP)
 

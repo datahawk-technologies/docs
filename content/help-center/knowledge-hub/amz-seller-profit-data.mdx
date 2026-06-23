@@ -48,13 +48,30 @@ A ledger of profit events compiled from a comprehensive selection of seller fina
 - **Sales**: Sales revenue including charges to customers (Tax/<Term>VAT</Term>, Giftwrap, Shipping).
 - **Refunds**: Returns, Guarantees, Chargebacks, and related fees.
 - **Cost of Goods**: Cost of goods sold and returned.
-- **Amazon Fees**: Fulfillment fees, Service Fees, Warehousing, and more.
+- **Amazon Fees**: Fulfillment fees, Service Fees, Warehousing, and more. <Term>FBA</Term> fee coverage includes Inbound Defect Fee, Per Unit Fulfillment Fee, Disposal Fee, and Customer Return Per Unit Fee (the last two may be delayed in Financial Events).
 - **Marketing**: Advertising, Coupons, and Promotion.
 - **Adjustments**: Made to sales charges and fees.
 - **Tax Expenses**: Taxes withheld and paid.
 - **Tax Adjustments**: Made to tax charges and expenses.
 
-**Available timestamps:** `purchase_date` (when applicable), `accrual_date` (event incurred date), `recorded_date` (Amazon's official ledger posting date).
+<Callout type="info">
+  **ServiceFee categorization (fix, September 17, 2025).** Non-categorized ServiceFee events are now correctly categorized under `Others > ServiceFee`. Previously they were misclassified under `Refunds > Other`.
+</Callout>
+
+**Tax handling:** Taxes previously embedded within fees are now extracted into separate ledger lines, and tax portions are flagged with `is_tax = true`. Category and subcategory hierarchies and event signatures are unchanged. Reported profit may increase slightly because tax amounts are no longer mixed into fee totals. (See the [Tax Management changelog](/changelog/2025-11-02-tax-management-profit).)
+
+**Available timestamps:** `purchase_date` (when applicable), `accrual_date` (event incurred date), `recorded_date` (Amazon's official ledger posting date). `posted_date` is an alias for `accrual_date`.
+
+**Deferred-transaction columns** (Ledger table only):
+
+| Column | Values |
+|---|---|
+| `transaction_status` | `DEFERRED`, `DEFERRED_RELEASED`, `RELEASED` |
+| `deferral_reason` | `DD7` (Delivery Date +7), `B2B` (Business-to-Business) |
+
+**Other columns:**
+
+- `settlement_id` — Amazon settlement identifier for the event (added January 22, 2026).
 
 ### Accrual Profit Methodology
 

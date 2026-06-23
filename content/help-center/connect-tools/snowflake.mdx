@@ -60,6 +60,29 @@ DataHawk-hosted Snowflake databases consume Snowflake credits. Credits are used 
 
 Contact your DataHawk representative for details on how to track and manage your usage.
 
+## Query timeout (30 minutes)
+
+<Callout type="warn">
+Since **November 2025**, all Snowflake Data Sharing queries are subject to a **default 30-minute timeout**. Queries that exceed 30 minutes are cancelled by the warehouse. This guardrail prevents runaway queries from consuming credits and is applied at the warehouse level for every customer.
+</Callout>
+
+**How to verify the limit:** In your SQL client, run `SHOW PARAMETERS LIKE 'STATEMENT_TIMEOUT_IN_SECONDS' IN WAREHOUSE <your_warehouse>;` — the value should be `1800` (seconds).
+
+**Write queries that finish in under 30 minutes:**
+
+- Filter early — restrict by `marketplace_key`, `date`, brand, or ASIN before joining wide tables.
+- Limit date ranges in exploratory queries (e.g. `WHERE date >= DATEADD(month, -3, CURRENT_DATE)`).
+- Use the curated `REPORTS.*` views when possible — they are pre-aggregated and substantially faster than building from raw layers.
+- Avoid `SELECT *` on the largest raw tables (advertising, profit ledger, search). Project only the columns you need.
+- Break very large extracts into multiple smaller queries (e.g. month-by-month) rather than a single multi-year scan.
+
+**If a query is cancelled by the timeout:**
+
+- Check the Snowflake query history (`QUERY_HISTORY`) to confirm the cancellation reason.
+- See [Accessing our Snowflake database from behind a firewall](/troubleshooting/connection-failures/accessing-our-snowflake-database-from-behind-a-firewall) for network-side issues that can also cause long-running or stalled queries.
+
+{/* TODO: add a dedicated query-timeout troubleshooting page once one exists, and update the link above */}
+
 ## Compatible tools
 
 Snowflake connects natively to most modern data tools. Common examples:

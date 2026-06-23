@@ -5,6 +5,8 @@ description: Complete guide to DataHawk's Market Intelligence Power BI Dashboard
 
 The Market Intelligence dashboard is your go-to tool for understanding category-level performance on Amazon. It shows you how the top 100 best-selling products in your tracked categories are performing — including pricing, ratings, estimated sales, market share, and brand presence — giving you the competitive context to make informed decisions.
 
+The dashboard was fully released in April 2026 and received a major v2 update in May 2026 that added Parent/Child <Term>ASIN</Term> filters, Price Bands, a Top N Brands slicer, new market visuals, and new metrics (Rank Score, Est. Market Size, Est. Market Share).
+
 <Callout type="warn">
   Only available for Amazon.
 </Callout>
@@ -56,6 +58,9 @@ All three tabs share the same set of filters:
 | **Category** | Filter to one or more tracked categories |
 | **Brand** | Filter to one or more brands |
 | **Product** | Filter to specific products |
+| **Parent/Child ASIN** | Toggle between parent-level and child-level <Term>ASIN</Term> aggregation (added in v2, May 2026) |
+| **Price Bands** | Slice the market by price band, plus a Price Min-Max slider for fine-grained ranges (added in v2) |
+| **Top N Brands** | Limit visuals to the top N brands by Market Share — works best together with the Min/Med/Max Price by Brand visual (added in v2) |
 
 Each tab also includes a shortcut to **Add Sources**, letting you add more categories or products directly from within the dashboard.
 
@@ -70,6 +75,14 @@ Each tab also includes a shortcut to **Add Sources**, letting you add more categ
   - A **bar chart** comparing a chosen primary metric across a chosen dimension (e.g. Estimated Market Share by Brand)
   - A **line chart** showing the evolution of that metric over time for a selected entity (click any bar to focus on it)
   - A **scatter chart** adding a second metric dimension for richer comparison (e.g. Market Share vs. Median Price by brand)
+
+  The v2 release (May 2026) expanded this tab with five additional visuals:
+
+  - **Min/Med/Max Prices by Brand**
+  - **Min/Max Price by Brand & Price Band**
+  - **Market share by price band** (pie)
+  - **Price segment share by brand** (pie)
+  - **Stacked price segment breakdown**
 
   This tab is best for answering "who is winning?" and "how are rankings changing?"
 
@@ -115,9 +128,20 @@ These estimates reflect real market activity but lack item-level metadata. This 
 **Market KPIs**
 
 - **BSR (Best Seller Rank)** — Numerical ranking based on sales performance within a category. Lower = more sales
+- **Rank Score** — Defined as `1 / BSR`. Easier to aggregate and to read on trend lines than raw BSR (added in v2, May 2026)
 - **Presence in the Top 100** — The share of time a product appeared in the Top 100 for a given category. Higher = more consistent best seller status
-- **Estimated Market Share** — Approximate % of total category sales attributed to a brand or product. Higher = larger share of the category
+- **Est. Market Size** — Estimated total sales for a category, broken out by Category and by Price Segment (added in v2)
+- **Estimated Market Share** — Approximate % of total category sales attributed to a brand or product. Higher = larger share of the category. The v2 release also exposes Market Share broken out by Total Category and by Price Segment.
+
+**Top 100 coverage methodology**
+
+As of November 2025, sales estimates are run every day for **all 100 ranks** in every tracked category, regardless of whether the product at that rank was successfully collected. The dashboard then maps each rank to the observed product:
+
+- **Product present** — sales are computed with the **product price** and the row is enriched with product info (brand, name, picture, rating, etc.).
+- **Product missing** — sales are computed with the **weekly median price** of the category, and product fields fall back to `null` or `"Unknown"` (specifically `product_key`, `channel_product_id`, `group_channel_product_id`, `rating`, `rating_count`, `picture_url`, `is_membership_program` are `null`; `name`, `brand`, `brand_catalog` are `"Unknown"`).
+
+This guarantees full top-100 coverage even when the bestsellers collection had gaps, especially historically.
 
 <Callout type="info">
-  **Data source:** This dashboard uses data collected from your tracked categories. For a full column reference, see the [Exhaustive Column Referential](https://docs.google.com/spreadsheets/d/1gYGqKQP9Z71nz1lOb4y0wJ15i27NvsUzdliIJeIx0HY/edit#gid=175439716).
+  **Data source:** This dashboard is built on `REPORTS.REPORT_MARKET_BEST_SELLER_RANK_AND_ESTIMATES` (as of January 2026, replacing the previous `REPORTS.REPORT_MARKET_PRODUCT_SALES_RANK_AND_ESTIMATES`). For a full column reference, see the [Exhaustive Column Referential](https://docs.google.com/spreadsheets/d/1gYGqKQP9Z71nz1lOb4y0wJ15i27NvsUzdliIJeIx0HY/edit#gid=175439716).
 </Callout>

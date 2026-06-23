@@ -23,19 +23,30 @@ History is collected **moving forward from the date tracking is activated**. The
 
 ## Which products are covered
 
-**Manually tracked products** — Pricing & Offers Intelligence is enabled for all products you track in DataHawk. This data is available for any product on Amazon, not just your own catalog.
+**Seller-owned products (automatic)** — Products tied to a connected Seller account are auto-snapshotted daily without manual tracking. Enrichment runs for all paid customers' seller-owned products (checking listing, traffic, and order sources), so you get coverage by default when connecting an account.
 
-**Automatic ingestion from connected accounts** *(enabled on demand)* — DataHawk can automatically ingest active product listings from your linked Amazon accounts. Contact your DataHawk account manager to enable this.
+**Manually tracked products** — Pricing & Offers Intelligence is also enabled for any product you explicitly track in DataHawk, including products outside your own catalog.
+
+## Buy Box and Top Sales Rank semantics
+
+- **Buy Box scope:** DataHawk reports only the **New-condition** featured offer. Used-condition Buy Box information is no longer available.
+- **`buy_box_seller_uri` is null** — the field is no longer populated. Use `FEATURED_SELLER_ID` / `FEATURED_SELLER_NAME` on `AMZN_PRODUCT_FEATURED_OFFER` to identify the Buy Box owner instead.
+- **Top Sales Rank** is the rank of the **top-level category only**, not the best rank across all ranking categories. This keeps performance monitoring consistent by limiting node switches.
+
+See the [changelog entry](/changelog/2025-11-27-alerting-catalog-featured-offers-source) for context.
 
 ---
 
 ## ⚙️ For Developers & Analysts
 
-### Data table
+### Data tables
 
-`PRODUCT.AMZN_PRODUCT_FEATURED_OFFER`
+| Table | What it contains |
+|---|---|
+| `PRODUCT.AMZN_PRODUCT_FEATURED_OFFER` | Daily featured offer (Buy Box) snapshot per ASIN |
+| `PRODUCT.AMZN_PRODUCT_COMPETITIVE_PRICES` | Amazon's `Competitive Price` and `Was Price` benchmarks — daily for tracked products and seller listings, quarterly for any other product connected to DataHawk. Sourced from <Term>SP-API</Term> Product Pricing v2022-05-01 (`getCompetitiveSummary`). |
 
-### Available columns
+### `AMZN_PRODUCT_FEATURED_OFFER` columns
 
 | Column | Description | Status |
 |---|---|---|
