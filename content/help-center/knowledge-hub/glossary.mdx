@@ -9,6 +9,10 @@ Quick reference for terms you'll see across DataHawk docs, dashboards, datasets,
 This glossary covers the terms that come up most often. If you encounter one that's not here, [email support](mailto:support@datahawk.co) and we'll add it.
 </Callout>
 
+<Callout type="info">
+**Terms vs metrics.** This glossary defines **terms** — industry acronyms, concepts, platform names, attribution rules, and DataHawk-specific words. For **metrics** (anything defined by a formula such as ACoS, RoAS, CTR, ASP), the acronym and concept-level definition live here, but the formula lives on the dashboard page where the metric is used. Formulas vary by context (Seller vs Vendor, attribution window, scope) — keeping them on each dashboard ensures you see the right one for the view you're reading.
+</Callout>
+
 ## Amazon platform
 
 ### ASIN — Amazon Standard Identification Number
@@ -67,15 +71,15 @@ The Walmart prefix in DataHawk's table names. Tables starting with `WMT_` or `wm
 
 ### ACoS — Advertising Cost of Sales
 
-`Ad spend ÷ ad sales` as a percentage. Lower = more efficient ads. Industry benchmarks vary by category but 15–25% is typical for healthy ad performance.
+A metric that measures advertising efficiency by comparing ad spend to ad-attributed revenue. Used to evaluate the success of ad campaigns. Lower ACoS means more efficient ads — industry benchmarks vary by category, but 15–25% is typical for healthy ad performance. See the dashboard page where ACoS appears for the formula used in that specific view.
 
 ### TACoS — Total Advertising Cost of Sales
 
-`Ad spend ÷ total sales (organic + ad)` as a percentage. Measures advertising's overall drag on revenue. Useful for evaluating whether ad spending is sustainable.
+A metric that measures advertising spend against total revenue (both organic and ad-attributed). Used to gauge advertising's overall impact on the business — useful for evaluating whether ad spending is sustainable. See the dashboard page where TACoS appears for the formula (the definition of "total revenue" changes depending on whether you're looking at Seller, Vendor, or combined views).
 
 ### ROAS — Return on Ad Spend
 
-`Ad sales ÷ ad spend`. The inverse of ACoS. Higher = better. A ROAS of 5 means every $1 of ad spend generated $5 of ad sales.
+A metric that measures ad-attributed revenue per dollar of ad spend. The inverse of ACoS — higher is better. Used to evaluate ad campaign profitability. See the dashboard page where ROAS appears for the formula used in that specific view.
 
 ### Sponsored Products (SP)
 
@@ -99,7 +103,11 @@ Amazon's programmatic advertising platform for display, video, and audio ads. Di
 
 ### DPV — Detail Page View
 
-A view of a product's detail page. A core conversion-funnel metric.
+A view of a product's detail page on Amazon. A core conversion-funnel metric. Attribution rules vary by context — the Ads DSP Dashboard counts a DPV when it occurs within 14 days of an ad view or click; other dashboards may use a different window. See the dashboard page for the specific attribution.
+
+### DPVR - Detail Page View Rate
+
+The number of detail page views relative to the number of impressions.
 
 ### NTB — New-to-Brand
 
@@ -108,6 +116,46 @@ Amazon's metric for first-time purchases of a brand within a rolling 12-month wi
 ### SoV — Share of Voice
 
 Your brand's percentage of visibility for a given search query, product segment, or category. Can be measured at the organic level, sponsored level, or combined.
+
+### Ad Spend
+
+Total amount spent on advertising campaigns in a given time frame.
+
+### Ad Sales
+
+Total revenue generated from sales attributed to advertising campaigns.
+
+### Ad Sales Same SKU
+
+Revenue generated from advertising-attributed sales of the same product that was promoted in the ad.
+
+### Ad Sales Other SKU
+
+Revenue generated from advertising-attributed sales of products other than the one promoted in the ad (also called the halo effect).
+
+### Impressions
+
+Number of times an ad is displayed to users on a webpage, app, or platform.
+
+### Clicks
+
+Number of times users click on an ad.
+
+### CTR — Click-Through Rate
+
+A metric that measures how often viewers click an ad after seeing it. Used to evaluate ad creative quality and targeting relevance. See the dashboard page where CTR appears for the formula used in that view.
+
+### CPC — Cost Per Click
+
+A metric that measures the cost paid each time a user clicks on an ad. Used to compare ad cost efficiency across campaigns. See the dashboard page where CPC appears for the formula used in that view.
+
+### CVR — Conversion Rate
+
+A metric that measures how often ad clicks result in a purchase. Used to evaluate landing-page quality and product-market fit. See the dashboard page where CVR appears for the formula used in that view.
+
+### New-to-Brand Sales
+
+Revenue generated from purchases by first-time brand shoppers attributed to advertising. Available for Sponsored Brands, Sponsored Display, and DSP campaigns.
 
 ## Finance & Profit
 
@@ -208,6 +256,32 @@ Estimated number of monthly searches for a specific keyword in a specific market
 ### Search Term
 
 A query a customer typed into Amazon. May or may not match the keywords you're actively bidding on in ads. Captured in Amazon's Search Term Report.
+
+## Sales, traffic & conversion
+
+### Page Views
+
+Total number of times product detail pages are viewed during the selected period. Multiple views by the same user are counted. Available for Seller Central accounts.
+
+### Glance Views
+
+Number of views to a Vendor product detail page. Calculated at the ASIN level, and only when Retail is the featured seller. The Vendor-side equivalent of Page Views.
+
+### Sessions
+
+Number of unique visits to your Amazon listings within a 24-hour period. Multiple pages viewed by the same shopper count as a single session.
+
+### ASP — Average Selling Price
+
+A metric that measures the average price per unit sold over a period. Used to track pricing strategy and product-mix shifts. The basis changes the formula: Seller accounts use the price the customer paid; Vendor accounts have two flavors, **ASP (Ordered Revenue basis)** at Amazon's retail price and **AWP — Average Wholesale Price** at the wholesale price Amazon paid you. See the dashboard page for the formula used in that view.
+
+### Ordered Revenue
+
+A metric that measures the total retail value of consumer demand on Amazon, regardless of whether the products have shipped. On the Vendor side this reflects Amazon's retail price per unit (higher than Shipped COGS, which is at wholesale price). See the dashboard page for the formula used in that view.
+
+### Return Rate
+
+A metric that measures the proportion of sold products returned by customers. Used to evaluate product quality, listing accuracy, and customer satisfaction. See the dashboard page where Return Rate appears for the formula used in that view.
 
 ## DataHawk concepts
 
@@ -321,6 +395,20 @@ The authentication protocol used to connect your Amazon, Walmart, or other accou
 ### Marketplace key
 
 DataHawk's standardized identifier for a marketplace (e.g., `Amazon-US`, `Amazon-DE`, `Walmart-US`). Used in `marketplace_key` columns across all datasets.
+
+## Time and comparison
+
+### bps — Basis Points
+
+Absolute change in percentage points. `100 bps = 1 percentage point`. Used for ratio metrics like conversion rate or ACoS, where relative percentage changes can be misleading.
+
+### PoP — Period over Period
+
+Relative difference of a measure between two consecutive periods. Monthly view means Month over Month (MoM); weekly view means Week over Week (WoW). Can be expressed as absolute value (PoP Abs) or percentage (PoP %).
+
+### YoY — Year over Year
+
+Relative difference of a measure in the selected period vs the same period last year (e.g., January 2024 vs January 2023). Use to control for seasonality.
 
 ---
 

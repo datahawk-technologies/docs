@@ -59,15 +59,15 @@ export const glossary: Record<string, GlossaryEntry> = {
   // ─── Advertising ──────────────────────────────────────────────────────
   ACOS: {
     title: 'Advertising Cost of Sales',
-    short: 'Ad spend ÷ ad sales, as a percentage. Lower = more efficient ads. 15–25% is typical for healthy performance.',
+    short: 'A metric that measures advertising efficiency by comparing ad spend to ad-attributed revenue. Used to evaluate the success of ad campaigns. See the dashboard page for the formula used in that view.',
   },
   TACOS: {
     title: 'Total Advertising Cost of Sales',
-    short: 'Ad spend ÷ total sales (organic + ad). Measures advertising drag on overall revenue.',
+    short: "A metric that measures advertising spend against total revenue (both organic and ad-attributed). Used to gauge advertising's overall impact on the business. See the dashboard page for the formula used in that view.",
   },
   ROAS: {
     title: 'Return on Ad Spend',
-    short: 'Ad sales ÷ ad spend. Inverse of ACoS. Higher = better. ROAS of 5 means $1 of ad spend made $5 of ad sales.',
+    short: 'A metric that measures ad-attributed revenue per dollar of ad spend. The inverse of ACoS — used to evaluate ad campaign profitability. See the dashboard page for the formula used in that view.',
   },
   DSP: {
     title: 'Demand Side Platform',
@@ -75,8 +75,13 @@ export const glossary: Record<string, GlossaryEntry> = {
   },
   DPV: {
     title: 'Detail Page View',
-    short: "A view of a product's detail page. A core conversion-funnel metric.",
+    short: "A view of a product's detail page on Amazon. A core conversion-funnel metric. See the dashboard page for context-specific attribution rules (e.g. DSP uses a 14-day post-click window).",
   },
+  DPVR: {
+    title: 'Detail Page View Rate',
+    short: "The number of detail page views relative to the number of impressions.",
+  },
+
   NTB: {
     title: 'New-to-Brand',
     short: "Amazon's metric for first-time purchases of a brand within a rolling 12-month window. Measures brand-building effectiveness.",
@@ -170,5 +175,87 @@ export const glossary: Record<string, GlossaryEntry> = {
   '3P': {
     title: '3P — Third-Party (Seller)',
     short: 'You sell directly to consumers using the marketplace as a platform (Amazon Seller Central, Walmart Marketplace).',
+  },
+
+  // ─── Time-comparison & change metrics ─────────────────────────────────
+  BPS: {
+    title: 'Basis Points (bps)',
+    short: 'Absolute change in percentage points. 100 bps = 1 percentage point.',
+  },
+  POP: {
+    title: 'Period over Period',
+    short: 'Relative difference of a measure between two consecutive periods. Monthly view means Month over Month (MoM); weekly view means Week over Week (WoW). Can be expressed as absolute value (PoP Abs) or percentage (PoP %).',
+  },
+  YOY: {
+    title: 'Year over Year',
+    short: "Relative difference of a measure in the selected period vs the same period last year (e.g., January 2024 vs January 2023).",
+  },
+
+  // ─── Core ad metrics ──────────────────────────────────────────────────
+  'AD SPEND': {
+    title: 'Ad Spend',
+    short: 'Total amount spent on advertising campaigns in a given time frame.',
+  },
+  'AD SALES': {
+    title: 'Ad Sales',
+    short: 'Total revenue generated from sales attributed to advertising campaigns.',
+  },
+  'AD SALES SAME SKU': {
+    title: 'Ad Sales Same SKU',
+    short: 'Revenue generated from advertising-attributed sales of the same product that was promoted in the ad.',
+  },
+  'AD SALES OTHER SKU': {
+    title: 'Ad Sales Other SKU',
+    short: 'Revenue generated from advertising-attributed sales of products other than the one promoted in the ad (halo effect).',
+  },
+  IMPRESSIONS: {
+    title: 'Impressions',
+    short: 'Number of times an ad is displayed to users on a webpage, app, or platform.',
+  },
+  CLICKS: {
+    title: 'Clicks',
+    short: 'Number of times users click on an ad.',
+  },
+  CTR: {
+    title: 'Click-Through Rate',
+    short: 'A metric that measures how often viewers click an ad after seeing it. Used to evaluate ad creative quality and targeting relevance. See the dashboard page for the formula used in that view.',
+  },
+  CPC: {
+    title: 'Cost Per Click',
+    short: 'A metric that measures the cost paid each time a user clicks on an ad. Used to compare ad cost efficiency across campaigns. See the dashboard page for the formula used in that view.',
+  },
+  CVR: {
+    title: 'Conversion Rate',
+    short: 'A metric that measures how often ad clicks result in a purchase. Used to evaluate landing-page quality and product-market fit. See the dashboard page for the formula used in that view.',
+  },
+  'NEW TO BRAND SALES': {
+    title: 'New-to-Brand Sales',
+    short: 'Revenue generated from purchases by first-time brand shoppers attributed to advertising. Available for Sponsored Brands, Sponsored Display, and DSP campaigns.',
+  },
+
+  // ─── Traffic & sales metrics ──────────────────────────────────────────
+  'GLANCE VIEWS': {
+    title: 'Glance Views',
+    short: 'Number of views to a Vendor product detail page. Calculated at ASIN level, and only when Retail is the featured seller.',
+  },
+  'PAGE VIEWS': {
+    title: 'Page Views',
+    short: 'Total number of times product detail pages are viewed during the selected period. Multiple views by the same user are counted.',
+  },
+  SESSIONS: {
+    title: 'Sessions',
+    short: 'Number of unique visits to your Amazon listings within a 24-hour period. Multiple pages viewed by the same shopper count as a single session.',
+  },
+  ASP: {
+    title: 'Average Selling Price',
+    short: 'A metric that measures the average price per unit sold over a period. Used to track pricing strategy and product-mix shifts. The basis (Seller vs Vendor) changes the formula — see the dashboard page for the version used in that view.',
+  },
+  'ORDERED REVENUE': {
+    title: 'Ordered Revenue',
+    short: "A metric that measures the total retail value of consumer demand on Amazon, regardless of whether the products have shipped. On the Vendor side this reflects Amazon's retail price per unit. See the dashboard page for the formula used in that view.",
+  },
+  'RETURN RATE': {
+    title: 'Return Rate',
+    short: 'A metric that measures the proportion of sold products returned by customers. Used to evaluate product quality and listing accuracy. See the dashboard page for the formula used in that view.',
   },
 };

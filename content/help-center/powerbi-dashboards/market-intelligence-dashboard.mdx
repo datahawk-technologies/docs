@@ -68,7 +68,7 @@ Each tab also includes a shortcut to **Add Sources**, letting you add more categ
 
 <Accordions>
 
-<Accordion title="Market Charts">
+<Accordion title="Top 100 Best Sellers Charts">
   A visual exploration tool for comparing market data. Includes:
 
   - A **summary bar** with aggregate totals for the selected filters
@@ -76,29 +76,91 @@ Each tab also includes a shortcut to **Add Sources**, letting you add more categ
   - A **line chart** showing the evolution of that metric over time for a selected entity (click any bar to focus on it)
   - A **scatter chart** adding a second metric dimension for richer comparison (e.g. Market Share vs. Median Price by brand)
 
+<img
+  src="/images/help-center/powerbi-dashboard/market-intelligence-dashboard/market-intelligence-dashboard-1.png"
+  alt="market-intelligence-dashboard 1"
+  width={1200}
+  height={680}
+  className="rounded-lg border"
+/>
+
   The v2 release (May 2026) expanded this tab with five additional visuals:
 
   - **Min/Med/Max Prices by Brand**
+
+<img
+  src="/images/help-center/powerbi-dashboard/market-intelligence-dashboard/market-intelligence-dashboard-2.png"
+  alt="market-intelligence-dashboard 2"
+  width={1200}
+  height={680}
+  className="rounded-lg border"
+/>
+
   - **Min/Max Price by Brand & Price Band**
+  - **Total Category Market Share by price band & Price Segement Market Share by Brand**
+
+<img
+  src="/images/help-center/powerbi-dashboard/market-intelligence-dashboard/market-intelligence-dashboard-3.png"
+  alt="market-intelligence-dashboard 3"
+  width={1200}
+  height={680}
+  className="rounded-lg border"
+/>
+
   - **Market share by price band** (pie)
-  - **Price segment share by brand** (pie)
-  - **Stacked price segment breakdown**
+
+<img
+  src="/images/help-center/powerbi-dashboard/market-intelligence-dashboard/market-intelligence-dashboard-4.png"
+  alt="market-intelligence-dashboard 4"
+  width={1200}
+  height={680}
+  className="rounded-lg border"
+/>
+
+  - **Price segment share by Price Band and Brand** 
+  A stacked bar chart breaking down each brand's market share contribution within each price band. Lets you see both which price bands are largest overall and which brands dominate within each band.
+
+<img
+  src="/images/help-center/powerbi-dashboard/market-intelligence-dashboard/market-intelligence-dashboard-5.png"
+  alt="market-intelligence-dashboard 5"
+  width={1200}
+  height={680}
+  className="rounded-lg border"
+/>
+
 
   This tab is best for answering "who is winning?" and "how are rankings changing?"
 
-  {/* TODO: add screenshot at /images/help-center/powerbi-dashboards/market-intelligence-dashboard/market-intelligence-dashboard-1.gif */}
 </Accordion>
 
-<Accordion title="Market Overview">
-  A table showing aggregated totals for your selected entities over the selected timeframe. Click on any row to see metrics specific to that entity. Use this tab for snapshot comparisons — e.g. all brands in a category ranked by estimated market share.
+<Accordion title="Top 100 Best Sellers Overview">
+This tab includes totals, for selected entities over the selected timeframe, of different metrics and KPIs. Definitions can be found in the Glossary below.
 
-  {/* TODO: add screenshot at /images/help-center/powerbi-dashboards/market-intelligence-dashboard/market-intelligence-dashboard-2.gif */}
+Clicking on a row within the displayed table will enable you to see metrics specific to the associated entity.
+
+<img
+  src="/images/help-center/powerbi-dashboard/market-intelligence-dashboard/market-intelligence-dashboard-6.png"
+  alt="market-intelligence-dashboard 6"
+  width={1200}
+  height={680}
+  className="rounded-lg border"
+/>
+
 </Accordion>
 
-<Accordion title="Market History">
-  A monthly breakdown of how your selected entities have performed over time. Includes a line chart comparing the primary metric across brands, and a detailed table below it. Click on a row to focus on a specific entity. Use this tab for trend analysis — e.g. how a brand's BSR has moved over 12 months.
+<Accordion title="Top 100 Best Sellers  History">
+Monthly (or weekly/daily) history of your selected entities and metrics across the selected timeframe. A line chart comparing the first chosen column across brands is included above the table.
 
-  {/* TODO: add screenshot at /images/help-center/powerbi-dashboards/market-intelligence-dashboard/market-intelligence-dashboard-3.gif */}
+Clicking on a row within the displayed table will enable you to see metrics specific to the associated entity.
+
+
+<img
+  src="/images/help-center/powerbi-dashboard/market-intelligence-dashboard/market-intelligence-dashboard-7.png"
+  alt="market-intelligence-dashboard 7"
+  width={1200}
+  height={680}
+  className="rounded-lg border"
+/>
 </Accordion>
 
 </Accordions>
@@ -111,37 +173,32 @@ These estimates reflect real market activity but lack item-level metadata. This 
 
 ---
 
-## For analysts & developers
+## For analysts: data sources & methodology
 
-**Category entities** — the subjects around which market data is organized
+### Source tables and datasets
 
-- **Marketplace** — Amazon or Walmart, by country
-- **Category** — A product group as defined by Amazon or Walmart
-- **Brand** — A brand name associated with products in the category
-- **Product** — An individual listing. Products in the Top 100 selling products in a category are called Category Best Sellers
+This dashboard is built on `REPORTS.REPORT_MARKET_BEST_SELLER_RANK_AND_ESTIMATES` (as of January 2026, replacing the previous `REPORTS.REPORT_MARKET_PRODUCT_SALES_RANK_AND_ESTIMATES`). For a full column reference, see the [Exhaustive Column Referential](https://docs.google.com/spreadsheets/d/1gYGqKQP9Z71nz1lOb4y0wJ15i27NvsUzdliIJeIx0HY/edit#gid=175439716).
 
-**Product metrics**
+**Dashboard-specific fields**
 
-- **Estimated Sales** — Estimated sales for a product at the given date. Sum aggregations provided
-- **Estimated Sales/Product/Month** — Estimated monthly sales per product. Min, max, and median aggregations provided
+- **Estimated Sales** — Estimated sales for a product at the given date. Sum aggregations provided.
+- **Estimated Sales/Product/Month** — Estimated monthly sales per product. Min, max, and median aggregations provided.
+- **Rank Score** — Computed as `1 / BSR`. Easier to aggregate and to read on trend lines than raw BSR (added in v2, May 2026).
+- **Presence in the Top 100** — The share of time a product appeared in the Top 100 for a given category.
+- **Est. Market Size** — Estimated total sales for a category, broken out by Category and by Price Segment (added in v2).
+- **Estimated Market Share** — Approximate % of total category sales attributed to a brand or product. The v2 release also exposes Market Share broken out by Total Category and by Price Segment.
 
-**Market KPIs**
-
-- **BSR (Best Seller Rank)** — Numerical ranking based on sales performance within a category. Lower = more sales
-- **Rank Score** — Defined as `1 / BSR`. Easier to aggregate and to read on trend lines than raw BSR (added in v2, May 2026)
-- **Presence in the Top 100** — The share of time a product appeared in the Top 100 for a given category. Higher = more consistent best seller status
-- **Est. Market Size** — Estimated total sales for a category, broken out by Category and by Price Segment (added in v2)
-- **Estimated Market Share** — Approximate % of total category sales attributed to a brand or product. Higher = larger share of the category. The v2 release also exposes Market Share broken out by Total Category and by Price Segment.
-
-**Top 100 coverage methodology**
+### Top 100 coverage methodology
 
 As of November 2025, sales estimates are run every day for **all 100 ranks** in every tracked category, regardless of whether the product at that rank was successfully collected. The dashboard then maps each rank to the observed product:
 
 - **Product present** — sales are computed with the **product price** and the row is enriched with product info (brand, name, picture, rating, etc.).
 - **Product missing** — sales are computed with the **weekly median price** of the category, and product fields fall back to `null` or `"Unknown"` (specifically `product_key`, `channel_product_id`, `group_channel_product_id`, `rating`, `rating_count`, `picture_url`, `is_membership_program` are `null`; `name`, `brand`, `brand_catalog` are `"Unknown"`).
 
-This guarantees full top-100 coverage even when the bestsellers collection had gaps, especially historically.
+This guarantees full top-100 coverage even when the bestsellers collection had gaps, especially historically. Products in the Top 100 of a category are referred to as Category Best Sellers throughout the dashboard.
 
-<Callout type="info">
-  **Data source:** This dashboard is built on `REPORTS.REPORT_MARKET_BEST_SELLER_RANK_AND_ESTIMATES` (as of January 2026, replacing the previous `REPORTS.REPORT_MARKET_PRODUCT_SALES_RANK_AND_ESTIMATES`). For a full column reference, see the [Exhaustive Column Referential](https://docs.google.com/spreadsheets/d/1gYGqKQP9Z71nz1lOb4y0wJ15i27NvsUzdliIJeIx0HY/edit#gid=175439716).
-</Callout>
+### Attribution and methodology
+
+Market data is organized around four entity layers: Marketplace (Amazon or Walmart, by country), Category (as defined by the marketplace), Brand, and Product. Estimates are computed per-product per-day, then rolled up to brand and category levels at query time.
+
+{/* TODO: confirm data freshness / SLA. Confirm currency handling. Confirm ASIN stability rules over time (how products are tracked across rank shifts). */}

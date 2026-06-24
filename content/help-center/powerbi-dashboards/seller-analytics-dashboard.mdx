@@ -315,90 +315,64 @@ All tabs share a common filter panel at the top. The same data can be sliced by:
   </Accordion>
 </Accordions>
 
----
+## Metrics
 
-## For analysts & developers
+Formulas used in this dashboard. Concept-level definitions for acronyms live in the [Glossary](/help-center/knowledge-hub/glossary).
 
-### Key metric definitions
+**Traffic and sales**
 
-**Traffic**
+| Metric | Formula / definition | Notes |
+|---|---|---|
+| **Conversion (Page View to Order)** | Order Count ÷ Page Views | Measures how effectively page views convert into orders |
+| **<Term>Buy Box</Term> Win %** | Page Views as Featured Offer ÷ Total Page Views × 100 | Active listings only |
+| **<Term>ASP</Term>** | Sales (Orders) ÷ Units Sold | Average Selling Price |
+| **AOV** | Sales (Orders) ÷ Order Count | Average Order Value |
 
-- **Page Views** — Total views of product detail pages (including repeat views in a session)
-- **Sessions** — Unique visits within a 24-hour window (multiple pages = one session)
-- **Conversion (Page View to Order)** — Order count ÷ Page Views
-- **Buy Box Win %** — % of page views where your listing was the featured offer
+**Profit and loss**
 
-**Sales**
-
-- **Sales (Orders)** — Revenue from actual orders, including <Term>VAT</Term> (except US marketplace) and excluding shipping price
-- **Order Count** — Total individual customer orders
-- **Units Sold** — Total units sold
-- **ASP** — Average Selling Price (Sales ÷ Units Sold)
-- **AOV** — Average Order Value (Sales ÷ Order Count)
-
-**P&L**
-
-- **Gross Revenue** — Sales including <Term>VAT</Term>/tax charges
-- **Refunds** — Returns, guarantees, chargebacks, and related fees
-- **Refund Rate** — Refunds as a % of Gross Revenue
-- **Net Revenue** — Gross Revenue minus Refunds
-- **COGS** — User-uploaded cost of goods sold applied to items sold and returned
-- **Gross Profit** — Net Revenue minus COGS
-- **Gross Margin** — Gross Profit ÷ Net Revenue
-- **Amazon Fees** — FBA/<Term>FBM</Term> fulfillment fees, referral fees, account fees, storage, and service fees
-- **Marketing** — Advertising costs, coupons, and promotions
-- **Operating Profit** — Gross Profit minus Amazon Fees minus Marketing
-- **Adjusted Operating Profit** — Operating Profit plus Adjustments
-- **Tax Expenses** — Taxes owed on the adjusted operating profit
-- **Tax Adjustments** — Manual adjustments to the tax line
-- **Net Taxes** — Tax Expenses plus Tax Adjustments
-- **Net Profit** — Adjusted Operating Profit minus Net Taxes
+| Metric | Formula / definition | Notes |
+|---|---|---|
+| **Refund Rate** | Refunds ÷ Gross Revenue × 100 | |
+| **Net Revenue** | Gross Revenue − Refunds | |
+| **Gross Profit** | Net Revenue − COGS | |
+| **Gross Margin** | Gross Profit ÷ Net Revenue × 100 | |
+| **Operating Profit** | Gross Profit − Amazon Fees − Marketing | |
+| **Adjusted Operating Profit** | Operating Profit + Adjustments | |
+| **Net Profit** | Adjusted Operating Profit − Net Taxes | |
+| **Net Profit Margin** | Net Profit ÷ Net Revenue × 100 | |
 
 **Advertising**
 
-- **Ad Spend** — Total advertising spend
-- **Ad Sales** — Revenue attributed to advertising (split into Same-SKU and Other-SKU)
-- **Ad Sales Ratio** — Ad Sales as % of Net Revenue
-- **ACoS** — Ad Spend ÷ Ad Sales × 100%. Lower = more efficient
-- **RoAS** — Ad Sales ÷ Ad Spend. Higher = more efficient
-- **TACoS** — Ad Spend ÷ Shipped COGS × 100%. Measures advertising cost relative to total sales (not just ad-attributed sales)
-- **CVR** — Orders from Ads ÷ Clicks
-- **CTR** — Clicks ÷ Impressions
+| Metric | Formula / definition | Notes |
+|---|---|---|
+| <Term>**ACoS**</Term> | Ad Spend ÷ Ad Sales × 100 | Lower is more efficient |
+| <Term>**RoAS**</Term> | Ad Sales ÷ Ad Spend | Inverse of ACoS, expressed as a multiplier |
+| <Term>**TACoS**</Term> | Ad Spend ÷ Total Sales × 100 | Measures ad cost relative to total sales, not just ad-attributed sales |
+| <Term>**CTR**</Term> | Clicks ÷ Impressions × 100 | |
+| <Term>**CPC**</Term> | Ad Spend ÷ Clicks | |
+| <Term>**CVR**</Term> | Orders from Ads ÷ Clicks × 100 | Attribution per Amazon's 14-day post-click window |
+| **Ad Sales Ratio** | Ad Sales ÷ Net Revenue × 100 | Share of revenue attributed to ads |
 
-**Inventory (Amazon FBA)**
+---
 
-- **Available** — Units ready to be picked, packed, and shipped
-- **Inbound Units** — Units in a shipment notified to Amazon but not yet received
-- **Inbound Receiving Units** — Units being received at an Amazon fulfillment center
-- **Shipped Units** — Units in transit from you to Amazon
-- **Working Units** — Units being prepared for inbound shipment
-- **FC Processing Units** — Units temporarily sidelined at a fulfillment center
-- **FC Transfer Units** — Units being moved between fulfillment centers
-- **Researching Units** — Units Amazon is investigating (usually missing or damaged)
-- **Reserved for Order** — Units reserved for pending customer orders
-- **Unfulfillable Units** — Units at Amazon that cannot be sold
-- **<Term>MFN</Term> Fulfillable Qty** — Merchant-fulfilled units available for sale
-- **Total Units** — Sum of all inventory states
-- **Days of Supply** — Estimated days current inventory will last based on projected demand
-- **Total Days of Supply** — Days of Supply using all inventory states, not just available
-- **Total Weeks of Supply** — Amazon's weeks-of-supply estimate
-- **Recommended Replenishment Quantity** — Amazon's suggested restock quantity
-- **Recommended Ship Date** — Amazon's suggested ship date for the next restock
-- **Alert** — Flag raised when inventory is at risk (e.g. stockout, overstock)
+## For analysts: data sources & methodology
 
-**Custom Inventory**
+### Source tables and datasets
 
-- **Total Inventory (Custom)** — Inventory total based on the components you selected in the slicer
-- **Total Weeks on Hand** — Weeks of cover using your custom inventory total and sales rate
-- **OOS Forecast** — Projected out-of-stock date based on sales velocity and current stock
-- **Replenishment Date** — OOS Forecast minus your configured lead time
-- **Replenishment Quantity** — Based on 30-day sales rate and your target weeks on hand
+This dashboard reads from your connected Seller Central and Advertising accounts. For a full column reference, see the [Exhaustive Column Referential](https://docs.google.com/spreadsheets/d/1gYGqKQP9Z71nz1lOb4y0wJ15i27NvsUzdliIJeIx0HY/edit#gid=175439716).
 
+- **Traffic** — `seller_retail_traffic_by_asin_src` (ASIN-level). As of February 2026 the dashboard reads ASIN-level traffic rather than SKU-level so page-view counts match Seller Central. Update any parallel custom queries to the ASIN-level source.
+- **Sales and orders** — Seller Central orders and finance feeds via the Selling Partner API.
+- **P&L** — `FINANCE.FINANCE_PROFIT_LEDGER` plus user-uploaded COGS for cost-of-goods application.
+- **Advertising** — Amazon Ads API daily feeds for Sponsored Products, Sponsored Brands, and Sponsored Display.
+- **Inventory** — Seller Central FBA inventory states (Available, Inbound, Working, FC Processing, FC Transfer, Researching, Reserved, Unfulfillable, MFN Fulfillable) plus Amazon's restock recommendations.
 
-<Callout type="info">
-  **Traffic source switch (February 2026):** The dashboard now reads from `seller_retail_traffic_by_asin_src` instead of `seller_retail_traffic_by_sku_src` so the number of page views matches Seller Central. If you maintain custom queries that parallel the Traffic Report, point them at the ASIN-level source going forward.
-</Callout>
+### Attribution and methodology
 
-<Callout type="info">
-  **Data source:** This dashboard uses data from your connected Seller Central and Advertising accounts. For a full column reference, see the [Exhaustive Column Referential](https://docs.google.com/spreadsheets/d/1gYGqKQP9Z71nz1lOb4y0wJ15i27NvsUzdliIJeIx0HY/edit#gid=175439716).
-</Callout>
+- **Sales** include VAT/tax charges except in the US marketplace, and exclude shipping price.
+- **Refunds** cover returns, guarantees, chargebacks, and related fees, and are applied to the original sale date (not the refund date).
+- **COGS** comes from user uploads and is applied to both items sold and items returned.
+- **Amazon Fees** combine FBA/FBM fulfillment fees, referral fees, account fees, storage fees, and service fees.
+- **Account-level fees** (for example FBA storage) are not attributed to individual products by Amazon; in a Brand or SKU breakdown they appear under "No Brand" or "No SKU".
+- **Ad attribution** uses Amazon's 14-day post-click window. Ad Sales are split into Same-SKU and Other-SKU.
+- **Custom Inventory slicer** lets analysts pick which FBA inventory states feed Total Inventory, Total Weeks on Hand, OOS Forecast, Replenishment Date, and Replenishment Quantity. Replenishment Date subtracts configured lead time from OOS Forecast; Replenishment Quantity is derived from 30-day sales rate and target weeks on hand.

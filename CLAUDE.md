@@ -178,7 +178,121 @@ Available immediately across all MDX files. No restart needed for content change
 
 ### Terms currently in the glossary
 
-ASIN, SKU, FNSKU, Marketplace, FBA, FBM, MFN, SnS, ACoS, TACoS, ROAS, DSP, DPV, NTB, SoV, SP, SB, SD, COGS, VAT, Buy Box, BSR, SQP, MCP, Workspace, WSID, Sherlock, Capacity, Snowflake, BigQuery, OAuth, SP-API, 1P, 3P.
+ASIN, SKU, FNSKU, Marketplace, FBA, FBM, MFN, SnS, ACoS, TACoS, RoAS, DSP, DPV, NTB, SoV, SP, SB, SD, COGS, VAT, Buy Box, BSR, SQP, MCP, Workspace, WSID, Sherlock, Capacity, Snowflake, BigQuery, OAuth, SP-API, 1P, 3P, bps, PoP, YoY, Ad Spend, Ad Sales, Ad Sales Same SKU, Ad Sales Other SKU, Impressions, Clicks, CTR, CPC, CVR, New-to-Brand Sales, Glance Views, Page Views, Sessions, ASP, Ordered Revenue, Return Rate.
+
+> See section 5b below for the rule on how metric acronyms (ACoS, RoAS, CTR, etc.) are defined: the **acronym** lives here with a concept-level definition, but the **formula** lives on the dashboard page where the metric is used.
+
+---
+
+## 5b. Terms vs Metrics — where each lives
+
+DataHawk docs separate **terms** (concepts) from **metrics** (formulas). The test for which a given entry is:
+
+> **Does it have a formula?**
+> - **No** → it's a **term**. Lives in `lib/glossary.ts` and `content/help-center/knowledge-hub/glossary.mdx`. Wrap in `<Term>X</Term>` in body prose.
+> - **Yes** → it's a **metric**. The formula lives in a `## Metrics` table on the dashboard page where the metric is used. If the metric also has an acronym (ACoS, RoAS, CTR, CPC, CVR, ASP, etc.), the acronym + concept-level definition stays in the glossary; only the formula moves to the page.
+
+### Why both can be true
+
+Metric acronyms are also industry terms. Readers who see `<Term>ACoS</Term>` in body text want to know "what does that acronym stand for and what's it measuring?" — that's a job for the glossary tooltip. Readers reading a dashboard page want to know "for THIS view, what's the exact formula?" — that's a job for the page's Metrics table. Both questions are valid; they have different answers; the answers live in different places.
+
+### Examples — terms vs metrics
+
+| Entry | Term in glossary? | Metric on page? |
+|---|---|---|
+| ASIN | Yes (identifier) | No |
+| Marketplace | Yes (concept) | No |
+| Sponsored Display (SD) | Yes (ad-type category) | No |
+| Buy Box | Yes (concept — "default offer") | No |
+| Impressions, Clicks | Yes (raw counts — no formula) | No |
+| Ad Spend, Ad Sales | Yes (attribution definitions, not formulas) | No |
+| BSR | Yes (Amazon assigns it — you don't compute it) | No |
+| bps, PoP, YoY | Yes (comparison methods) | No |
+| **ACoS** | Yes (acronym + concept-level "measures ad efficiency") | **Yes** (formula on page) |
+| **TACoS, RoAS, CTR, CPC, CVR, ASP, Ordered Revenue, Return Rate, DPV** | Same pattern — acronym + concept in glossary | **Yes** (formula on page) |
+
+### Format of the Metrics section on a dashboard page
+
+Every dashboard page (Power BI dashboard guide, Looker Studio template guide) that uses derived metrics gets a `## Metrics` H2 section near the end of the page — **after** the body content (Tabs, Accordions, capability tables) and **before** any horizontal rule + footer section ("Where to go next", `## ⚙️ For analysts & developers`, related-articles cards).
+
+```mdx
+## Metrics
+
+Formulas used in this dashboard. Concept-level definitions for acronyms live in the [Glossary](/help-center/knowledge-hub/glossary).
+
+| Metric | Formula / definition | Notes |
+|---|---|---|
+| **ACoS** | Ad Spend ÷ Ad Sales × 100 | Lower is more efficient |
+| **RoAS** | Ad Sales ÷ Ad Spend | Inverse of ACoS, expressed as a multiplier |
+| **CTR** | Clicks ÷ Impressions × 100 | |
+| **CPC** | Ad Spend ÷ Clicks | |
+| **CVR** | Orders from Ads ÷ Clicks × 100 | Attribution per Amazon's 14-day post-click window |
+```
+
+The first cell wraps the metric in bold (`**ACoS**`) rather than `<Term>` — inside the Metrics table, the page is **already** the canonical formula reference for that metric, so a tooltip would be circular. Use `<Term>` in body prose elsewhere on the page (first occurrence only), and bold in the table.
+
+### Context-specific formulas — same metric, different page
+
+Formulas vary by dashboard. Don't try to harmonize them — each dashboard has the right formula for its data:
+
+- **Seller-only ACoS** uses Seller Ad Spend ÷ Seller Ad Sales.
+- **Vendor-only TACoS** has two flavors: Ordered Revenue basis and Shipped COGS basis.
+- **Seller + Vendor combined ACoS** sums Ad Spend across accounts; TACoS has both Ordered Revenue basis AND Earned Revenue basis listed separately.
+- **DSP RoAS** uses Total Cost (not Ad Spend) and Total Sales over a 14-day attribution window.
+- **ASP** has at least three flavors: Seller (Sales ÷ Units), Vendor Ordered Revenue basis, Vendor Earned (AWP).
+
+Don't collapse these in one shared definition — the whole point of moving formulas to the page is so each dashboard's table is unambiguous.
+
+### Adding a new metric (workflow)
+
+1. Add the acronym to `lib/glossary.ts` with a concept-only `short` definition: what it measures, what it's used for, why it matters. **No formula.** End with "See the dashboard page for the formula used in that view."
+2. Add a matching H3 in `content/help-center/knowledge-hub/glossary.mdx` with the same concept-only definition.
+3. On the dashboard page where the metric appears, add a row to the `## Metrics` table with the formula in the format `Numerator ÷ Denominator` (Unicode `÷`, with spaces). Use `×` for multiplication, never `*`.
+
+### Adding a new term (no formula)
+
+Same as before — edit `lib/glossary.ts`, add a matching H3 in `glossary.mdx`. Do NOT redefine on individual pages — the `<Term>` tooltip carries the definition wherever it's used.
+
+### Anti-patterns
+
+- **Don't put a formula in the glossary.** `ACoS = Ad Spend ÷ Ad Sales × 100` belongs on the page, not in `lib/glossary.ts`.
+- **Don't redefine a term on a page.** If the page wraps `<Term>ASIN</Term>`, that's the definition surface. Adding a "What is an ASIN?" paragraph duplicates the glossary.
+- **Don't add `<Term>` inside the Metrics table.** Bold the metric name; the table itself is the definition.
+
+### Three-way separation: Glossary, Metrics, For analysts
+
+Every piece of metric-related content on a dashboard page belongs in exactly one of three places. If you find yourself writing the same thing twice, you're using the wrong section for one of them.
+
+| Surface | Answers | Example content |
+|---|---|---|
+| **Glossary** (`lib/glossary.ts` + `glossary.mdx`, surfaced via `<Term>X</Term>` tooltips) | "What is X? What does the acronym stand for?" | "ACoS — Advertising Cost of Sales. A metric that measures ad spend efficiency. See the dashboard page for the formula used in that view." |
+| **`## Metrics`** (one section per dashboard page) | "How is X computed on THIS dashboard?" | `\| **ACoS** \| Ad Spend ÷ Ad Sales × 100 \| Lower is more efficient \|` |
+| **`## For analysts: data sources & methodology`** (one section per dashboard page) | "Where does X's underlying data live and how do I work with it directly?" | Dataset paths (`SELLING_PARTNER.SELLER_TRAFFIC`), column references, attribution windows (14-day post-click), transaction-status filters, currency conversion notes, SQL snippets, why this dashboard's calculation differs from a sibling dashboard's |
+
+**Rules:**
+
+1. **A concept-level term definition lives in the glossary, period.** If you write "ACoS measures how efficient your ads are" anywhere outside `lib/glossary.ts` and `glossary.mdx`, delete it — the `<Term>` tooltip is the definition surface.
+2. **A formula lives in the page's Metrics table, period.** If you write "ACoS = Ad Spend ÷ Ad Sales × 100" anywhere outside the `## Metrics` table, delete it (including from the dev section).
+3. **Data plumbing lives in the dev section, period.** Table paths, column names, attribution windows, SQL snippets, dashboard-specific edge cases — none of these belong in the glossary or the Metrics table.
+
+When refactoring a page that already mixes content across sections (especially old pages), prune from the bottom up: any concept-level definitions in the dev section move to the glossary (if not already there); any formula restatements in the dev section get deleted (the Metrics table is the canonical source); what's left in the dev section should be pure data plumbing.
+
+### What goes in "For analysts: data sources & methodology"
+
+A well-scoped dev section contains:
+
+- **Source tables** — which Snowflake / BigQuery tables this dashboard reads from (e.g., `FINANCE.FINANCE_PROFIT_LEDGER`, `ADVERTISING.AMZN_AD_GROUP_DAILY`)
+- **Column mapping** — which columns power which dashboard fields, where it isn't obvious
+- **Attribution rules** — the specific windows / models used for this dashboard's data (14-day post-click for DSP, 24-hour session boundary for traffic, accrual vs recorded basis for finance)
+- **Edge cases** — what's included or excluded (returns, deferred transactions, transaction-status filters, marketplace currency conversions, sourcing vs manufacturing views for Vendor)
+- **Cross-dashboard differences** — why this dashboard's number doesn't match another dashboard's number for the same metric (e.g., "Seller-only TACoS uses Ordered Product Sales; Seller+Vendor combined TACoS uses Total Ordered Revenue")
+- **SQL examples** — short queries showing how to reproduce a chart from the warehouse
+
+A well-scoped dev section does NOT contain:
+
+- Restated formulas (those are in `## Metrics`)
+- Restated concept definitions (those are in the glossary)
+- Generic Amazon/Walmart terminology (also in the glossary)
 
 ---
 

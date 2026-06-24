@@ -90,11 +90,33 @@ All tabs share the same set of filters. Key filters to know:
 
 </Accordions>
 
+## Metrics
+
+Formulas used in this dashboard. Concept-level definitions for acronyms live in the [Glossary](/help-center/knowledge-hub/glossary).
+
+**<Term>Buy Box</Term>**
+
+| Metric | Formula / definition | Notes |
+|---|---|---|
+| **Buy Box % (Active)** | Time the listing was Buy Box-eligible ÷ Total observation time × 100 | Tracks Buy Box enabled rate |
+| **Buy Box % (Public)** | Time your offer was the Featured Offer (publicly observed) ÷ Total observation time × 100 | Visibility to customers |
+| **Buy Box % (Private)** | Page views with your offer as Featured Offer ÷ Total page views × 100 | Requires Seller Central connection |
+
+**Rankings and engagement**
+
+| Metric | Formula / definition | Notes |
+|---|---|---|
+| **<Term>BSR</Term> (Best / Avg / Worst)** | Minimum / average / maximum BSR observed across the period | Lower is better |
+| **Rating (Avg)** | Sum of star ratings ÷ Count | |
+| **Sessions <Term>CVR</Term> (Avg)** | Orders ÷ Sessions × 100 | Average across the period |
+| **Sales % (E)** | Your products' estimated sales ÷ Total estimated market sales × 100 | Share of estimated market |
+| **Units % (E)** | Your products' estimated units ÷ Total estimated market units × 100 | Share of estimated market |
+
 ---
 
-## For analysts & developers
+## For analysts: data sources & methodology
 
-### Data models
+### Source tables and datasets
 
 The Product dashboard pulls from two data models:
 
@@ -102,53 +124,33 @@ The Product dashboard pulls from two data models:
 - **Categories** — [Amazon](/help-center/data-setup/categories-tracking) / [Walmart](/help-center/data-setup/categories-tracking)
 
 Product data comes from your tracked products. Category data covers the top 100 products within each of your tracked categories.
+ For a full column reference, see the [Exhaustive Column Referential](https://docs.google.com/spreadsheets/d/1gYGqKQP9Z71nz1lOb4y0wJ15i27NvsUzdliIJeIx0HY/edit#gid=175439716).
 
-### Key metrics reference
+**Dashboard-specific fields**
 
-**Product overview**
+- **Sales Score** — DataHawk-computed estimated demand score, used for ranking products by relative sales potential.
+- **LQS (Listing Quality Score)** — DataHawk-computed score that summarizes listing completeness and quality (images, content, A+, video, etc.) on a 0–100 scale.
+- **Sellers (Winners)** — Count of distinct Buy Box winners observed during the period.
+- **Seller (Latest)** — Most recent Buy Box winner.
+- **Price (Distinct)** — Count of distinct price points observed during the period.
+- **Badges** — Count of badges (e.g. Amazon's Choice, Best Seller) observed on the listing.
 
-- **Variants** — Count of distinct product variants
-- **Brands** — Count of unique brands in your portfolio
-- **Sellers** — Count of competing sellers
-- **Sellers (Winners)** — Count of distinct Buy Box winners
-- **Seller (Latest)** — Most recent Buy Box winner
+### Buy Box variants
 
-**Price**
+The dashboard exposes three distinct Buy Box rates, each measuring a different aspect of competitive positioning.
 
-- **Price (Min / Avg / Max)** — Minimum, average, and maximum prices
-- **Price (Distinct)** — Count of distinct price points
+- **Buy Box % (Active)** — Share of observation time the listing was Buy Box-eligible. Measures whether your listing qualifies to compete for the Buy Box at all, independent of which seller wins it.
+- **Buy Box % (Public)** — Share of observation time your offer was the publicly Featured Offer (visible to shoppers). Computed from DataHawk's polling of the public product page.
+- **Buy Box % (Private)** — Share of page views where your offer was the Featured Offer, computed from Seller Central session-level data. Requires a Seller Central connection. Reflects actual shopper-facing Buy Box ownership rather than polled snapshots.
 
-**Buy Box**
+The three variants can disagree — a listing can be Buy Box-eligible most of the time (Active high), publicly win the Buy Box less often (Public lower), and still convert most of its real traffic with the Buy Box (Private higher than Public).
 
-- **Buy Box % (Active)** — Buy Box enabled rate (competitive positioning)
-- **Buy Box % (Public)** — Buy Box share visible to customers
-- **Buy Box % (Private)** — Average owned Buy Box percentage (requires Seller Central connection)
+### BSR Min / Avg / Max
 
-**Sales & units** *(estimates)*
+BSR is observed multiple times per period. The dashboard reports the minimum (best rank achieved), average (mean across observations), and maximum (worst rank). For BSR, lower is better, so "Best" refers to the minimum value and "Worst" refers to the maximum.
 
-- **Units/mo (E)(Avg)(Low / High)** — Estimated monthly units, low and high range
-- **Sales (E)(Low / High)** — Total estimated sales, low and high range
-- **Sales % (E)** — Your products' share of total estimated market sales
-- **Sales Score** — Estimated demand score
+### Attribution and methodology
 
-**Rankings**
+Sales and units shown in this dashboard are DataHawk estimates derived from BSR-to-sales modeling for the marketplace and category. Estimated values appear with `(E)` and `Low / High` suffixes to indicate they are ranges, not measured values. Sessions, Pageviews, and Sessions CVR are measured (not estimated) but require a Seller Central connection.
 
-- **BSR (Best / Avg / Worst)** — Best Sellers Rank: minimum, average, and maximum across your portfolio
-- **Categories** — Number of categories the product appears in
-
-**Ratings & reviews**
-
-- **Rating (Avg)** — Average star rating
-- **Ratings (Min / Avg / Max)** — Distribution of total review counts
-
-**Listing quality**
-
-- **Images (Avg)** — Average number of listing images
-- **LQS (Avg)** — Average Listing Quality Score
-- **Badges** — Count of badges (e.g. Amazon's Choice, Best Seller)
-
-**Traffic** *(requires Seller Central connection)*
-
-- **Sessions** — Total sessions on product pages
-- **Pageviews** — Total page views
-- **Sessions CVR (Avg)** — Average session-to-purchase conversion rate
+{/* TODO: confirm observation frequency (daily? hourly?). Confirm rating aggregation rule (how removed reviews are handled). Confirm Buy Box % calculation methodology (daily snapshots vs continuous). Confirm LQS scoring methodology. Confirm price history deduplication rules. */}

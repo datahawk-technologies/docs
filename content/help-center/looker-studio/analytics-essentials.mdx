@@ -176,9 +176,42 @@ Use the Feedback Form to report issues, request new report pages, or suggest imp
 | **Data source** | Google BigQuery (DataHawk-hosted or customer-hosted) |
 | **Compatible tools** | Looker Studio (Google Data Studio) |
 
+## Metrics
+
+Formulas used in this template. Concept-level definitions for acronyms live in the [Glossary](/help-center/knowledge-hub/glossary).
+
+**Advertising**
+
+| Metric | Formula / definition | Notes |
+|---|---|---|
+| <Term>**ACoS**</Term> | Ad Spend ÷ Ad Sales × 100 | Lower is more efficient |
+| <Term>**RoAS**</Term> | Ad Sales ÷ Ad Spend | Inverse of ACoS, expressed as a multiplier |
+| <Term>**TACoS**</Term> | Ad Spend ÷ Total Sales × 100 | Advertising cost relative to total sales, not just ad-attributed sales |
+| <Term>**CTR**</Term> | Clicks ÷ Impressions × 100 | |
+| <Term>**CPC**</Term> | Ad Spend ÷ Clicks | |
+| <Term>**CVR**</Term> | Orders from Ads ÷ Clicks × 100 | |
+
+**Traffic and sales**
+
+| Metric | Formula / definition | Notes |
+|---|---|---|
+| **Sessions CVR** | Orders ÷ Sessions × 100 | Session-to-purchase conversion |
+| **<Term>Buy Box</Term> Win %** | Page views with your offer as Featured Offer ÷ Total page views × 100 | Active listings only |
+| **<Term>ASP</Term>** | Sales ÷ Units Sold | Average Selling Price |
+| **Return Rate** | Returns ÷ Net Revenue × 100 | FBA returns relative to revenue |
+
+**Profit and loss**
+
+| Metric | Formula / definition | Notes |
+|---|---|---|
+| **Net Revenue** | Gross Revenue − Refunds | |
+| **Gross Profit** | Net Revenue − COGS | |
+| **Operating Profit** | Gross Profit − Amazon Fees − Marketing | |
+| **Net Profit** | Adjusted Operating Profit − Net Taxes | |
+
 ---
 
-## For analysts & developers
+## For analysts: data sources & methodology
 
 **Data source** — The Analytics Essentials template connects to your BigQuery database. All DataHawk data models available in BigQuery are accessible from within the template. For a full reference of available tables and columns, see the [Exhaustive Column Referential](https://docs.google.com/spreadsheets/d/1gYGqKQP9Z71nz1lOb4y0wJ15i27NvsUzdliIJeIx0HY/edit#gid=175439716).
 

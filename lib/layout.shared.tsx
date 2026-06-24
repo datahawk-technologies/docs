@@ -56,7 +56,7 @@ export function baseOptions(): BaseLayoutProps {
       },
       {
         text: 'Contact',
-        url: 'mailto:support@datahawk.co',
+        url: '/help-center/contact',
         external: true,
       },
     ],

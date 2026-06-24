@@ -123,66 +123,62 @@ All tabs share a common filter panel:
 
 </Accordions>
 
+## Metrics
+
+Formulas used in this dashboard. Concept-level definitions for acronyms live in the [Glossary](/help-center/knowledge-hub/glossary).
+
+**Traffic and sales**
+
+| Metric | Formula / definition | Notes |
+|---|---|---|
+| **Conversion** | Shipped Units ÷ Glance Views | Vendor-side traffic-to-purchase rate |
+| **<Term>ASP</Term> (Ordered Revenue basis)** | Ordered Revenue ÷ Ordered Units | Amazon's retail price per unit — demand view |
+| **AWP (Average Wholesale Price)** | Shipped COGS ÷ Shipped Units | Actual price per unit received by the vendor from Amazon |
+| **Return Rate** | Customer Returns ÷ Shipped Revenue × 100 | Returns applied to the original sale date |
+
+**Advertising**
+
+| Metric | Formula / definition | Notes |
+|---|---|---|
+| <Term>**ACoS**</Term> | Ad Spend ÷ Ad Sales × 100 | Lower is more efficient |
+| <Term>**RoAS**</Term> | Ad Sales ÷ Ad Spend | Inverse of ACoS, expressed as a multiplier |
+| <Term>**TACoS**</Term> | Ad Spend ÷ Shipped COGS × 100 | Calculated at account level (total Shipped COGS) or product level (SP + SD linked to ASINs featured in the ads) |
+| <Term>**CTR**</Term> | Clicks ÷ Impressions × 100 | |
+| <Term>**CVR**</Term> | Orders from Ads ÷ Clicks × 100 | |
+| **Ad Sales Ratio** | Ad Sales ÷ Shipped Revenue × 100 | Share of revenue attributed to ads |
+
+**Inventory**
+
+| Metric | Formula / definition | Notes |
+|---|---|---|
+| **Procurable OOS Rate** | OOS Glance Views on procurable ASINs ÷ Total GVs | Manufacturing view only |
+| **Receive Fill Rate** | Received Quantity ÷ Confirmed Quantity | Procurable ASINs only |
+| **Vendor Confirmation Rate** | Accepted Quantity ÷ Quantity submitted by Amazon | |
+
 ---
 
-## For analysts & developers
+## For analysts: data sources & methodology
 
-**Traffic metrics**
+### Source tables and datasets
 
-- **Glance Views (GVs)** — Views of the product detail page when Retail is the featured seller
-- **Conversion** — Shipped Units ÷ Glance Views
+This dashboard reads from your connected Vendor Central and Advertising accounts. For a full column reference, see the [Exhaustive Column Referential](https://docs.google.com/spreadsheets/d/1gYGqKQP9Z71nz1lOb4y0wJ15i27NvsUzdliIJeIx0HY/edit#gid=175439716).
 
-**Sales metrics**
+- **Traffic** — Vendor Central Glance Views (Retail-featured product detail page views).
+- **Sales** — Vendor Central Sales Diagnostic (Shipped Revenue, Shipped COGS, Shipped Units, Ordered Revenue, Ordered Units, Customer Returns).
+- **Inventory** — Vendor Central Inventory Health (Sellable On Hand, Unsellable On Hand, Aged 90+ Days, Net Received, Open Purchase Order Units, Unfilled Customer Ordered Units) and PO operations (Average Vendor Lead Time, Receive Fill Rate, Vendor Confirmation Rate).
+- **Advertising** — Amazon Ads API daily feeds for Sponsored Products, Sponsored Brands, and Sponsored Display, plus the Ad Clicks Ratio metric added in the October 2025 release.
 
-- **Shipped Revenue** — Revenue at the time of shipment
-- **Shipped COGS** — Price paid to the vendor × units shipped (brand's actual revenue from Amazon)
-- **Shipped Units** — Units shipped to customers
-- **ASP** — Average Selling Price
-- **Ordered Revenue** — Revenue from all customer orders regardless of shipment status
-- **Ordered Units** — All customer orders regardless of shipment status
-- **Sellable OH Inventory** — Value of units available for sale (last day of period)
-- **Sellable OH Inventory Units** — Number of units available for sale (last day of period)
-- **Customer Returns** — Units returned, applied to the original sale date
-- **Return Rate** — Returns as % of total shipped revenue
+### Attribution and methodology
 
-**Inventory metrics**
+- **Manufacturing vs Sourcing view** — Procurable Products Out of Stock Rate (OOS GVs on procurable ASINs ÷ Total GVs) is only populated in the Manufacturing view. Receive Fill Rate also restricts to procurable ASINs.
+- **Customer Returns** are applied to the original sale date, not the date of the return.
+- **Shipped Revenue vs Shipped COGS** — Shipped Revenue is Amazon's retail price for the units it shipped; Shipped COGS is the price Amazon paid the vendor for those units (the brand's earned revenue from Amazon).
+- **Ordered Revenue and Ordered Units** capture customer demand at the time the order is placed, regardless of whether Amazon has shipped the unit. Use these for demand-side analysis; use Shipped Revenue / Shipped COGS for revenue recognition.
+- **Ad attribution** uses Amazon's 14-day post-click window. Ad Sales split into Same-SKU and Other-SKU.
+- **TACoS** is calculable two ways on this dashboard: at the account level using total Shipped COGS, or at the product level using SP + SD ad spend linked to the ASINs featured in the ads.
 
-- **Aged 90+ Days Sellable Inventory** — Units and cost of inventory ≥ 90 days old and sellable
-- **Average Vendor Lead Time Days** — Days from PO receipt to inventory arriving at a fulfillment center
-- **Net Received Inventory** — Net units/cost received by Amazon after supplier returns
-- **Open Purchase Order Units** — Units in confirmed but not yet received purchase orders
-- **Procurable Products Out of Stock Rate** — OOS GVs on procurable ASINs ÷ Total GVs (Manufacturing view only)
-- **Receive Fill Rate** — Units received ÷ Units confirmed by vendor (procurable ASINs only)
-- **Sellable On Hand Inventory** — Units and cost of sellable inventory in Amazon fulfillment centers
-- **Unfilled Customer Ordered Units** — Units ordered but not yet shipped
-- **Unsellable On Hand Inventory** — Units in fulfillment centers classified as unsellable
-- **Vendor Confirmation Rate** — Accepted PO quantity ÷ Quantity submitted by Amazon
+### Share of Voice calculation
 
-**Advertising metrics**
-
-- **Ad Spend** — Total advertising spend
-- **Ad Sales** — Ad-attributed revenue (Same-<Term>SKU</Term> and Other-SKU)
-- **Ad Sales Ratio** — Ad Sales as % of Shipped Revenue
-- **Ad Clicks Ratio** — Ad-attributed clicks as a share of total clicks, surfaced as a metric in the October 2025 release for measuring paid traffic contribution
-- **ACoS** — Ad Spend ÷ Ad Sales × 100%
-- **RoAS** — Ad Sales ÷ Ad Spend
-- **TACoS** — Ad Spend ÷ Shipped COGS × 100%
-- **CVR** — Ad Orders ÷ Clicks
-- **CTR** — Clicks ÷ Impressions
-
-**Share of Voice calculation**
-
-- **Organic SoV** — 1 ÷ rank
-- **Sponsored SoV** — (1 ÷ page) × (1 ÷ rank) × sponsored_type_factor
-- Sponsored Brands receive a 1.25× factor (25% boost) to reflect their higher placement impact vs Sponsored Products
-
-**Terminology**
-
-- **bps** — Basis points. 100 bps = 1 percentage point
-- **PoP** — Period over Period (MoM or WoW)
-- **YoY** — Year over Year (same period, prior year)
-- **SB / SD / SP** — Sponsored Brands / Sponsored Display / Sponsored Products
-
-<Callout type="info">
-  **Data source:** This dashboard uses data from your connected Vendor Central and Advertising accounts. For a full column reference, see the [Exhaustive Column Referential](https://docs.google.com/spreadsheets/d/1gYGqKQP9Z71nz1lOb4y0wJ15i27NvsUzdliIJeIx0HY/edit#gid=175439716).
-</Callout>
+- **Organic SoV** = 1 ÷ rank
+- **Sponsored SoV** = (1 ÷ page) × (1 ÷ rank) × sponsored_type_factor
+- Sponsored Brands receive a 1.25× factor (25% boost) over Sponsored Products to reflect higher placement impact.

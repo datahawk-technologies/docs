@@ -71,62 +71,113 @@ All tabs share a common filter panel in the left rail. The same data can be slic
 
 <Accordion title="Account Overview">
   Aggregated ad metrics and KPIs across all your accounts for the selected period. Shows totals for spend, sales, impressions, clicks, <Term>CTR</Term>, <Term>CVR</Term>, <Term>ACoS</Term>, and <Term>RoAS</Term>, with comparisons to the prior period.
-
-  {/* TODO: add screenshot at /images/help-center/powerbi-dashboards/advertising-dashboard/advertising-dashboard-1.gif */}
 </Accordion>
 
 <Accordion title="Account History">
-  Time-based view of account performance. Customizable chart (left and right axis metrics) and a table broken down by the selected Timeline By granularity. Filter by channel, account, or other dimensions.
-
-  {/* TODO: add screenshot at /images/help-center/powerbi-dashboards/advertising-dashboard/advertising-dashboard-2.gif */}
+This tab provides a detailed view of advertising performance over time. It includes a customizable graph to compare multiple metrics (on the left and right axes) and a table showing impressions, clicks, CTR, and other key metrics broken down by the selected Timeline By granularity (e.g., Week, Month). You can adjust slicers to analyze data by channel, account, or other dimensions.
 </Accordion>
 
 <Accordion title="Campaign Overview">
-  Summary of ad performance per campaign, with totals and prior-period comparisons. A bar chart lets you compare campaigns by a chosen metric. Includes a **Campaign Status** filter (most recent status). Channel-specific slicers: **Portfolio** and **Portfolio ID** are Amazon only; **Ad Group** and **Ad Group ID** are Walmart only. Supports **Custom Filters** based on parameters extracted from Campaign Name or Ad Group Name (Category, Targeting Type, Audience, etc.). Parameters are case-sensitive.
+This tab provides a summary of ad metrics and KPIs for different campaigns over the selected timeframe, along with a comparison to the previous period. A bar chart is included to compare campaigns based on a chosen metric or KPI, displayed alongside the table for easy analysis.
 
-  {/* TODO: add screenshot at /images/help-center/powerbi-dashboards/advertising-dashboard/advertising-dashboard-3.gif */}
+**Custom Filters**
+
+- Campaign Overview and History tabs support **Custom Filters** based on parameters defined in the **Data Model**.
+- These allow grouping and filtering by dimensions such as **Category**, **Targeting Type**, **Audience**, or other custom attributes derived from **Campaign Name** or **Ad Group Name**.
+
+<Callout type="info">
+Note: Custom parameters are case-sensitive and must exactly match the naming used in these entities.
+</Callout>
+
+On the left panel, in addition to the usual slicers, you will find a **Campaign Status** filter, allowing you to filter campaigns by their most recent status.
+
+**At this level**, certain slicers are specific to channels:
+
+- **Portfolio** and **Portfolio ID** are available only for Amazon.
+- **Ad Group** and **Ad Group ID** are available only for Walmart (for example, in the Ad Group slicer, you’ll see an option labeled ‘No ad group (Amazon)’ for non-applicable campaigns).
+
+<img
+  src="/images/help-center/powerbi-dashboards/advertising-dashboard/advertising-dashboard-1.png"
+  alt="Advertising Dashboard 1"
+  width={1200}
+  height={680}
+  className="rounded-lg border"
+/>
 </Accordion>
 
 <Accordion title="Campaign History">
   Time-based breakdown of campaign performance. Same dual-axis chart and granularity controls as Account History, but at campaign level.
 
-  {/* TODO: add screenshot at /images/help-center/powerbi-dashboards/advertising-dashboard/advertising-dashboard-4.gif */}
+<img
+  src="/images/help-center/powerbi-dashboards/advertising-dashboard/advertising-dashboard-2.png"
+  alt="Advertising Dashboard 2"
+  width={1200}
+  height={680}
+  className="rounded-lg border"
+/>
 </Accordion>
 
 <Accordion title="Product Overview">
-  Product-level performance for **Sponsored Products and Sponsored Display** only. Includes totals, prior-period comparisons, and a bar chart for ranking products by a chosen metric. Extra filters: Product Name, Product Tag, and Brand. Product Tags are created in the DataHawk app.
+The **Product Overview Tab** provides a comprehensive summary of product-level advertising   performance *(Sponsored Products & Sponsored Display)* for the selected timeframe. It includes totals for key metrics and KPIs, along with a comparison to the previous period. A bar chart is available to compare products based on a chosen metric or KPI, displayed alongside the table.
 
-  {/* TODO: add screenshot at /images/help-center/powerbi-dashboards/advertising-dashboard/advertising-dashboard-5.gif */}
+In addition to the usual filters, this tab includes product-specific filters such as **Product Name**, **Product Tag**, and **Brand**. The **Product Tag** filter allows you to segment products based on tags created within the DataHawk app.
+
+<img
+  src="/images/help-center/powerbi-dashboards/advertising-dashboard/advertising-dashboard-3.png"
+  alt="Advertising Dashboard 3"
+  width={1200}
+  height={680}
+  className="rounded-lg border"
+/>
+
 </Accordion>
 
 <Accordion title="Product History">
-  Time-based breakdown of product ad performance. Supports Product Name, Product Tag, and Brand filters.
+The Product History Tab offers a detailed view of product-level advertising performance over time. It features a customizable graph for comparing multiple metrics on the left and right axes and a table showing key metrics like impressions, clicks, and CTR, broken down by the selected Timeline By granularity (e.g., Week, Month). Filters specific to products, such as Product Name, Product Tag, and Brand, can also be applied for more focused analysis.
 
-  {/* TODO: add screenshot at /images/help-center/powerbi-dashboards/advertising-dashboard/advertising-dashboard-6.gif */}
+<img
+  src="/images/help-center/powerbi-dashboards/advertising-dashboard/advertising-dashboard-4.png"
+  alt="Advertising Dashboard 4"
+  width={1200}
+  height={680}
+  className="rounded-lg border"
+/>
 </Accordion>
 
 <Accordion title="Keyword Overview">
   Keyword and search term performance for the selected period. You can view data by **Keyword** or **Search Term**. Additional filters: Search Term, Match Type, Keyword Tag, Ad Group Name, and Ad Group ID (both available for Amazon and Walmart).
 
-  {/* TODO: add screenshot at /images/help-center/powerbi-dashboards/advertising-dashboard/advertising-dashboard-7.gif */}
+  <img
+  src="/images/help-center/powerbi-dashboards/advertising-dashboard/advertising-dashboard-5.png"
+  alt="Advertising Dashboard 5"
+  width={1200}
+  height={680}
+  className="rounded-lg border"
+/>
+
 </Accordion>
 
 <Accordion title="Keyword History">
   Timeline-based analysis of keyword performance. Useful for tracking trends in CTR, CVR, or spend for specific keywords or match types.
 
-  {/* TODO: add screenshot at /images/help-center/powerbi-dashboards/advertising-dashboard/advertising-dashboard-8.gif */}
+<img
+  src="/images/help-center/powerbi-dashboards/advertising-dashboard/advertising-dashboard-6.png"
+  alt="Advertising Dashboard 6"
+  width={1200}
+  height={680}
+  className="rounded-lg border"
+/>
+
 </Accordion>
 
 <Accordion title="Brand Store Overview">
   Aggregated Brand Store advertising performance: impressions, clicks, CTR, and other key metrics. Bar chart for comparing stores by a selected metric.
 
-  {/* TODO: add screenshot at /images/help-center/powerbi-dashboards/advertising-dashboard/advertising-dashboard-9.gif */}
 </Accordion>
 
 <Accordion title="Brand Store History">
   Time-based view of Brand Store performance trends using the same dual-axis chart controls as other History tabs.
 
-  {/* TODO: add screenshot at /images/help-center/powerbi-dashboards/advertising-dashboard/advertising-dashboard-10.gif */}
 </Accordion>
 
 <Accordion title="DSP Overview">
@@ -145,13 +196,11 @@ All tabs share a common filter panel in the left rail. The same data can be slic
     **DSP filter behavior (April 2026):** DSP data is **no longer filtered by the marketplace of the related advertising account**. DSP performance isn't marketplace-specific, so all DSP advertisers tied to your connection now surface here regardless of the Marketplace slicer. Expect to see more DSP volume than before, especially if you previously narrowed the dashboard by marketplace.
   </Callout>
 
-  {/* TODO: add screenshot at /images/help-center/powerbi-dashboards/advertising-dashboard/advertising-dashboard-11.gif */}
 </Accordion>
 
 <Accordion title="Explorer">
   Flexible, ad hoc analysis tool. Build a custom graph (left and right axis metrics) and a custom table grouped by any dimension. Separate predefined summary table groups metrics by Advertiser, Order Name, Line Item Type, Line Item Name, Creative Type, and Creative Name.
 
-  {/* TODO: add screenshot at /images/help-center/powerbi-dashboards/advertising-dashboard/advertising-dashboard-12.gif */}
 </Accordion>
 
 </Accordions>
@@ -186,66 +235,65 @@ Map your terms to the right parameter (Category, Targeting Type, Audience, etc.)
   **Parameters are case-sensitive.** `Retargeting` and `retargeting` are treated as different values.
 </Callout>
 
----
+## Metrics
 
-## For analysts & developers
+Formulas used in this dashboard. Concept-level definitions for acronyms live in the [Glossary](/help-center/knowledge-hub/glossary).
 
-**Ad entities**
-
-- **Ad Account** — Seller name (Amazon) or account key (Walmart)
-- **Marketplace** — Amazon or Walmart, by country
-- **Campaign** — A set of ad groups and keywords targeting a specific audience or goal
-- **Portfolio (Amazon only)** — Grouping of campaigns for shared budget management
-- **Ad Group** — Subset of a campaign organizing ads and targeting settings
-- **Product** — Item being promoted (available for SP and SD only)
-- **Search Term** — The exact phrase a user typed into the search bar
-- **Keyword** — The targeting criterion set by the advertiser (not always the same as the search term)
-- **Brand Entity ID / Brand Name** — Brand-level identifier for Brand Store campaigns
-- **Order (DSP)** — High-level budget grouping within a DSP campaign
-- **Line Item (DSP)** — Specific targeting and delivery settings within an order
-- **Creative (DSP)** — Individual ad asset including type (display/video) and size
-
-**Campaign types**
-
-- **Sponsored Products (SP)** — Individual products in search results and detail pages
-- **Sponsored Brands (<Term>SB</Term>)** — Brand logo, headline, and product selection in search results
-- **Sponsored Videos** — Video ads in search results
-- **Sponsored Display (SD)** — Ads on Amazon and third-party sites based on audience targeting
-
-**Core metrics**
-
-- **Ad Spend** — Total advertising spend
-- **Ad Sales** — Revenue from ad-attributed sales
-- **Ad Sales Same-<Term>SKU</Term>** — Revenue from the advertised product itself
-- **Ad Sales Other-<Term>SKU</Term>** — Revenue from other products bought after clicking the ad
-- **Impressions** — Times the ad was shown
-- **Clicks** — Times the ad was clicked
-- **Orders** — Total orders from the campaign
-
-**KPI metrics**
-
-- **CTR** — Clicks ÷ Impressions × 100%
-- **CPC** — Total Spend ÷ Clicks
-- **CVR** — Orders ÷ Clicks × 100%
-- **ACoS** — Ad Spend ÷ Ad Sales × 100%. Lower = more efficient. ACoS of 30% = you spend 30% of ad revenue on ads
-- **RoAS** — Ad Sales ÷ Ad Spend. Higher = more efficient. RoAS of 5 = you earn 5× your ad spend in revenue
-- **New to Brand Sales** — Revenue from first-time brand shoppers (SB, SD, DSP)
-- **New to Brand Orders** — Orders from first-time brand shoppers (SB, SD)
-- **New to Brand <Term>DPV</Term>** — Detail page views from new-to-brand shoppers (SD only)
+| Metric | Formula / definition | Notes |
+|---|---|---|
+| <Term>**ACoS**</Term> | Ad Spend ÷ Ad Sales × 100 | Lower is more efficient. ACoS of 30% means you spend 30% of ad revenue on ads |
+| <Term>**RoAS**</Term> | Ad Sales ÷ Ad Spend | Inverse of ACoS, expressed as a multiplier. RoAS of 5 means you earn 5× your ad spend in revenue |
+| <Term>**CTR**</Term> | Clicks ÷ Impressions × 100 | Higher CTR implies ads are engaging |
+| <Term>**CPC**</Term> | Ad Spend ÷ Clicks | Higher CPC may indicate more competitive ad space |
+| <Term>**CVR**</Term> | Orders ÷ Clicks × 100 | Attribution per Amazon's 14-day post-click window |
+| **New to Brand Sales** | Revenue from first-time brand shoppers | Available for Sponsored Brands, Sponsored Display, and DSP |
+| **New to Brand Orders** | Orders from first-time brand shoppers | Available for Sponsored Brands and Sponsored Display |
+| **New to Brand DPV** | Detail page views from new-to-brand shoppers | Sponsored Display only |
+| **New to Brand DPV Clicks** | Ad clicks that resulted in a new-to-brand detail page view | Sponsored Display only |
 
 **DSP-specific metrics**
 
-- **Gross Clicks** — All clicks including potentially invalid ones
-- **DPV** — Product detail page views within 14 days of ad interaction
-- **DPVR** — DPV ÷ Impressions
-- **Total Cost** — Total DSP investment
-- **eCPM** — Total Cost ÷ Impressions × 1,000
-- **eCP DPV** — Total Cost ÷ DPV
-- **Purchase Rate** — Purchases ÷ Impressions
+| Metric | Formula / definition | Notes |
+|---|---|---|
+| **Total Cost** | Total investment in DSP campaigns | |
+| <Term>**DPV**</Term> | Product detail page views within 14 days of an ad click or view | |
+| <Term>**DPVR**</Term> | DPV ÷ Impressions | |
+| **eCPM** | Total Cost ÷ Impressions × 1,000 | Effective cost per thousand impressions |
+| **eCP DPV** | Total Cost ÷ DPV | Effective cost per detail page view |
+| **<Term>RoAS</Term> (DSP)** | Total Sales ÷ Total Cost | DSP uses Total Cost instead of Ad Spend |
+| **Purchase Rate** | Purchases ÷ Impressions | |
+| **Gross Clicks** | All clicks including potentially invalid ones | |
 
-<Callout type="info">
-  **Data source:** Data is sourced from [Amazon's Ads API](https://advertising.amazon.com/API/docs/en-us/info/api-overview) and [Walmart Connect](https://advertising.walmart.com/signin). For a full column reference, see the [Exhaustive Column Referential](https://docs.google.com/spreadsheets/d/1gYGqKQP9Z71nz1lOb4y0wJ15i27NvsUzdliIJeIx0HY/edit#gid=175439716). For dataset details, see the [Amazon Advertising account data model](/help-center/data-setup/ads-account).
-</Callout>
+---
+
+## For analysts: data sources & methodology
+
+### Source tables and datasets
+
+Data is sourced from [Amazon's Ads API](https://advertising.amazon.com/API/docs/en-us/info/api-overview) and [Walmart Connect](https://advertising.walmart.com/signin). For a full column reference, see the [Exhaustive Column Referential](https://docs.google.com/spreadsheets/d/1gYGqKQP9Z71nz1lOb4y0wJ15i27NvsUzdliIJeIx0HY/edit#gid=175439716). For dataset details, see the [Amazon Advertising account data model](/help-center/data-setup/ads-account).
+
+For a full column reference, see the [Exhaustive Column Referential](https://docs.google.com/spreadsheets/d/1gYGqKQP9Z71nz1lOb4y0wJ15i27NvsUzdliIJeIx0HY/edit#gid=175439716).
+
+### Ad entities
+
+These are the dashboard-context entities used to group and filter ad performance. They are not glossary terms.
+
+- **Ad Account** — Seller name (Amazon) or account key (Walmart).
+- **Campaign** — A set of ad groups and keywords targeting a specific audience or goal.
+- **Portfolio** (Amazon only) — Grouping of campaigns for shared budget management.
+- **Ad Group** — Subset of a campaign organizing ads and targeting settings.
+- **Search Term** — The exact phrase a user typed into the search bar.
+- **Keyword** — The targeting criterion set by the advertiser (not always the same as the search term).
+- **Brand Entity ID / Brand Name** — Brand-level identifier for Brand Store campaigns.
+- **Order** (DSP) — High-level budget grouping within a DSP campaign.
+- **Line Item** (DSP) — Specific targeting and delivery settings within an order.
+- **Creative** (DSP) — Individual ad asset including type (display/video) and size.
+
+### Attribution and methodology
+
+Ad performance metrics use Amazon's 14-day post-click attribution window for sales, orders, and conversions. DSP RoAS uses Total Cost (not Ad Spend) and includes both view-through and click-through attribution within the same 14-day window.
+
+{/* TODO: confirm same-SKU vs other-SKU attribution logic. Confirm how returns / cancellations affect Ad Sales. Confirm currency conversion rules for cross-marketplace aggregation. Confirm data freshness / latency. */}
 
 <Callout type="info">
   **Changelog (January 2026):**

@@ -34,15 +34,17 @@ DataHawk's Seller + Vendor Analytics Dashboard consolidates reporting across bot
 
 | Tab | What it shows |
 |---|---|
-| **Overview** | Combined Seller + Vendor executive summary with blended revenue, units, page views, and advertising metrics |
-| **Sales (Seller)** | Seller Central sales performance: orders, units, <Term>ASP</Term>, AOV, page views, and conversion |
-| **Sales (Vendor)** | Vendor Central sales performance: Shipped <Term>COGS</Term>, Ordered Revenue, Glance Views, and conversion |
+| **Executive Seller + Vendor** | Combined Seller + Vendor executive summary with blended revenue, units, page views, and advertising metrics |
+| **Traffic Seller** | Seller Central traffic metrics |
+| **Traffic Vendor** | Vendor Central traffic metrics |
+| **Sales Seller** | Seller Central sales performance: orders, units, <Term>ASP</Term>, AOV, page views, and conversion |
+| **Sales Vendor** | Vendor Central sales performance: Shipped <Term>COGS</Term>, Ordered Revenue, Glance Views, and conversion |
 | **Advertising** | Consolidated advertising performance across <Term>SP</Term>, <Term>SB</Term>, and <Term>SD</Term> for both channels |
-| **P&L (Seller)** | Full profit and loss for Seller Central — gross revenue through net profit |
-| **P&L (Vendor)** | Full profit and loss for Vendor Central — shipped revenue through net profit |
-| **Inventory Timeline** | 30-day <Term>FBA</Term> inventory history across all fulfillment stages (Seller) |
-| **FBA Recommendations** | Amazon's restock suggestions and custom replenishment calculations (Seller) |
-| **Inventory Snapshot** | Vendor inventory health, aging, purchase orders, and Amazon demand forecast |
+| **P&L** | Full profit and loss for Seller Central — gross revenue through net profit |
+| **Profit Explorer** | Full profit and loss for Vendor Central — shipped revenue through net profit |
+| **Inventory Timeline Seller** | 30-day <Term>FBA</Term> inventory history across all fulfillment stages (Seller) |
+| **FBA Recommendations Seller** | Amazon's restock suggestions and custom replenishment calculations (Seller) |
+| **Vendor Inventory Snapshot** | Vendor inventory health, aging, purchase orders, and Amazon demand forecast |
 | **Explorer** | Custom cross-metric analysis with any two metrics plotted over a configurable timeline |
 | **Download Center** | Build and export custom data tables by selecting rows, columns, and metrics |
 
@@ -73,129 +75,550 @@ Global slicers apply to all pages unless a page has its own local slicer, in whi
 ## Dashboard reports page by page
 
 <Accordions>
+
   <Accordion title="Executive Seller + Vendor">
-    A combined Seller + Vendor executive summary at a glance. Designed to give brand managers and executives a single view of the full business.
+    The combined Executive tab provides a unified overview of performance across both channels.
+    
+    **Summary bar** at the top displays the following KPIs for the selected period, with latest month values and PoP change:
+    
+| Metric| What it shows| 
+|---|---|
+| Page Views| Total Seller Page Views + Vendor Glance Views, split by channel
+| Unit View Percentage| Combined and split by Seller / Vendor
+| Total Earned Revenue| Combined (Seller Sales + Vendor Shipped COGS), split by channel
+| Total Units Ordered| Combined, split by channel
+| Ad Spend| Combined, split by channel
+| TACoS (Ordered Revenue basis)| Combined, split by channel
 
-    **KPI bar** at the top includes: Total Earned Revenue, Total Ordered Revenue, Total Ordered Units, Total Page Views, Unit View %, Blended ASP (Ordered Revenue basis), Blended ASP (Earned Revenue basis), Ad Spend (SP+SD), <Term>ACoS</Term> (SP+SD), <Term>TACoS</Term> (Ordered Revenue basis), TACoS (Earned Revenue basis) — plus all PoP/YoY comparators.
+<img
+  src="/images/help-center/powerbi-dashboards/seller-vendor-analytics-dashboard/seller-vendor-analytics-dashboard-1.png"
+  alt="Seller Vendor Analytics Dashboard 1"
+  width={1200}
+  height={680}
+  className="rounded-lg border"
+/>
 
-    **Timeline chart**: pick any available metric to plot over time. Granularity is controlled by the global Granularity slicer.
+**Line charts** show monthly trends for each KPI vs the previous year, with separate series for Seller and Vendor:
 
-    **Split donut chart**: revenue share by channel (Seller vs. Vendor).
+- Page Views vs Prev Year (Seller Page Views + Vendor Glance Views)
+- Unit View Percentage vs Prev Year
+- Units Ordered vs Prev Year
+- Total Earned Revenue vs Prev Year (Seller Sales + Vendor Shipped COGS)
+- Ad Sales vs Prev Year
+- Ad Spend vs Prev Year
 
-    **Seller breakdown cards**: Ordered Product Sales, Units Ordered, ASP, AOV, Orders, Page Views, Conversion.
+<img
+  src="/images/help-center/powerbi-dashboards/seller-vendor-analytics-dashboard/seller-vendor-analytics-dashboard-2.png"
+  alt="Seller Vendor Analytics Dashboard 2"
+  width={1200}
+  height={680}
+  className="rounded-lg border"
+/>
 
-    **Vendor breakdown cards**: Shipped COGS, Ordered Revenue, Shipped Revenue, Ordered Units, Glance Views, Conversion (Glance Views to Shipped Units).
+**Main metrics table** displays monthly values for all core metrics with PoP and YoY comparisons, broken down by Seller and Vendor columns with a combined Total. Metrics included:
 
-{/* TODO: Replace this Notion image with a local copy in /public/images/powerbi-dashboards/ */}
+- Page Views / PoP / (no YoY in combined view)
+- Unit View Percentage / PoP Abs / YoY Abs
+- Total Earned Revenue / PoP / YoY
+- Total Ordered Revenue / PoP / YoY
+- Total Units Ordered / PoP
+- ASP Earned Revenue basis / PoP Abs / YoY Abs
+- ASP Ordered Revenue basis / PoP Abs / YoY Abs
+- etc
+
+<Callout type="info">
+ Advertising metrics are account level and include all sponsored types (SB + SP + SD). They switch automatically to product-level metrics (SP + SD only) when product-level filters (Tag, Brand, ASIN, Product Name) are applied.
+</Callout>
+
+Use the Metrics slicer above the table to adjust which metrics are shown.
+
+<img
+  src="/images/help-center/powerbi-dashboards/seller-vendor-analytics-dashboard/seller-vendor-analytics-dashboard-3.png"
+  alt="Seller Vendor Analytics Dashboard 3"
+  width={1200}
+  height={680}
+  className="rounded-lg border"
+/>
+
+Breakdown table (Selected Period) shows the main metrics split by Account Type (Seller / Vendor) or another Dimension you can choose in the slicer.
+
+<img
+  src="/images/help-center/powerbi-dashboards/seller-vendor-analytics-dashboard/seller-vendor-analytics-dashboard-4.png"
+  alt="Seller Vendor Analytics Dashboard 4"
+  width={1200}
+  height={680}
+  className="rounded-lg border"
+/>
+
+Drill Down Analysis section at the bottom allows you to explore performance by Country, Brand, Tag, and ASIN. The date range for this section has its own slicer (defaulting to the last 5 weeks). Click any row to filter the other tables. Use Ctrl + Click to select multiple rows.
+
+<img
+  src="/images/help-center/powerbi-dashboards/seller-vendor-analytics-dashboard/seller-vendor-analytics-dashboard-5.png"
+  alt="Seller Vendor Analytics Dashboard 5"
+  width={1200}
+  height={680}
+  className="rounded-lg border"
+/>
+<Callout type="info">
+ The Drill Down tables use a separate date slicer from the main reporting period at the top of the page.
+</Callout>
 
   </Accordion>
 
-  <Accordion title="Sales">
+<Accordion title="Executive Seller + Vendor - Executive Seller">
+The Seller-only Executive tab follows the same structure as the combined tab, focused exclusively on Seller Central data.
+    
+**Summary bar** KPIs:
 
-    Detailed sales performance, split by channel.
+- Page Views
+- Unit View Percentage
+- Sales (Ordered Product Sales)
+- Units Sold
+- Net Profit Margin %
+- Refund Rate
 
-    <Tabs items={['Seller', 'Vendor']}>
+**Line charts** cover Sales, Adjusted Operating Profit, Ad Sales, Unit View Percentage, Units Sold, Net Profit Margin %, and Ad Spend, each vs Prev Year.
+<img
+  src="/images/help-center/powerbi-dashboards/seller-vendor-analytics-dashboard/seller-vendor-analytics-dashboard-6.png"
+  alt="Seller Vendor Analytics Dashboard 6"
+  width={1200}
+  height={680}
+  className="rounded-lg border"
+/>
 
-    <Tab value="Seller">
+**Main metrics table** (monthly, with PoP and YoY):
 
-    **KPI bar**: Ordered Product Sales, Units Ordered, Orders, ASP, AOV, Page Views, Conversion — plus all PoP/YoY comparators.
+- Page Views, Page Views YoY
+- Unit View Percentage / PoP Abs / YoY Abs
+- Sales / PoP / YoY
+- Units Sold / PoP / YoY
+- Order Count / PoP / YoY
+- ASP / PoP Abs / YoY Abs
+- AOV / PoP Abs / YoY Abs
+- Gross Revenue / PoP / YoY
+- etc
 
-    **Timeline charts**: Ordered Product Sales and Units Ordered over time.
+<img
+  src="/images/help-center/powerbi-dashboards/seller-vendor-analytics-dashboard/seller-vendor-analytics-dashboard-7.png"
+  alt="Seller Vendor Analytics Dashboard 7"
+  width={1200}
+  height={680}
+  className="rounded-lg border"
+/>
 
-    **Best/Worst performers bar chart**: compare products side by side. Toggle between Best and Worst using the slider above the chart.
+Breakdown table (Selected Period) shows performance by Dimension you choose in the slicer, with columns for Sales & Volume, Profit, Traffic & Conversion, and Price.
+  </Accordion>
 
-    **Sales breakdown table**: Ordered Product Sales, Units Ordered, Orders, ASP, AOV, Conversion, Page Views — by Seller Account, <Term>ASIN</Term>, and Product Name.
+  <Accordion title="Executive Seller + Vendor - Executive Vendor">
+The Vendor-only Executive tab focuses on Vendor Central data.
 
-{/* TODO: Replace this Notion image with a local copy in /public/images/powerbi-dashboards/ */}
+**Summary bar** KPIs:
 
-    </Tab>
+- Glance Views
+- Unit View Percentage
+- Shipped COGS
+- Ordered Revenue
+- ASP Earned Revenue basis (AWP)
+- ASP Ordered Revenue basis
 
-    <Tab value="Vendor">
+**Line charts** cover Glance Views, Unit View Percentage, Shipped Revenue, Shipped COGS, Ad Sales, and Ad Spend, each vs Prev Year.
 
-    **KPI bar**: Shipped <Term>COGS</Term>, Shipped Revenue, Ordered Revenue, Ordered Units, Glance Views, Conversion (Glance Views to Shipped Units) — plus all PoP/YoY comparators.
+<img
+  src="/images/help-center/powerbi-dashboards/seller-vendor-analytics-dashboard/seller-vendor-analytics-dashboard-8.png"
+  alt="Seller Vendor Analytics Dashboard 8"
+  width={1200}
+  height={680}
+  className="rounded-lg border"
+/>
 
-    **Timeline charts**: Shipped COGS and Ordered Revenue over time, overlaid on the same chart.
+**Main metrics table** (monthly, with PoP and YoY):
 
-    **Best/Worst performers bar chart**: compare products side by side. Toggle between Best and Worst using the slider above the chart.
+- Page Views, Page Views YoY
+- Unit View Percentage / PoP Abs / YoY Abs
+- Sales / PoP / YoY
+- Units Sold / PoP / YoY
+- Order Count / PoP / YoY
+- ASP / PoP Abs / YoY Abs
+- AOV / PoP Abs / YoY Abs
+- Gross Revenue / PoP / YoY
+- etc
 
-    **Breakdown table**: Shipped COGS, Ordered Revenue, Shipped Revenue, Ordered Units, Glance Views, Conversion — by Vendor Account, ASIN, and Product Name.
+<img
+  src="/images/help-center/powerbi-dashboards/seller-vendor-analytics-dashboard/seller-vendor-analytics-dashboard-9.png"
+  alt="Seller Vendor Analytics Dashboard 9"
+  width={1200}
+  height={680}
+  className="rounded-lg border"
+/>
 
-    </Tab>
+Breakdown table (Selected Period) shows performance by Country, with Shipped COGS, Ordered Revenue, Glance Views, Unit View Percentage, ASP Ordered Revenue basis, and ASP Earned Revenue basis per country.
 
-    </Tabs>
+<img
+  src="/images/help-center/powerbi-dashboards/seller-vendor-analytics-dashboard/seller-vendor-analytics-dashboard-10.png"
+  alt="Seller Vendor Analytics Dashboard 10"
+  width={1200}
+  height={680}
+  className="rounded-lg border"
+/>
 
+<Callout type="info">
+The Vendor tab includes a Distribution View slicer (Manufacturing / Sourcing) that controls how inventory and procurement data is grouped.
+</Callout>
+
+  </Accordion>
+
+  <Accordion title="Traffic Seller">
+Displays Seller traffic metrics.
+
+**Summary bar**: Page Views, Buy Box Win %, Unit View Percentage, Conversion (Session to Order).
+
+**Line charts**: Page Views and Unit View Percentage vs Prev Year.
+
+<img
+  src="/images/help-center/powerbi-dashboards/seller-vendor-analytics-dashboard/seller-vendor-analytics-dashboard-11.png"
+  alt="Seller Vendor Analytics Dashboard 11"
+  width={1200}
+  height={680}
+  className="rounded-lg border"
+/>
+
+**Main Metrics table by Dimension chosen in the slicer above (weekly/monthly/quarterly)**: Page Views, Sessions, Buy Box Win %, Unit View Percentage, Sales, Units Sold, ASP — with PoP, YoY.
+
+**Breakdown table** (Latest Period): Page Views distribution, Sessions, Buy Box Win %, Units Sold distribution, Unit View Percentage — per Dimension chosen in the slicer above.
+
+<img
+  src="/images/help-center/powerbi-dashboards/seller-vendor-analytics-dashboard/seller-vendor-analytics-dashboard-12.png"
+  alt="Seller Vendor Analytics Dashboard 12"
+  width={1200}
+  height={680}
+  className="rounded-lg border"
+/>
+
+**ASIN tables at the bottom**:
+
+- Page Views by ASIN — Top 1000 (with PoP Abs, PoP %, YoY %, Buy Box Win %, Unit View Percentage)
+- Gainers by ASIN — Top 1000
+- Decliners by ASIN — Top 1000
+
+<img
+  src="/images/help-center/powerbi-dashboards/seller-vendor-analytics-dashboard/seller-vendor-analytics-dashboard-13.png"
+  alt="Seller Vendor Analytics Dashboard 13"
+  width={1200}
+  height={680}
+  className="rounded-lg border"
+/>
+  </Accordion>
+
+  <Accordion title="Traffic Vendor">
+Displays Vendor traffic metrics.
+
+**Summary bar**: Glance Views, Unit View Percentage, GV OOS (Manufacturing), Proc OOS % (Manufacturing).
+
+**Line charts**: Glance Views and Unit View Percentage vs Prev Year.
+
+<img
+  src="/images/help-center/powerbi-dashboards/seller-vendor-analytics-dashboard/seller-vendor-analytics-dashboard-14.png"
+  alt="Seller Vendor Analytics Dashboard 14"
+  width={1200}
+  height={680}
+  className="rounded-lg border"
+/>
+
+**Main metrics table** (weekly/monthly/quarterly): Glance Views, Ordered Revenue, Unit View Percentage, GV OOS, Proc OOS % — with PoP, YoY.
+
+**Breakdown table** (Latest Period) by Dimension chosen in the slicer above: Glance Views distribution, Ordered Revenue distribution, Ordered Units, Unit View Percentage, GV OOS, Proc OOS %.
+
+<img
+  src="/images/help-center/powerbi-dashboards/seller-vendor-analytics-dashboard/seller-vendor-analytics-dashboard-15.png"
+  alt="Seller Vendor Analytics Dashboard 15"
+  width={1200}
+  height={680}
+  className="rounded-lg border"
+/>
+
+**ASIN tables at the bottom**:
+
+- Traffic by ASIN — Top 1000
+- Decliners by ASIN — Top 1000
+- Gainers by ASIN — Top 1000
+
+<img
+  src="/images/help-center/powerbi-dashboards/seller-vendor-analytics-dashboard/seller-vendor-analytics-dashboard-16.png"
+  alt="Seller Vendor Analytics Dashboard 16"
+  width={1200}
+  height={680}
+  className="rounded-lg border"
+/>
+  </Accordion>
+
+
+  <Accordion title="Sales Seller">
+**Summary bar**: Sales, Units Sold, ASP, AOV.
+
+**Line charts**: Sales, Units Sold, Order Count, ASP — vs Prev Year.
+
+Bar chart: Sales by shipping country (drillable to state → city → postal code). Donut chart: Order count by order status.
+
+<img
+  src="/images/help-center/powerbi-dashboards/seller-vendor-analytics-dashboard/seller-vendor-analytics-dashboard-17.png"
+  alt="Seller Vendor Analytics Dashboard 17"
+  width={1200}
+  height={680}
+  className="rounded-lg border"
+/>
+
+**Main metrics table** (weekly/monthly/quarterly) by Dimension chosen in the slicer above: Sales, Units Sold, Order Count, ASP, AOV — with PoP, YoY.
+
+**Breakdown table** (Latest Period) by Dimension chosen in the slicer above: Sales distribution, Units Sold, Order Count, ASP, AOV — per Seller name.
+
+<img
+  src="/images/help-center/powerbi-dashboards/seller-vendor-analytics-dashboard/seller-vendor-analytics-dashboard-18.png"
+  alt="Seller Vendor Analytics Dashboard 18"
+  width={1200}
+  height={680}
+  className="rounded-lg border"
+/>
+
+**ASIN tables at the bottom**:
+
+- Sales by ASIN — Top 1000
+- Decliners by ASIN — Top 1000
+- Gainers by ASIN — Top 1000
+
+<img
+  src="/images/help-center/powerbi-dashboards/seller-vendor-analytics-dashboard/seller-vendor-analytics-dashboard-19.png"
+  alt="Seller Vendor Analytics Dashboard 19"
+  width={1200}
+  height={680}
+  className="rounded-lg border"
+/>
+  </Accordion>
+
+  <Accordion title="Sales Vendor">
+**Summary bar**: Shipped COGS, Ordered Revenue, ASP Earned Revenue basis (AWP), ASP Ordered Revenue basis, Return Rate.
+
+**Line charts**: Shipped Revenue, Shipped COGS, Shipped Units, ASP (both bases) — vs Prev Year.
+
+<img
+  src="/images/help-center/powerbi-dashboards/seller-vendor-analytics-dashboard/seller-vendor-analytics-dashboard-20.png"
+  alt="Seller Vendor Analytics Dashboard 20"
+  width={1200}
+  height={680}
+  className="rounded-lg border"
+/>
+
+**Main metrics table** (weekly/monthly/quarterly) by Dimension chosen in the slicer above: Shipped COGS, Shipped Revenue, Ordered Revenue, Ordered Units, Shipped Units, ASP Ordered Revenue basis, ASP Earned Revenue basis, Return Rate — with PoP, YoY.
+
+**Country breakdown table** (Latest Period) by Dimension chosen in the slicer above: Shipped COGS distribution, Shipped Revenue, Ordered Revenue, ASP Ordered Revenue basis, ASP Earned Revenue basis, Return Rate — per country.
+
+<img
+  src="/images/help-center/powerbi-dashboards/seller-vendor-analytics-dashboard/seller-vendor-analytics-dashboard-21.png"
+  alt="Seller Vendor Analytics Dashboard 21"
+  width={1200}
+  height={680}
+  className="rounded-lg border"
+/>
+
+**ASIN tables at the bottom**:
+
+- Sales by ASIN — Top 1000 (with Shipped COGS, Ordered Revenue, both ASPs, Glance Views, Unit View Percentage, Return Rate)
+- Gainers by ASIN — Top 1000
+- Decliners by ASIN — Top 1000
+
+<img
+  src="/images/help-center/powerbi-dashboards/seller-vendor-analytics-dashboard/seller-vendor-analytics-dashboard-22.png"
+  alt="Seller Vendor Analytics Dashboard 22"
+  width={1200}
+  height={680}
+  className="rounded-lg border"
+/>
   </Accordion>
 
   <Accordion title="Advertising">
-    Consolidated advertising performance across both Seller Central and Vendor Central campaigns.
+ Covers advertising performance across Seller and Vendor accounts.
 
-    **KPI bar**: Ad Sales (SP+SD), Ad Spend (SP+SD), Impressions (SP+SD), Clicks (SP+SD), Orders (SP+SD), <Term>ACoS</Term> (SP+SD), <Term>RoAS</Term> (SP+SD), CTR, CVR, <Term>TACoS</Term> (Ordered Revenue basis), TACoS (Earned Revenue basis).
+Accessible via three sub-tabs at the top: **📢 Advertising** (account view) / **🗂️ Advertising Campaign** / **🛍️ Advertising Product**.
 
-    **Timeline charts**: Ad Sales and Ad Spend over time.
+A toggle at the top left switches between <Term>**ACoS**</Term> and <Term>**RoAS**</Term> as the primary efficiency metric across all advertising tabs.
 
-    **Campaign breakdown table**: all advertising metrics by Campaign, Ad Group, <Term>ASIN</Term>, and Product Name.
+**Summary bar**: Ad Spend, Ad Sales, ACoS (or RoAS), TACoS (Ordered Revenue basis), CTR, CPC for the whole selected period, latest period and PoP
 
-    **ACoS vs. RoAS scatter chart**: visualizes spend efficiency per campaign.
+**Country table**: Ad Spend, Ad Sales, ACoS, TACoS (Ordered Revenue basis), Impressions, Clicks, CTR, Unit View Percentage, CPC — with PoP and YoY.
 
-    **Ad type breakdown**: <Term>SP</Term>, <Term>SB</Term>, <Term>SD</Term> performance shown side by side.
+<img
+  src="/images/help-center/powerbi-dashboards/seller-vendor-analytics-dashboard/seller-vendor-analytics-dashboard-23.png"
+  alt="Seller Vendor Analytics Dashboard 23"
+  width={1200}
+  height={680}
+  className="rounded-lg border"
+/>
 
-    <Callout type="info">
-      Ad metrics cover SP + SD. Sponsored Brands (SB) are shown for reference at account level only and are not included in the combined KPI bar or TACoS calculations.
-    </Callout>
+Bar charts by Sponsored Type (SP / SD / SB): Ad Spend, Ad Sales, and ACoS / RoAS over time.
+
+<img
+  src="/images/help-center/powerbi-dashboards/seller-vendor-analytics-dashboard/seller-vendor-analytics-dashboard-24.png"
+  alt="Seller Vendor Analytics Dashboard 24"
+  width={1200}
+  height={680}
+  className="rounded-lg border"
+/>
+
+**Breakdown table** (weekly/monthly/quarterly) by Country: Ad Spend, Ad Sales, ACoS, TACoS (Ordered Revenue basis), Impressions, Clicks, CTR — with PoP and YoY.
+
+**Sponsored type detail**: Side-by-side breakdown of Sponsored Brands, Sponsored Display, and Sponsored Products — Impressions, CTR, Unit View Percentage, ACoS, CPC.
+
+<img
+  src="/images/help-center/powerbi-dashboards/seller-vendor-analytics-dashboard/seller-vendor-analytics-dashboard-25.png"
+  alt="Seller Vendor Analytics Dashboard 25"
+  width={1200}
+  height={680}
+  className="rounded-lg border"
+/>
+
+  </Accordion>
+
+    <Accordion title="Advertising - Campaign">
+Top metric cards for Ad Spend, Ad Sales, ACoS/RoAS, Impressions, CTR - showing values for the whole current period selected, Latest Period, and PoP trend.
+
+**Breakdown Table over the whole period** (weekly/monthly/quarterly by Dimension chosen in the slicer above): Ad Sales, Ad Spend, CPC, ACoS/RoAS, Impressions, Clicks, CTR, CVR, Orders — with PoP and YoY.
+
+**Breakdown table** (Latest Period by  Dimension chosen in the slicer above): Ad Sales distribution, Ad Spend, Impressions distribution, Clicks, Orders, CPC, CTR, CVR, ACoS/RoAS.
+
+<img
+  src="/images/help-center/powerbi-dashboards/seller-vendor-analytics-dashboard/seller-vendor-analytics-dashboard-26.png"
+  alt="Seller Vendor Analytics Dashboard 26"
+  width={1200}
+  height={680}
+  className="rounded-lg border"
+/>
+
+Custom timeline chart: Choose any date range and granularity. Compare two metrics using Left Axis and Right Axis selectors.
+
+<img
+  src="/images/help-center/powerbi-dashboards/seller-vendor-analytics-dashboard/seller-vendor-analytics-dashboard-27.png"
+  alt="Seller Vendor Analytics Dashboard 27"
+  width={1200}
+  height={680}
+  className="rounded-lg border"
+/>
+  </Accordion>
+
+      <Accordion title="Advertising - Product">
+
+<img
+  src="/images/help-center/powerbi-dashboards/seller-vendor-analytics-dashboard/seller-vendor-analytics-dashboard-28.png"
+  alt="Seller Vendor Analytics Dashboard 28"
+  width={1200}
+  height={680}
+  className="rounded-lg border"
+/>
+
+Same structure as Advertising Campaign, plus:
+
+- Top 1000 ASINs by Ad Sales for Sponsored Products
+- Top 1000 ASINs by Ad Sales for Sponsored Display
+
+<img
+  src="/images/help-center/powerbi-dashboards/seller-vendor-analytics-dashboard/seller-vendor-analytics-dashboard-29.png"
+  alt="Seller Vendor Analytics Dashboard 29"
+  width={1200}
+  height={680}
+  className="rounded-lg border"
+/>
+
+<img
+  src="/images/help-center/powerbi-dashboards/seller-vendor-analytics-dashboard/seller-vendor-analytics-dashboard-30.png"
+  alt="Seller Vendor Analytics Dashboard 30"
+  width={1200}
+  height={680}
+  className="rounded-lg border"
+/>
+
+<Callout type="info">
+Product-level data includes Sponsored Products and Sponsored Display only (no Sponsored Brands).
+</Callout>
 
   </Accordion>
 
   <Accordion title="P&L">
 
-    Full profit and loss reporting, split by channel.
-
-    <Tabs items={['Seller', 'Vendor']}>
-
-    <Tab value="Seller">
+Provides a financial overview focused on profitability and cost structure for the Seller channel.
 
     <Callout type="warn">
-      Requires <Term>COGS</Term> to be uploaded for accurate margin and profit figures.
+      <Term>COGS</Term> must be imported in the DataHawk app for the cost-related metrics to display more precisely.
     </Callout>
 
-    **KPI bar**: Gross Revenue, Net Revenue, Gross Profit, Gross Margin %, Operating Profit, Adjusted Operating Profit, Net Profit, Net Margin %.
+**Summary bar**: Gross Revenue, Net Revenue, Net Profit, Net Profit Margin with values for the whole period, latest period and PoP change.
 
-    **Timeline chart**: select any profit metric to plot over time.
+**Line charts**: Net Profit, Gross Profit, Amazon Fees, COGS — vs Prev Year.
 
-    **Waterfall chart**: revenue composition from Gross Revenue down to Net Profit, showing deductions for Amazon fees, COGS, advertising spend, adjustments, and taxes.
+<img
+  src="/images/help-center/powerbi-dashboards/seller-vendor-analytics-dashboard/seller-vendor-analytics-dashboard-31.png"
+  alt="Seller Vendor Analytics Dashboard 31"
+  width={1200}
+  height={680}
+  className="rounded-lg border"
+/>
 
-    **First matrix**: performance metrics by time period. Choose a **Metric** (gross revenue, gross margin, refunds, net revenue, COGS, gross profit, Amazon fees, operating profit, adjusted operating profit and margin, tax expenses, net profit and margin) and a **Grouping** (none, marketplace, seller, brand, ASIN, SKU).
+**Breakdown table** (weekly/monthly/quarterly by Dimension chosen in the slicer above): Gross Revenue YoY, Net Revenue, Adjusted Operating Profit, Adjusted Operating Profit Margin %, Gross Margin %, Net Profit, Net Profit Margin % — with PoP.
 
-    **Second matrix**: performance metrics by business dimension. Choose a **Grouping** (marketplace, seller, brand, ASIN, SKU) and a **Metric** from the same list. First-level grouping acts as the legend in the visual representation below.
+**Breakdown table** (Latest Period by  Dimension chosen in the slicer above): Gross Revenue, Refunds, Net Revenue, Net Revenue Distribution, Cost of Goods Sold, Amazon Fees, Marketing, Adjusted Operating Profit, Adjusted Operating Profit Margin %, Tax Expenses, Net Profit, Net Profit Margin %.
 
-    **Line chart**: selected metric from the second matrix, plotted by timeline and by the first-level dimension chosen in the Grouping slicer.
+<img
+  src="/images/help-center/powerbi-dashboards/seller-vendor-analytics-dashboard/seller-vendor-analytics-dashboard-32.png"
+  alt="Seller Vendor Analytics Dashboard 32"
+  width={1200}
+  height={680}
+  className="rounded-lg border"
+/>
 
-{/* TODO: Replace this Notion image with a local copy in /public/images/powerbi-dashboards/ */}
+**ASIN tables at the bottom**:
 
-    </Tab>
+- Net Revenue by ASIN — Top 1000
+- Decliners by ASIN — Top 1000
+- Gainers by ASIN — Top 1000
 
-    <Tab value="Vendor">
-
-    **KPI bar**: Shipped <Term>COGS</Term>, Shipped Revenue, Ordered Revenue, Gross Margin %, Operating Profit, Net Profit, Net Margin %.
-
-    **Timeline chart**: select any profit metric to plot over time.
-
-    **Waterfall chart**: revenue composition from Shipped Revenue down to Net Profit.
-
-    **First matrix**: performance metrics by time period.
-
-    **Second matrix**: performance metrics by business dimension. Choose a **Grouping** (marketplace, vendor, brand, ASIN) and a **Metric** (shipped COGS, shipped revenue, ordered revenue, gross margin, COGS, gross profit, operating profit, net profit and margin, adjustments, tax expenses).
-
-    **Line chart**: selected metric from the second matrix, plotted by timeline and dimension.
-
-{/* TODO: Replace this Notion image with a local copy in /public/images/powerbi-dashboards/ */}
-
-    </Tab>
-
-    </Tabs>
-
+<img
+  src="/images/help-center/powerbi-dashboards/seller-vendor-analytics-dashboard/seller-vendor-analytics-dashboard-33.png"
+  alt="Seller Vendor Analytics Dashboard 33"
+  width={1200}
+  height={680}
+  className="rounded-lg border"
+/>
   </Accordion>
 
-  <Accordion title="Inventory Timeline (Seller)">
+    <Accordion title="Profit Explorer">
+
+Flexible profitability analysis across time periods, dimensions, and financial categories.
+
+**Date filter** at the top for custom time range. **Timeline view** selector: Year / Quarter / Month / Week / Day.
+
+**First matrix**: Detailed profit breakdown. Group rows by category, subcategory, event description, seller, marketplace, brand, ASIN, SKU, product name, or combinations. Filter by **Category** (sales, refunds, Amazon fees, COGS, marketing, adjustments, tax expenses, tax adjustments) and **Subcategory** for granular breakdowns. **Tax View** slicer: including/excluding tax, or tax only.
+
+
+<img
+  src="/images/help-center/powerbi-dashboards/seller-vendor-analytics-dashboard/seller-vendor-analytics-dashboard-34.png"
+  alt="Seller Vendor Analytics Dashboard 34"
+  width={1200}
+  height={680}
+  className="rounded-lg border"
+/>
+
+**Second matrix**: Performance metrics by business dimension. Choose grouping (marketplace, seller, brand, ASIN, SKU) and **Metric** (gross revenue, gross margin, refunds, net revenue, COGS, gross profit, Amazon fees, operating profit, adjusted operating profit and margin, tax expenses, net profit and margin). Visual representation below with first-level grouping as legend.
+
+**Line chart** showing selected metric in the second matrix by timeline and dimension that was first chosen in Grouping slicer.
+
+<img
+  src="/images/help-center/powerbi-dashboards/seller-vendor-analytics-dashboard/seller-vendor-analytics-dashboard-35.png"
+  alt="Seller Vendor Analytics Dashboard 35"
+  width={1200}
+  height={680}
+  className="rounded-lg border"
+/>
+  </Accordion>
+
+
+  <Accordion title="Inventory Timeline Seller">
 
     <Callout type="warn">
       Data is available for the past 30 days only.
@@ -203,11 +626,17 @@ Global slicers apply to all pages unless a page has its own local slicer, in whi
 
     Tracks FBA inventory levels over the past 30 days across all fulfillment stages.
 
-    **Line chart**: select inventory attributes to visualize — AFN Fulfillable Qty, Inbound Shipments, Reserved Quantities, Unsellable Units, and more — at Year / Quarter / Month / Week / Day granularity.
+**Line chart** at the top: Select inventory attributes to visualize (AFN Fulfillable Qty, Inbound Shipments, Reserved Quantities, Unsellable Units, etc.) at Year / Quarter / Month / Week / Day granularity.
 
-    **Timeline table**: select one inventory metric to display across time columns. Organized by Seller, <Term>ASIN</Term>, Product Name, <Term>FNSKU</Term>, <Term>SKU</Term>. Available metrics: AFN Fulfillable Qty, AFN Inbound Receiving Qty, AFN Inbound Shipped Qty, AFN Inbound Working Qty, AFN Researching Qty, AFN Reserved Future Supply, AFN Reserved Qty, AFN Total Qty, AFN Unsellable Qty, AFN Warehouse Qty, <Term>MFN</Term> Fulfillable Qty.
+**Timeline table**: Select one inventory metric to display across time columns. Organized by Seller, ASIN, Product Name, FNSKU, SKU. Available metrics: AFN Fulfillable Qty, AFN Inbound Receiving Qty, AFN Inbound Shipped Qty, AFN Inbound Working Qty, AFN Researching Qty, AFN Reserved Future Supply, AFN Reserved Qty, AFN Total Qty, AFN Unsellable Qty, AFN Warehouse Qty, MFN Fulfillable Qty.
 
-{/* TODO: Replace this Notion image with a local copy in /public/images/powerbi-dashboards/ */}
+<img
+  src="/images/help-center/powerbi-dashboards/seller-vendor-analytics-dashboard/seller-vendor-analytics-dashboard-36.png"
+  alt="Seller Vendor Analytics Dashboard 36"
+  width={1200}
+  height={680}
+  className="rounded-lg border"
+/>
 
   </Accordion>
 
@@ -219,7 +648,13 @@ Global slicers apply to all pages unless a page has its own local slicer, in whi
 
     **Amazon Inventory Table**: raw Amazon data per <Term>ASIN</Term> — Alert, Condition, Total Days of Supply, Days of Supply at Amazon Fulfillment Network, Recommended Ship Date, Recommended Replenishment Quantity, Sales Last 30 Days, Available / Reserved / FC Processing / FC Transfer / Receiving / Shipped / Total / Unfulfillable / Working Units, Price, Supplier, Fulfilled By.
 
-{/* TODO: Replace this Notion image with a local copy in /public/images/powerbi-dashboards/ */}
+<img
+  src="/images/help-center/powerbi-dashboards/seller-vendor-analytics-dashboard/seller-vendor-analytics-dashboard-37.png"
+  alt="Seller Vendor Analytics Dashboard 37"
+  width={1200}
+  height={680}
+  className="rounded-lg border"
+/>
 
     **Custom FBA Recommendations**: tailored restock calculations using three slicers you control:
 
@@ -229,7 +664,13 @@ Global slicers apply to all pages unless a page has its own local slicer, in whi
 
     The resulting table shows: Sales Last 30 Days, Units Sold Last 30 Days, Total Units (Custom), Total Weeks on Hand, OOS Forecast, Replenishment Date, Replenishment Quantity.
 
-{/* TODO: Replace this Notion image with a local copy in /public/images/powerbi-dashboards/ */}
+<img
+  src="/images/help-center/powerbi-dashboards/seller-vendor-analytics-dashboard/seller-vendor-analytics-dashboard-38.png"
+  alt="Seller Vendor Analytics Dashboard 38"
+  width={1200}
+  height={680}
+  className="rounded-lg border"
+/>
 
   </Accordion>
 
@@ -241,11 +682,23 @@ Global slicers apply to all pages unless a page has its own local slicer, in whi
 
     **Historical inventory chart**: all inventory attributes plotted over time. Use the cursor at the left of the chart to zoom. A table below duplicates the chart data.
 
-{/* TODO: Replace this Notion image with a local copy in /public/images/powerbi-dashboards/ */}
+<img
+  src="/images/help-center/powerbi-dashboards/seller-vendor-analytics-dashboard/seller-vendor-analytics-dashboard-39.png"
+  alt="Seller Vendor Analytics Dashboard 39"
+  width={1200}
+  height={680}
+  className="rounded-lg border"
+/>
 
     **Inventory attributes table** (by Marketplace): Aged 90+ Days Sellable Inventory, Aged 90+ Days Units, Average Vendor Lead Time Days, Net Received, Open PO Qty, Proc OOS %, Receive Fill Rate, Sellable OH Inventory, Sellable OH Inventory Units, Unsellable OH Inventory, Unsellable OH Units.
 
-{/* TODO: Replace this Notion image with a local copy in /public/images/powerbi-dashboards/ */}
+<img
+  src="/images/help-center/powerbi-dashboards/seller-vendor-analytics-dashboard/seller-vendor-analytics-dashboard-40.png"
+  alt="Seller Vendor Analytics Dashboard 40"
+  width={1200}
+  height={680}
+  className="rounded-lg border"
+/>
 
     **Forecast graph** (separate timeline slicer): tracks three key metrics and their relationships:
 
@@ -253,8 +706,13 @@ Global slicers apply to all pages unless a page has its own local slicer, in whi
     - Amazon's forecast (selectable: Mean / P70 / P80 / P90) with corresponding Weeks of Cover
     - Current Sellable On-Hand Inventory, transitioning to projected inventory depletion (dotted line)
 
-{/* TODO: Replace this Notion image with a local copy in /public/images/powerbi-dashboards/ */}
-
+<img
+  src="/images/help-center/powerbi-dashboards/seller-vendor-analytics-dashboard/seller-vendor-analytics-dashboard-41.png"
+  alt="Seller Vendor Analytics Dashboard 41"
+  width={1200}
+  height={680}
+  className="rounded-lg border"
+/>
     <Callout type="info">
       Forecast Sales Mean is used for vendors with longer international lead times requiring approximately 6 extra weeks for delivery. P70 / P80 / P90 represent the probability that Amazon will buy at or below the indicated demand level.
     </Callout>
@@ -269,11 +727,23 @@ Global slicers apply to all pages unless a page has its own local slicer, in whi
 
     **Available metrics** include: Sales, Units Sold, Gross Revenue, Gross Margin, Refunds, Net Revenue, <Term>COGS</Term>, Gross Profit, Amazon Fees, Ad Sales (SP+SD), Ad Spend (SP+SD), Impressions (SP+SD), Clicks (SP+SD), CTR, CVR, <Term>ACoS</Term>, <Term>RoAS</Term>, <Term>TACoS</Term>, Operating Profit, Adjustments, Adjusted Operating Profit and Margin, Tax Expenses, Tax Adjustments, Net Profit and Margin, Page Views, Conversion (Page View to Order), Order Count, <Term>ASP</Term>, AOV, Shipped COGS, Shipped Revenue, Shipped Units, Ordered Revenue, Ordered Units, Returned Units, Return Rate, Conversion (Glance Views to Shipped Units), Glance Views — plus all prior-year equivalents.
 
-{/* TODO: Replace this Notion image with a local copy in /public/images/powerbi-dashboards/ */}
+<img
+  src="/images/help-center/powerbi-dashboards/seller-vendor-analytics-dashboard/seller-vendor-analytics-dashboard-42.png"
+  alt="Seller Vendor Analytics Dashboard 42"
+  width={1200}
+  height={680}
+  className="rounded-lg border"
+/>
 
     Below the chart: a matrix showing Metric 1 by your chosen grouping, with a visual representation grouped by dimension as the legend.
 
-{/* TODO: Replace this Notion image with a local copy in /public/images/powerbi-dashboards/ */}
+<img
+  src="/images/help-center/powerbi-dashboards/seller-vendor-analytics-dashboard/seller-vendor-analytics-dashboard-43.png"
+  alt="Seller Vendor Analytics Dashboard 43"
+  width={1200}
+  height={680}
+  className="rounded-lg border"
+/>
 
     <Callout type="info">
       Ad metrics in the Explorer are scoped to SP + SD only. Sponsored Brands are not included.
@@ -293,7 +763,13 @@ Global slicers apply to all pages unless a page has its own local slicer, in whi
     4. **Drill Down** — navigate hierarchical structures such as Year > Month > Week or Country > Brand > Seller Account.
     5. **Export** — hover over the three dots at the top right of the matrix and select Export data (Excel or CSV via Power BI's built-in export).
 
-{/* TODO: Replace this Notion image with a local copy in /public/images/powerbi-dashboards/ */}
+<img
+  src="/images/help-center/powerbi-dashboards/seller-vendor-analytics-dashboard/seller-vendor-analytics-dashboard-44.png"
+  alt="Seller Vendor Analytics Dashboard 44"
+  width={1200}
+  height={680}
+  className="rounded-lg border"
+/>
 
     <Callout type="warn">
       To view multiple dimensions, drill down on rows or columns. Avoid using the same dimension in both rows and columns simultaneously.
@@ -311,54 +787,64 @@ Global slicers apply to all pages unless a page has its own local slicer, in whi
 
 </Accordions>
 
+## Metrics
+
+Formulas used in this dashboard. Concept-level definitions for acronyms live in the [Glossary](/help-center/knowledge-hub/glossary).
+
+**Blended revenue and ASP**
+
+| Metric | Formula / definition | Notes |
+|---|---|---|
+| **Total Earned Revenue** | Seller Ordered Product Sales + Vendor Shipped COGS | Brand's actual earned revenue from Amazon |
+| **Total Ordered Revenue (Demand View)** | Seller Ordered Product Sales + Vendor Ordered Revenue | Consumer demand at retail prices |
+| **Total Units Ordered** | Seller Units Ordered + Vendor Ordered Units | Across both channels |
+| **Total Page Views** | Seller Page Views + Vendor Glance Views | Combined product detail page loads |
+| **Unit View Percentage** | Units Sold ÷ Total Page Views × 100 | Conversion proxy |
+| **<Term>ASP</Term> (Seller)** | Ordered Product Sales ÷ Units Ordered | Retail price per unit received by the Seller |
+| **ASP Ordered Revenue basis (Vendor)** | Ordered Revenue ÷ Ordered Units | Amazon's retail price per unit — demand view |
+| **AWP (Vendor)** | Shipped COGS ÷ Shipped Units | Actual price per unit received by the Vendor from Amazon |
+| **Blended ASP (Ordered Revenue basis)** | (Seller Sales + Vendor Ordered Revenue) ÷ Total Units Ordered | Benchmarkable retail ASP |
+| **Blended ASP (Earned Revenue basis)** | (Seller Sales + Vendor Shipped COGS) ÷ Total Units | Average price per unit the brand actually receives |
+| **Return Rate (Vendor)** | Customer Returns ÷ Shipped Revenue × 100 | Returns applied to original sale date |
+
+**Advertising**
+
+| Metric | Formula / definition | Notes |
+|---|---|---|
+| <Term>**ACoS**</Term> | Ad Spend ÷ Ad Sales × 100 | Lower is more efficient |
+| <Term>**RoAS**</Term> | Ad Sales ÷ Ad Spend | Inverse of ACoS, expressed as a multiplier |
+| **<Term>TACoS</Term> (Ordered Revenue basis)** | Ad Spend ÷ Total Ordered Revenue × 100 | Advertising efficiency vs. retail demand, benchmark-comparable |
+| **<Term>TACoS</Term> (Earned Revenue basis)** | Ad Spend ÷ Total Earned Revenue × 100 | Ad spend vs. earned revenue, supplementary and not benchmark-comparable |
+| <Term>**CTR**</Term> | Clicks ÷ Impressions × 100 | |
+| <Term>**CPC**</Term> | Ad Spend ÷ Clicks | |
+| <Term>**CVR**</Term> | Orders from Ads ÷ Clicks × 100 | Attribution per Amazon's 14-day post-click window |
+
 ---
 
-## For analysts & developers
+## For analysts: data sources & methodology
 
-### Glossary
+### Source tables and datasets
 
-**Navigation**
+This dashboard unions Seller Central, Vendor Central, and Amazon Advertising data. For a full column reference, see the [Exhaustive Column Referential](https://docs.google.com/spreadsheets/d/1gYGqKQP9Z71nz1lOb4y0wJ15i27NvsUzdliIJeIx0HY/edit#gid=175439716).
 
-- **bps** — absolute change in percentage points. 100 bps = 1 percentage point.
-- **PoP** — period over period. Relative difference between two consecutive periods. If you select Monthly granularity and the current period is May, the previous period is April.
-- **YoY** — year over year. Relative difference between the current period and the same period the prior year.
-- **PoP vs YoY** — depending on the time period selected, the dashboard displays PoP (e.g. MoM if the selected period is Month) or YoY, choosing the most relevant comparison automatically.
+- **Seller side** — Selling Partner API (Ordered Product Sales, Units Ordered, Page Views, Sessions).
+- **Vendor side** — Vendor Central Sales Diagnostic (Shipped Revenue, Shipped COGS, Ordered Revenue, Ordered Units, Glance Views).
+- **Advertising** — Amazon Ads API. Ad metrics are unified across Seller and Vendor accounts and can be filtered by account type (1P / 3P).
 
-**Seller metrics**
+### Attribution and methodology
 
-- **Ordered Product Sales** — revenue from orders placed by customers, reported when customers place orders (even if not yet shipped).
-- **ASP** — Average Selling Price. Revenue divided by Units Ordered.
-- **AOV** — Average Order Value. Revenue divided by Order Count.
+- **Period comparison** — the dashboard auto-selects PoP or YoY based on the time granularity you pick (e.g. MoM if you select Month). Don't assume one comparison applies everywhere.
+- **Shipped Revenue is derived**, not sourced: Vendor Shipped COGS × (1 + Retail Margin %). Use Shipped COGS for the brand's actual earned revenue from Amazon, and Shipped Revenue for Amazon's retail price view.
+- **Ordered Revenue / Ordered Units** represent consumer demand at the moment of order placement, regardless of shipment status. They are the Vendor analog of Seller's Ordered Product Sales.
+- **Customer Returns** are applied to the original sale date for both Seller and Vendor sides.
+- **Ad attribution** follows Amazon's 14-day post-click window.
 
-**Vendor metrics**
+### Cross-dashboard differences
 
-- **Shipped COGS** — revenue recognized by Amazon's accounting, based on items physically shipped from Amazon's fulfillment centers to customers.
-- **Shipped Revenue** — Shipped COGS multiplied by (1 + Retail Margin %). Amazon's retail price for the units it shipped.
-- **Ordered Revenue** — revenue based on customer orders, analogous to Seller Central's Ordered Product Sales. Represents consumer demand at retail prices.
-- **Ordered Units** — units that customers have ordered, regardless of whether Amazon has yet shipped them. Represents consumer demand volume.
-- **Glance Views** — product detail page views reported in Vendor Central.
-- **Blended Revenue Metrics** — when combining Seller and Vendor data, DataHawk offers two complementary aggregations: Total Earned Revenue (Seller Ordered Product Sales + Vendor Shipped COGS) and Total Ordered Revenue (Seller Ordered Product Sales + Vendor Ordered Revenue). See the Core Metric Definitions table below.
+The Seller + Vendor view introduces blended revenue metrics that don't exist on the Seller-only or Vendor-only dashboards. When reconciling against those dashboards or against Seller / Vendor Central directly, pick the right basis:
 
-**Advertising metrics**
-
-- **ACoS** — Advertising Cost of Sale. Ad Spend divided by Ad Sales.
-- **RoAS** — Return on Ad Spend. Ad Sales divided by Ad Spend.
-- **TACoS** — Total Advertising Cost of Sale. Ad Spend divided by Total Revenue. Available in two versions — see the Core Metric Definitions table below.
-- **SP** — Sponsored Products ads.
-- **SB** — Sponsored Brands ads.
-- **SD** — Sponsored Display ads.
-
-### Core metric definitions
-
-| Metric | Seller component | Vendor component | Formula | Purpose |
-|---|---|---|---|---|
-| **Total Earned Revenue** | Ordered Product Sales | Shipped COGS | Seller Sales + Vendor Shipped COGS | Brand's actual earned revenue from Amazon |
-| **Total Ordered Revenue** | Ordered Product Sales | Ordered Revenue | Seller Sales + Vendor Ordered Revenue | Consumer demand at retail level; benchmarking |
-| **TACoS (Ordered Revenue basis)** | | | Ad Spend / Total Ordered Revenue | Advertising efficiency vs. retail demand, benchmark-comparable |
-| **TACoS (Earned Revenue basis)** | | | Ad Spend / Total Earned Revenue | Ad spend vs. earned revenue, supplementary and not benchmark-comparable |
-| **Total Units Ordered** | Units Ordered | Units Ordered | Seller Units + Vendor Units Ordered | Consumer demand volume |
-| **Total Page Views** | Page Views | Glance Views | Seller Page Views + Vendor Glance Views | Product page reach |
-| **Unit View Percentage** | | | Units Sold / Total Page Views | Conversion proxy |
-| **Blended ASP (Ordered Revenue basis)** | Ordered Product Sales | Ordered Revenue | (Seller Sales + Vendor Ordered Revenue) / Total Units Ordered | Benchmarkable retail ASP |
-| **Blended ASP (Earned Revenue basis)** | Ordered Product Sales | Shipped COGS | (Seller Sales + Vendor Shipped COGS) / Total Units | Average price per unit the brand actually receives |
-| **Ad Metrics** | Unified | Unified | | Filterable by account type (1P / 3P) |
+- **Total Earned Revenue** = Seller Ordered Product Sales + Vendor Shipped COGS. Use this for the brand's actual revenue from Amazon.
+- **Total Ordered Revenue (Demand View)** = Seller Ordered Product Sales + Vendor Ordered Revenue. Use this for retail-price benchmarking against competitors or category data.
+- **TACoS has two flavors here** — Ordered Revenue basis is benchmark-comparable; Earned Revenue basis is supplementary and not comparable to industry benchmarks. The Seller-only dashboard uses Ordered Product Sales as the denominator; the Vendor-only dashboard uses Shipped COGS. Always note which basis you are quoting.
+- **Blended ASP** likewise has Ordered Revenue and Earned Revenue bases — pick the one matching the question (retail price per unit vs. price actually received per unit).
+- **AWP (Vendor)** = Shipped COGS ÷ Shipped Units. Vendor-side actual price-per-unit; only meaningful for the Vendor component, not for the blended view.
