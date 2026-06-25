@@ -165,6 +165,15 @@ export function Term({
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/^-+|-+$/g, '');
 
+  // "Read more" destination. Foundational concepts (ASIN, SKU, BSR, etc.)
+  // override this via `def.readMore` to point at their richer Key Concepts
+  // entry rather than the glossary's one-line definition.
+  const readMoreHref =
+    def.readMore ?? `/help-center/knowledge-hub/glossary#${anchorId}`;
+  const readMoreLabel = def.readMore
+    ? 'Read more →'
+    : 'Read more in glossary →';
+
   // Portal target — only available on the client.
   const portalTarget =
     typeof document !== 'undefined' ? document.body : null;
@@ -211,10 +220,10 @@ export function Term({
                 {def.short}
               </span>
               <a
-                href={`/help-center/knowledge-hub/glossary#${anchorId}`}
+                href={readMoreHref}
                 className="block mt-2 text-fd-primary hover:underline text-xs no-underline"
               >
-                Read more in glossary →
+                {readMoreLabel}
               </a>
             </span>
 

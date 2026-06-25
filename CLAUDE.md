@@ -174,6 +174,8 @@ NEW_TERM: {
 },
 ```
 
+**Keep `short` as short as possible** — one sentence is ideal, two is the upper bound. The glossary is for quick lookup, not learning. Resist adding examples, edge cases, or DataHawk-specific behavior. If the term warrants more depth, add it to the Key Concepts page instead (see section 5c).
+
 Available immediately across all MDX files. No restart needed for content changes.
 
 ### Terms currently in the glossary
@@ -293,6 +295,99 @@ A well-scoped dev section does NOT contain:
 - Restated formulas (those are in `## Metrics`)
 - Restated concept definitions (those are in the glossary)
 - Generic Amazon/Walmart terminology (also in the glossary)
+
+---
+
+## 5c. Key Concepts — when terms deserve a deep-dive page
+
+The Key Concepts page (`content/help-center/knowledge-hub/key-concepts.mdx`) hosts in-depth explanations of a small set of foundational terms. Today it covers ASIN, SKU, Parent/Child ASIN, BSR, and Marketplace vs Channel. Each entry is multiple paragraphs with examples, nuance, DataHawk-specific behavior, and a "why it matters" framing.
+
+### The four definitional surfaces
+
+DataHawk docs have four surfaces where a term or metric can be defined. Each has a strict scope:
+
+| Surface | Purpose | Depth |
+|---|---|---|
+| **Glossary** (`lib/glossary.ts` + `glossary.mdx`) | Quick lookup; powers the `<Term>X</Term>` tooltip | 1–2 sentences — shortest possible while still correct |
+| **Key Concepts** (`key-concepts.mdx`) | In-depth explanation of foundational terms a user must internalize | Multiple paragraphs with examples + DataHawk-specific treatment |
+| **`## Metrics`** (per-dashboard page) | Exact formula a dashboard uses to compute a derived metric | One row per metric — `Numerator ÷ Denominator` + one-line note |
+| **`## For analysts: data sources & methodology`** (per-dashboard page) | Data plumbing — tables, columns, attribution rules, SQL | Page-specific; whatever the analyst needs |
+
+### Required — industry and DataHawk terms must have a glossary entry
+
+Any technical or industry-specific term tied to **e-commerce, the Amazon/Walmart ecosystem, advertising, finance, or DataHawk** MUST have a glossary entry. If the term appears in multiple pages and a reader could plausibly need a quick definition, it belongs in `lib/glossary.ts` and `glossary.mdx`. No exceptions — without an entry, the `<Term>` tooltip renders as plain text and the reader has nowhere to go for a quick definition.
+
+### Optional — Key Concepts is for terms that pass the "why is this important?" test
+
+A term qualifies for Key Concepts ONLY if you can substantively answer **"why is it important to understand this?"** — meaning a user who misunderstands the term will make wrong decisions or misread the data. "It's an acronym you'll see" is NOT enough — that's what the glossary handles.
+
+| Term | Glossary? | Key Concepts? | Reason |
+|---|---|---|---|
+| ASIN | Yes (1-line) | Yes (deep dive) | Misunderstanding ASIN-as-marketplace-specific leads to wrong analysis |
+| FBA | Yes (1-line) | No | The 1-line definition is enough — readers don't need deep nuance to use FBA data correctly |
+| BSR | Yes (1-line) | Yes (deep dive) | Readers confuse BSR (relative ranking) with absolute sales and misread changes |
+| Parent / Child ASIN | Yes (1-line) | Yes (deep dive) | Whole datasets are parent-level vs child-level — readers must know which |
+| CTR | Yes (acronym + concept) | No | Formula-driven; depth lives on the dashboard page in `## Metrics` |
+
+Every term in Key Concepts must ALSO exist in the Glossary — the glossary entry is the tooltip preview; Key Concepts is the destination of the "Read more →" link.
+
+### Routing tooltips to Key Concepts via `readMore`
+
+`lib/glossary.ts`'s `GlossaryEntry` type has an optional `readMore?: string` field. When set, the Term tooltip's "Read more →" link points to that URL instead of the default `/help-center/knowledge-hub/glossary#<anchor>`. Use this for every term that has a Key Concepts entry.
+
+```ts
+ASIN: {
+  title: 'Amazon Standard Identification Number',
+  short: 'Unique 10-character product ID Amazon assigns to every product. ASINs are marketplace-specific.',
+  readMore: '/help-center/knowledge-hub/key-concepts#asin--what-it-is-and-why-it-matters',
+},
+```
+
+When `readMore` is set, the tooltip link text changes from "Read more in glossary →" to "Read more →" (since it's no longer pointing at the glossary).
+
+**Anchor format.** Fumadocs uses `github-slugger` to generate heading anchors. Behavior to know:
+
+- Lowercase
+- ASCII punctuation stripped
+- Em-dash (`—`) stripped, but the surrounding spaces remain
+- Whitespace converted to hyphens
+
+So `## ASIN — What it is and why it matters` becomes anchor `asin--what-it-is-and-why-it-matters` (note the **double hyphen** where the em-dash was). Verify before committing with:
+
+```bash
+cd node_modules/.pnpm/github-slugger@2.0.0/node_modules/github-slugger
+node --input-type=module -e "
+  import GithubSlugger from './index.js';
+  const s = new GithubSlugger();
+  console.log(s.slug('ASIN — What it is and why it matters'));
+"
+```
+
+### Depth rules — hard upper and lower bounds
+
+- **Glossary entry: 1–2 sentences. SHORTEST POSSIBLE while still correct.** Resist adding examples, nuance, or DataHawk-specific behavior — those belong in Key Concepts. If your entry runs to 3+ sentences, look at whether the extras belong on Key Concepts instead.
+- **Key Concepts entry: multiple paragraphs. Must include at least one concrete example AND a "why this matters" framing.** If a Key Concepts entry is the same length as its glossary entry, you're using the wrong surface — move it.
+- **Metrics row: one row in a table.** Formula in column 2 (Unicode `÷` and `×`), one-line note in column 3. No multi-sentence explanations in metric rows.
+- **For analysts subsection: whatever an analyst needs.** Source tables, columns, attribution rules, SQL examples, edge cases. No concept restatements (those are in the glossary) and no formula restatements (those are in `## Metrics`).
+
+### Decision tree for new definitional content
+
+When you have something to document, ask:
+
+1. **Does it have a formula?** → It's a metric. Add a row to the `## Metrics` table on each dashboard where it appears. The acronym still gets a 1-line glossary entry at the concept level — no formula in glossary.
+2. **No formula. Is it tied to e-commerce, Amazon/Walmart, advertising, finance, or DataHawk?** → It MUST get a glossary entry.
+3. **Does it already have a dedicated page somewhere in the docs?** (e.g. `/help-center/knowledge-hub/amz-sales-estimates`, `/help-center/knowledge-hub/listing-quality-analysis`, `/help-center/knowledge-hub/amz-vendor-account-sourcing-manufacturing`) → Yes → Wire the glossary entry's `readMore` to the dedicated page. Do NOT add a Key Concepts entry — the dedicated page IS the deep dive.
+4. **No dedicated page. Can you substantively answer "why is it important to understand this?"** → Yes → It belongs in Key Concepts. Wire the glossary entry's `readMore` to the Key Concepts anchor.
+5. **No substantive "why is this important?" answer beyond "you'll see this acronym"?** → Glossary only. No Key Concepts entry, no `readMore` override.
+
+### Key Concepts vs `readMore`-to-dedicated-page
+
+Key Concepts and a dedicated reference page (`amz-sales-estimates.mdx`, `listing-quality-analysis.mdx`, etc.) are **alternative routing destinations** for the same `<Term>` tooltip's "Read more →" link. Both work via the glossary entry's `readMore` field — they just point at different URLs.
+
+- **Use Key Concepts** for foundational terms that have NO other dedicated page (today: ASIN, SKU, Parent/Child ASIN, BSR, Marketplace vs Channel).
+- **Use a dedicated page** for concepts that have their own reference page (today: Sourcing vs Manufacturing, Sales Estimates, LQS). Do NOT also add them to Key Concepts — that's duplication.
+
+When deciding, prefer routing to an existing dedicated page over creating a Key Concepts entry. Key Concepts is reserved for foundational terms that genuinely have nowhere else to live in depth.
 
 ---
 
@@ -471,7 +566,42 @@ Brief description of what this step covers.
 </Accordions>
 ```
 
-Use when Notion has toggle blocks, when content is FAQ-style, or when a long page would benefit from collapsible sections.
+### Q&A clusters MUST use Accordions
+
+**Whenever a section has 2 or more question/answer pairs in a row, convert it to `<Accordions>`.** The question becomes the `title` of each `<Accordion>`; the answer becomes the Accordion body. This is non-negotiable — Q&A patterns rendered as flat prose bloat the page and force readers to scan every answer to find the one they need.
+
+Patterns that count as "Q&A clusters" requiring Accordions:
+
+- Bold or numbered questions followed by answer paragraphs:
+
+  ```mdx
+  **1. Which products are driving recurring revenue?**
+
+  See total subscription revenue and what share of your overall revenue comes from SnS — by ASIN.
+
+  **2. Is my subscription base growing?**
+
+  Track the number of active subscriptions over time to spot trends.
+  ```
+
+- FAQ-style sections at the end of a page (anything that reads as Q1? answer. Q2? answer.)
+- Notion toggle blocks (always convert these)
+
+When converting:
+
+- **Drop any "1.", "2.", "3." numbering** — Accordions are sequential by position, so the numbers are redundant.
+- **Move the question mark INTO the `title` prop** — the question is the title, not a heading inside the answer.
+- **Keep the answer body intact** — including `<Term>` wrappers, links, callouts, and other MDX components.
+
+### When NOT to use Accordions
+
+- **A single Q&A pair** — flat prose is fine.
+- **Bullet lists of questions without answers** (e.g. "Questions this dashboard helps answer:" followed by a bulleted list of open questions). Those are scoping previews, not Q&A.
+- **Headings (`##`, `###`) followed by content** — heading-and-content is the normal page structure, not a Q&A cluster. Use Accordions only when the question would otherwise become a `**bold inline question**` or a numbered item.
+
+### Other appropriate uses
+
+Use Accordions when Notion has toggle blocks, when content is genuinely FAQ-style, or when a long page would benefit from collapsible sections.
 
 ---
 

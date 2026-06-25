@@ -17,17 +17,37 @@
 export type GlossaryEntry = {
   title: string;
   short: string;
+  /**
+   * Optional override for the tooltip's "Read more" link.
+   * When set, the link points to this URL instead of the default
+   * `/help-center/knowledge-hub/glossary#<key>` anchor.
+   * Use this to route foundational concepts (ASIN, SKU, BSR, etc.)
+   * to their richer Key Concepts page entry.
+   */
+  readMore?: string;
 };
 
 export const glossary: Record<string, GlossaryEntry> = {
   // ─── Amazon platform ──────────────────────────────────────────────────
   ASIN: {
     title: 'Amazon Standard Identification Number',
-    short: 'Unique 10-character product ID Amazon assigns to every product. Same ASIN works across all marketplaces.',
+    short: "Unique 10-character product ID Amazon assigns to every product. ASINs are marketplace-specific — the same physical product sold on Amazon.com (US) and Amazon.co.uk (UK) has a different ASIN in each country.",
+    readMore: '/help-center/knowledge-hub/key-concepts#asin--what-it-is-and-why-it-matters',
+  },
+  'PARENT ASIN': {
+    title: 'Parent ASIN',
+    short: 'A virtual container ASIN that groups related product variations (sizes, colors, packs). Not directly purchasable — only its child ASINs are.',
+    readMore: '/help-center/knowledge-hub/key-concepts#parent-asins-and-child-asins--understanding-product-variants',
+  },
+  'CHILD ASIN': {
+    title: 'Child ASIN',
+    short: 'A specific, purchasable variation under a parent ASIN — for example, the blue size-M t-shirt within a parent that groups all sizes and colors.',
+    readMore: '/help-center/knowledge-hub/key-concepts#parent-asins-and-child-asins--understanding-product-variants',
   },
   SKU: {
     title: 'Stock Keeping Unit',
-    short: 'Your internal product identifier. Each ASIN can have multiple SKUs across sellers and fulfillment channels.',
+    short: 'Your internal product identifier — assigned by you, not by Amazon. Each ASIN can have multiple SKUs across sellers and fulfillment channels; each SKU maps to exactly one ASIN.',
+    readMore: '/help-center/knowledge-hub/key-concepts#sku--your-internal-product-reference',
   },
   FNSKU: {
     title: 'Fulfillment Network SKU',
@@ -35,7 +55,8 @@ export const glossary: Record<string, GlossaryEntry> = {
   },
   MARKETPLACE: {
     title: 'Marketplace',
-    short: 'A regional Amazon storefront (Amazon US, UK, DE, JP, etc.). Each has its own catalog, currency, and rules.',
+    short: 'A regional Amazon storefront (Amazon US, UK, DE, JP, etc.). Each has its own catalog, currency, advertising rules, and tax treatment.',
+    readMore: '/help-center/knowledge-hub/key-concepts#marketplace-vs-channel',
   },
 
   // ─── Fulfillment ──────────────────────────────────────────────────────
@@ -120,7 +141,8 @@ export const glossary: Record<string, GlossaryEntry> = {
   // ─── Search & SEO ─────────────────────────────────────────────────────
   BSR: {
     title: 'Best Sellers Rank',
-    short: "A product's ranking within its Amazon category, updated hourly. Lower number = better seller.",
+    short: "A product's ranking within its Amazon category, based on recent sales velocity. Updated hourly by Amazon, captured daily by DataHawk. Lower number = better seller.",
+    readMore: '/help-center/knowledge-hub/key-concepts#bsr--best-seller-rank',
   },
   SQP: {
     title: 'Search Query Performance',
@@ -148,6 +170,16 @@ export const glossary: Record<string, GlossaryEntry> = {
     title: 'Capacity',
     short: 'Your subscription limit for tracked products, keywords, categories, or accounts. Set by your DataHawk plan.',
   },
+  'SALES ESTIMATES': {
+    title: 'Sales Estimates',
+    short: "DataHawk's modeled estimates of units and revenue for Amazon products, based on rank and price signals. These are estimates, not Amazon-reported sales — they won't exactly match Seller Central.",
+    readMore: '/help-center/knowledge-hub/amz-sales-estimates',
+  },
+  LQS: {
+    title: 'Listing Quality Score',
+    short: "A 0–100 score reflecting how well an Amazon listing follows best practices for titles, images, bullets, and content. Computed daily by DataHawk from 25+ criteria.",
+    readMore: '/help-center/knowledge-hub/listing-quality-analysis',
+  },
 
   // ─── Technical & Data ─────────────────────────────────────────────────
   SNOWFLAKE: {
@@ -168,6 +200,16 @@ export const glossary: Record<string, GlossaryEntry> = {
   },
 
   // ─── Vendor-specific ──────────────────────────────────────────────────
+  SOURCING: {
+    title: 'Sourcing View (Vendor)',
+    short: "The Vendor account view where Amazon sources your products but you're not their manufacturer. DataHawk sees partial data because Amazon limits what it shares for sourced ASINs.",
+    readMore: '/help-center/knowledge-hub/amz-vendor-account-sourcing-manufacturing',
+  },
+  MANUFACTURING: {
+    title: 'Manufacturing View (Vendor)',
+    short: "The Vendor account view where you're the manufacturer of the products. DataHawk sees full sales, traffic, and inventory data for these ASINs.",
+    readMore: '/help-center/knowledge-hub/amz-vendor-account-sourcing-manufacturing',
+  },
   '1P': {
     title: '1P — First-Party (Vendor)',
     short: 'You sell wholesale to the marketplace (Amazon Vendor Central); they resell to consumers at prices they control.',
