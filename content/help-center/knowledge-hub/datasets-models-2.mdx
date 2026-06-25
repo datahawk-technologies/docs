@@ -198,7 +198,7 @@ A few things to know when reading the referential:
 
 - **"Raw"** schemas (`RAW_INVENTORY`) hold data with minimal transformation from Amazon's APIs. Trade-off: more granular, but less curated. Most users should prefer the curated equivalents in `SELLING_PARTNER` or `FINANCE`.
 - **"Preview"** schemas (e.g. `PREVIEW_RAW_SELLER`) are works in progress. Schema and content may change without notice; useful for early experiments, not for production queries.
-- **Two `brand` columns** in some tables (`brand` and `brand_catalog`) reflect two distinct sources — Amazon website scraping and Amazon API. Names sometimes diverge; both are exposed for completeness.
+- **Two `brand` columns** in some tables (`brand` and `brand_catalog`) reflect two distinct sources — Amazon public-data collection and Amazon API. Names sometimes diverge; both are exposed for completeness.
 - **`_SRC` suffix** historically meant "source — minimally transformed". Some `_SRC` tables (e.g. `FBA_SNS_PERFORMANCE_SRC`) are now deprecated in favor of curated alternatives — see individual knowledge-hub pages for the migration paths.
 
 ## Frequently asked questions

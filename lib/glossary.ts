@@ -258,4 +258,10 @@ export const glossary: Record<string, GlossaryEntry> = {
     title: 'Return Rate',
     short: 'A metric that measures the proportion of sold products returned by customers. Used to evaluate product quality and listing accuracy. See the dashboard page for the formula used in that view.',
   },
+
+  // ─── Market analysis ──────────────────────────────────────────────────
+  'PRICE BAND': {
+    title: 'Price Band',
+    short: 'A price range bracket (e.g. $50–100, $100–150) used to segment the market for analysis. The step size for each band is configured in the dashboard Parameters settings alongside your warehouse connection.',
+  },
 };

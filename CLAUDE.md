@@ -803,6 +803,28 @@ Specifically, don't do any of the following in MDX:
 - → / ✔ / • as custom bullet markers — use standard markdown bullets (`-`).
 - 📌 / 🎯 / 🚀 / etc. anywhere — no decorative emoji in body text.
 
+### Describing public-data collection — mechanism-agnostic only
+
+DataHawk sources data two ways. Each has its own writing rule.
+
+**Private data** — customer connects their own Amazon Seller / Vendor / Advertising or Walmart Marketplace account via OAuth. This side is fully sanctioned, and the docs can be explicit about the mechanism: name the APIs (`SP-API`, Amazon Advertising API, Walmart Marketplace API, Walmart Connect API), describe authentication, describe data freshness in technical terms.
+
+**Public data** — DataHawk monitors publicly visible product, keyword, and category information for tracked items. Customer-facing prose must describe this in **mechanism-agnostic language**. Use *track, monitor, collect, observe, retrieve publicly available information, public-data collection, daily collection*. Never use *crawl, crawler, crawling, scrape, scraper, scraping, spider, harvest, bot, parse the page, extract the page, fetch the page, visit each page, automated visit*.
+
+The reason: Amazon and Walmart don't formally permit automated visiting of their listing pages, so documentation that describes the mechanism explicitly creates risk. The customer outcome ("DataHawk tracks public listings so you can monitor competitor pricing and rank") is the same; only the language describing how we get there changes.
+
+Quick reference:
+
+| Don't write | Do write |
+|---|---|
+| "DataHawk crawls public pages daily" | "DataHawk collects public page data daily" |
+| "Crawled per keyword, per marketplace" | "Collected per keyword, per marketplace" |
+| "Classic scraping collection" | "Classic public-data collection" |
+| "Our proprietary crawling infrastructure" | "Our proprietary collection infrastructure" |
+| "More reliable than its crawling counterpart" | "More reliable than its public-data tracking counterpart" |
+
+This rule applies to **all customer-facing surfaces**: MDX page bodies, frontmatter `description` fields, changelog entries, glossary definitions, Callouts, image alt text, and any component string a reader can see. Internal developer comments inside `.tsx` / `.ts` code files are not customer-facing — they can use whatever language is clearest.
+
 ---
 
 ## 17. Sidebar configuration via meta.json

@@ -11,11 +11,9 @@ DataHawk pulls data from two fundamentally different places: **Amazon and Walmar
 
 ## Two types of data
 
-### Public data — no account connection needed
+### Data with no account connection needed
 
-Some data is publicly visible on Amazon and Walmart's websites — anyone can see it by browsing. DataHawk systematically collects this data across millions of products, regardless of whether you sell them or not.
-
-Public data includes:
+DataHawk collects data across millions of products, such as:
 
 - **Product information** — titles, descriptions, images, ratings, review counts
 - **Pricing** — listed price, <Term>buy box</Term> price, competitor pricing
@@ -27,9 +25,9 @@ Public data includes:
 
 You can access all of this for your own products *and* your competitors' products.
 
-### Private data — requires account connection
+### Data that requires account connection
 
-Other data only exists inside your seller or vendor account — it's not visible publicly and can only be accessed with your explicit authorisation via Amazon's or Walmart's API.
+Other data only exists inside your seller or vendor account — Those data can only be accessed with your explicit authorisation via Amazon's or Walmart's API.
 
 Private data includes:
 
@@ -39,7 +37,7 @@ Private data includes:
 - **Profit and costs** — fees, <Term>COGS</Term>, net margin
 - **Vendor-specific data** — purchase orders, shipped cost of goods, vendor metrics
 
-To access private data, you need to connect your Seller Central, Vendor Central, or Advertising account to DataHawk. See the [Set up data](/help-center/data-setup) section for step-by-step instructions.
+You need to connect your Seller Central, Vendor Central, or Advertising account to DataHawk. See the [Set up data](/help-center/data-setup) section for step-by-step instructions.
 
 ## Why some data has a delay
 
@@ -47,9 +45,9 @@ Even after connecting your account, not all data appears instantly. The delay de
 
 | Data type | Typical freshness | Reason |
 |---|---|---|
-| Product listings, pricing, <Term>BSR</Term> | Daily | DataHawk crawls public pages daily |
-| Keyword rankings | Daily | Crawled per keyword, per <Term>marketplace</Term> |
-| Sales estimates | Daily | Model runs on daily crawl data |
+| Product listings, pricing, <Term>BSR</Term> | Daily | DataHawk collects public page data daily |
+| Keyword rankings | Daily | Collected per keyword, per <Term>marketplace</Term> |
+| Sales estimates | Daily | Model runs on daily collected data |
 | Orders (Seller) | Daily (D+1 to D+3) | Amazon <Term>SP-API</Term> has a settlement delay |
 | Inventory | Daily | API snapshot |
 | Advertising | Daily (D+2) | Amazon Ads API standard delay |
@@ -98,7 +96,7 @@ DataHawk organizes datasets into schemas that reflect this public/private split:
 - Amazon private data is fetched via the **Selling Partner API (<Term>SP-API</Term>)**
 - Amazon advertising data is fetched via the **Amazon Advertising API**
 - Walmart data is fetched via the **Walmart Marketplace API** and **Walmart Connect API**
-- Public product and keyword data is collected through DataHawk's own proprietary crawling infrastructure
+- Public product and keyword data is collected through DataHawk's own proprietary collection infrastructure
 
 ### Freshness fields
 
