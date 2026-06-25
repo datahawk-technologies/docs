@@ -54,13 +54,42 @@ All three tabs share the same set of filters:
 | Filter | What it does |
 |---|---|
 | **Timeframe** | Set the date range for analysis |
-| **Marketplace** | Filter to Amazon or Walmart, and specific country |
+| **Marketplace** | Filter to Amazon and specific country |
 | **Category** | Filter to one or more tracked categories |
 | **Brand** | Filter to one or more brands |
-| **Product** | Filter to specific products |
-| **Parent/Child ASIN** | Toggle between parent-level and child-level <Term>ASIN</Term> aggregation (added in v2, May 2026) |
-| **Price Bands** | Slice the market by price band, plus a Price Min-Max slider for fine-grained ranges (added in v2) |
-| **Top N Brands** | Limit visuals to the top N brands by Market Share — works best together with the Min/Med/Max Price by Brand visual (added in v2) |
+| **Product name** | Filter to specific products based on the name|
+| **Parent ASIN** | Filter to specific Parent products ID (added in v2, May 2026) |
+| **Child ASIN** | Filter to specific Child products ID (added in v2, May 2026) |
+| **Top N Brands by Market Share** | Limit visuals to the top N brands by Market Share — works best together with the Min/Med/Max Price by Brand visual (added in v2) |
+| **Price Min / Max** | Slice the market by price range (added in v2) |
+| **Price Bands** | Slice the market by price band (added in v2) |
+
+<Callout type="info">
+**Price Bands**: The step size for price bands is configured in the Parameters section, in the same place where you set up your warehouse connection.
+</Callout>
+
+<Callout type="info">
+**Top N Brands by Market Share**: This slicer applies only when Brand is selected as the grouping dimension in the Categories or Rows slicer at the top of the page.
+</Callout>
+
+## Aggregated views filters
+
+The dashboard provides aggregated and historical views of the following data among Category Best Sellers (top 100 selling products):
+
+<img
+  src="/images/help-center/powerbi-dashboard/market-intelligence-dashboard/market-intelligence-dashboard-8.png"
+  alt="market-intelligence-dashboard 8"
+  width={1200}
+  height={680}
+  className="rounded-lg border"
+/>
+
+| Filter | What it does |
+|---|---|
+| **Timeframe** | Set the date range for analysis |
+| **Categories** | Filter to Marketplace, Category, Brand, Parent ASIN, Child ASIN, or Product Name |
+| **Primary Metric** | Filter to Brands, Products, Presence in top 100, Sales, Estimated Market Size, Estimated Sales, BSR, or Price attributes |
+| **Secondary Metric** | Filter to Brands, Products, Presence in top 100, Sales, Estimated Market Size, Estimated Sales, BSR, or Price attributes|
 
 Each tab also includes a shortcut to **Add Sources**, letting you add more categories or products directly from within the dashboard.
 
@@ -88,6 +117,8 @@ Each tab also includes a shortcut to **Add Sources**, letting you add more categ
 
   - **Min/Med/Max Prices by Brand**
 
+A combined bar and line chart showing the minimum, maximum, and median prices for each of the top brands. Useful for understanding each brand's price positioning and spread at a glance.
+
 <img
   src="/images/help-center/powerbi-dashboard/market-intelligence-dashboard/market-intelligence-dashboard-2.png"
   alt="market-intelligence-dashboard 2"
@@ -97,6 +128,9 @@ Each tab also includes a shortcut to **Add Sources**, letting you add more categ
 />
 
   - **Min/Max Price by Brand & Price Band**
+
+A detailed bar chart showing the minimum and maximum prices broken down by both brand and price band. This lets you see exactly which price segments each brand competes in, and how wide their price range is within each segment.
+
   - **Total Category Market Share by price band & Price Segement Market Share by Brand**
 
 <img

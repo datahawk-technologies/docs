@@ -40,7 +40,6 @@ The Advertising Dashboard is DataHawk's central reporting tool for Amazon and Wa
 | **Brand Store Overview** | Brand Store ad performance aggregated totals |
 | **Brand Store History** | Brand Store performance trends over time |
 | **DSP Overview** | Amazon DSP performance: spend, sales, impressions, new-to-brand, and more |
-| **Explorer** | Custom chart and table for flexible ad hoc analysis |
 
 ## Time periods and comparisons
 
@@ -51,19 +50,170 @@ All tabs include a **date range selector** at the top. Two tab patterns determin
 
 ## Dashboard filters
 
-All tabs share a common filter panel in the left rail. The same data can be sliced by:
+Tabs share a common filter panel in the left rail. The same data can be sliced by:
 
 | Filter | What it does |
 |---|---|
 | **Channel** | Filter to Amazon or Walmart |
 | **Account** | Filter to one or more ad accounts |
 | **<Term>Marketplace</Term>** | Filter to specific marketplaces |
-| **Campaign** | Filter to specific campaigns |
-| **Product** | Filter to specific products |
-| **Keyword** | Filter to specific keywords |
+| **Sponsored Type** | Filter to <Term>SB</Term>, <Term>SD</Term> and/or <Term>SP</Term> |
 | **Currency** | Choose the display currency for monetary metrics |
 
-**Overview tabs** include extra **Grouping & Metrics slicers** at the top of each table, letting you choose what to display as rows and columns.
+<Accordions>
+
+<Accordion title="Filters specific to product Campaign">
+
+| Filter | What it does |
+|---|---|
+| **Current Campaign Status** | Select the Archived, Enabled and/or Paused campaigns |
+| **Portfolio** | Filter to specific Protfolio with name |
+| **Portfolio ID** | Filter to specific Protfolio with ID |
+| **Ad Group** | Filter to specific Ad group with name |
+| **Ad Group ID** | Filter to specific Ad group with ID |
+
+</Accordion>
+
+<Accordion title="Filters specific to product tabs">
+
+| Filter | What it does |
+|---|---|
+| **Product ID** | Select one or several <Term>ASIN</Term> to filter |
+| **Product Name** | Filter based on the name of the product |
+| **Product Tag** | Filter based on the product tag assigned |
+| **Brand** | Filter to brand name |
+
+</Accordion>
+
+<Accordion title="Filters specific to keyword tabs">
+
+| Filter | What it does |
+|---|---|
+| **Campaign Name** | Filter to specific campaigns with name |
+| **Campaign ID** | Filter to specific campaigns with ID |
+| **Ad Group** | Filter to specific Ad group with name |
+| **Ad Group ID** | Filter to specific Ad group with ID |
+| **Keyword Tag** | Filter to keyword tags |
+| **keyword** | Filter to a (group of) keyword(s) |
+| **Search Term** | Filter to a (group of) Search term(s) |
+</Accordion>
+
+<Accordion title="Filters specific to Brand Store tabs">
+
+| Filter | What it does |
+|---|---|
+| **Brand Entity ID** | Filter to Brand Entity with its ID |
+| **Brand Name** | Filter to Brand Entity with its name |
+</Accordion>
+
+<Accordion title="Filters specific to DSP tab">
+
+At the top bar, you can see different filter levels
+<img
+  src="/images/help-center/powerbi-dashboards/advertising-dashboard/advertising-dashboard-12.png"
+  alt="Advertising Dashboard 12"
+  width={1200}
+  height={680}
+  className="rounded-lg border"
+/>
+
+| Filter | What it does |
+|---|---|
+| **Order Name** | Filter by the order name |
+| **Line Item Type** | Filter by the Line item type |
+| **Line Item Name** | Filter by the Line item name |
+| **Creative Type** | Filter by the Creative type |
+| **Creative Size** | Filter by the Creative size |
+| **Creative Name** |Filter by the Creative name |
+
+DSP reporting supports **Custom Filters** based on parameters defined in the Data Model.
+
+These allow grouping and filtering by dimensions such as **Category, Targeting Type, Audience,** or other custom attributes derived from **Order Name** or **Line Item** Name.
+
+<img
+  src="/images/help-center/powerbi-dashboards/advertising-dashboard/advertising-dashboard-13.png"
+  alt="Advertising Dashboard 13"
+  width={1200}
+  height={680}
+  className="rounded-lg border"
+/>
+
+The DSP tab includes multiple analytical blocks:
+
+- **KPI Summary Table** displaying key metrics such as Total Cost, Sales, Impressions, Clicks, ROAS, and New-to-Brand performance.
+- **Time-based bar and line charts** for analyzing trends in Total Sales, Total Cost, and ROAS.
+- **Budget Distribution charts**, including a stacked bar chart by **Line Item Type**.
+- **Geographic and metric breakdowns**, including stacked bar and pie charts controlled by metric and legend selectors.
+- **New-to-Brand Gauge**, showing the percentage of New-to-Brand Product Sales relative to Total Sales.
+- **Category & Targeting Table**, breaking down key metrics by custom-defined dimensions.
+
+<Callout type="warn">
+Custom parameters are case-sensitive and must exactly match the naming used in DSP entities.
+</Callout>
+
+</Accordion>
+
+</Accordions>
+
+## Analyzing the reports
+
+All tabs of this report include a date range selector.
+
+<img
+  src="/images/help-center/powerbi-dashboards/advertising-dashboard/advertising-dashboard-7.png"
+  alt="Advertising Dashboard 7"
+  width={150}
+  height={85}
+  className="rounded-lg border"
+/>
+
+At the top of each Overview tab you can see Grouping & Metrics slicers that allow you to choose what you want to see as rows and columns in the table below. Depending on what you have selected, you can further breakdown the overview metrics listed on the table.
+
+<img
+  src="/images/help-center/powerbi-dashboards/advertising-dashboard/advertising-dashboard-8.png"
+  alt="Advertising Dashboard 8"
+  width={1200}
+  height={680}
+  className="rounded-lg border"
+/>
+
+Under these slicers, there are KPIs that are displayed alongside its corresponding comparison to the previous period (the previous period is of the same length as the selected one, covering the dates immediately prior). Definitions for each metric and KPI can be found in the glossary below.
+
+<img
+  src="/images/help-center/powerbi-dashboards/advertising-dashboard/advertising-dashboard-9.png"
+  alt="Advertising Dashboard 9"
+  width={1200}
+  height={680}
+  className="rounded-lg border"
+/>
+
+At the top of each **History Tab**, you will find the **Timeline By** option, which allows you to adjust the time granularity reflected in the graph and table below. You can select between **Year, Quarter, Month, Week, or Day** views, depending on your analysis needs.
+
+Below the **Timeline By** section,  two slicers let you customize the graph. You can select multiple metrics to display on the **left axis** and compare them to a single metric on the **right axis**. The slicers are color-coded to match their respective axes, making it easy to understand which metrics correspond to which axis.
+
+<Callout type="info">
+Use Case: For example, you might compare Impressions and Clicks (on the left axis) with Conversion Rate (CVR) (on the right axis). This setup allows you to analyze how increase in visibility (impressions) and engagement (clicks) correlate with actual sales performance (conversion rate).
+</Callout>
+
+<img
+  src="/images/help-center/powerbi-dashboards/advertising-dashboard/advertising-dashboard-10.png"
+  alt="Advertising Dashboard 10"
+  width={1200}
+  height={680}
+  className="rounded-lg border"
+/>
+
+In the tables available across all **History Tabs**, you can customize the grouping and metrics displayed according to your preferences. Note that the history tables always use the selected "Timeline By" granularity as their columns. 
+
+<img
+  src="/images/help-center/powerbi-dashboards/advertising-dashboard/advertising-dashboard-11.png"
+  alt="Advertising Dashboard 11"
+  width={1200}
+  height={680}
+  className="rounded-lg border"
+/>
+
+If you select multiple metrics, they will be displayed for each time period based on the chosen granularity.
 
 ## Dashboard reports tab by tab
 
@@ -195,11 +345,6 @@ The Product History Tab offers a detailed view of product-level advertising perf
   <Callout type="warn">
     **DSP filter behavior (April 2026):** DSP data is **no longer filtered by the marketplace of the related advertising account**. DSP performance isn't marketplace-specific, so all DSP advertisers tied to your connection now surface here regardless of the Marketplace slicer. Expect to see more DSP volume than before, especially if you previously narrowed the dashboard by marketplace.
   </Callout>
-
-</Accordion>
-
-<Accordion title="Explorer">
-  Flexible, ad hoc analysis tool. Build a custom graph (left and right axis metrics) and a custom table grouped by any dimension. Separate predefined summary table groups metrics by Advertiser, Order Name, Line Item Type, Line Item Name, Creative Type, and Creative Name.
 
 </Accordion>
 

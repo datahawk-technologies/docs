@@ -95,7 +95,7 @@ The Ads DSP Dashboard gives Amazon <Term>DSP</Term> advertisers detailed visibil
   className="rounded-lg border"
 />
 
-  - **Metric and legend charts** — Two sets of stacked bar charts and a pie chart, each controlled by independent Metric and Legend slicers. The pie chart breaks down your chosen metric by country.
+  - **100% Stacked Bar Chart and Pie Chart** — Two sets of stacked bar charts and a pie chart, each controlled by independent Metric and Legend slicers. The pie chart breaks down your chosen metric by country.
 
 <img
   src="/images/help-center/powerbi-dashboards/ads-dsp-dashboard/ads-dsp-dashboard-4.png"
@@ -155,12 +155,33 @@ Custom filters work by extracting keywords from your Order or Line Item names. T
 ### Open Parameters
 
 In Power BI, click the three dots next to the **Data Model** and go to **Settings > Parameters**.
+<img
+  src="/images/help-center/powerbi-dashboards/ads-dsp-dashboard/ads-dsp-dashboard-9.png"
+  alt="Ads DSP Dashboard 2"
+  width={1200}
+  height={680}
+  className="rounded-lg border"
+/>
 </Step>
 
 <Step>
 ### Enter the terms used in your naming
 
 For each parameter (Category, Targeting Type, Audience, etc.), enter the terms that appear in your Order or Line Item names, separated by commas. Leave a parameter blank if you don't use it.
+
+<img
+  src="/images/help-center/powerbi-dashboards/ads-dsp-dashboard/ads-dsp-dashboard-10.png"
+  alt="Ads DSP Dashboard 10"
+  width={600}
+  height={340}
+  className="rounded-lg border"
+/>
+
+- **Categories**: If the names of your **Orders** or **Line Items** contain specific terms that should act as categories, add those terms to the **Category Parameter** (separate multiple terms with commas).
+    - Example: If the term "Toys" appears in your Order name and you want it to be a category, add `Toys` to the Category Parameter.
+- **Targeting Types**: If terms in the names indicate a targeting type, add them to the **Targeting Parameter** accordingly.
+
+
 </Step>
 
 </Steps>
