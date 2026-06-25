@@ -43,8 +43,8 @@ Go to the [Report Templates](https://analytics.datahawk.co/app/report-templates)
 Find the **Analytics Essentials** template and click **Request Access**.
 
 <img
-  src="/images/help-center/looker-studio/looker-studio-1.png"
-  alt="Click Request Access on the Analytics Essentials template"
+  src="/images/help-center/looker-studio/analytics-essentials/analytics-essentials-1.png"
+  alt="Analytics essentials 1"
   width={1200}
   height={680}
   className="rounded-lg border"
@@ -79,11 +79,13 @@ The template is organized into **9 sections**, each containing multiple report p
 
 An orientation section that sets the context for the rest of the template.
 
-| Page | What it shows |
-|---|---|
-| **DataHawk <Term>Workspace</Term>** | A live summary of your DataHawk connections — showing which accounts and sources are active and contributing data to the template |
-| **Tracked Products Report** | A list of all products currently being tracked in DataHawk |
-| **Dashboard Legend** | Definitions of key terms, icons, and conventions used throughout the template |
+<img
+  src="/images/help-center/looker-studio/analytics-essentials/analytics-essentials-2.png"
+  alt="Analytics essentials 2"
+  width={1200}
+  height={680}
+  className="rounded-lg border"
+/>
 
 ### 2. Product
 
@@ -91,10 +93,11 @@ Product-level intelligence across rankings, pricing, Buy Box, listing quality, a
 
 | Page | What it shows |
 |---|---|
-| **Product Metrics** | Key metrics for your tracked products: price, ratings, review count, estimated sales, <Term>BSR</Term> |
-| **Product Sales Ranks** | Best Sellers Rank (BSR) trends over time, by product and category |
-| **Product Search Ranks** | Organic search ranking positions for your tracked keywords, by product |
-| **Buy Box Analytics** | Buy Box ownership rate and competitor Buy Box activity |
+| **Metrics** | Key metrics for your tracked products: price, ratings, review count, estimated sales, <Term>BSR</Term> |
+| **Product Metrics by Brand** | Best Seller rankings by ASIN |
+| **Sales Ranks** | Best Sellers Rank (BSR) trends over time, by product and category |
+| **Search Ranks** | Organic search ranking positions for your tracked keywords, by product |
+| **Buy Box** | Buy Box ownership rate and competitor Buy Box activity |
 | **Listing Quality Analysis** | Listing Quality Score (LQS) breakdown and recommendations |
 | **Keyword Suggestion** | Keyword ideas to improve organic visibility based on your product catalog |
 
@@ -107,6 +110,16 @@ Keyword ranking and visibility across both organic and sponsored placements.
 | **Keywords Metrics** | Overview of tracked keywords with ranking positions, search volume, and trend indicators |
 | **Organic Products** | Which of your products rank organically for each tracked keyword, and at what position |
 | **Sponsored Products** | Which products appear in sponsored results for each tracked keyword, and their ad rank |
+| **Search Ranks** | Organic search ranking positions for your tracked keywords, by keyword |
+| **Search Ranks Monitoring** | Organic or Sponsored search ranking positions for your tracked keywords, tags, or product |
+
+### 4. Market intelligence
+
+| Page | What it shows |
+|---|---|
+| **Overview & market share** | Overview market share and by segments |
+| **Exports** | Export brand and product revenue and revenue share |
+
 
 ### 4. Advertising
 
@@ -114,9 +127,9 @@ Advertising performance across campaigns and products for Amazon Ads.
 
 | Page | What it shows |
 |---|---|
-| **Advertising Overview** | Account-level totals: ad spend, ad sales, impressions, clicks, <Term>ACoS</Term>, <Term>RoAS</Term> |
-| **Campaign Analytics** | Campaign-level breakdown with spend, performance, and efficiency metrics |
-| **Product Analysis** | Product-level ad performance for Sponsored Products and Sponsored Display |
+| **Overview** | Account-level totals: ad spend, ad sales, impressions, clicks, <Term>ACoS</Term>, <Term>RoAS</Term> |
+| **Campaign** | Campaign-level breakdown with spend, performance, and efficiency metrics |
+| **Product** | Product-level ad performance for Sponsored Products and Sponsored Display |
 
 ### 5. Sales
 
@@ -125,9 +138,10 @@ Sales performance, geographic breakdown, purchasing behavior, and <Term>FBA</Ter
 | Page | What it shows |
 |---|---|
 | **Sales Performance** | Revenue, units sold, and order trends over time |
-| **Sales Localization** | Sales breakdown by <Term>marketplace</Term> and geography |
+| **Sales Location** | Sales breakdown by <Term>marketplace</Term> and geography |
 | **Purchase Analysis** | Order patterns, repeat purchase behavior, and basket analysis |
 | **FBA Returns Analytics** | Return rates, return reasons, and the financial impact of FBA returns |
+| **Walmart Sales Performance** | Walmart specific revenue, units sold, and order trends over time |
 
 ### 6. Finance
 
@@ -135,9 +149,9 @@ Profit and loss reporting at summary, detailed, and historical levels.
 
 | Page | What it shows |
 |---|---|
-| **Profit & Loss — Summary** | High-level P&L: revenue, Amazon fees, <Term>COGS</Term>, advertising costs, and net profit |
-| **Profit & Loss — Detailed** | Line-by-line breakdown of all revenue and cost components |
-| **Profit & Loss — History** | Monthly P&L trend showing how profitability has evolved over time |
+| **Executive** | High-level P&L: revenue, Amazon fees, <Term>COGS</Term>, advertising costs, and net profit |
+| **Explorer** | Line-by-line breakdown of all revenue and cost components |
+| **Products** | Monthly P&L trend showing how profitability has evolved over time |
 
 The Finance section requires your **Cost of Goods Sold (COGS)** to be uploaded to DataHawk. Without COGS data, gross profit, operating profit, and net profit figures will not be accurate. See [Upload Amazon Product Expenses (COGS)](/help-center/data-setup/cogs-amz-upload) for the step-by-step upload guide.
 
@@ -147,7 +161,7 @@ Customer traffic analysis covering page views, sessions, and Buy Box win rates.
 
 | Page | What it shows |
 |---|---|
-| **Page Views & Sessions** | Trends in product page views and unique sessions over time |
+| **Sessions & Page Views** | Trends in product page views and unique sessions over time |
 | **Buy Box** | Buy Box win rate history and product-level Buy Box performance |
 
 ### 8. Inventory
@@ -160,10 +174,6 @@ FBA inventory status at the latest snapshot and over time.
 | **Metrics — Historical** | How inventory levels have changed over time for each tracked <Term>ASIN</Term> |
 
 ### 9. Feedback
-
-| Page | What it shows |
-|---|---|
-| **Feedback Form** | A form to submit feedback on the template directly to the DataHawk team |
 
 Use the Feedback Form to report issues, request new report pages, or suggest improvements. The DataHawk team monitors submissions actively.
 

@@ -79,24 +79,24 @@ If you sell in multiple countries (e.g., US, UK, Germany), DataHawk collects dat
 
 ### Schema organization by data type
 
-DataHawk organizes datasets into schemas that reflect this public/private split:
+DataHawk organizes datasets into schemas split:
 
 | Schema | Data type | Account required |
 |---|---|---|
-| `PRODUCT` | Public product data (listings, BSR, estimates, rankings) | No |
-| `KEYWORD` | Public keyword data (search volume, SERP rankings) | No |
-| `CATEGORY` | Public category structure and rankings | No |
-| `SELLER` | Private Seller Central data (orders, inventory, fees) | Seller account |
-| `VENDOR` | Private Vendor Central data (POs, shipped <Term>COGS</Term>) | Vendor account |
-| `ADVERTISING` | Private Advertising data (campaigns, spend, performance) | Advertising account |
-| `REPORTS` | Processed DataHawk report tables (mixed public/private) | Varies |
+| `PRODUCT` | Product data (listings, BSR, estimates, rankings) | No |
+| `KEYWORD` | Keyword data (search volume, SERP rankings) | No |
+| `CATEGORY` | Category structure and rankings | No |
+| `SELLER` | Seller Central data (orders, inventory, fees) | Seller account |
+| `VENDOR` | Vendor Central data (POs, shipped <Term>COGS</Term>) | Vendor account |
+| `ADVERTISING` | Advertising data (campaigns, spend, performance) | Advertising account |
+| `REPORTS` | Processed DataHawk report tables | Varies |
 
 ### API source references
 
 - Amazon private data is fetched via the **Selling Partner API (<Term>SP-API</Term>)**
 - Amazon advertising data is fetched via the **Amazon Advertising API**
 - Walmart data is fetched via the **Walmart Marketplace API** and **Walmart Connect API**
-- Public product and keyword data is collected through DataHawk's own proprietary collection infrastructure
+- Product and keyword data is collected through DataHawk's own proprietary collection infrastructure
 
 ### Freshness fields
 
