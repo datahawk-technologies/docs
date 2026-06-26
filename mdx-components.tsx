@@ -11,6 +11,7 @@ import Image from 'next/image';
 import type { ReactNode } from 'react';
 import { Term } from '@/components/Term';
 import { PageFeedback } from '@/components/PageFeedback';
+import { ImageCarousel } from '@/components/ImageCarousel';
 
 // ─── Callout: emoji icon override ──────────────────────────────────────────
 type CalloutType = 'info' | 'warn' | 'warning' | 'error' | 'success';
@@ -49,6 +50,7 @@ export const mdxComponents = {
   // Custom-overridden
   Callout,
   Term,
+  ImageCarousel,
 
   // Layout & structure
   Card,
@@ -67,7 +69,7 @@ export const mdxComponents = {
   TypeTable,
   InlineTOC,
 
-    // Optimized images
+  // Optimized images
   Image,
 
   // Per-page feedback widget (last updated + 'was this helpful?')
