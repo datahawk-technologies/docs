@@ -34,22 +34,22 @@ This is the most important step. Go to **Sources** in the left sidebar and conne
 <div className="card-grid">
   <Card
     title="Amazon Seller Central"
-    href="/help-center/amazon-private-data-seller"
+    href="/help-center/data-setup/seller-account"
     description="Connect this if you are a third-party seller (3P) on Amazon. You'll need admin access to your Seller Central account."
   />
   <Card
     title="Amazon Vendor Central"
-    href="/help-center/amazon-private-data-vendor"
+    href="/help-center/data-setup/vendor-account"
     description="Connect this if you sell to Amazon as a first-party supplier (1P)."
   />
   <Card
     title="Amazon Advertising"
-    href="/help-center/amazon-private-data-advertising"
+    href="/help-center/data-setup/ads-account"
     description="Connect this to see your advertising performance (Sponsored Products, Sponsored Brands, Sponsored Display, DSP)."
   />
   <Card
     title="Walmart"
-    href="/help-center/walmart-private-data"
+    href="/help-center/data-setup/marketplace-account"
     description="Connect this if you sell on Walmart.com."
   />
 </div>
@@ -67,25 +67,20 @@ This takes approximately **24 hours**. You will not see data in your reports unt
 
 If you want to use DataHawk's profit reporting (P&L, Gross Profit, Net Profit), you need to provide your **Cost of Goods Sold (COGS)** data. Amazon doesn't supply this, so DataHawk cannot calculate profit without it.
 
-You can upload a COGS file at any time. See [Upload Amazon Product Expenses](/help-center/upload-product-expenses) for the format and instructions.
+You can upload a COGS file at any time. See [Upload Amazon Product Expenses](/help-center/data-setup/cogs-amz-upload) for the format and instructions.
 
 <Callout type="info">
   If you skip this step now, your revenue and traffic data will still be available — only profit metrics will be missing.
 </Callout>
 
 
-## Step 5 — Set Up a Destination
+## Step 5 — Connect to your tool of choice
 
 If you want to access your data in an external tool — Power BI, Google Sheets, Snowflake, BigQuery, or Excel — you need to add a **Destination**.
 
 Go to **Destinations** in the left sidebar and click **Add Destination**. DataHawk will build a database for you, pre-filled with your data, that you can connect to your tool of choice.
 
-See [Destinations Overview](/help-center/destinations-overview) for a full explanation of how this works, and the individual destination pages for step-by-step connection guides.
-
-<Callout type="info">
-  If you only plan to use DataHawk's built-in dashboards and apps, you can skip this step.
-</Callout>
-
+See [Connect to your tools](/help-center/connect-tools/index) for a full explanation of how this works, and the individual destination pages for step-by-step connection guides.
 
 
 ## Step 6 — Access Your Dashboards
@@ -103,11 +98,11 @@ Download the DataHawk dashboard templates and connect them to your destination d
 - Product Dashboard
 - Ads DSP Dashboard
 
-See [Download Power BI Templates](/help-center/power-bi-templates) to get started.
+See [Download Power BI Templates](https://datahawk.notion.site/datahawk-power-bi-template-links?source=copy_link) to get started.
 
 ### Looker Studio
 
-A Looker Studio template is also available. See [Looker Studio Template](/help-center/looker-studio-template).
+A Looker Studio template is also available. See [Looker Studio Template](content/help-center/looker-studio/index).
 
 
 
@@ -120,8 +115,6 @@ With data flowing, you can start using DataHawk's built-in tools:
 - **AI Copywriter** — Generate and optimize Amazon product listings directly from your data.
 - **Insights** — Surfaces trends and anomalies across your catalog automatically.
 
-
-
 ---
 
 ## Where to Go Next
@@ -131,22 +124,22 @@ Once you're set up, these are the most useful places to continue learning:
 <div className="card-grid">
   <Card
     title="Seller Analytics Dashboard User Guide"
-    href="/help-center/seller-analytics-dashboard"
+    href="/help-center/powerbi-dashboards/seller-analytics-dashboard"
     description="Deep dive into the Seller dashboard."
   />
   <Card
     title="Vendor Analytics Dashboard User Guide"
-    href="/help-center/vendor-analytics-dashboard"
+    href="/help-center/powerbi-dashboards/vendor-analytics-dashboard"
     description="Deep dive into the Vendor dashboard."
   />
   <Card
-    title="Understanding Your Data"
-    href="/help-center/understanding-your-data"
+    title="Knowledge hub"
+    href="/help-center/knowledge-hub/index.mdx"
     description="How DataHawk processes and models your Amazon data."
   />
   <Card
     title="Troubleshooting"
-    href="/troubleshooting"
+    href="/troubleshooting/index"
     description="If something doesn't look right."
   />
 </div>

@@ -1,4 +1,4 @@
 {
   "title": "Data setup",
-  "pages": ["index", "seller-account", "vendor-account", "ads-account", "cogs-amz-upload", "categories-tracking", "marketplace-account", "connect-account", "products-tracking", "keywords-tracking", "tags", "on-demand-sources"]
+  "pages": ["index", "seller-account", "vendor-account", "ads-account", "cogs-amz-upload", "categories-tracking", "marketplace-account", "connect-account", "products-tracking", "keywords-tracking", "premium-keywords-tracking", "tags", "on-demand-sources"]
 }
