@@ -1,0 +1,22 @@
+---
+title: "Walmart Products: About the Brand feature section"
+description: "Walmart product data now identifies the About the Brand section when a page's marketing module is active."
+date: "2026-06-27"
+tags: ["new"]
+---
+
+Starting **June 27, 2026**, Walmart product data will include a new feature signal for pages where the marketing module is active: `about_the_brand`.
+
+## What's new
+
+When a Walmart product page has an active marketing module, DataHawk will now identify the **About the Brand** section as an activated product feature.
+
+## Where to find it
+
+The new signal is available in:
+
+| Schema | Table | Column | Value |
+|---|---|---|---|
+| `PRODUCT` | `PRODUCT_DETAILED` | `FEATURES` | `about_the_brand` |
+
+The `FEATURES` column lists every activated feature detected for a product, so `about_the_brand` will appear alongside other active product-page features when available.
