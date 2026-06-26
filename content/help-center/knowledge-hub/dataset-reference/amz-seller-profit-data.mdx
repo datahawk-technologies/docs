@@ -1,0 +1,141 @@
+---
+title: Amazon Seller Profit Data
+description: Data sources and models behind DataHawk's Amazon Seller profit reporting — from financial events to the profit ledger and metric tables.
+---
+
+DataHawk offers comprehensive financial reporting for Amazon Seller accounts. This article explains the data sources behind our holistic reports and the data models that power them.
+
+Our profit and loss data is compiled from multiple sources, initially recorded as an events ledger.
+
+## Data Sources
+
+### Financial Events
+
+The majority of records in the Seller Profit Ledger are financial events sourced from the [Amazon Finance API](https://developer-docs.amazon.com/sp-api/docs/finances-api-reference). This includes all transactions made on an Amazon Seller Account.
+
+Financial events are complete with a 2 year history up to T-2d from today.
+
+### Enrichment Reports
+
+There are particular financial events that lack richness in accompanying information. These enrichment reports are used to replace these events, providing additional relevant information at no loss.
+
+**Advertising Reports** — Advertising cost events are replaced with events sourced from Advertising Reports to provide sponsored type and <Term>ASIN</Term> annotation. Advertising events are complete with a 2 year history up to T-2d from today.
+
+**<Term>FBA</Term> Removal Order and Detail Report** — Removal and disposal fee events are replaced to provide <Term>ASIN</Term> and <Term>SKU</Term> annotation. <Term>FBA</Term> reports are produced by Amazon once a month. Events can take up to one month to be present.
+
+**FBA Storage Fee Charges Report** — Storage Fee events are replaced to provide ASIN annotation. FBA reports are produced by Amazon once a month.
+
+**FBA Longterm Storage Fee Charges Report** — Longterm Storage Fee events are replaced to provide ASIN and <Term>SKU</Term> annotation. FBA reports are produced by Amazon once a month.
+
+### Cost of Goods
+
+User-submitted [product expenses](/help-center/data-setup/cogs-amz-upload) are applied to items sold and returned to get Cost of Goods events which are appended to the profit ledger.
+
+## Data Dictionaries
+
+For an exhaustive list of all tables and fields, see the [Exhaustive Column Referential](https://docs.google.com/spreadsheets/d/1gYGqKQP9Z71nz1lOb4y0wJ15i27NvsUzdliIJeIx0HY/edit#gid=175439716).
+
+## Datasets
+
+### Profit Ledger
+
+`finance.finance_profit_ledger`
+
+A ledger of profit events compiled from a comprehensive selection of seller finance data sources. Events are annotated with timestamp, category, subcategory, event description, and other additional fields.
+
+**Categories:**
+
+- **Sales**: Sales revenue including charges to customers (Tax/<Term>VAT</Term>, Giftwrap, Shipping).
+- **Refunds**: Returns, Guarantees, Chargebacks, and related fees.
+- **Cost of Goods**: Cost of goods sold and returned.
+- **Amazon Fees**: Fulfillment fees, Service Fees, Warehousing, and more. <Term>FBA</Term> fee coverage includes Inbound Defect Fee, Per Unit Fulfillment Fee, Disposal Fee, and Customer Return Per Unit Fee (the last two may be delayed in Financial Events).
+- **Marketing**: Advertising, Coupons, and Promotion.
+- **Adjustments**: Made to sales charges and fees.
+- **Tax Expenses**: Taxes withheld and paid.
+- **Tax Adjustments**: Made to tax charges and expenses.
+
+<Callout type="info">
+  **ServiceFee categorization (fix, September 17, 2025).** Non-categorized ServiceFee events are now correctly categorized under `Others > ServiceFee`. Previously they were misclassified under `Refunds > Other`.
+</Callout>
+
+**Tax handling:** Taxes previously embedded within fees are now extracted into separate ledger lines, and tax portions are flagged with `is_tax = true`. Category and subcategory hierarchies and event signatures are unchanged. Reported profit may increase slightly because tax amounts are no longer mixed into fee totals. (See the [Tax Management changelog](/changelog/2025-11-02-tax-management-profit).)
+
+**Available timestamps:** `purchase_date` (when applicable), `accrual_date` (event incurred date), `recorded_date` (Amazon's official ledger posting date). `posted_date` is an alias for `accrual_date`.
+
+**Deferred-transaction columns** (Ledger table only):
+
+| Column | Values |
+|---|---|
+| `transaction_status` | `DEFERRED`, `DEFERRED_RELEASED`, `RELEASED` |
+| `deferral_reason` | `DD7` (Delivery Date +7), `B2B` (Business-to-Business) |
+
+**Other columns:**
+
+- `settlement_id` — Amazon settlement identifier for the event (added January 22, 2026).
+
+### Accrual Profit Methodology
+
+Our **default aggregated Profit reporting tables follow an accrual methodology**, which recognizes profit events based on their incurred date (such as purchase date) rather than payout date.
+
+**`finance.finance_profit`** — A daily summary of the profit ledger, aggregated by date, seller account, <Term>marketplace</Term>, ASIN, SKU, and event signature.
+
+**`finance.finance_profit_metrics`** — A collection of profit metrics:
+
+- **Gross Revenue**: Sales including Tax Charges (<Term>VAT</Term>)
+- **Net Revenue**: Gross Revenue - Refunds
+- **Gross Profit**: Net Revenue - Cost of Goods
+- **Operating Profit**: Gross Profit - Amazon Fees - Marketing
+- **Adjusted Operating Profit**: Operating Profit + Adjustments
+- **Net Profit**: Adjusted Operating Profit - Net Taxes
+
+### Recorded Profit Methodology
+
+For analysis based on Amazon's official ledger posting date:
+
+- `FINANCE_PROFIT_RECORDED_BASIS` — daily profit aggregated on recorded date
+- `FINANCE_PROFIT_METRICS_RECORDED_BASIS` — daily profit metrics on recorded date
+
+## Use Case Queries
+
+**How do I summarize my Amazon Profit this year?**
+
+```sql
+SELECT
+  category,
+  subcategory,
+  SUM(amount_usd) AS amount,
+  category_path_order
+FROM finance.finance_profit_ledger
+WHERE YEAR(posted_date) = YEAR(CURRENT_DATE())
+GROUP BY ALL
+ORDER BY category_path_order
+```
+
+**How do I explore SKU profitability?**
+
+```sql
+SELECT
+  asin,
+  sku,
+  SUM(amount_usd) AS amount
+FROM finance.finance_profit_ledger
+WHERE YEAR(posted_date) = YEAR(CURRENT_DATE())
+GROUP BY ALL
+ORDER BY SUM(amount) DESC
+```
+
+**What is my Amazon Profit in Euros?**
+
+```sql
+SELECT
+  l.category,
+  l.subcategory,
+  SUM(l.amount_usd * r.rate) AS amount,
+  l.category_path_order
+FROM finance.finance_profit_ledger l
+LEFT JOIN referential.referential_currency_rate r
+  ON l.posted_date = r.posted_date AND l.currency = r.currency
+WHERE YEAR(l.posted_date) = YEAR(CURRENT_DATE()) AND r.base = 'USD'
+GROUP BY ALL
+ORDER BY l.category_path_order
+```

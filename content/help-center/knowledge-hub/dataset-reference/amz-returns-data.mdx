@@ -1,0 +1,79 @@
+---
+title: Amazon Returns Data
+description: Technical reference for Amazon FBA and FBM return tables, order joins, reason-code mappings, and return-record fields.
+---
+
+This page is the technical reference for Amazon return records in DataHawk. Use it when you need return table names, fulfillment-path coverage, order joins, and the FBM/FBA reason-code mapping.
+
+<Callout type="info">
+  For business context, return dispositions, and how to interpret return patterns, see [Understanding Amazon Returns](/help-center/knowledge-hub/data-fundamentals/understanding-amazon-returns).
+</Callout>
+
+## Available data tables
+
+Returns data is available in the `SELLING_PARTNER` schema.
+
+| Table | Coverage | Available since | Description |
+|---|---|---|---|
+| `RETURNS_DATA_SRC` | <Term>FBM</Term> (Fulfilled by Merchant) orders only | June 2023 | Return records keyed by return date. Includes <Term>ASIN</Term>, <Term>SKU</Term>, return quantities, reason codes, and metadata. |
+| `FBA_CUSTOMER_RETURNS_SRC` | <Term>FBA</Term> (Fulfilled by Amazon) orders | - | Detailed FBA return records including Fulfillment Center ID, disposition, customer comments, and reason codes. |
+
+## Join with order data
+
+To enrich returns with order-level context, join against `finance.finance_orders`:
+
+```sql
+SELECT
+  o.fulfillment_channel,
+  r.*
+FROM SELLING_PARTNER.RETURNS_DATA_SRC r
+LEFT OUTER JOIN finance.finance_orders o
+  ON o.order_id = r.order_id
+```
+
+## Full return reason code reference
+
+| Reason | FBM Code | FBA Code |
+|---|---|---|
+| Unwanted item | CR-UNWANTED_ITEM | UNWANTED_ITEM |
+| Defective item | CR-DEFECTIVE | DEFECTIVE |
+| Product not as described | AMZ-PG-BAD-DESC | NOT_AS_DESCRIBED |
+| Found better price | CR-FOUND_BETTER_PRICE | FOUND_BETTER_PRICE |
+| Damaged by carrier | CR-DAMAGED_BY_CARRIER | DAMAGED_BY_CARRIER |
+| Damaged by fulfillment center | CR-DAMAGED_BY_FC | DAMAGED_BY_FC |
+| Missing parts | CR-MISSING_PARTS | MISSING_PARTS |
+| Wrong size | WRONG_SIZE | WRONG_SIZE |
+| Wrong style | AMZ-PG-APP-STYLE | APPAREL_STYLE |
+| Apparel too small | AMZ-PG-APP-TOO-SMALL | APPAREL_TOO_SMALL |
+| Apparel too large | AMZ-PG-APP-TOO_LARGE | APPAREL_TOO_LARGE |
+| Never arrived | NEVER_ARRIVED | NEVER_ARRIVED |
+| Ordered wrong item | CR-ORDERED_WRONG_ITEM | ORDERED_WRONG_ITEM |
+| Received wrong item | CR-SWITCHEROO | SWITCHEROO |
+| Quality not acceptable | CR-QUALITY_UNACCEPTABLE | QUALITY_UNACCEPTABLE |
+| Missed delivery window | CR-MISSED_ESTIMATED_DELIVERY | MISSED_ESTIMATED_DELIVERY |
+| Unauthorized purchase | CR-UNAUTHORIZED_PURCHASE | UNAUTHORIZED_PURCHASE |
+| Extra item received | CR-EXTRA_ITEM | EXTRA_ITEM |
+
+## Source-of-truth columns
+
+Use the [Exhaustive Column Referential](https://docs.google.com/spreadsheets/d/1gYGqKQP9Z71nz1lOb4y0wJ15i27NvsUzdliIJeIx0HY/edit#gid=175439716) for the complete, current field list, data types, and field descriptions.
+
+## Where to go next
+
+<div className="card-grid">
+  <Card
+    title="Understanding Amazon Returns"
+    href="/help-center/knowledge-hub/data-fundamentals/understanding-amazon-returns"
+    description="Business context for return dispositions, common reasons, and operational interpretation."
+  />
+  <Card
+    title="Find Tables and Columns"
+    href="/help-center/knowledge-hub/dataset-reference/find-tables-and-columns"
+    description="Use the source-of-truth schema reference for exact columns and data types."
+  />
+  <Card
+    title="Amazon Seller Profit Data"
+    href="/help-center/knowledge-hub/dataset-reference/amz-seller-profit-data"
+    description="Profit ledger structure for fees, refunds, taxes, and financial events."
+  />
+</div>

@@ -1,0 +1,166 @@
+---
+title: Find Tables and Columns
+description: Learn how to use the source-of-truth schema reference to find DataHawk tables, columns, grains, and field definitions.
+---
+
+The [Exhaustive Column Referential](https://docs.google.com/spreadsheets/d/1gYGqKQP9Z71nz1lOb4y0wJ15i27NvsUzdliIJeIx0HY/edit#gid=175439716) is the source of truth for DataHawk schemas, tables, columns, data types, and field descriptions. This page shows you how to navigate that reference instead of relying on a static table catalog that can go stale.
+
+<Callout type="info">
+  Use the Google Sheet for the complete, current table and column list. Use this documentation for context, workflows, examples, and links to deeper dataset guides.
+</Callout>
+
+## Open the schema reference
+
+Start from the [Exhaustive Column Referential](https://docs.google.com/spreadsheets/d/1gYGqKQP9Z71nz1lOb4y0wJ15i27NvsUzdliIJeIx0HY/edit#gid=175439716). The Sheet is designed for filtering, sorting, and searching across schemas, tables, columns, data types, and descriptions.
+
+Each row represents a field in a table. The most useful columns are usually:
+
+- **Schema** — top-level grouping such as `PRODUCT`, `FINANCE`, `ADVERTISING`, or `REPORTS`
+- **Table** — table name within that schema
+- **Column** — field name as it appears in <Term>Snowflake</Term> or <Term>BigQuery</Term>
+- **Description** — what the field represents
+- **Data type** — expected format for the field
+
+## Start from the business question
+
+Before searching, translate the question into a data domain.
+
+| If your question is about... | Start with... |
+|---|---|
+| Advertising spend, campaigns, keywords, accounts | `ADVERTISING` |
+| Orders, profit, fees, refunds, tax, P&L | `FINANCE` |
+| Product listings, Buy Box, pricing, competitors, LQS | `PRODUCT` |
+| Category-level sales estimates and top 100 products | `MARKET` |
+| Seller/Vendor Central source reports, inventory, returns, replenishment | `SELLING_PARTNER` |
+| Keyword rankings, sponsored ranks, search volume | `SEO` |
+| Curated business-ready tables | `REPORTS` |
+| Currency, marketplaces, tracked products, accounts, tags | `REFERENTIAL` |
+
+If you are not sure where to start, use [Source Systems & Freshness](/help-center/knowledge-hub/dataset-reference/source-systems-freshness) to map data types to source systems and schemas.
+
+## Filter by schema or table
+
+Use the Sheet's built-in filters to narrow the rows:
+
+1. Filter **Schema** to the domain you identified.
+2. Filter or search **Table** if you already know part of the table name.
+3. Search **Description** for business terms such as `buy box`, `refund`, `inventory`, `campaign`, or `search volume`.
+
+Filtering first makes search results less noisy, especially for common words like `sales`, `date`, or `brand`.
+
+## Search by concept or column name
+
+If you know the business concept but not the column name, search the descriptions. If you know part of the field name, search the Column field directly.
+
+Useful examples:
+
+| Search for | Likely result |
+|---|---|
+| `featured offer` or `buy box` | Featured-offer and Buy Box fields in product tables |
+| `trust` | Sales estimate confidence fields |
+| `deferred` | Profit ledger timing and deferral fields |
+| `currency` | Marketplace and exchange-rate reference fields |
+| `sponsored type` | Advertising table dimensions |
+
+## Check the table grain
+
+Before building a query or dashboard, confirm what one row represents. This is the most common source of mismatched numbers.
+
+Look for clues in the table name, key columns, date fields, and descriptions:
+
+- Product tables may be one row per ASIN, parent ASIN, product key, or snapshot date.
+- Advertising tables may be account-level, campaign-level, keyword-level, or product-level.
+- Finance tables may be event-level, order-level, ledger-level, or daily aggregation.
+- Report tables may already join multiple schemas and hide lower-level grain.
+
+When a page exists for the dataset family, use it to confirm grain and caveats. For example:
+
+<div className="card-grid">
+  <Card
+    title="Sales Estimates Data"
+    href="/help-center/knowledge-hub/dataset-reference/sales-estimates-data"
+    description="V7 sales estimate tables, grain, aliases, and key columns."
+  />
+  <Card
+    title="Product Data Reference"
+    href="/help-center/knowledge-hub/dataset-reference/product-data-reference"
+    description="Product identifiers, parent/child joins, LQS, competitors, pricing, and offers."
+  />
+  <Card
+    title="SEO & Keyword Data"
+    href="/help-center/knowledge-hub/dataset-reference/seo-keyword-data"
+    description="Keyword research, search volume, organic rank, and sponsored rank tables."
+  />
+</div>
+
+## Check date and freshness fields
+
+Tables may include several date-like fields. Pick the one that matches your analysis:
+
+| Field pattern | Typical meaning |
+|---|---|
+| `DATE_DAY` / `OBSERVATION_DATE` | Business date represented by the row |
+| `OBSERVATION_TIME` | Timestamp of a collected snapshot |
+| `UPDATED_AT` | When DataHawk last updated the row |
+| `TIME_INTERVAL_START_DATE` / `TIME_INTERVAL_END_DATE` | Start and end of an aggregated reporting period |
+| Source report date fields | Date assigned by Amazon, Walmart, or the source API |
+
+For source-system delays and freshness guidance, see [Source Systems & Freshness](/help-center/knowledge-hub/dataset-reference/source-systems-freshness).
+
+## Watch for preview and deprecated tables
+
+The schema reference may include tables marked as preview, experimental, deprecated, legacy, or aliases. Treat those labels as implementation guidance:
+
+- **Preview / experimental** — useful for exploration, but avoid production dashboards unless your DataHawk contact confirms stability.
+- **Deprecated / legacy** — migrate to the replacement table where documented.
+- **Alias** — still resolves today, but use the canonical table for new work.
+- **Raw** — closer to the source API, often more granular and less curated.
+
+## Examples
+
+### Find the table for Buy Box owner
+
+1. Start with the `PRODUCT` schema because Buy Box is product-offer data.
+2. Search for `featured offer` or `buy box`.
+3. Look for `AMZN_PRODUCT_FEATURED_OFFER` and fields such as `FEATURED_SELLER_ID`.
+4. Confirm field meaning in [Product Data Reference](/help-center/knowledge-hub/dataset-reference/product-data-reference#pricing-and-offers-tables).
+
+### Find sales estimate columns
+
+1. Start with `PRODUCT`, `MARKET`, or `REPORTS`, depending on whether you need product-level, category-level, or curated report data.
+2. Search for `sales estimates`, `UNITS_CHILD`, `REVENUE_CHILD`, or `TRUST_INDEX`.
+3. Confirm current V7 tables and deprecated aliases in [Sales Estimates Data](/help-center/knowledge-hub/dataset-reference/sales-estimates-data).
+
+### Find advertising campaign metrics
+
+1. Start with `ADVERTISING`.
+2. Search for `campaign`, `spend`, `sales`, `clicks`, or `sponsored_type`.
+3. Choose the table grain that matches the dashboard or query: account, campaign, keyword, product, or SKU.
+4. For Walmart-specific tables, use [Walmart Advertising Data](/help-center/knowledge-hub/dataset-reference/wmt-advertising-data).
+
+### Find currency conversion fields
+
+1. Start with `REFERENTIAL`.
+2. Search for `currency` or `exchange rate`.
+3. Use `REFERENTIAL_CURRENCY_RATE` for daily exchange rates and `REFERENTIAL_MARKETPLACE` when you need the currency attached to a marketplace.
+4. For a SQL example, see [Convert Currencies](/help-center/knowledge-hub/dataset-reference/convert-currencies).
+
+## Where to go next
+
+<div className="card-grid">
+  <Card
+    title="Dataset Reference"
+    href="/help-center/knowledge-hub/dataset-reference"
+    description="Return to the technical reference hub."
+  />
+  <Card
+    title="Source Systems & Freshness"
+    href="/help-center/knowledge-hub/dataset-reference/source-systems-freshness"
+    description="Map data types to source APIs, schemas, account requirements, and refresh fields."
+  />
+  <Card
+    title="Amazon Seller Profit Data"
+    href="/help-center/knowledge-hub/dataset-reference/amz-seller-profit-data"
+    description="Profit ledger structure, tax extraction, transaction status, FBA fee categories."
+  />
+</div>
