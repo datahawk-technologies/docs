@@ -1,39 +1,58 @@
 ---
 title: Before starting
-description: Checklist of account access, COGS, BI tools, and timing expectations to review before connecting your DataHawk sources.
+description: Checklist of access, tracking choices, COGS, BI tools, and timing expectations before connecting DataHawk sources.
 ---
 
 Before connecting sources, confirm the account access, files, and tools your team needs. This checklist helps avoid setup delays and makes the Quick Start easier to follow.
 
 ## You need to sign in to DataHawk
 
-DataHawk will send you an **invitation email** when your account is ready. Make sure to check your **spam folder** if you don't see it within a few minutes of your contract being activated. The link in that email is your starting point — no separate account creation is needed.
+DataHawk will send you an **invitation email** when your account is ready. Make sure to check your **spam folder** if you don't see it within a few minutes of your contract being activated. The link in that email is your starting point; no separate account creation is needed.
 
-## Your private accounts
+## Choose Your First Data Source
+
+You do not need every DataHawk source connected before you can start. A new workspace needs **at least one source** to begin collecting data, but that source can be a private account connection, a tracked product, a tracked keyword, or a tracked category. Start with the data source that matches your first use case; the more sources you add, the richer your dashboards, reports, Alerts, Insights, and Sherlock analyses become.
+
+## Private Account Connections
+
+Private account connections pull data from accounts your business owns or manages. Use these sources when you want DataHawk to collect sales, finance, inventory, traffic, or advertising data directly from Amazon or Walmart.
 
 ### Amazon Accounts
 
 DataHawk connects to Amazon through the accounts you have access to. Depending on your business, you may connect one or several of the following:
 
-- **Amazon Seller Central** — Required if you sell directly on Amazon as a third-party seller (3P). You'll need **admin-level access** to your Seller Central account to authorize the connection.
-- **Amazon Vendor Central** — Required if you sell to Amazon as a first-party supplier (1P). You'll need **admin-level access** to your Vendor Central account.
-- **Amazon Advertising** — Required to see advertising performance data (Sponsored Products, Sponsored Brands, Sponsored Display, DSP). This is a **separate account** from Seller or Vendor Central. You'll need access to the Amazon Advertising console.
+- **Amazon Seller Central**: Required if you sell directly on Amazon as a third-party seller (3P). You'll need **admin-level access** to your Seller Central account to authorize the connection.
+- **Amazon Vendor Central**: Required if you sell to Amazon as a first-party supplier (1P). You'll need **admin-level access** to your Vendor Central account.
+- **Amazon Advertising**: Required to see advertising performance data (Sponsored Products, Sponsored Brands, Sponsored Display, DSP). This is a **separate account** from Seller or Vendor Central. You'll need access to the Amazon Advertising console.
 
 <Callout type="info">
-  You do not need all three — connect only the accounts that apply to your business. If you are both a Seller and a Vendor, you can connect both.
+  You do not need all three. Connect only the accounts that apply to your business. If you are both a Seller and a Vendor, you can connect both.
 </Callout>
 
-### Walmart Account
+### Walmart Accounts
 
-- **Walmart Seller (Marketplace)** — Required if you sell on Walmart.com as a third-party seller. Connect via Walmart Marketplace credentials.
-- **Walmart Connect** — Required for Walmart advertising data.
+- **Walmart Seller (Marketplace)**: Required if you sell on Walmart.com as a third-party seller. Connect via Walmart Marketplace credentials.
+- **Walmart Connect**: Required for Walmart advertising data.
+
+## Product, Keyword, and Category Tracking
+
+Not every DataHawk source requires private account credentials. You can also add marketplace objects for DataHawk to monitor daily. These tracked sources are useful for competitive monitoring, search visibility, assortment analysis, and market intelligence.
+
+- **Product Tracking**: Track Amazon or Walmart products to capture daily snapshots of price, ratings, sales rank, availability, content, and Buy Box signals.
+- **Keyword Tracking**: Track Amazon or Walmart keywords to monitor organic search visibility, rank movements, and the products appearing in search results.
+- **Premium Keywords**: Add Amazon sponsored rank visibility so you can compare paid and organic placement for your most important keywords.
+- **Category Tracking**: Track Amazon categories to monitor the top 100 products, competitor movement, and sales-rank trends in a category.
+
+<Callout type="info">
+  You can start with only product, keyword, or category tracking if that is your immediate need. Adding private account connections later gives DataHawk more context, such as sales, ads, inventory, and profitability.
+</Callout>
 
 ## For Profit & Loss Reporting
 
 If you want to use the **P&L features** (Gross Profit, Operating Profit, Net Profit), you'll need to upload your **Cost of Goods Sold (COGS)** data. DataHawk cannot calculate profit without this, as COGS is not available from Amazon.
 
 <Callout type="info">
-  You can upload COGS at any time after setup — it does not block you from connecting your account — but without it, profit metrics will not be populated. See [Upload Amazon Product Expenses](/help-center/data-setup/cogs-amz-upload) for instructions.
+  You can upload COGS at any time after setup. It does not block you from connecting your account, but without it, profit metrics will not be populated. See [Upload Amazon Product Expenses](/help-center/data-setup/cogs-amz-upload) for instructions.
 </Callout>
 
 ## For Power BI Dashboards
@@ -51,7 +70,7 @@ If your team already uses Power BI, you likely have the right license. If you ar
   Once you connect a data source, DataHawk needs approximately **24 hours** to retrieve and process your historical data. You will not see data immediately after connecting.
 </Callout>
 
-Plan your setup session accordingly — connecting on a Friday means your data will typically be ready by Monday.
+Plan your setup session accordingly. Connecting on a Friday means your data will typically be ready by Monday.
 
 Data is then refreshed **automatically** on an ongoing basis, so you don't need to do anything after the initial connection.
 
@@ -59,12 +78,14 @@ Data is then refreshed **automatically** on an ongoing basis, so you don't need 
 
 Before moving on to the Quick Start Guide, make sure you have:
 
-    - Invitation email received and accessible
-    - Admin access to your **Amazon Seller Central** account (if applicable)
-    - Admin access to your **Amazon Vendor Central** account (if applicable)
-    - Access to your **Amazon Advertising** account (if applicable)
-    - Access to your **Walmart accounts** (if applicable)
-    - **COGS file prepared** (if you want P&L reporting)
-    - **Power BI license confirmed** (if you plan to use Power BI dashboards)
+- Invitation email received and accessible
+- At least one source ready to add: a private account, tracked product, tracked keyword, or tracked category
+- Admin access to your **Amazon Seller Central** account (if applicable)
+- Admin access to your **Amazon Vendor Central** account (if applicable)
+- Access to your **Amazon Advertising** account (if applicable)
+- Access to your **Walmart accounts** (if applicable)
+- Product, keyword, or category lists prepared (if you plan to start with tracking)
+- **COGS file prepared** (if you want P&L reporting)
+- **Power BI license confirmed** (if you plan to use Power BI dashboards)
 
 Once you have ticked these off, head to the [Quick Start Guide](/welcome/getting-started/quick-start) to begin your setup.

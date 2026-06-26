@@ -1,6 +1,6 @@
 ---
 title: Product Data Reference
-description: Reference for product identifiers, joins, listing quality, competitor detection, pricing, and offer tables.
+description: Reference for product identifiers, joins, feature flags, listing quality, competitor detection, pricing, and offer tables.
 ---
 
 Use this page when you need to query product-level DataHawk data or join product tables together. For conceptual explanations, start with [Key Concepts](/help-center/knowledge-hub/data-fundamentals/key-concepts).
@@ -17,6 +17,18 @@ Use this page when you need to query product-level DataHawk data or join product
 | `MARKETPLACE_KEY` | DataHawk marketplace identifier | Most marketplace-scoped tables |
 | `MARKETPLACE_ID` | Amazon's numeric marketplace identifier | Amazon source and reporting tables |
 | `BSR` | Best Seller Rank within a category | Product history, category, and report tables |
+
+## Product detail feature flags
+
+`PRODUCT.PRODUCT_DETAILED` stores product-page attributes collected from tracked products. The `FEATURES` column lists activated page features detected for a product.
+
+For Walmart products, `FEATURES` can include:
+
+| Value | Meaning |
+|---|---|
+| `about_the_brand` | The Walmart product page has an active **About the Brand** section through its marketing module |
+
+This value appears only when DataHawk detects the feature on the page. If the section is not active or not detected, `about_the_brand` is absent from the `FEATURES` list.
 
 ## Parent and child ASIN joins
 
