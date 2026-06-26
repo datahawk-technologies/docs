@@ -1,0 +1,4 @@
+{
+  "title": "Dashboard Templates",
+  "pages": ["index", "power-bi", "looker-studio"]
+}

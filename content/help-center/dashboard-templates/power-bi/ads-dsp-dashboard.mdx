@@ -1,0 +1,249 @@
+---
+title: Ads DSP Dashboard Documentation
+description: Complete guide to DataHawk's Ads DSP Power BI Dashboard — visibility into programmatic Amazon DSP campaigns from advertiser level down to individual creatives.
+---
+
+The Ads DSP Dashboard gives Amazon <Term>DSP</Term> advertisers detailed visibility into their programmatic campaigns. It covers investment efficiency, audience engagement, and conversion performance — from advertiser and order level all the way down to individual creatives.
+
+## Questions this dashboard helps answer
+
+- How much am I spending on DSP, and what revenue is it generating?
+- What is my Return on Ad Spend (<Term>RoAS</Term>) for my DSP campaigns?
+- How often are my ads being seen (impressions), and how many people click through?
+- How many shoppers visit my product detail pages after seeing a DSP ad?
+- What share of my DSP-attributed sales are coming from new-to-brand customers?
+- Which orders and line items are performing best by spend and conversions?
+- How is my budget distributed across different line item types?
+
+## Before you start
+
+**What you need:**
+
+- [Amazon DSP account connected](/help-center/data-setup/ads-account) in DataHawk
+
+**Set up:** Download and configure the Power BI template. See [Connect to Power BI](/help-center/connect-tools/powerbi).
+
+**Data history:** The last 60 days of load when you connect. Over time, the dashboard can show up to 1 year of data once you've been connected for at least 9 months.
+
+## Dashboard tabs at a glance
+
+| Tab | What it shows |
+|---|---|
+| **Ads DSP Reporting** | Full DSP performance: KPIs, charts, budget distribution, and explorer |
+| **Metrics Definition** | In-dashboard glossary of all DSP metrics |
+
+## Time periods and comparisons
+
+**Date filters** let you select the date range and time granularity (Year / Quarter / Month / Week / Day) for the dashboard. The bar and line chart adapts its time bucket to the granularity you choose.
+
+{/* TODO: confirm prior-period or year-over-year comparison behavior for this dashboard */}
+
+## Dashboard filters
+
+**General filters:**
+
+| Filter | What it does |
+|---|---|
+| **Advertiser** | Filter to a specific advertiser account |
+| **Country** | Filter by country |
+| **Currency** | Choose the display currency |
+
+**Entity-specific filters:**
+
+| Level | Filters available |
+|---|---|
+| **Order** | Order Name |
+| **Line Item** | Line Item Name, Line Item Type |
+| **Creative** | Creative Type, Creative Name, Creative Size |
+
+**Custom filters** — Category, Targeting Type, Audience, and other dimensions derived from your Order or Line Item names. Requires configuration in the Data Model (see below).
+
+## Dashboard reports tab by tab
+
+<Accordions>
+
+<Accordion title="Ads DSP Reporting">
+  The main report page is organized into several analytical blocks:
+
+  - **Summary table (top row)** — Key metrics for the selected period: Order Budget, Total Cost, Total Sales, Total New to Brand Sales, Impressions, Clicks, eCPM, <Term>CTR</Term>, eCP <Term>DPV</Term>, DPVR, and Purchase Rate.
+  
+  <img
+  src="/images/help-center/dashboard-templates/power-bi/ads-dsp-dashboard/ads-dsp-dashboard-1.png"
+  alt="ads DSP Dashboard 6"
+  width={1200}
+  height={680}
+  className="rounded-lg border"
+/>
+
+  - **Bar and line chart** — Time-based view of Total Sales, Total Cost, and RoAS. Adjust the time granularity (day, week, month, etc.) using the calendar control at the top left.
+
+<img
+  src="/images/help-center/dashboard-templates/power-bi/ads-dsp-dashboard/ads-dsp-dashboard-2.png"
+  alt="Ads DSP Dashboard 2"
+  width={1200}
+  height={680}
+  className="rounded-lg border"
+/>
+  
+  - **Budget distribution** — A 100% stacked bar chart showing how budget is allocated across different line item types.
+
+<img
+  src="/images/help-center/dashboard-templates/power-bi/ads-dsp-dashboard/ads-dsp-dashboard-3.png"
+  alt="Ads DSP Dashboard 3"
+  width={1200}
+  height={680}
+  className="rounded-lg border"
+/>
+
+  - **100% Stacked Bar Chart and Pie Chart** — Two sets of stacked bar charts and a pie chart, each controlled by independent Metric and Legend slicers. The pie chart breaks down your chosen metric by country.
+
+<img
+  src="/images/help-center/dashboard-templates/power-bi/ads-dsp-dashboard/ads-dsp-dashboard-4.png"
+  alt="Ads DSP Dashboard 4"
+  width={1200}
+  height={680}
+  className="rounded-lg border"
+/>
+
+  - **New-to-brand gauge** — Shows the percentage of New-to-Brand Product Sales relative to Total Sales.
+
+<img
+  src="/images/help-center/dashboard-templates/power-bi/ads-dsp-dashboard/ads-dsp-dashboard-5.png"
+  alt="Ads DSP Dashboard 5"
+  width={1200}
+  height={680}
+  className="rounded-lg border"
+/>
+
+  - **Category & targeting table** — Breaks down key metrics by Category and Targeting Type (requires custom filter parameters to be configured — see below).
+
+<img
+  src="/images/help-center/dashboard-templates/power-bi/ads-dsp-dashboard/ads-dsp-dashboard-6.png"
+  alt="Ads DSP Dashboard 6"
+  width={1200}
+  height={680}
+  className="rounded-lg border"
+/>
+
+  - **Explorer** — Custom chart and table for flexible ad hoc analysis, grouped by Advertiser, Order Name, Line Item Type, Line Item Name, Creative Type, or Creative Name.
+
+<img
+  src="/images/help-center/dashboard-templates/power-bi/ads-dsp-dashboard/ads-dsp-dashboard-7.png"
+  alt="Ads DSP Dashboard 7"
+  width={1200}
+  height={680}
+  className="rounded-lg border"
+/>
+
+</Accordion>
+
+<Accordion title="Metrics Definition">
+  An in-dashboard glossary listing the definitions for every DSP metric used across the report. Use this tab as a quick reference when you're not sure how a specific metric (e.g. eCP DPV, DPVR, Purchase Rate) is computed.
+
+  {/* TODO: add screenshot at /images/help-center/dashboard-templates/power-bi/ads-dsp-dashboard/ads-dsp-dashboard-2.gif */}
+</Accordion>
+
+</Accordions>
+
+## Setting up custom filters
+
+Custom filters work by extracting keywords from your Order or Line Item names. To configure them:
+
+<Steps>
+
+<Step>
+### Open Parameters
+
+In Power BI, click the three dots next to the **Data Model** and go to **Settings > Parameters**.
+<img
+  src="/images/help-center/dashboard-templates/power-bi/ads-dsp-dashboard/ads-dsp-dashboard-9.png"
+  alt="Ads DSP Dashboard 2"
+  width={1200}
+  height={680}
+  className="rounded-lg border"
+/>
+</Step>
+
+<Step>
+### Enter the terms used in your naming
+
+For each parameter (Category, Targeting Type, Audience, etc.), enter the terms that appear in your Order or Line Item names, separated by commas. Leave a parameter blank if you don't use it.
+
+<img
+  src="/images/help-center/dashboard-templates/power-bi/ads-dsp-dashboard/ads-dsp-dashboard-10.png"
+  alt="Ads DSP Dashboard 10"
+  width={600}
+  height={340}
+  className="rounded-lg border"
+/>
+
+- **Categories**: If the names of your **Orders** or **Line Items** contain specific terms that should act as categories, add those terms to the **Category Parameter** (separate multiple terms with commas).
+    - Example: If the term "Toys" appears in your Order name and you want it to be a category, add `Toys` to the Category Parameter.
+- **Targeting Types**: If terms in the names indicate a targeting type, add them to the **Targeting Parameter** accordingly.
+
+
+</Step>
+
+</Steps>
+
+<Callout type="warn">
+  **Parameters are case-sensitive** and must match exactly. `Toys` and `TOYS` are different values.
+</Callout>
+
+## Metrics
+
+Formulas used in this dashboard. Concept-level definitions for acronyms live in the [Glossary](/help-center/knowledge-hub/glossary).
+
+| Metric | Formula / definition | Notes |
+|---|---|---|
+| <Term>**CTR**</Term> | Clicks ÷ Impressions × 100 | |
+| <Term>**RoAS**</Term> | Total Sales ÷ Total Cost | DSP uses Total Cost, not Ad Spend |
+| **eCPM** | Total Cost ÷ Impressions × 1,000 | Effective cost per thousand impressions |
+| **eCP DPV** | Total Cost ÷ DPV | Effective cost per detail page view |
+| **<Term>DPV</Term>** | Detail page views within 14 days of an ad click or view | |
+| <Term>**DPVR**</Term> | DPV ÷ Impressions × 100 | |
+| **Purchase Rate** | Purchases Count ÷ Impressions × 100 | |
+| **Total Cost** | Sum of investment across DSP campaigns | Used in place of Ad Spend |
+| **Sales** | Sales of promoted products within 14 days of an ad click or view | |
+| **Total Sales** | Revenue generated as a direct result of DSP campaigns | Across all brand products |
+| **New to Brand Product Sales** | Sales of promoted products to new-to-brand shoppers | Attributed to ad view or click |
+| **Total New to Brand Sales** | Sales of all the brand's products to new-to-brand shoppers | Attributed to ad view or click |
+| **Gross Clicks** | All clicks including potentially fraudulent or invalid ones | |
+
+---
+
+## For analysts: data sources & methodology
+
+### Source tables and datasets
+
+Data comes from [Amazon's Ads API](https://advertising.amazon.com/API/docs/en-us/info/api-overview) via DataHawk's processing pipeline.
+
+For a full column reference, see the [Exhaustive Column Referential](https://docs.google.com/spreadsheets/d/1gYGqKQP9Z71nz1lOb4y0wJ15i27NvsUzdliIJeIx0HY/edit#gid=175439716).
+
+**Dashboard-specific fields**
+
+- **Order Budget** — Total budget allocated to a DSP order (latest value).
+- **Line Item Budget** — Total budget allocated to a line item (latest value).
+- **Sales** — Sales of promoted products within 14 days of an ad click or view.
+- **Total Sales** — Revenue across all brand products generated as a direct result of DSP campaigns.
+- **Units Sold** — Ad-attributed units sold within 14 days of a click or view (promoted products only).
+- **Total Units Sold** — Units purchased across all brand products, attributed to the campaign.
+- **New to Brand Product Sales** — Sales to first-time brand shoppers from promoted products.
+- **Total New to Brand Sales** — Sales to first-time brand shoppers across all brand products.
+- **Purchases Count** — Attributed conversion events within 14 days of a click or view.
+
+### DSP entities
+
+These are the dashboard-context entities specific to DSP campaign structure.
+
+- **Order** — High-level budget grouping within a DSP campaign.
+- **Line Item** — Defines targeting, bidding, and delivery settings within an order.
+- **Creative** — The individual ad asset used in a campaign.
+- **Creative Type** — Format of the creative (display, video, etc.).
+- **Creative Size** — Dimensions of the creative asset (e.g. 300×250).
+
+### Attribution and methodology
+
+DSP attribution uses a 14-day post-click and post-view window. Sales, units, and purchase events that occur within 14 days of an ad interaction (click or view) are credited to the corresponding campaign. RoAS in DSP uses Total Cost rather than Ad Spend because programmatic billing includes media cost plus serving fees.
+
+{/* TODO: confirm Snowflake/BigQuery dataset names for DSP data (currently only API source is named). Confirm budget snapshot timing (latest vs historical). Confirm new-to-brand shopper identification logic. Confirm currency handling. Confirm data latency from Ads API. */}

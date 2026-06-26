@@ -1,0 +1,147 @@
+---
+title: Amazon Sales Estimates
+description: How DataHawk estimates daily sales for tracked products and competitors — variant-level estimates by default, plus the V7 model methodology and table reference.
+---
+
+Sales Estimates give you a daily view of how many units any tracked product sells — including competitors you don't have access to.
+
+<Callout type="warn">
+  **June 15, 2026 — V7 model release.** DataHawk now generates sales estimates at the **variant (child <Term>ASIN</Term>) level** natively, with rollups to parent and brand. The full 2024+ history was reprocessed with the V7 algorithm on June 15, 2026.
+
+  All V5 and V6 tables are now **deprecated aliases** pointing to V7 data — existing integrations continue to work, but you should migrate to the active table names below.
+</Callout>
+
+## What business decisions can you make?
+
+Combined with market share data, this powers decisions across three areas:
+
+### Product research
+
+- Identify high-demand, low-competition products before entering a category
+- Find underserved niches worth entering
+- Determine which of your variants actually drives most of the family's sales
+
+### Competitor benchmarking
+
+- Track whether a competitor is gaining or losing ground in your category
+- See which brands dominate the top 100 and how that's changing
+- Measure your brand's share of total category volume
+
+### Inventory planning
+
+- Use sales trend data to forecast demand and avoid stockouts or overstock
+- Detect seasonality and how much it varies by category
+
+## Getting started
+
+To receive sales estimates, you need to track **at least one of the following:**
+
+- **Track a category** → DataHawk collects Best Sellers Rank (<Term>BSR</Term>) data and calculates daily estimates for all top 100 products in that category. This is the primary way to get competitor estimates.
+- **Track specific products** *(optional)* → Estimates for individual ASINs you add manually. History starts from the day you begin tracking.
+- **Create product segments** *(optional)* → Group products with [tags](/help-center/data-setup/tags) to compare your catalog against a specific competitor set.
+- **Connect your Seller account** *(optional but recommended)* → Your actual sales data helps calibrate the model for your own products, improving estimate accuracy.
+
+<Callout type="info">
+  Once you track a category, DataHawk begins collecting and estimating daily. The more history accumulates, the more reliable trend analysis becomes.
+</Callout>
+
+## Related dashboards
+
+| Dashboard | What it shows | Best for |
+|---|---|---|
+| **Market Intelligence** (Power BI) | Market share trends, brand comparisons, top 100 analysis | Category-level competitive analysis |
+| **Product Dashboard** (Power BI) | Individual product performance and estimates | <Term>SKU</Term>-level and variant-level tracking |
+| **Analytics Essentials** (Looker Studio) | Cross-category overview with estimates | High-level monitoring |
+
+## Capabilities overview
+
+### Product tracking vs category tracking
+
+| | Category tracking | Product tracking |
+|---|---|---|
+| **Coverage** | All top 100 products in the category, including competitors | Only the ASINs you explicitly track |
+| **History** | Up to 2 years (from DataHawk collection start per <Term>marketplace</Term>) | From the day you start tracking |
+| **Best for** | Market sizing, brand share, competitive landscape | Focused monitoring of a specific competitor set or your own catalog |
+
+### Variant, parent, and brand levels
+
+V7 generates estimates **natively at the variant (child ASIN) level**. From there, the same data rolls up to parent and brand for higher-level analysis.
+
+| Level | What it represents | When to use |
+|---|---|---|
+| **Variant (child)** | Estimated daily sales for each individual variant | Variant-level decisions, specific <Term>SKU</Term> planning, understanding which size or color drives sales |
+| **Parent** | Sum of all variants in the family | Market share analysis, family-level comparisons, category sizing |
+| **Brand** | Sum of all parents owned by a brand | Brand-share and brand-vs-brand benchmarking |
+
+## Data history by marketplace
+
+Two full years of history are maintained to support year-over-year analysis. On June 15, 2026, the full June-2024-onwards history was reprocessed with the V7 model, so historical values may differ from what you saw under V5/V6.
+
+## Precision
+
+| Accuracy rating | Marketplaces |
+|---|---|
+| **High** | US, SA, IE, AE, BR, GB, FR, DE, IN, IT, EG, MX, TR, ES, CA, JP |
+| **Moderate** | AU, SE, BE, NL, PL, SG |
+
+Estimates are approximations, not exact figures. Revenue estimates depend on the accuracy of captured price data. Sudden rank changes (flash sales, stockouts) may cause temporary spikes that the model smooths over subsequent days.
+
+## How it works
+
+<Steps>
+
+<Step>
+### Collect Best Sellers Rank data
+
+DataHawk monitors <Term>BSR</Term> for all products in tracked categories daily.
+</Step>
+
+<Step>
+### Apply the V7 model per category
+
+V7 uses an upgraded algorithm that considers more market signals to better reflect actual demand and to cover a broader set of products than previous versions.
+</Step>
+
+<Step>
+### Estimate at the variant level
+
+V7 outputs estimated daily units and revenue **at the variant (child ASIN) level** directly, without going through a parent-then-distribute step.
+</Step>
+
+<Step>
+### Roll up to parent and brand
+
+Variant estimates are aggregated to parent ASIN and brand for family-level and brand-level views.
+</Step>
+
+<Step>
+### Adjust for sales events
+
+Daily adjustments to estimates during high-velocity periods (Prime Day, Black Friday, etc.).
+</Step>
+
+<Step>
+### Fill gaps
+
+When BSR data is temporarily unavailable, DataHawk applies linear extrapolation. Extrapolated rows are flagged (`IS_EXTRAPOLATED = true`).
+</Step>
+
+</Steps>
+
+## Accuracy & reliability
+
+Each row in the dataset carries a `TRUST_INDEX` score indicating model confidence for that product and date. Rows where extrapolation was applied are flagged with `IS_EXTRAPOLATED`.
+
+---
+
+## Technical reference
+
+Need active table names, deprecated aliases, grain, key columns, or migration notes?
+
+<div className="card-grid">
+  <Card
+    title="Sales Estimates Data"
+    href="/help-center/knowledge-hub/dataset-reference/sales-estimates-data"
+    description="V7 tables, deprecated aliases, key columns, granularity, refresh behavior, and FAQ."
+  />
+</div>
