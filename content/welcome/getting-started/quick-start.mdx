@@ -29,37 +29,57 @@ Once signed in, you'll land on the DataHawk web app. Here's a quick orientation:
 
 ## Step 3 — Connect Your Data Sources
 
-This is the most important step. Go to **Sources** in the left sidebar and connect the accounts that apply to your business.
+This is the most important step. Go to **Sources** in the left sidebar and connect at **least one account or trackin sources** that apply to your business.
 
 <div className="card-grid">
   <Card
     title="Amazon Seller Central"
     href="/help-center/data-setup/seller-account"
-    description="Connect this if you are a third-party seller (3P) on Amazon. You'll need admin access to your Seller Central account."
+    description="Collect Amazon seller sales, fees, traffic, inventory, and listing data for reporting and analysis."
   />
   <Card
     title="Amazon Vendor Central"
     href="/help-center/data-setup/vendor-account"
-    description="Connect this if you sell to Amazon as a first-party supplier (1P)."
+    description="Collect Amazon vendor sales, margins, inventory, traffic, and demand forecasts for performance reporting."
   />
   <Card
     title="Amazon Advertising"
     href="/help-center/data-setup/ads-account"
-    description="Connect this to see your advertising performance (Sponsored Products, Sponsored Brands, Sponsored Display, DSP)."
+    description="Centralize campaign, ad group, keyword, targeting, and product-level ad performance for dashboards and historical analysis."
   />
   <Card
-    title="Walmart"
+    title="Walmart Marketplace"
     href="/help-center/data-setup/marketplace-account"
-    description="Connect this if you sell on Walmart.com."
+    description="Collect US Walmart seller orders, listings, pricing, availability, and fulfillment data for Marketplace reporting."
+  />
+  <Card
+    title="Walmart Connect"
+    href="/help-center/data-setup/connect-account"
+    description="Bring Walmart ad performance into DataHawk and combine it with Marketplace sales and search metrics."
+  />
+  <Card
+    title="Product Tracking"
+    href="/help-center/data-setup/products-tracking"
+    description="Track daily Amazon and Walmart product-page snapshots, including price, ratings, rank, availability, and Buy Box signals."
+  />
+  <Card
+    title="Keyword Tracking"
+    href="/help-center/data-setup/keywords-tracking"
+    description="Monitor daily search visibility, organic rank movements, and keyword-level product results across Amazon and Walmart."
+  />
+  <Card
+    title="Category Tracking"
+    href="/help-center/data-setup/categories-tracking"
+    description="Monitor the top 100 products in an Amazon category each day to follow competitor movement and sales-rank trends."
   />
 </div>
 
 
 <Callout type="info">
-  You don't need to connect all of these. Only connect the accounts that are relevant to your business.
+  You don't need to add all of these. Start with the accounts and tracking sources that are relevant to your business.
 </Callout>
 
-Once you have connected a source, DataHawk will start retrieving your data. 
+Once you have connected a standard source, DataHawk will start retrieving your data.
 This takes approximately **24 hours**. You will not see data in your reports until this initial sync is complete.
 
 
@@ -91,12 +111,13 @@ Once your data has loaded (after the 24-hour sync), you're ready to start analyz
 
 Download the DataHawk dashboard templates and connect them to your destination database. Available templates include:
 
-- Seller Analytics Dashboard
-- Vendor Analytics Dashboard
-- Market Intelligence Dashboard
-- Advertising Dashboard
-- Product Dashboard
-- Ads DSP Dashboard
+- [Seller Analytics Dashboard](/help-center/dashboard-templates/power-bi/seller-analytics-dashboard)
+- [Vendor Analytics Dashboard](/help-center/dashboard-templates/power-bi/vendor-analytics-dashboard)
+- [Seller Vendor Analytics Dashboard](/help-center/dashboard-templates/power-bi/seller-vendor-analytics-dashboard)
+- [Market Intelligence Dashboard](/help-center/dashboard-templates/power-bi/market-intelligence-dashboard)
+- [Advertising Dashboard](/help-center/dashboard-templates/power-bi/advertising-dashboard)
+- [Product Dashboard](/help-center/dashboard-templates/power-bi/product-dashboard)
+- [Ads DSP Dashboard](/help-center/dashboard-templates/power-bi/ads-dsp-dashboard)
 
 See [Download Power BI Templates](https://datahawk.notion.site/datahawk-power-bi-template-links?source=copy_link) to get started.
 
