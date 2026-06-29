@@ -1,0 +1,23 @@
+---
+title: "Amazon Products: Frequently Returned badge"
+description: "Amazon product badge data now identifies the Frequently Returned badge when it appears on product pages."
+date: "2026-06-27"
+tags: ["new"]
+---
+
+Starting **June 27, 2026**, Amazon product badge data will include a new badge signal when Amazon marks a product as **Frequently Returned**.
+
+## What's new
+
+DataHawk will now capture Amazon's **Frequently Returned** badge as a product badge. This helps teams identify products Amazon is flagging for higher-than-typical return behavior and track that signal over time.
+
+## Where to find it
+
+The new badge is available in:
+
+| Schema | Table | Column | Value |
+|---|---|---|---|
+| `PRODUCT` | `PRODUCT_BADGES` | `BADGE_NAME` | `Frequently Returned` |
+| `PRODUCT` | `PRODUCT_BADGES` | `BADGE_TYPE` | `Frequently Returned Badge` |
+
+Use `BADGE_NAME` for the badge label shown on Amazon and `BADGE_TYPE` to group this signal with the corresponding badge category in product badge analysis.
