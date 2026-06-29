@@ -10,6 +10,7 @@ import type { ReactNode } from 'react';
 import { Poppins } from 'next/font/google';
 import { RootProvider } from 'fumadocs-ui/provider/next';
 import type { Metadata } from 'next';
+import { PostHog } from '@/components/PostHog';
 
 export const metadata: Metadata = {
   alternates: {
@@ -33,6 +34,7 @@ export default function Layout({ children }: { children: ReactNode }) {
       suppressHydrationWarning
     >
       <body className="flex flex-col min-h-screen" suppressHydrationWarning>
+        <PostHog />
         <RootProvider
           theme={{
             enabled: false,

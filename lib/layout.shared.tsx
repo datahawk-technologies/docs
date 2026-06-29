@@ -54,11 +54,9 @@ export function baseOptions(): BaseLayoutProps {
         url: 'https://analytics.datahawk.co/',
         external: true,
       },
-      {
-        text: 'Contact',
-        url: '/help-center/contact',
-        external: true,
-      },
     ],
+    themeSwitch: {
+      enabled: false,
+    },
   };
 }
