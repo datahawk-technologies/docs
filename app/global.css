@@ -183,7 +183,7 @@ article h1 {
   color: #122c47;
   font-weight: 800;
   font-family: 'Poppins', sans-serif;
-  font-size: 3rem;
+  font-size: 2rem;
   letter-spacing: -0.02em;
   margin-bottom: 0.5rem;
 }
@@ -196,15 +196,21 @@ article > p.text-lg.text-fd-muted-foreground {
   font-weight: 400;
   font-size: 1rem;
   font-style: normal;
-  margin-bottom: 1.75rem;
+  margin-bottom: 1.70rem;
+}
+
+/* --- Body copy ------------------------------------------------- */
+article .prose {
+  font-size: 0.9375rem; /* 0.875rem for 14px */
+  line-height: 1.75;
 }
 
 /* --- H2: Major section headings -------------------------------- */
 article .prose > h2 {
   color: #122c47;
-  font-weight: 700;
+  font-weight: 600;
   font-family: 'Poppins', sans-serif;
-  font-size: 2rem;
+  font-size: 1.25rem;
 }
 
 /* --- H3: Sub-section headings (medium blue) -------------------- */
@@ -212,7 +218,7 @@ article .prose > h3 {
   color: #20549f;
   font-weight: 600;
   font-family: 'Poppins', sans-serif;
-  font-size: 1.5rem;
+  font-size: 1rem;
 }
 
 /* --- H4: Minor headings ---------------------------------------- */
@@ -220,7 +226,7 @@ article .prose > h4 {
   color: #122c47;
   font-weight: 500;
   font-family: 'Poppins', sans-serif;
-  font-size: 1.25rem;
+  font-size: 1rem;
 }
 
 /* --- Anchor-link hover icon on H2/H3/H4 ------------------------ */
