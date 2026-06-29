@@ -192,7 +192,7 @@ article h1 {
 /* Body-text size with a muted navy-gray color so the subtitle reads
    as supporting metadata, not competing with the main content.    */
 article > p.text-lg.text-fd-muted-foreground {
-  color: #5a7090;
+  color: #96969d;
   font-weight: 400;
   font-size: 1rem;
   font-style: normal;
