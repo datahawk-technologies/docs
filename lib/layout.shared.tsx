@@ -50,8 +50,13 @@ export function baseOptions(): BaseLayoutProps {
        - Add a new { text, url, external } entry to the array  */
     links: [
       {
-        text: 'DataHawk App',
+        text: 'App',
         url: 'https://analytics.datahawk.co/',
+        external: true,
+      },
+      {
+        text: 'Website',
+        url: 'https://datahawk.co/',
         external: true,
       },
     ],
