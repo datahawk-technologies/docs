@@ -1,0 +1,100 @@
+---
+title: Key Concepts
+description: Core concepts that come up constantly in DataHawk — ASIN, SKU, Parent/Child ASINs, BSR, Marketplace vs Channel, and Walmart equivalents.
+---
+
+A few core concepts come up constantly in DataHawk dashboards and datasets. This page explains them in plain language so you're not caught off guard when you see them.
+
+<Callout type="info">
+  This page applies to both Amazon and Walmart unless otherwise noted.
+</Callout>
+
+## ASIN — What it is and why it matters
+
+An **<Term>ASIN</Term>** (Amazon Standard Identification Number) is Amazon's internal identifier for a product. Every product listed on Amazon has one. Think of it as Amazon's own product ID — separate from any reference you or your supplier use.
+
+ASINs are **marketplace-specific**: the same physical product sold on Amazon.com (US) and Amazon.co.uk (UK) will have different ASINs in each country.
+
+DataHawk uses ASINs as the primary key to identify and track products across all datasets. When you look at sales, keyword rankings, pricing, or inventory data in DataHawk, it's always tied to an ASIN.
+
+## SKU — Your internal product reference
+
+A **<Term>SKU</Term>** (Stock Keeping Unit) is the product identifier *you* assign — it's your own internal code, not Amazon's. While ASINs are assigned by Amazon and shared across all sellers who list that product, a SKU is specific to your seller account.
+
+One ASIN can be linked to multiple SKUs (for example, if you sell the same product through different fulfillment methods), and one SKU maps to one ASIN.
+
+In DataHawk, SKUs appear in private data (orders, inventory, profit) because they come from your Seller or Vendor account. Public data (rankings, estimates, keyword visibility) is indexed by ASIN only.
+
+## Parent ASINs and Child ASINs — Understanding product variants
+
+Amazon groups product variations together using a **parent/child structure**:
+
+- A **parent ASIN** is a virtual container that groups related variations — it doesn't exist as a buyable product itself. You can't add a parent ASIN to your cart.
+- A **child ASIN** is a specific, purchasable version of that product — for example, a blue t-shirt in size M.
+
+**Example:** A t-shirt sold in 3 colors and 4 sizes would have 12 child ASINs, all grouped under one parent ASIN.
+
+This distinction matters in DataHawk because some data is reported at the parent level (e.g., total product visibility in search) and other data at the child level (e.g., individual sales or inventory per variant). The platform will usually indicate which level a metric refers to.
+
+<Callout type="info">
+  **Amazon Sales Estimates note:** DataHawk now provides sales estimates at the child (variant) level by default. See the Amazon Sales Estimates page in Sales & Financials for details.
+</Callout>
+
+## BSR — Best Seller Rank
+
+**<Term>BSR</Term>** (Best Seller Rank) is a number Amazon assigns to each product within a category, based on recent sales velocity. A BSR of 1 means the product is the top seller in that category.
+
+A few things worth knowing:
+
+- BSR is updated **hourly** by Amazon, but DataHawk captures it on a **daily** snapshot.
+- A product can have **multiple BSRs** — one for its main category and one or more for sub-categories.
+- BSR is a **relative ranking**, not an absolute sales figure. A BSR of 500 means 499 products are selling faster than yours *in that category*, but the category size varies enormously.
+- BSR drops (numerically higher = worse rank) can indicate lost sales, price increases, or competitor surges — even if your absolute sales are unchanged.
+
+DataHawk uses BSR as one of the signals in its sales estimation model and surfaces it in product tracking dashboards.
+
+## Marketplace vs Channel
+
+In Amazon's terminology:
+
+- A **marketplace** is a country-level storefront: Amazon.com, Amazon.co.uk, Amazon.de, etc.
+- A **channel** (sometimes called a selling channel or fulfillment channel) refers to how products are fulfilled: <Term>FBA</Term> (Fulfilled by Amazon) vs <Term>FBM</Term>/<Term>MFN</Term> (Fulfilled by Merchant).
+
+DataHawk tracks data **per marketplace**. If you sell in multiple countries, each has its own data collection, and metrics are not aggregated across countries by default in the raw datasets.
+
+## Amazon Vendor views: Sourcing vs. Manufacturing
+
+Amazon Vendor Central can expose data through different reporting views. The two most important views are **Sourcing** and **Manufacturing**.
+
+| View | What it represents | Why it matters in DataHawk |
+|---|---|---|
+| Sourcing | Products Amazon purchases directly from your vendor account | You mainly see your own contribution to sales and inventory |
+| Manufacturing | Products that belong to your brand as the producer or brand owner | You can often see broader product performance, including sales, inventory, traffic, orders, and forecasting |
+
+If you see data in one view but not the other, it usually reflects Amazon's permissions and reporting model, not a DataHawk collection issue.
+
+[Read the full guide](/help-center/data-metrics-guides/amz-vendor-account-sourcing-manufacturing)
+
+## Walmart equivalents
+
+| Amazon concept | Walmart equivalent |
+|---|---|
+| ASIN | Item ID |
+| SKU | Item Number / Seller SKU |
+| Parent/Child ASIN | Item + variant attributes |
+| BSR | Best Seller Rank (category-level, similar logic) |
+| Marketplace | Walmart.com (US only in DataHawk) |
+
+---
+
+## Technical reference
+
+Need field names, parent/child join guidance, or product-level table notes?
+
+<div className="card-grid">
+  <Card
+    title="Product Data Reference"
+    href="/help-center/data-reference/product-data-reference"
+    description="Identifier fields, parent/child joins, listing quality, competitors, pricing, and offers."
+  />
+</div>

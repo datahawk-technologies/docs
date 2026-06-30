@@ -3,7 +3,6 @@
   "description": "Common issues and fixes",
   "root": true,
   "pages": [
-    "index",
     "data-discrepancies",
     "data-not-refreshing",
     "dashboard-issues",

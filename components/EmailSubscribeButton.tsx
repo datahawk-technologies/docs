@@ -13,16 +13,15 @@
  *     navigates to /changelog#subscribe — the SubscribeForm's useEffect
  *     auto-opens the panel on mount.
  *
- * Single source of truth: the actual HubSpot form is only embedded once,
- * in SubscribeForm at the top of the changelog landing.
+ * Single source of truth: SubscribeForm links to the configured Google Form
+ * at the top of the changelog landing.
  */
 
-import { useRouter, usePathname } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { Mail } from 'lucide-react';
 
 export function EmailSubscribeButton() {
   const router = useRouter();
-  const pathname = usePathname();
 
   const handleClick = () => {
     const details = document.getElementById('subscribe') as HTMLDetailsElement | null;

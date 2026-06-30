@@ -1,0 +1,140 @@
+---
+title: Technical Reference
+description: Technical entry point for DataHawk source systems, schemas, tables, grains, joins, and SQL references.
+---
+
+Use Technical Reference when you need implementation details: source systems, table families, grain, joins, SQL patterns, or the source-of-truth column reference. If you need the business meaning first, start with the [Data & Metrics Guide](/help-center/data-metrics-guides). The complete live list of schemas, tables, columns, and data types lives in the [Exhaustive Column Referential](https://docs.google.com/spreadsheets/d/1gYGqKQP9Z71nz1lOb4y0wJ15i27NvsUzdliIJeIx0HY/edit#gid=175439716); these docs help you understand how to navigate it and which reference page to open next.
+
+## Start here
+
+<div className="card-grid">
+  <Card
+    title="Find Tables and Columns"
+    href="/help-center/data-reference/find-tables-and-columns"
+    description="Learn how to use the source-of-truth schema reference to find tables, columns, grains, and field definitions."
+  />
+  <Card
+    title="Source Systems & Freshness"
+    href="/help-center/data-reference/source-systems-freshness"
+    description="Map DataHawk data types to source APIs, schemas, account requirements, and refresh fields."
+  />
+  <Card
+    title="Product Data Reference"
+    href="/help-center/data-reference/product-data-reference"
+    description="Identifiers, product joins, listing quality, competitors, pricing, and offers."
+  />
+  <Card
+    title="SEO & Keyword Data"
+    href="/help-center/data-reference/seo-keyword-data"
+    description="Keyword research, search volume, organic rank, and sponsored rank tables."
+  />
+  <Card
+    title="Sales Estimates Data"
+    href="/help-center/data-reference/sales-estimates-data"
+    description="V7 sales estimate tables, deprecated aliases, key columns, grain, and refresh behavior."
+  />
+  <Card
+    title="Daily Exchange Rate Dataset"
+    href="/help-center/data-reference/daily-exchange-rate-dataset"
+    description="Exchange-rate table source, schema, columns, and currency conversion behavior."
+  />
+</div>
+
+## Schema families at a glance
+
+DataHawk organizes data into schema families. Use this as orientation only; use the [Exhaustive Column Referential](https://docs.google.com/spreadsheets/d/1gYGqKQP9Z71nz1lOb4y0wJ15i27NvsUzdliIJeIx0HY/edit#gid=175439716) for the current table and column list.
+
+| Schema | What's in it | When to look here |
+|---|---|---|
+| `ADVERTISING` | Amazon and Walmart advertising performance | Campaign, keyword, product, account, and placement metrics |
+| `FINANCE` | Seller orders, profit, P&L, fees, taxes | Revenue, margin, cost-of-goods, financial events |
+| `PRODUCT` | Product catalog, listing quality, offers, competitors, estimates | Product tracking, Buy Box, pricing, LQS, competitor analysis |
+| `MARKET` | Top-100 category data and market-level estimates | Category sizing and competitive landscape work |
+| `SELLING_PARTNER` | Seller/Vendor Central source reports | Inventory, returns, replenishment, Brand Analytics, Vendor data |
+| `SEO` | Keyword ranks and search volume | Organic rank, sponsored rank, keyword demand |
+| `REPORTS` | Curated business-ready tables | Dashboard-style queries without rebuilding joins |
+| `REFERENTIAL` | Reference data | Marketplaces, accounts, tracked entities, tags, currency rates |
+| `RAW_INVENTORY` | Raw FBA inventory snapshots and ledger events | Low-level inventory analysis |
+| `USAGE` | Snowflake usage and credit tracking | Query history and credit consumption |
+
+## Common data flows
+
+These simplified flows help you choose the right family before opening the Sheet.
+
+### Profit and finance
+
+```text
+FINANCE_EVENTS
+  -> FINANCE_PROFIT_LEDGER
+  -> FINANCE_PROFIT / FINANCE_PROFIT_LOSS
+  -> FINANCE_PRODUCT_PROFIT_LOSS
+```
+
+For profit-specific fields, event timing, and use-case queries, see [Amazon Seller Profit Data](/help-center/data-reference/amz-seller-profit-data).
+
+### Inventory
+
+```text
+SELLER_INVENTORY_LEDGER_DETAIL
+  -> SELLER_INVENTORY_LEDGER_SUMMARY
+  -> SELLER_INVENTORY_FBA_HISTORY_DAILY
+  -> SELLER_INVENTORY_FBA_PLANNING
+```
+
+For inventory examples and operational query patterns, see [Amazon Inventory Data](/help-center/data-reference/amz-inventory-data).
+
+### Advertising
+
+```text
+ADVERTISING_ACCOUNT_METRICS
+  -> ADVERTISING_CAMPAIGN_METRICS
+  -> ADVERTISING_KEYWORD_METRICS_V2
+  -> ADVERTISING_PRODUCT_METRICS
+```
+
+For Walmart-specific advertising tables, see [Walmart Advertising Data](/help-center/data-reference/wmt-advertising-data).
+
+### Sales estimates
+
+```text
+PRODUCT.PRODUCT_SALES_ESTIMATES
+  -> MARKET.PRODUCT_SALES_ESTIMATES
+  -> REPORTS.REPORT_MARKET_BEST_SELLER_RANK_AND_ESTIMATES
+```
+
+For V7 tables, aliases, key columns, grain, and FAQ, see [Sales Estimates Data](/help-center/data-reference/sales-estimates-data).
+
+## Specialized references
+
+<div className="card-grid">
+  <Card
+    title="Amazon Advertising Data"
+    href="/help-center/data-reference/amazon-advertising-data"
+    description="Amazon Ads API, DSP, Brand Store, account, campaign, keyword, and product table families."
+  />
+  <Card
+    title="Walmart Advertising Data"
+    href="/help-center/data-reference/wmt-advertising-data"
+    description="Walmart Connect ad-group, item, keyword, placement, and platform tables."
+  />
+  <Card
+    title="Amazon Brand Analytics Data"
+    href="/help-center/data-reference/amz-brand-analytics-data"
+    description="Search Query Performance, Search Terms, Market Basket, and Repeat Purchases."
+  />
+  <Card
+    title="Amazon DataHawk Reports"
+    href="/help-center/data-reference/amz-datahawk-reports"
+    description="Curated report tables designed for analytics and executive reporting."
+  />
+  <Card
+    title="Amazon Returns Data"
+    href="/help-center/data-reference/amz-returns-data"
+    description="FBA and FBM return tables, order joins, and reason-code mappings."
+  />
+  <Card
+    title="Amazon Replenishment Data"
+    href="/help-center/data-reference/amz-replenishment"
+    description="Subscribe & Save table names, grain, fields, joins, and deprecated source tables."
+  />
+</div>

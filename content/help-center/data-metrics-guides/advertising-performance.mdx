@@ -1,0 +1,74 @@
+---
+title: Advertising Performance
+description: Understand Amazon advertising performance in DataHawk, from spend and sales to campaign, keyword, product, DSP, and Brand Store views.
+---
+
+Advertising Performance helps you understand how paid media affects sales, traffic, and profitability. In DataHawk, Amazon advertising data can be analyzed at several levels, from account-level trends to campaign, keyword, product, Brand Store, and DSP performance.
+
+## What advertising data answers
+
+Use advertising performance when you want to understand:
+
+- How much you spent and what sales were attributed to ads
+- Whether <Term>ACoS</Term> or <Term>ROAS</Term> is improving or deteriorating
+- Which campaigns, keywords, targets, or products are driving changes
+- Whether Brand Store or <Term>DSP</Term> activity is contributing to performance
+- How advertising costs affect profit reporting
+
+## Main analysis levels
+
+| Level | Best for |
+|---|---|
+| Account | Overall spend, attributed sales, ACoS, ROAS, impressions, and clicks |
+| Campaign | Budget allocation, campaign trend review, and optimization |
+| Keyword or target | Search-term, keyword, and target-level optimization |
+| Product or SKU | Understanding which advertised products drive results |
+| Brand Store | Store visits, views, orders, sales, and engagement |
+| DSP | Upper-funnel and programmatic campaign analysis |
+
+<Callout type="warn">
+  Advertising tables can use different grains. Account, campaign, keyword, product, SKU, and date-level views should not be mixed without checking the technical reference first.
+</Callout>
+
+## How to choose the right view
+
+If you are reviewing performance with a business audience, start at account or campaign level. If you are optimizing spend, move into keyword, target, product, or placement detail. If you are reconciling numbers or building a custom report, use the technical reference to confirm the exact table and grain.
+
+| Question | Start here |
+|---|---|
+| Did ad efficiency improve this month? | Account or campaign performance |
+| Which campaign caused the spend increase? | Campaign metrics |
+| Which keyword is wasting budget? | Keyword metrics or search-term reports |
+| Which products receive spend but do not convert? | Product advertising metrics |
+| Did the Brand Store drive engagement? | Brand Store metrics |
+| How is DSP performing? | DSP campaign metrics |
+
+## Connection requirements
+
+Advertising performance appears after the relevant advertising account is connected. Amazon Ads, Amazon DSP, Brand Store, and other surfaces may have different availability depending on your account, permissions, and the reports exposed by Amazon.
+
+<Callout type="info">
+  Advertising spend can also affect Profit & P&L because marketing costs are part of profitability reporting.
+</Callout>
+
+## Technical reference
+
+When you need table families, exact table names, grains, freshness notes, or report availability, use the technical reference.
+
+<div className="card-grid">
+  <Card
+    title="Amazon Advertising Data"
+    href="/help-center/data-reference/amazon-advertising-data"
+    description="Amazon Ads API and DSP data, including account, campaign, keyword, product, Brand Store, and freshness notes."
+  />
+  <Card
+    title="Connect an Advertising Account"
+    href="/help-center/data-setup/ads-account"
+    description="Connect Amazon Advertising accounts so DataHawk can collect advertising metrics."
+  />
+  <Card
+    title="Profit & P&L"
+    href="/help-center/data-metrics-guides/profit-and-loss"
+    description="Understand how advertising costs flow into profitability reporting."
+  />
+</div>

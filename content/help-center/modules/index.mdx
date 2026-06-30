@@ -1,23 +1,22 @@
 ---
 title: Modules Overview
-description: Overview of DataHawk's five modules — Alerts, Insights, AI Copywriter, Sherlock, and MCP — and when to use each one.
+description: Overview of DataHawk's active modules — Alerts, AI Copywriter, Sherlock, and MCP — and when to use each one.
 ---
 
-<Callout type="info">
-  This page covers all five DataHawk modules. All modules are Amazon-focused unless otherwise noted.
-</Callout>
+DataHawk modules sit on top of your connected data and help you act on it. Each module serves a different job: monitoring changes, creating listing content, diagnosing performance shifts, or connecting your data to AI assistants and automations.
 
-DataHawk includes five modules that sit on top of your data and help you act on it. They serve different purposes — this page helps you understand what each one does and when to use it.
+<Callout type="info">
+  This page covers the active DataHawk modules. All modules are Amazon-focused unless otherwise noted.
+</Callout>
 
 ## At a glance
 
 | Module | What it does | Best for |
 |---|---|---|
-| **Alerts** | Notifies you when something changes on your tracked products | Monitoring & reacting quickly |
-| **Insights**| Surfaces patterns and anomalies in your data automatically | Spotting trends without manual analysis |
+| **Alerts** | Notifies you when something changes on your tracked products | Monitoring and reacting quickly |
 | **AI Copywriter** | Generates and optimizes Amazon listing content using AI | Writing and improving product listings |
-| 🆕 **Sherlock** | Diagnoses *why* your performance changed and guides you to root causes | Understanding what happened and what to do |
-| 🆕 **<Term>MCP</Term>** | Connects DataHawk to your favorite AI assistant (Claude, ChatGPT, n8n, and more) | Asking questions and automating workflows in the tools you already use |
+| **Sherlock** | Diagnoses *why* your performance changed and guides you to root causes | Understanding what happened and what to do |
+| **<Term>MCP</Term>** | Connects DataHawk to your favorite AI assistant (Claude, ChatGPT, n8n, and more) | Asking questions and automating workflows in the tools you already use |
 
 ## Alerts — Stay on top of changes
 
@@ -27,31 +26,14 @@ You define the rules: for example, "notify me when the <Term>Buy Box</Term> pric
 
 **Use Alerts when you want to:**
 
-- Know immediately when a competitor changes their price
+- Know when a competitor changes their price
 - Catch a <Term>Buy Box</Term> loss before it impacts your sales
 - Monitor review count or rating changes on key ASINs
 - Get notified when inventory drops below a threshold
 
-Alerts is reactive — it tells you *that* something changed. To understand *why* it changed, use Sherlock.
+Alerts is reactive: it tells you *that* something changed. To understand *why* it changed, use Sherlock.
 
 [Go to Alerts →](/help-center/modules/alerts)
-
-## Insights — Automated pattern detection
-
-Insights analyzes your data automatically and surfaces observations you might not find on your own — without you having to build a query or set a rule in advance.
-
-It looks across your product catalog, sales trends, keyword positions, and advertising performance to highlight what's moving, what's stagnant, and where there may be an opportunity or a risk.
-
-**Use Insights when you want to:**
-
-- Get a regular digest of what's happening across your account
-- Discover underperforming products without hunting for them manually
-- Identify keyword ranking shifts across your catalog
-- Spot advertising inefficiencies (e.g., high spend, low return)
-
-Insights is proactive — it brings things to your attention. You don't need to know what to look for in advance.
-
-[Go to Insights →](/help-center/modules/insights)
 
 ## AI Copywriter — Write better listings
 
@@ -68,9 +50,9 @@ The AI Copywriter helps you create and optimize Amazon product listings — titl
 
 ## Sherlock — Diagnose performance changes
 
-Sherlock is DataHawk's AI-powered diagnostic engine. When your sales, rankings, or revenue change, Sherlock helps you understand *why* — breaking down the contributing factors and guiding you to the root cause.
+Sherlock is DataHawk's AI-powered diagnostic engine. When your sales, rankings, or revenue change, Sherlock helps you understand *why* by breaking down contributing factors and guiding you to the likely root cause.
 
-You can interact with Sherlock through its standard interface or by talking to the Sherlock Agent directly in natural language. You can also log business events (promotions, price changes, listing edits) so Sherlock can factor them into its analysis.
+You can interact with Sherlock through its standard interface or by talking to the Sherlock Agent directly in natural language. You can also log business events, such as promotions, price changes, or listing edits, so Sherlock can factor them into its analysis.
 
 **Use Sherlock when you want to:**
 
@@ -79,7 +61,7 @@ You can interact with Sherlock through its standard interface or by talking to t
 - Get an AI-assisted explanation of your account's recent performance
 - Ask questions about your data in plain language
 
-Sherlock is diagnostic — it tells you *why* something happened and what to investigate next.
+Sherlock is diagnostic: it tells you *why* something happened and what to investigate next.
 
 [Go to Sherlock →](/help-center/modules/sherlock)
 
@@ -91,48 +73,31 @@ DataHawk's MCP server lets external AI assistants — Claude, ChatGPT, Cursor, n
 
 - Ask questions about your performance inside Claude or ChatGPT
 - Build scheduled Slack or email digests using n8n or Make
-- Combine DataHawk numbers with tools you already use (Gmail, Google Sheets, Slack)
+- Combine DataHawk numbers with tools you already use
 - Build custom apps that read your DataHawk data
 
 [MCP Setup →](/help-center/modules/datahawkmcp/setup)
 
 ## How the modules work together
 
-<Callout type="info">
-You don't need to use all five — start with whichever fits the problem you're trying to solve today.
-</Callout>
+You do not need to use every module. Start with the module that matches the problem you are trying to solve today, then combine modules as your workflow matures.
 
-These five modules complement each other. A typical workflow might look like:
+### Scenario 1: A key ASIN loses momentum
 
-1. **Insights** surfaces a drop in conversion rate on one of your ASINs
-2. **Alerts** confirms the Buy Box was lost two days ago
-3. **AI Copywriter** helps you refresh the listing to improve relevance while you address pricing
-4. **Sherlock** diagnoses the root cause — a competitor undercut your price by 8%
-5. **MCP** lets you ask Claude to draft a Slack update for your team, with the latest numbers pulled live
+1. **Alerts** notifies you that the <Term>Buy Box</Term> was lost two days ago.
+2. **Sherlock** diagnoses the likely cause, such as a competitor undercutting your price.
+3. **AI Copywriter** helps refresh the listing while you address pricing or fulfillment.
+4. **MCP** lets you ask your AI assistant to draft a team update using the latest DataHawk numbers.
 
-### Scenario 1: Conversion rate drops on a key ASIN
+### Scenario 2: Inventory risk needs attention
 
-A common Monday-morning problem.
-
-1. **Insights** flags a conversion rate drop on ASIN B0XXXXXX in your Findings or Anomalies list
-2. **Alerts** confirms the Buy Box was lost two days ago — the alert email arrived Sunday morning
-3. **Sherlock** diagnoses the root cause: a competitor undercut your price by 8%
-4. **MCP** lets you ask Claude to draft a Slack update for your team, with the latest numbers pulled live
-
-**Time saved:** what used to be a half-day of manual digging now takes about 20 minutes.
-
-### Scenario 2: Catching an inventory risk before it costs sales
-
-1. **Alerts** notifies you when a tracked ASIN drops below 30 days of cover
-2. **Insights** flags any anomaly in units-sold velocity — useful when demand is rising faster than your last forecast assumed
-3. **Sherlock** answers "is my stock health good across the catalog?" in plain English, prioritized by impact
-4. **MCP** wires this into n8n or Make to trigger a daily Slack digest in your inventory channel
+1. **Alerts** notifies you when a tracked ASIN drops below 30 days of cover.
+2. **Sherlock** helps prioritize the highest-impact stock risks across the catalog.
+3. **MCP** wires the workflow into n8n or Make to trigger a daily Slack digest in your inventory channel.
 
 ### Scenario 3: Weekly performance review
 
-A weekly habit that ties everything together.
-
-1. **MCP** pulls a fresh executive summary into Claude or ChatGPT every Monday morning — revenue, <Term>ACOS</Term>, top movers, biggest drops
-2. **Insights** has the week's Findings ready to review (top-performing ad campaigns, listings that need refreshing)
-3. **Sherlock** is on hand for any "why did this happen?" follow-ups
-4. **AI Copywriter** helps you action listing changes before the week starts
+1. **MCP** pulls a fresh executive summary into Claude or ChatGPT every Monday morning.
+2. **Sherlock** investigates any revenue, <Term>ACOS</Term>, ranking, or conversion changes that need follow-up.
+3. **Alerts** keeps the team aware of specific changes that need immediate action.
+4. **AI Copywriter** helps turn listing opportunities into updated content.

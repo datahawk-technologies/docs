@@ -189,7 +189,7 @@ ASIN, SKU, FNSKU, Marketplace, FBA, FBM, MFN, SnS, ACoS, TACoS, RoAS, DSP, DPV, 
 DataHawk docs separate **terms** (concepts) from **metrics** (formulas). The test for which a given entry is:
 
 > **Does it have a formula?**
-> - **No** → it's a **term**. Lives in `lib/glossary.ts` and `content/help-center/knowledge-hub/glossary.mdx`. Wrap in `<Term>X</Term>` in body prose.
+> - **No** → it's a **term**. Lives in `lib/glossary.ts` and `content/help-center/glossary.mdx`. Wrap in `<Term>X</Term>` in body prose.
 > - **Yes** → it's a **metric**. The formula lives in a `## Metrics` table on the dashboard page where the metric is used. If the metric also has an acronym (ACoS, RoAS, CTR, CPC, CVR, ASP, etc.), the acronym + concept-level definition stays in the glossary; only the formula moves to the page.
 
 ### Why both can be true
@@ -218,7 +218,7 @@ Every dashboard page (Power BI dashboard guide, Looker Studio template guide) th
 ```mdx
 ## Metrics
 
-Formulas used in this dashboard. Concept-level definitions for acronyms live in the [Glossary](/help-center/knowledge-hub/glossary).
+Formulas used in this dashboard. Concept-level definitions for acronyms live in the [Glossary](/help-center/glossary).
 
 | Metric | Formula / definition | Notes |
 |---|---|---|
@@ -246,7 +246,7 @@ Don't collapse these in one shared definition — the whole point of moving form
 ### Adding a new metric (workflow)
 
 1. Add the acronym to `lib/glossary.ts` with a concept-only `short` definition: what it measures, what it's used for, why it matters. **No formula.** End with "See the dashboard page for the formula used in that view."
-2. Add a matching H3 in `content/help-center/knowledge-hub/glossary.mdx` with the same concept-only definition.
+2. Add a matching H3 in `content/help-center/glossary.mdx` with the same concept-only definition.
 3. On the dashboard page where the metric appears, add a row to the `## Metrics` table with the formula in the format `Numerator ÷ Denominator` (Unicode `÷`, with spaces). Use `×` for multiplication, never `*`.
 
 ### Adding a new term (no formula)

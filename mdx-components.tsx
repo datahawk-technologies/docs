@@ -12,6 +12,7 @@ import type { ReactNode } from 'react';
 import { Term } from '@/components/Term';
 import { PageFeedback } from '@/components/PageFeedback';
 import { ImageCarousel } from '@/components/ImageCarousel';
+import { ExpandableCardGrid } from '@/components/ExpandableCardGrid';
 
 // ─── Callout: emoji icon override ──────────────────────────────────────────
 type CalloutType = 'info' | 'warn' | 'warning' | 'error' | 'success';
@@ -51,6 +52,7 @@ export const mdxComponents = {
   Callout,
   Term,
   ImageCarousel,
+  ExpandableCardGrid,
 
   // Layout & structure
   Card,

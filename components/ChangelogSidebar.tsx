@@ -9,7 +9,7 @@
  *   - Subscribe section with both Email + RSS options
  *
  * The "Subscribe by email" button targets the SubscribeForm at the top of
- * the changelog landing — it opens the form and scrolls to it.
+ * the changelog landing, where users open the configured Google Form.
  */
 
 import Link from 'next/link';

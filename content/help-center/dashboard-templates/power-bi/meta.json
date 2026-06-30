@@ -1,4 +1,4 @@
 {
   "title": "Power BI Templates",
-  "pages": ["index","seller-analytics-dashboard", "vendor-analytics-dashboard", "seller-vendor-analytics-dashboard", "market-intelligence-dashboard", "advertising-dashboard", "ads-dsp-dashboard", "product-dashboard"]
+  "pages": ["seller-analytics-dashboard", "vendor-analytics-dashboard", "seller-vendor-analytics-dashboard", "market-intelligence-dashboard", "advertising-dashboard", "ads-dsp-dashboard", "product-dashboard"]
 }

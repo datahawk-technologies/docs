@@ -169,7 +169,7 @@ export function Term({
   // override this via `def.readMore` to point at their richer Key Concepts
   // entry rather than the glossary's one-line definition.
   const readMoreHref =
-    def.readMore ?? `/help-center/knowledge-hub/glossary#${anchorId}`;
+    def.readMore ?? `/help-center/glossary#${anchorId}`;
   const readMoreLabel = def.readMore
     ? 'Read more →'
     : 'Read more in glossary →';

@@ -1,0 +1,144 @@
+---
+title: Amazon Brand Analytics Data
+description: Amazon Brand Analytics reports in DataHawk — Search Catalog and Query Performance, Search Terms, Market Basket, and Repeat Purchases.
+---
+
+This page provides an overview of the Amazon Brand Analytics reports available through DataHawk.
+
+<Callout type="info">
+  Brand Analytics data is sourced from Amazon Brand Analytics (ABA), through the Amazon Selling Partner API (<Term>SP-API</Term>) for registered brands.
+</Callout>
+
+## Search Catalog Performance
+
+### Overview
+
+Brand Catalog Performance reveals how customers engage with your brand's products during their search and shopping journey. It provides visibility into key engagement metrics — impressions, clicks, cart additions, and purchases — to help you analyze your sales funnel.
+
+**Requirements:** Brand-registered sellers or vendors with Amazon Brand Registry, with Seller account connected to DataHawk.
+
+**Data Availability:**
+- Frequency: Monthly & Weekly (typically on Mondays)
+- Granularity: <Term>ASIN</Term> level
+- Time Range: Most recent 7-day rolling window
+- History: 12 months collected at account connection, then stored moving forward
+
+**Data Tables:**
+- `selling_partner.ba_search_catalog_performance_weekly`
+- `selling_partner.ba_search_catalog_performance_monthly`
+
+## Search Query Performance
+
+### Overview
+
+Search Query Performance (<Term>SQP</Term>) provides overall query performance — impressions, clicks, cart adds, and purchases — for a given <Term>ASIN</Term> and specified date range.
+
+Use cases:
+- **Optimize ad spend:** Identify high-performing queries for Sponsored Products and Sponsored Brands.
+- **Boost organic visibility:** Understand which search terms drive the most conversions organically.
+- **Track brand strength:** See how your brand ranks for strategic keywords relative to competitors.
+- **Fix conversion leaks:** Discover drop-offs in the funnel where queries drive views but no purchases.
+- **Enhance SEO:** Use high-intent search terms to improve listings and product detail pages.
+
+<Accordions>
+  <Accordion title="Example analyses">
+    **Example 1: Funnel Drop-Off**
+
+    Query: "wireless earbuds" — Impressions: 500K → Clicks: 4K → Purchases: 100
+
+    Conversion rate is low (2.5%). Opportunity to improve title, images, or targeting.
+
+    **Example 2: Brand Share Loss**
+
+    Query: "BrandX headphones" — Impressions: 20K → Clicks: 800 → Purchases: 20 → Brand Share: 40%
+
+    Indicates competitors are appearing for your branded terms. Consider retargeting or ad defense.
+
+    **Example 3: High Intent Keyword**
+
+    Query: "noise canceling bluetooth earbuds for gym" — CTR: 18%, Conversion Rate: 12%
+
+    Signals a highly qualified audience. Should be prioritized in both SEO and paid campaigns.
+  </Accordion>
+</Accordions>
+
+### Metrics Glossary
+
+**Impressions:**
+
+- **Total Query Impressions** — Total times a search term appeared in Amazon search results across all ASINs
+- **Your ASIN Impressions** — How often your ASIN appeared for that search query
+- **ASIN Impression Share** — The percentage of total impressions your ASIN received for the query
+
+**Clicks:**
+
+- **Total Query Clicks** — How many times products were clicked after the query across all ASINs
+- **Your ASIN Clicks** — Number of clicks your ASIN received for the search term
+- **Click-Through Rate (CTR)** — Percentage of impressions that resulted in a click
+- **ASIN Click Share** — Percentage of clicks that went to your ASIN
+- **Median Click Price (Market)** — Median price of products clicked by customers across the <Term>marketplace</Term>
+- **Median Click Price (ASIN)** — Median price of your ASIN when clicked from the search query
+
+**Cart Adds:**
+
+- **Total Cart Adds** — Number of times any product was added to cart after the search
+- **Your ASIN Cart Adds** — Number of cart adds for your ASIN
+- **Cart Add Rate** — Percentage of clicks that led to a cart add
+- **ASIN Cart Add Share** — Share of cart adds captured by your ASIN
+
+**Purchases:**
+
+- **Total Purchases** — Number of orders placed after the search query
+- **Your ASIN Purchases** — Number of purchases attributed to your ASIN
+- **Purchase Conversion Rate** — Percentage of clicks that resulted in a purchase
+- **ASIN Purchase Share** — Share of total purchases that went to your ASIN
+- **Unique Customers** — Number of unique buyers who purchased your ASIN after the query
+- **Repeat Customer Rate** — Percentage of those buyers who had previously purchased your ASIN
+
+### Requirements
+
+- **Eligibility:** Brand-registered sellers or vendors with Amazon Brand Registry.
+- **Access:** Must have connected your Seller account to DataHawk.
+
+### Data Availability
+
+- Frequency: Monthly & Weekly (typically on Mondays)
+- Granularity: ASIN and ASIN x Term levels
+- Time Range: Most recent 7-day rolling window
+- History: 3 months collected at account connection, then stored moving forward
+
+<Callout type="info">
+  For now, Search Query data is only available for accounts with a catalog \<1K ASINs.
+</Callout>
+
+**Data Tables:**
+- `selling_partner.ba_search_query_performance_weekly`
+- `selling_partner.ba_search_query_performance_monthly`
+
+## Search Terms
+
+This report contains data on the most-clicked ASINs by search keyword and department for a marketplace.
+
+**Requirements:** Brand-registered sellers or vendors with Amazon Brand Registry, Seller account connected.
+
+**Data Table:** `selling_partner.ba_search_terms_src`
+
+## Market Basket
+
+This report contains data on the items that are most commonly purchased in combination with the items in the customer's basket (cart) at checkout.
+
+**Requirements:** Brand-registered sellers or vendors with Amazon Brand Registry, Seller account connected.
+
+**Data Table:** `selling_partner.ba_market_basket_src`
+
+## Repeat Purchases
+
+This report contains data on the quantity of repeated purchases of the selling partner's items.
+
+**Requirements:** Brand-registered sellers or vendors with Amazon Brand Registry, Seller account connected.
+
+**Data Table:** `selling_partner.ba_repeat_purchase_src`
+
+## Sources
+
+[Amazon SP API Documentation - Brand Analytics](https://developer-docs.amazon.com/sp-api/docs/report-type-values-analytics#brand-analytics-reports)

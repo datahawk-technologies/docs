@@ -1,6 +1,6 @@
 ---
 title: Use Tags
-description: Tag Products and Keywords to organize your catalog and target dashboards, Alerts, Insights, and Sherlock at any slice.
+description: Tag Products and Keywords to organize your catalog and target dashboards, Alerts, and Sherlock at any slice.
 ---
 
 Tags are labels you attach to Products and Keywords so you can group, filter, and target them everywhere DataHawk reports. Every Product or Keyword can carry as many tags as you need, and tags work whether the item is tracked or untracked.
@@ -14,7 +14,7 @@ Tags are labels you attach to Products and Keywords so you can group, filter, an
 Tags become useful as soon as you have more than a handful of products or keywords. Concrete payoffs:
 
 - **Filter dashboards** down to a meaningful slice — e.g. only your `Top Performer` products, or only `cat:HomeCare` keywords.
-- **Scope Alerts and Insights** to a group — get pinged only when *your premium SKUs* lose Buy Box, instead of for every product.
+- **Scope Alerts** to a group — get pinged only when *your premium SKUs* lose Buy Box, instead of for every product.
 - **Slice ad performance** by your own categories — without having to restructure how things are organized in Amazon Seller Central.
 - **Surface the right context in Sherlock** — when triaging an anomaly, your tags help you see *which* part of the catalog is affected.
 
@@ -258,7 +258,6 @@ Tags propagate to every part of DataHawk where you can filter or scope:
 
 - **Dashboards (Power BI, Looker Studio)** — every standard dashboard has a Tags filter. Apply one or more tags to narrow the view.
 - **Alerts** — when creating an Alert, the recipient/scope picker lets you target items by tag instead of one ASIN at a time.
-- **Insights** — surface anomalies for a tagged group only.
 - **Sherlock** — case-study triage groups items by their tags so you see catalog patterns rather than individual products.
 - **Data layer (Snowflake / BigQuery):** {/* TODO: confirm column name (likely TAGS in PRODUCT_LISTING / KEYWORD tables) and format (array vs. semicolon-delimited string). */}
 

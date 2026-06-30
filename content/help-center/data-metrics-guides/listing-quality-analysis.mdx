@@ -1,0 +1,116 @@
+---
+title: Listing Quality Analysis
+description: Understand Listing Quality Analysis, how LQS is calculated, and how to use it to prioritize Amazon listing improvements.
+---
+
+Listing Quality Analysis gives ecommerce teams a structured way to evaluate Amazon product detail pages. It turns daily product-page checks into a score and a set of diagnostics, so teams can move from "this listing looks weak" to a prioritized action list.
+
+## What Listing Quality Analysis Measures
+
+DataHawk analyzes tracked Amazon listings daily and gives each product a **Listing Quality Score (LQS)**, a number from 0 to 100 that reflects how well the listing is optimized for visibility and conversion.
+
+The score is built from 25+ measurable criteria across your title, images, bullet points, and description. Those criteria are evaluated against Amazon's official listing guidelines.
+
+| Area | Weight | What it looks at | Why it matters |
+|---|---:|---|---|
+| Title | 40% | Length, capitalization, brand inclusion, prohibited content | Helps shoppers and Amazon understand the product quickly |
+| Media | 30% | Number of images, video presence, A+ content | Supports trust, conversion, and product comprehension |
+| Bullet points | 20% | Count, length, punctuation, capitalization | Communicates the main benefits and specifications |
+| Description | 10% | Length, A+ content inclusion | Adds detail for shoppers who need more context |
+
+The score is not a guarantee of ranking or conversion. It is a structured way to find listing issues that are usually worth reviewing.
+
+## What You Can Use It For
+
+Use Listing Quality Analysis when you want to:
+
+- **Find which products need urgent attention** - LQS pinpoints underperforming listings by scoring the elements most tied to purchase behavior, so you know exactly where to focus first.
+- **Prioritize listing work by expected impact** - Start with low-scoring products that already have traffic, sales potential, or strategic importance.
+- **Catch Amazon policy violations before they cost you** - The analysis flags content that could trigger a listing suppression or penalty, such as prohibited keywords, missing images, or pricing in the title.
+- **Check whether important content is missing** - Quickly spot missing images, weak bullet points, incomplete descriptions, or content gaps.
+- **Benchmark against competitors** - Compare your LQS against competitor listings to prioritize products with the highest improvement potential.
+- **Track whether optimization work improved the listing** - Re-check scores after making changes, because scores update daily when enough listing data is available.
+
+<Callout type="info">
+  A low score does not always mean the listing is broken. It means DataHawk detected gaps or weak areas that deserve review before you spend time on deeper analysis.
+</Callout>
+
+## How The Score Is Calculated
+
+Your score is made up of four sections, each weighted by its impact on conversion: Title, Media, Bullet points, and Description.
+
+Title quality has the biggest impact on your score. Nearly half of the total LQS comes from the title alone, so if you can only focus on one area, start there.
+
+Within each section, individual rules are weighted by their importance according to Amazon's guidelines on a scale of 1-5. A listing that meets all high-importance rules will score significantly better than one that passes only minor criteria.
+
+## How To Read The Score
+
+| Score range | What it means |
+|---|---|
+| 80-100 | Well-optimized listing with minor improvement opportunities |
+| 60-79 | Room for improvement; review the flagged criteria |
+| Below 60 | Significant issues; prioritize this listing for focused review |
+
+When you only have time for one area, start with the lowest-scoring high-impact products. A listing with both poor content quality and meaningful sales potential is usually more urgent than a low-volume listing with the same score.
+
+<Callout type="info">
+  Scores are only calculated when sufficient listing data exists. New products or recently connected accounts may not have a score immediately.
+</Callout>
+
+## Good Workflow
+
+<Steps>
+
+<Step>
+
+### Start with the lowest scores
+
+Review the products with the weakest Listing Quality Score, especially products that already have traffic, sales, or strategic importance.
+
+</Step>
+
+<Step>
+
+### Identify the failing section
+
+Check whether the weakness comes from title, media, bullet points, description, or several areas at once.
+
+</Step>
+
+<Step>
+
+### Update the listing
+
+Make the listing change in Amazon, then let DataHawk refresh and compare the score after the next update.
+
+</Step>
+
+<Step>
+
+### Compare with business results
+
+Use sales, traffic, conversion, advertising, and <Term>Buy Box</Term> context to decide whether the listing change helped performance.
+
+</Step>
+
+</Steps>
+
+## What To Watch Out For
+
+- New or recently connected products may not have enough listing data yet.
+- Listing quality is one signal, not a full explanation for sales performance.
+- Content changes can take time to appear in Amazon data and downstream reports.
+- A low-converting product with a low LQS is usually a higher-priority fix than a low-LQS product with little traffic or demand.
+- Walmart support is coming soon; the current guidance is Amazon-focused.
+
+## Technical Reference
+
+When you need table names, null-value semantics, rule and criterion fields, or the exact score formula, use the technical reference.
+
+<div className="card-grid">
+  <Card
+    title="Product Data Reference"
+    href="/help-center/data-reference/product-data-reference#listing-quality-tables"
+    description="Listing quality tables, score formula, rule and criterion fields, and product-level reference fields."
+  />
+</div>

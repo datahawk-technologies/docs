@@ -1,4 +1,4 @@
 {
   "title": "Send data to your tool",
-  "pages": ["index", "powerbi", "looker-studio", "google-sheets", "excel", "bigquery", "snowflake", "writable-database"]
+  "pages": ["powerbi", "looker-studio", "google-sheets", "excel", "bigquery", "snowflake", "writable-database"]
 }

@@ -1,0 +1,56 @@
+---
+title: Automated Competitors Detection
+description: How DataHawk automatically identifies competing products for your tracked ASINs — weekly scoring, confidence thresholds, and the data table.
+---
+
+DataHawk automatically identifies competing products for each of your tracked ASINs — no manual setup required.
+
+## What it does
+
+Every day, DataHawk scans the Amazon <Term>marketplace</Term> and determines which products are most likely competing with yours. By the end of the week, each of your tracked products has a list of its closest competitors, scored by relevance.
+
+This gives you a continuously updated view of your competitive landscape without having to maintain a list manually.
+
+## How competitors are identified
+
+DataHawk looks at products that appear alongside yours — on your listing pages, in your keyword search results, and within your product categories — over the past 7 days.
+
+Each potential competitor pair is then scored weekly based on several signals:
+
+- How frequently both products appear together (only pairs with 90%+ confidence are included)
+- How similar the product titles are
+- How close the prices are
+- How much category overlap exists
+- How many keywords both products share
+
+Only the highest-scoring pairs make the final list. DataHawk favors **accuracy over quantity** — you will see fewer but more relevant competitors rather than a long list of loosely related products.
+
+## What to expect
+
+- Competitor data refreshes daily (track before noon UTC to see results the next day)
+- Works for approximately 95% of tracked products
+- New competitors are added on a weekly basis as new pairs are scored
+
+## What to do if you don't see competitors
+
+If a product has no competitors listed, DataHawk likely needs more context about it. You can help by:
+
+- Reviewing and refining the product's category assignment
+- Tracking more keywords that are relevant to the product
+- Ensuring the product appears on enough listing and search pages to generate co-occurrence data
+
+Once more signals are available, competitors will start appearing within the next weekly scoring cycle.
+
+---
+
+## Technical reference
+
+Need the competitor table or scoring-feature details?
+
+<div className="card-grid">
+  <Card
+    title="Product Data Reference"
+    href="/help-center/data-reference/product-data-reference#competitor-detection-table"
+    description="Product competitor table, scoring signals, and product-level reference fields."
+  />
+</div>

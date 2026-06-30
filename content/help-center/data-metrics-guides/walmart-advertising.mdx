@@ -1,0 +1,85 @@
+---
+title: Walmart Advertising
+description: Understand Walmart Connect advertising in DataHawk, including item, keyword, placement, platform, and 1P-only reports.
+---
+
+Walmart Advertising in DataHawk covers Walmart Connect performance reports. Use this guide when you need to understand what the data is for, which analysis level to start with, and when to move into the technical table reference.
+
+## What Walmart Advertising covers
+
+Walmart Connect data helps you analyze how ads perform across campaigns, items, keywords, placements, platforms, brands, and categories.
+
+| Area | What it helps with |
+|---|---|
+| Ad group | Compare performance across ad groups and campaign structure |
+| Item | Understand which advertised Walmart items drive spend, sales, and engagement |
+| Keyword | See how items perform against customer searches and manual targets |
+| Placement | Understand where ads appeared and which placements convert |
+| Platform | Compare app, desktop, mobile, and other surfaces |
+| Brand and category | Analyze 1P supplier performance by brand or category |
+| Item health | Identify item issues that may limit campaign delivery or performance |
+
+## When to use it
+
+Use Walmart Advertising data when you want to:
+
+- Review Walmart Connect performance outside the Walmart interface
+- Compare item, keyword, placement, and platform performance over time
+- Understand which products or ad groups are driving attributed sales
+- Investigate weak campaign performance before changing bids or budgets
+- Build BI dashboards that combine Walmart ads with other DataHawk data
+
+## 1P and 3P availability
+
+Some Walmart reports depend on whether you are a 1P supplier or 3P seller. Brand and category performance reports are 1P-only. Other core reports, such as item and ad-group performance, are the main starting points for most Walmart advertisers.
+
+<Callout type="warn">
+  Walmart finalizes advertising reports on a delay. DataHawk refreshes daily and performs a later reconciliation pass so finalized numbers can replace early values.
+</Callout>
+
+## Recommended reading path
+
+<Steps>
+
+<Step>
+
+### Start with item and ad-group performance
+
+Use these views to understand which products and campaign structures are responsible for the biggest changes.
+
+</Step>
+
+<Step>
+
+### Add keyword and placement context
+
+Review the search terms, manual keywords, and placements that explain where performance came from.
+
+</Step>
+
+<Step>
+
+### Check platform and item health
+
+Use device/platform breakdowns and item health diagnostics when performance changes are hard to explain from spend and sales alone.
+
+</Step>
+
+</Steps>
+
+## Technical reference
+
+When you need table names, v2 keyword fields, deprecated table guidance, refresh timing, or 1P-only report details, use the technical reference.
+
+<div className="card-grid">
+  <Card
+    title="Walmart Advertising Data"
+    href="/help-center/data-reference/wmt-advertising-data"
+    description="Walmart Connect ad-group, item, brand, keyword, page-type, placement, and platform tables."
+  />
+  <Card
+    title="Connect a Walmart Connect Account"
+    href="/help-center/data-setup/connect-account"
+    description="Connect Walmart Connect so DataHawk can collect Walmart advertising data."
+  />
+</div>

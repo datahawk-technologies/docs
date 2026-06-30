@@ -2,5 +2,21 @@
   "title": "Help Center",
   "description": "Self-serve answers and how-tos",
   "root": true,
-  "pages": ["index", "knowledge-hub", "datahawk-app", "data-setup", "modules","connect-tools","dashboard-templates", "tips-advanced-use","contact"]
+  "pages": [
+    "index",
+    "data-metrics-guides",
+    "---",
+    "datahawk-app",
+    "data-setup",
+    "connect-tools",
+    "---",
+    "modules",
+    "dashboard-templates",
+    "---",
+    "tips-advanced-use",
+    "data-reference",
+    "glossary",
+    "---",
+    "contact"
+  ]
 }

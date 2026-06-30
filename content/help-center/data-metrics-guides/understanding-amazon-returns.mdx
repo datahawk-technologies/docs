@@ -1,0 +1,80 @@
+---
+title: Understanding Amazon Returns
+description: Understand Amazon return records, FBA disposition statuses, return reason codes, and how to interpret return patterns.
+---
+
+Amazon returns show more than how many products came back. They help you understand whether customers are unhappy with the product, confused by the listing, receiving damaged items, or returning items for reasons outside your control.
+
+DataHawk gives you access to Amazon customer return records for both <Term>FBA</Term> and <Term>FBM</Term> orders. Use this page to understand the business meaning of return dispositions and reason codes before working with the underlying return tables.
+
+## What returns can tell you
+
+- Which products are returned most frequently
+- When returns peak and how patterns change over time
+- Why customers are returning items, based on Amazon's reason codes
+- What condition returned items are in and whether they can be resold
+- Whether returns point to listing accuracy, product quality, sizing, logistics, packaging, or pricing issues
+
+## FBA and FBM return records
+
+Amazon return data can come from two fulfillment paths:
+
+| Fulfillment path | What it means | What to watch |
+|---|---|---|
+| **FBA** | Amazon fulfills the order and handles the customer return process | Return dispositions, fulfillment-center handling, item condition, and customer comments |
+| **FBM** | The merchant fulfills the order and handles return operations | Return quantity, reason codes, return date, and order-level context |
+
+The fulfillment path matters because FBA returns include Amazon's disposition assessment, while FBM returns are more focused on the merchant-handled return record.
+
+## Understanding return dispositions
+
+When a customer returns an FBA item, Amazon inspects it and assigns a disposition:
+
+| Disposition | What it means |
+|---|---|
+| **Sellable** | Item is in good condition and returned to your inventory |
+| **Damaged** | Damaged by carrier or fulfillment center; Amazon may reimburse you depending on the case |
+| **Customer Damaged** | Packaging opened or item altered by the customer; usually not resellable |
+| **Defective** | Product is faulty or non-functional |
+| **Expired** | Product is near or past its expiration threshold and may need removal or disposal |
+
+Disposition is most useful when paired with return reason codes. For example, a high number of **Defective** returns points to a different operational issue than a high number of **Sellable** returns caused by buyer's remorse.
+
+## Common return reasons
+
+Amazon assigns a reason code to each return based on the customer's selection. These codes are not perfect, but they are useful directional signals.
+
+| Reason | What it signals |
+|---|---|
+| Unwanted item | Buyer's remorse; review targeting, pricing, or expectation-setting |
+| Not as described | Listing accuracy issue; review title, bullets, images, and detail-page claims |
+| Defective item | Product quality issue; investigate supplier, batch, or manufacturing problems |
+| Wrong size / Wrong style | Variant confusion; improve size guides, variant naming, or product images |
+| Never arrived | Fulfillment or logistics issue |
+| Found better price elsewhere | Pricing competitiveness issue |
+| Damaged by carrier | Packaging or carrier-handling issue |
+
+## How to use return patterns
+
+Look for patterns before acting on a single return reason. Useful cuts include:
+
+- **By ASIN or SKU:** Find products with unusually high return volume.
+- **By reason:** Separate listing issues from quality, logistics, sizing, or pricing issues.
+- **By disposition:** Estimate whether returned inventory is recoverable.
+- **By time period:** Spot spikes after listing changes, promotions, seasonality, or inventory events.
+- **By fulfillment path:** Compare FBA and FBM return behavior separately.
+
+## Dataset details
+
+<div className="card-grid">
+  <Card
+    title="Amazon Returns Data"
+    href="/help-center/data-reference/amz-returns-data"
+    description="Return tables, order joins, and the full FBM/FBA reason-code mapping."
+  />
+  <Card
+    title="Amazon Seller Profit Data"
+    href="/help-center/data-reference/amz-seller-profit-data"
+    description="Profit ledger structure for fees, refunds, taxes, and financial events."
+  />
+</div>

@@ -1,0 +1,99 @@
+---
+title: Inventory & Replenishment
+description: Understand Amazon inventory and replenishment data, including stock health, FBA planning, ledger movements, and Subscribe & Save risk.
+---
+
+Inventory and replenishment data helps you understand what stock is available, how stock moved, which products may run out, and where recurring demand creates future risk. Use this guide when the question is operational first, then move into the technical pages when you need tables or SQL.
+
+## What this area covers
+
+DataHawk brings together several Amazon inventory views, each with a different job.
+
+| Area | What it helps with |
+|---|---|
+| Current stock | See available, inbound, reserved, or unavailable inventory |
+| Historical inventory | Track how stock levels changed over time |
+| Inventory ledger | Investigate movements such as shipments, returns, adjustments, and removals |
+| FBA planning | Review restock, aged-stock, and removal recommendations |
+| Subscribe & Save | Plan for recurring subscription demand and missed deliveries |
+
+The right view depends on whether you need a snapshot, a historical trend, or a movement-level explanation.
+
+## Common use cases
+
+Use inventory and replenishment data when you want to:
+
+- Detect stockout risk before it affects sales
+- Explain why inventory dropped for a product
+- Compare available stock with recent demand
+- Prioritize aged inventory that may create storage fees
+- Plan for upcoming Subscribe & Save demand
+- Reconcile operational questions across dashboards and raw tables
+
+## FBA, FBM, and Subscribe & Save
+
+For <Term>FBA</Term> products, Amazon inventory reports provide fulfillment-network stock, planning, and ledger views. For <Term>FBM</Term> or <Term>MFN</Term> products, availability often comes from listing-level data instead of FBA stock reports. Subscribe & Save adds another layer because recurring demand can be missed if stock is unavailable.
+
+<Callout type="info">
+  Subscribe & Save stockouts can be more damaging than a single missed sale because missed deliveries may weaken recurring customer demand.
+</Callout>
+
+## How to investigate an inventory issue
+
+<Steps>
+
+<Step>
+
+### Start with the current stock view
+
+Check whether the product has available, inbound, reserved, or unavailable units today.
+
+</Step>
+
+<Step>
+
+### Review recent movement
+
+If stock changed unexpectedly, use inventory movement or ledger detail to see shipments, returns, removals, adjustments, and warehouse activity.
+
+</Step>
+
+<Step>
+
+### Compare against demand
+
+Look at sales, estimated sales, advertising, and Subscribe & Save forecast signals to understand whether demand is rising faster than replenishment.
+
+</Step>
+
+<Step>
+
+### Decide the next action
+
+Use restock, removal, and aged-stock signals to decide whether to replenish, transfer, discount, or remove inventory.
+
+</Step>
+
+</Steps>
+
+## Technical reference
+
+When you need table names, fields, grains, deduplication notes, or SQL examples, use the technical reference pages.
+
+<div className="card-grid">
+  <Card
+    title="Amazon Inventory Data"
+    href="/help-center/data-reference/amz-inventory-data"
+    description="FBA planning, inventory snapshots, ledger detail, restock recommendations, and SQL examples."
+  />
+  <Card
+    title="Subscribe & Save Performance and Forecast"
+    href="/help-center/data-metrics-guides/subscribe-save-performance-forecast"
+    description="Business usage, key metrics, and how to use performance and forecast together."
+  />
+  <Card
+    title="Amazon Replenishment Data"
+    href="/help-center/data-reference/amz-replenishment"
+    description="Subscribe & Save table names, grain, common fields, and deprecated source tables."
+  />
+</div>

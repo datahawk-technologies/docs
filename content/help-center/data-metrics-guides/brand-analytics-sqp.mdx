@@ -1,0 +1,72 @@
+---
+title: Brand Analytics / SQP
+description: Understand Amazon Brand Analytics and Search Query Performance, including search funnels, market baskets, and repeat-purchase signals.
+---
+
+Amazon Brand Analytics gives brand-registered sellers and vendors a deeper view of how shoppers discover, compare, and purchase products on Amazon. In DataHawk, these reports help connect search demand, product engagement, market basket behavior, and repeat purchases.
+
+## What Brand Analytics includes
+
+Brand Analytics is not one report. It is a family of Amazon reports with different business questions.
+
+| Report area | What it helps you understand |
+|---|---|
+| Search Catalog Performance | How shoppers engage with your products during search and shopping journeys |
+| Search Query Performance | How a query moves from impressions to clicks, cart adds, and purchases |
+| Search Terms | Which products receive the most clicks for a keyword and department |
+| Market Basket | Which products are frequently purchased together |
+| Repeat Purchases | How often customers buy your products again |
+
+Search Query Performance is often shortened to <Term>SQP</Term>. It is especially useful when you need to understand the funnel behind a search term, not just whether your product ranked for it.
+
+## What you can use it for
+
+Use Brand Analytics and SQP when you want to:
+
+- Find search terms where your products get visibility but lose clicks or purchases
+- Identify high-intent queries for SEO and advertising work
+- Understand whether competitors capture demand on your branded terms
+- See which products are often bought together
+- Monitor whether repeat purchasing is growing or declining
+- Connect organic search behavior with paid search decisions
+
+## Requirements and caveats
+
+Brand Analytics is available for eligible Amazon brand-registered sellers or vendors. Availability depends on Amazon Brand Registry, account connection, report eligibility, and the scope Amazon exposes through <Term>SP-API</Term>.
+
+<Callout type="info">
+  Brand Analytics helps explain shopper behavior, but it is not a replacement for advertising performance, ranking, or profit reporting. Use it alongside those views for a complete picture.
+</Callout>
+
+## How to interpret SQP
+
+SQP breaks a search journey into funnel stages. A product may have strong impressions but weak clicks, or strong clicks but weak purchases. Those patterns point to different actions.
+
+| Pattern | Possible interpretation |
+|---|---|
+| High impressions, low clicks | The product appears but may not be attractive enough in search results |
+| High clicks, low cart adds | The product page may not answer shopper objections |
+| High cart adds, low purchases | Price, availability, reviews, or offer conditions may be blocking conversion |
+| Strong branded query competition | Competitors may be capturing demand on your brand terms |
+
+## Technical reference
+
+When you need report requirements, table names, frequency, granularity, or exact data availability, use the technical reference.
+
+<div className="card-grid">
+  <Card
+    title="Amazon Brand Analytics Data"
+    href="/help-center/data-reference/amz-brand-analytics-data"
+    description="Search Catalog Performance, Search Query Performance, Search Terms, Market Basket, and Repeat Purchases."
+  />
+  <Card
+    title="Keywords & SEO"
+    href="/help-center/data-metrics-guides/keyword-research"
+    description="Keyword suggestions, lookup, placement, and seeded-suggestion datasets."
+  />
+  <Card
+    title="Keyword Search Volume"
+    href="/help-center/data-metrics-guides/keyword-search-volume"
+    description="Real Amazon search volume from Search Terms Performance, refreshed weekly."
+  />
+</div>

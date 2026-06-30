@@ -1,0 +1,99 @@
+---
+title: Profit & P&L
+description: Understand how DataHawk builds Amazon Seller profit reporting, where to read P&L, and when to use the technical ledger reference.
+---
+
+Profit reporting in DataHawk connects Amazon financial events, advertising costs, refunds, taxes, and your uploaded cost data into a complete view of business performance. Use this guide when you need to understand what the P&L shows, why some lines appear at account level, and where to go when you need the underlying tables.
+
+## What Profit & P&L covers
+
+DataHawk's Amazon Seller profit reporting helps you move from top-line sales to true profitability. It brings together sales revenue, refunds, <Term>COGS</Term>, Amazon fees, marketing spend, adjustments, and tax treatment.
+
+| Layer | What it answers |
+|---|---|
+| Revenue | How much customers paid before refunds, costs, and fees |
+| Refunds | How returned or reversed orders reduced revenue |
+| COGS | How your uploaded product cost affects gross profit |
+| Amazon fees | Fulfillment, storage, service, warehousing, and related Amazon charges |
+| Marketing | Sponsored ads, coupons, and promotional costs |
+| Taxes and adjustments | Tax treatment, corrections, and other financial movements |
+
+## Where to use it
+
+Use Profit & P&L when you want to:
+
+- Understand whether sales growth is also creating margin
+- Compare profitability by brand, product, <Term>SKU</Term>, or <Term>ASIN</Term>
+- Separate revenue issues from cost, fee, or advertising issues
+- Review profitability after a campaign, promotion, price change, or fee increase
+- Build weekly or monthly finance reporting from DataHawk tables or dashboards
+
+## What to set up first
+
+Profit reporting needs your Amazon Seller account connection and your product costs.
+
+| Requirement | Why it matters |
+|---|---|
+| Amazon Seller account | Provides financial events, orders, refunds, and fee information |
+| Amazon Advertising account | Adds advertising spend where it needs to affect profitability |
+| COGS upload | Lets DataHawk calculate gross profit and downstream margin |
+| Product mapping | Helps connect financial events to products, brands, and SKUs |
+
+<Callout type="warn">
+  Without COGS, DataHawk can still show revenue, refunds, Amazon fees, and marketing costs, but it cannot calculate true gross profit or net profit.
+</Callout>
+
+## Common reading questions
+
+<Accordions>
+
+<Accordion title='Why do some fees appear under "No Brand" or "No SKU"?'>
+
+Some Amazon fees are product-level, while others are account-level. Product-level fees can be attached to a SKU or ASIN. Account-level fees, such as some storage charges, are billed by Amazon without a product breakdown. DataHawk keeps those fees in the P&L so totals remain complete, but it cannot automatically assign them to a product without a custom allocation rule.
+
+</Accordion>
+
+<Accordion title="Why can profit change after a date has passed?">
+
+Amazon financial events can arrive after the original sale or fulfillment activity. Refunds, deferred transactions, advertising replacements, storage fees, tax adjustments, and settlement updates can all change how a period looks after the first refresh.
+
+</Accordion>
+
+<Accordion title="Which date should I use?">
+
+For business reporting, DataHawk's default aggregated profit tables use an accrual view, which recognizes events based on when they were incurred. Recorded-basis tables are available when you need to follow Amazon's official posting date instead.
+
+</Accordion>
+
+</Accordions>
+
+## Where to read profit
+
+| Need | Best starting point |
+|---|---|
+| High-level P&L | Seller Analytics dashboard |
+| Product or SKU profitability | Profit Explorer |
+| Exportable finance detail | Download Center |
+| Exact tables, metrics, and SQL | Amazon Seller Profit Data technical reference |
+
+## Technical reference
+
+When you need table names, metric formulas, accrual vs. recorded methodology, deferred transaction fields, or SQL examples, use the technical reference.
+
+<div className="card-grid">
+  <Card
+    title="Amazon Seller Profit Data"
+    href="/help-center/data-reference/amz-seller-profit-data"
+    description="Profit ledger, metric tables, event sources, accrual and recorded views, and SQL examples."
+  />
+  <Card
+    title="Reading Seller Profit Reports"
+    href="/help-center/data-metrics-guides/amz-seller-profit-read-reports"
+    description="Common dashboard and Download Center questions, including account-level versus SKU-level fees."
+  />
+  <Card
+    title="Upload Amazon COGS"
+    href="/help-center/data-setup/cogs-amz-upload"
+    description="Add product costs so DataHawk can calculate gross profit, operating profit, and net profit."
+  />
+</div>

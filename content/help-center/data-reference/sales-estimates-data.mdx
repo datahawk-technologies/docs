@@ -1,0 +1,83 @@
+---
+title: Sales Estimates Data
+description: Technical reference for DataHawk sales estimate tables, V7 aliases, columns, grain, and refresh behavior.
+---
+
+Use this page when you need to query DataHawk's sales estimate tables or migrate from older V5/V6 table names. For methodology and interpretation, see [Amazon Sales Estimates](/help-center/data-metrics-guides/amz-sales-estimates).
+
+## Active tables
+
+| Schema | Table | Level | Description |
+|---|---|---|---|
+| `PRODUCT` | `PRODUCT_SALES_ESTIMATES` | Child + Parent | One row per tracked child ASIN per day. Contains both variant-level and parent-rollup fields. |
+| `MARKET` | `PRODUCT_SALES_ESTIMATES` | Product | Top 100 products per category with V7 estimates. |
+| `REPORTS` | `REPORT_MARKET_BEST_SELLER_RANK_AND_ESTIMATES` | Product | Top 100 per category with ranks and estimates. |
+
+## Deprecated aliases
+
+These tables still resolve to active V7 data, so existing queries continue to return values. Do not use them for new work.
+
+| Deprecated alias | Points to |
+|---|---|
+| `PRODUCT.PRODUCT_SALES_ESTIMATES_V5` | `PRODUCT.PRODUCT_SALES_ESTIMATES` |
+| `PRODUCT.PRODUCT_SALES_ESTIMATES_V5_CHILD` | `PRODUCT.PRODUCT_SALES_ESTIMATES` |
+| `PRODUCT.PRODUCT_SALES_ESTIMATES_V5_RAW` | `PRODUCT.PRODUCT_SALES_ESTIMATES` |
+| `PRODUCT.PRODUCT_SALES_ESTIMATES_V6` | `PRODUCT.PRODUCT_SALES_ESTIMATES` |
+| `PRODUCT.PRODUCT_SALES_ESTIMATES_V6_CHILD` | `PRODUCT.PRODUCT_SALES_ESTIMATES` |
+| `PRODUCT.PRODUCT_SALES_ESTIMATES_V6_RAW` | `PRODUCT.PRODUCT_SALES_ESTIMATES` |
+| `MARKET.PRODUCT_SALES_ESTIMATES_V5_RAW` | `MARKET.PRODUCT_SALES_ESTIMATES` |
+| `MARKET.PRODUCT_SALES_ESTIMATES_V6_RAW` | `MARKET.PRODUCT_SALES_ESTIMATES` |
+| `REPORTS.REPORT_MARKET_BEST_SELLER_RANK_AND_ESTIMATES_V6` | `REPORTS.REPORT_MARKET_BEST_SELLER_RANK_AND_ESTIMATES` |
+| `REPORTS.REPORT_MARKET_PRODUCT_SALES_RANK_AND_ESTIMATES` | `REPORTS.REPORT_MARKET_BEST_SELLER_RANK_AND_ESTIMATES` |
+
+## Key columns
+
+| Column | Level | Description |
+|---|---|---|
+| `OBSERVATION_DATE` | — | Date of the estimate |
+| `MARKETPLACE_KEY` | — | Amazon marketplace (US, FR, DE, etc.) |
+| `ASIN` | Child | Child ASIN |
+| `PARENT_ASIN` | — | Parent ASIN |
+| `UNITS_CHILD` | Child | Estimated daily units sold for this variant |
+| `REVENUE_CHILD` | Child | Estimated daily revenue for this variant, in local currency |
+| `REVENUE_CHILD_USD` | Child | Estimated daily revenue for this variant, in USD |
+| `UNITS_PARENT` | Parent | Estimated daily units sold across the full family |
+| `REVENUE_PARENT` | Parent | Estimated daily revenue across the full family, in local currency |
+| `IS_EXTRAPOLATED` | Child | `true` when the estimate was extrapolated because source data was missing |
+| `TRUST_INDEX` | Child | Model confidence score for this estimate |
+| `VARIATION_COUNT` | — | Number of known variants in the family |
+
+## Granularity and refresh
+
+| Attribute | Value |
+|---|---|
+| Granularity | One row per tracked child ASIN / marketplace / day |
+| Refresh | Daily |
+| History | Up to two full years, depending on marketplace |
+| Primary key | `WORKSPACE_ID`, `OBSERVATION_DATE`, `MARKETPLACE_KEY`, `ASIN` |
+
+The full 2024+ history was reprocessed with V7 on June 15, 2026.
+
+## FAQ
+
+<Accordions>
+  <Accordion title="Do V5 or V6 queries still work?">
+    Yes. V5 and V6 tables now resolve to V7 data via aliases, so existing queries continue to return values. The values may differ from what you saw before June 15, 2026 because V7 reprocessed the historical data.
+  </Accordion>
+
+  <Accordion title="Should I migrate queries to the new table names?">
+    Yes. Aliases work today but should not be used for new work. Replace `PRODUCT_SALES_ESTIMATES_V5*` and `_V6*` references with `PRODUCT_SALES_ESTIMATES`, and use the active `MARKET` and `REPORTS` tables listed above.
+  </Accordion>
+
+  <Accordion title="Why are child estimates different from the parent total?">
+    Parent estimates represent total family sales. `UNITS_PARENT` is the rolled-up value across known variants in that family on that date.
+  </Accordion>
+
+  <Accordion title="What is IS_EXTRAPOLATED?">
+    When BSR data is temporarily unavailable, DataHawk fills the gap using linear extrapolation. These rows are flagged so you can include or exclude them in analysis.
+  </Accordion>
+
+  <Accordion title="What is TRUST_INDEX?">
+    A per-row confidence score reflecting data quality for that product and date.
+  </Accordion>
+</Accordions>

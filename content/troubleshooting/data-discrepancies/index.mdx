@@ -79,7 +79,7 @@ In `VENDOR_SALES_*`, filter by `selling_program`. If a marketplace appears empty
 - Ad data appears under the wrong account type (Vendor vs Seller)
 
 <Callout type="info">
-For ad data showing under the wrong account type specifically, see the dedicated article: [Ads data appearing under the wrong account type](/troubleshooting/ads-data-appearing-under-the-wrong-account-type).
+For ad data showing under the wrong account type specifically, see the dedicated article: [Ads data appearing under the wrong account type](/troubleshooting/data-discrepancies/ads-data-appearing-under-the-wrong-account-type).
 </Callout>
 
 **Most likely causes:**
@@ -314,7 +314,7 @@ In the DataHawk UI, go to the keyword tracking section and confirm your batch is
 
 **Most likely causes:**
 
-1. **Parent vs child ASIN granularity.** As of the [Sales Estimates V7 release (June 2026)](/changelog/2026-06-15-sales-estimates-v7), DataHawk delivers estimates at the **child (variant) level** by default — the older parent-level rollup is no longer the default. Make sure you're comparing the same granularity on both sides: child-to-child or parent-to-parent. If you're querying a legacy report that still aggregates at parent level, the rolled-up number will look much bigger than a single child's actuals. See [key concepts](/help-center/knowledge-hub/data-fundamentals/key-concepts) for the parent/child distinction.
+1. **Parent vs child ASIN granularity.** As of the [Sales Estimates V7 release (June 2026)](/changelog/2026-06-15-sales-estimates-v7), DataHawk delivers estimates at the **child (variant) level** by default — the older parent-level rollup is no longer the default. Make sure you're comparing the same granularity on both sides: child-to-child or parent-to-parent. If you're querying a legacy report that still aggregates at parent level, the rolled-up number will look much bigger than a single child's actuals. See [key concepts](/help-center/data-metrics-guides/key-concepts) for the parent/child distinction.
 
 2. **Model updates.** Sales Estimates were re-modeled in March 2025 (2024+ data reprocessed) and again upgraded to V7 in June 2026 with broader catalog coverage and variant-level forecasts. Historical comparisons across these model boundaries won't match exactly by design.
 
@@ -394,7 +394,7 @@ If you have a more specific scenario, jump directly to the article:
 
   <Card
     title="Ads data appearing under the wrong account type"
-    href="/troubleshooting/ads-data-appearing-under-the-wrong-account-type"
+    href="/troubleshooting/data-discrepancies/ads-data-appearing-under-the-wrong-account-type"
     description="When ad data shows up under your Vendor account but should be under Seller, or vice versa."
   />
 
