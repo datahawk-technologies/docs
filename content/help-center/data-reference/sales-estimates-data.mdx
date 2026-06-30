@@ -34,18 +34,35 @@ These tables still resolve to active V7 data, so existing queries continue to re
 
 | Column | Level | Description |
 |---|---|---|
+| `WORKSPACE_ID` | — | DataHawk workspace identifier |
 | `OBSERVATION_DATE` | — | Date of the estimate |
 | `MARKETPLACE_KEY` | — | Amazon marketplace (US, FR, DE, etc.) |
+| `PRODUCT_KEY` | — | DataHawk internal product identifier |
 | `ASIN` | Child | Child ASIN |
 | `PARENT_ASIN` | — | Parent ASIN |
+| `CURRENCY_CODE` | — | Local marketplace currency |
+| `BRAND` | Child | Latest known brand name |
+| `NAME` | Child | Latest known product name |
 | `UNITS_CHILD` | Child | Estimated daily units sold for this variant |
 | `REVENUE_CHILD` | Child | Estimated daily revenue for this variant, in local currency |
 | `REVENUE_CHILD_USD` | Child | Estimated daily revenue for this variant, in USD |
 | `UNITS_PARENT` | Parent | Estimated daily units sold across the full family |
 | `REVENUE_PARENT` | Parent | Estimated daily revenue across the full family, in local currency |
+| `REVENUE_PARENT_USD` | Parent | Estimated daily revenue across the full family, in USD |
+| `PRICE_CHILD` | Child | Observed listing price for this variant, in local currency |
+| `PRICE_CHILD_USD` | Child | Observed listing price for this variant, in USD |
+| `PRICE_PARENT_WEIGHTED_AVG` | Parent | Weighted average price across all variants, in local currency |
+| `PRICE_PARENT_WEIGHTED_AVG_USD` | Parent | Weighted average price across all variants, in USD |
+| `SELLER_COUNT_CHILD` | Child | Number of sellers for this variant |
+| `SELLER_COUNT_PARENT` | Parent | Distinct seller count across all variants |
 | `IS_EXTRAPOLATED` | Child | `true` when the estimate was extrapolated because source data was missing |
+| `TAGS_ARRAY` | Child | Tags applied to this product in DataHawk |
 | `TRUST_INDEX` | Child | Model confidence score for this estimate |
 | `VARIATION_COUNT` | — | Number of known variants in the family |
+| `MODEL_VERSION` | Child | Version of the estimation model used |
+| `SYNC_TIME` | — | Last data sync timestamp |
+
+The V7 table no longer exposes `OBSERVED_CHANNEL_PRODUCT_ID`, `RATING`, or `RATING_COUNT`.
 
 ## Granularity and refresh
 
@@ -70,7 +87,15 @@ The full 2024+ history was reprocessed with V7 on June 15, 2026.
   </Accordion>
 
   <Accordion title="Why are child estimates different from the parent total?">
-    Parent estimates represent total family sales. `UNITS_PARENT` is the rolled-up value across known variants in that family on that date.
+    Parent estimates represent total family sales. `UNITS_PARENT` is the rolled-up value across known variants in that family on that date. When you compare a complete family for the same date, the sum of `UNITS_CHILD` should reconcile with `UNITS_PARENT`.
+  </Accordion>
+
+  <Accordion title="My child estimates don't add up to the parent. Why?">
+    This can happen when the family definition changes over time, or when only some variants in a family are tracked. Use `VARIATION_COUNT` to understand the full known family size used at estimation time.
+  </Accordion>
+
+  <Accordion title="Can I get estimates for products I don't track directly?">
+    Yes. If a product appears in the top 100 of a category you track, category tracking can provide estimates for it even if you did not add that ASIN manually.
   </Accordion>
 
   <Accordion title="What is IS_EXTRAPOLATED?">

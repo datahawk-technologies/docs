@@ -1,11 +1,21 @@
 ---
-title: Keyword Research
-description: DataHawk's four keyword datasets — keyword suggestions, keyword lookup, keyword placement, and keyword-seeded suggestions.
+title: Keyword Research & Search Volume
+description: Use DataHawk keyword research, lookup, and Amazon search volume data to find opportunities, prioritize terms, and understand demand.
 ---
 
-DataHawk provides four keyword datasets to help you optimize your product visibility, improve your SEO strategy, and discover new opportunities.
+Keyword data in DataHawk combines recommendations, observed ranking signals, and real Amazon demand data. Use this page to decide which keywords to track, which opportunities to prioritize, and how to read search volume once tracking begins.
 
-## What's available
+## What this area covers
+
+| Dataset | What it tells you | Best for |
+|---|---|---|
+| Keyword Suggestions | AI-generated keyword ideas for tracked products | Finding new organic or paid keyword opportunities |
+| Keyword Lookup | Keywords where your products ranked organically in the past 7 days | Understanding your current organic footprint |
+| Keyword-Seeded Suggestions | Related keywords from a seed keyword | Researching a market before tracking a product |
+| Keyword Placement | Historical listing keyword placement context | Legacy table analysis |
+| Search Volume | Real Amazon demand for tracked keywords | Prioritizing high-demand terms and seasonality |
+
+## Keyword research datasets
 
 ### Keyword Suggestions
 
@@ -24,31 +34,85 @@ A weekly view of every keyword where your products ranked organically in the pas
 
 If you don't have a product to start from, you can enter a seed keyword and DataHawk will surface related and adjacent keywords from its database. Reach out to your DataHawk contact to enable this.
 
-## Coverage and availability
+### Keyword Placement
 
-- Works for approximately 90% of tracked products
-- Currently available for English-speaking marketplaces only: US, GB, CA, AU, SG, IN, AE
-- Track products before noon UTC to see updated results the following day (6am UTC)
+Keyword placement is part of the historical keyword research table family. Collection has been paused since August 2023, so use it only when you need legacy placement context.
 
-## What to do if keyword suggestions are missing
+## Search volume
 
-DataHawk needs two types of context about your product to generate suggestions: its **browse node category** and **keyword ranking data**. If either is thin, suggestions will be sparse or absent.
+DataHawk provides real Amazon search volume for every keyword you track, sourced from Amazon's **Search Terms Performance** report and refreshed weekly. This gives you a historical view of how demand for any keyword evolves over time for each <Term>marketplace</Term>, using actual Amazon signals rather than estimates.
+
+Use search volume when you want to:
+
+- Track keyword popularity and seasonality
+- Identify high-volume keywords for organic SEO and paid advertising
+- Measure whether a campaign or listing change moved keyword demand
+- Validate whether there is enough search demand before launching a product or entering a category
+
+<Callout type="info">
+  Each keyword variation is counted separately. For example, "bag" and "bags" are treated as two distinct keywords, each with their own volume. Keep this in mind when comparing keywords or summing volumes across a set.
+</Callout>
+
+<img
+  src="/images/help-center/knowledge-hub/keyword-search-volume/keyword-searcg-volume-1.png"
+  alt="Monthly Search Volume History Example"
+  width={1200}
+  height={680}
+  className="rounded-lg border"
+/>
+
+## Requirements and coverage
+
+Keyword research and search volume have different availability rules.
+
+| Area | Requirements and coverage |
+|---|---|
+| Keyword Suggestions | Works for approximately 90% of tracked products. Currently available for English-speaking marketplaces only: US, GB, CA, AU, SG, IN, AE. Track products before noon UTC to see updated results the following day at 6am UTC. |
+| Keyword Lookup | Requires products and keywords to be tracked so DataHawk can observe organic ranking signals. |
+| Keyword-Seeded Suggestions | Available on request. Reach out to your DataHawk contact to enable this dataset. |
+| Search Volume | Requires the keyword to be tracked in DataHawk. Volume data does not backfill; collection starts from the day tracking begins. |
+
+Search volume is supported in these regions:
+
+| Region | Coverage |
+|---|---|
+| North America | All marketplaces |
+| Far East | All marketplaces |
+| Europe | Spain, United Kingdom, France, Netherlands, Germany, Italy, Sweden, Turkey, United Arab Emirates, India |
+
+**Search volume data available from:**
+
+- Most marketplaces: 1 May 2024
+- AE and SG: 15 August 2024
+
+## Available dashboards
+
+Keyword search volume is included in:
+
+- [Search Power BI Dashboard Template](/help-center/connect-tools/powerbi)
+- [Analytics Essentials Looker Studio Dashboard](/help-center/dashboard-templates/looker-studio)
+
+## What to do if keyword data is missing
+
+For keyword suggestions, DataHawk needs two types of context about your product: its **browse node category** and **keyword ranking data**. If either is thin, suggestions will be sparse or absent.
 
 To build up that context:
 
 - Refine your product's category assignment so DataHawk can identify the right competitive set
-- Track more keywords relevant to the product — as your product accumulates ranking data, suggestion quality improves
+- Track more keywords relevant to the product - as your product accumulates ranking data, suggestion quality improves
+
+For search volume, first confirm that the keyword is tracked. If it was added recently, remember that volume data starts from the tracking date and does not backfill historical periods.
 
 ---
 
 ## Technical reference
 
-Need keyword table names, refresh cadence, or rank-table guidance?
+Need keyword table names, refresh cadence, search-volume grain, or rank-table guidance?
 
 <div className="card-grid">
   <Card
     title="SEO & Keyword Data"
     href="/help-center/data-reference/seo-keyword-data"
-    description="Keyword research, search volume, organic rank, and sponsored rank tables."
+    description="Keyword research, search volume, organic rank, sponsored rank, table grain, and refresh details."
   />
 </div>

@@ -221,6 +221,19 @@ In `FINANCE_PROFIT_METRICS`, the *Tax Liability* and *Net Profit* metrics were r
 
 </Accordion>
 
+<Accordion title='Amazon Seller fees appear under "No Brand" or "No SKU"'>
+
+**Common symptoms:**
+- Storage fees or long-term storage fees are grouped under **No Brand** or **No SKU**
+- Product-level profit does not show all Amazon fees
+- Total P&L looks correct only when the account-level row is included
+
+**Most likely cause:** Amazon billed the fee at account level without sending a product or brand breakdown. DataHawk keeps the fee in the P&L total, but cannot assign it to a product without a custom allocation rule.
+
+For the full explanation and checklist, read [Why are fees under No SKU?](/troubleshooting/data-discrepancies/fees-under-no-sku).
+
+</Accordion>
+
 <Accordion title="Inventory levels don't match Amazon">
 
 **Common symptoms:**
@@ -391,6 +404,12 @@ Alerts on Buy Box-related fields are now sourced from Catalog + Featured Offer d
 If you have a more specific scenario, jump directly to the article:
 
 <div className="card-grid">
+
+  <Card
+    title="Why are fees under No SKU?"
+    href="/troubleshooting/data-discrepancies/fees-under-no-sku"
+    description="Why Amazon Seller fees can appear without a product or brand, and what to check."
+  />
 
   <Card
     title="Ads data appearing under the wrong account type"

@@ -43,7 +43,10 @@ const config = {
       { source: '/help-center/knowledge-hub/data-fundamentals/:path*', destination: '/help-center/data-metrics-guides/:path*', permanent: true },
       { source: '/help-center/knowledge-hub/metrics-methodology/:path*', destination: '/help-center/data-metrics-guides/:path*', permanent: true },
       { source: '/help-center/knowledge-hub/dataset-reference/:path*', destination: '/help-center/data-reference/:path*', permanent: true },
+      { source: '/help-center/knowledge-hub/keyword-search-volume', destination: '/help-center/data-metrics-guides/keyword-research', permanent: true },
       { source: '/help-center/knowledge-hub/:path*', destination: '/help-center/data-metrics-guides/:path*', permanent: true },
+      { source: '/help-center/data-metrics-guides/amz-seller-profit-read-reports', destination: '/help-center/data-metrics-guides/profit-and-loss', permanent: true },
+      { source: '/help-center/data-metrics-guides/keyword-search-volume', destination: '/help-center/data-metrics-guides/keyword-research', permanent: true },
       { source: '/help-center/modules/insights', destination: '/changelog/2026-06-30-insights-module-retired', permanent: true },
       { source: '/help-center/modules/insights/:path*', destination: '/changelog/2026-06-30-insights-module-retired', permanent: true },
     ];

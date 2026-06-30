@@ -1,0 +1,98 @@
+---
+title: My finance events look stale in Power BI
+description: How to troubleshoot when FINANCE_EVENTS in Power BI appears to stop updating — usually a query filter issue (sync_time vs posted_time), not a sync issue.
+---
+
+You're querying `FINANCE.FINANCE_EVENTS` from Power BI and the data appears frozen — recent transactions (FBA fees, refunds, settlement events) aren't showing up even though they should. In most cases this is a query problem inside Power BI, not a refresh issue on DataHawk's side.
+
+## What I can observe
+
+- A Power BI report against `FINANCE.FINANCE_EVENTS` shows no rows past a certain date
+- The "stuck" date can be days or weeks old
+- The DataHawk app's finance dashboard shows fresh data for the same workspace
+- A specific row type (for example `Order-ItemFee-FBAPerUnitFulfillmentFee` in the `DESCRIPTION` column) has no recent entries
+- Other tables in the same database refresh normally
+
+## Why is this happening?
+
+The most common cause is **filtering on `SYNC_TIME`** in the Power BI query. `SYNC_TIME` is a technical column that records when DataHawk loaded a specific row into the warehouse — NOT when the financial event happened. If your incremental-refresh policy uses `SYNC_TIME` as the time boundary, rows whose event dates fall before that boundary appear missing, even though they're present in the table.
+
+The correct field for business-meaningful filtering is **`POSTED_TIME`** (or `POSTED_DATE` for date-only filtering) — the time Amazon posted the event. That's also what drives the visible "last updated" date on DataHawk dashboards.
+
+## What can I do?
+
+<Steps>
+
+<Step>
+### Confirm Power BI has actually refreshed
+
+Open the Power BI report and check the "Last refresh" timestamp at the bottom-left of the workspace view, or go to **File → Options → Data Source → Refresh**.
+
+If the last refresh is hours or days old, refresh manually (**Home → Refresh**) and recheck before going further. A surprising number of "stale data" reports come down to an unrefreshed Power BI file.
+</Step>
+
+<Step>
+### Review your Power BI query for `SYNC_TIME` filters
+
+Open your query in Power Query (**Transform Data → select the query**). Look for `Table.SelectRows` steps that reference `SYNC_TIME`:
+
+```text title="Power Query M"
+Table.SelectRows(Source, each [SYNC_TIME] >= RangeStart and [SYNC_TIME] < RangeEnd)
+```
+
+Replace `SYNC_TIME` with `POSTED_TIME` (or `POSTED_DATE` if you need date-only granularity):
+
+```text title="Power Query M"
+Table.SelectRows(Source, each [POSTED_TIME] >= RangeStart and [POSTED_TIME] < RangeEnd)
+```
+
+`POSTED_TIME` is the field Amazon attributes the event to. `SYNC_TIME` only reflects DataHawk's ingestion order and is not suitable for date filtering or incremental refresh boundaries.
+</Step>
+
+<Step>
+### Query the DataHawk database directly to verify the data is there
+
+To rule out a real sync problem, run this query directly in <Term>Snowflake</Term> (or <Term>BigQuery</Term>) against your DataHawk database:
+
+```sql
+SELECT posted_date, SUM(amount_usd)
+FROM finance.finance_profit_ledger
+WHERE workspace_id = <your WSID>
+  AND event_signature ILIKE '%Financial Events | Order | Item Fee | FBA Per Unit Fulfillment Fee%'
+  AND posted_date > CURRENT_DATE() - 30
+GROUP BY ALL;
+```
+
+Replace `<your WSID>` with your <Term>WSID</Term> (find it in the DataHawk app under **Setup → Workspace**). Adjust the `event_signature` filter to match the row type you're investigating.
+
+If this query returns recent rows, the data IS in the warehouse — the issue is in your Power BI query (go back to Step 2). If the query returns no recent rows, contact support — that's a real sync problem.
+</Step>
+
+</Steps>
+
+## Recommendation: prefer `FINANCE_PROFIT_LEDGER` over `FINANCE_EVENTS`
+
+For most finance reporting, **`FINANCE.FINANCE_PROFIT_LEDGER` is the recommended table.** It's a profit-oriented version of `FINANCE_EVENTS` with cleaner attribution, deduplication already applied, and consistent semantics across event types — the same view DataHawk's own finance dashboards use.
+
+If your Power BI report was built on `FINANCE_EVENTS` directly, consider migrating to `FINANCE_PROFIT_LEDGER`. See [Amazon Seller Profit Data](/help-center/data-reference/amz-seller-profit-data) for the side-by-side and how the two tables relate.
+
+## Still not working?
+
+If you've confirmed all three of:
+
+- Power BI has refreshed recently
+- Your query filters on `POSTED_TIME`, not `SYNC_TIME`
+- The direct warehouse query returns no recent rows for the affected event signature
+
+…then it's a real sync issue. Email [support@datahawk.co](mailto:support@datahawk.co) with:
+
+- Your <Term>WSID</Term>
+- The exact `DESCRIPTION` value or `event_signature` you're missing
+- The date range you expected data for
+- A screenshot of the warehouse query result showing zero recent rows
+
+## Related articles
+
+- [Amazon Seller Profit Data](/help-center/data-reference/amz-seller-profit-data) — when to use `finance_profit_ledger` vs `finance_events`
+- [My advertising data is not populating](/troubleshooting/data-not-refreshing/my-advertising-data-is-not-populating)
+- [I don't see traffic data for my ASIN](/troubleshooting/data-not-refreshing/no-traffic-data-for-asin)

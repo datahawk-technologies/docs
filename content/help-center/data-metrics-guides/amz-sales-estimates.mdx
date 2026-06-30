@@ -25,6 +25,7 @@ Combined with market share data, this powers decisions across three areas:
 
 - Track whether a competitor is gaining or losing ground in your category
 - See which brands dominate the top 100 and how that's changing
+- Compare your estimated sales against category leaders
 - Measure your brand's share of total category volume
 
 ### Inventory planning
@@ -36,7 +37,7 @@ Combined with market share data, this powers decisions across three areas:
 
 To receive sales estimates, you need to track **at least one of the following:**
 
-- **Track a category** → DataHawk collects Best Sellers Rank (<Term>BSR</Term>) data and calculates daily estimates for all top 100 products in that category. This is the primary way to get competitor estimates.
+- **Track a category** → DataHawk collects Best Sellers Rank (<Term>BSR</Term>) data and calculates daily estimates for all top 100 products in that category. History is available immediately, and this is the primary way to get competitor estimates.
 - **Track specific products** *(optional)* → Estimates for individual ASINs you add manually. History starts from the day you begin tracking.
 - **Create product segments** *(optional)* → Group products with [tags](/help-center/data-setup/tags) to compare your catalog against a specific competitor set.
 - **Connect your Seller account** *(optional but recommended)* → Your actual sales data helps calibrate the model for your own products, improving estimate accuracy.
@@ -60,10 +61,12 @@ To receive sales estimates, you need to track **at least one of the following:**
 | | Category tracking | Product tracking |
 |---|---|---|
 | **Coverage** | All top 100 products in the category, including competitors | Only the ASINs you explicitly track |
-| **History** | Up to 2 years (from DataHawk collection start per <Term>marketplace</Term>) | From the day you start tracking |
+| **History** | Up to 2 years (from DataHawk collection start per <Term>marketplace</Term>), available immediately after category tracking starts | From the day you start tracking |
 | **Best for** | Market sizing, brand share, competitive landscape | Focused monitoring of a specific competitor set or your own catalog |
 
 ### Variant, parent, and brand levels
+
+Amazon products often have multiple variations, such as sizes, colors, or pack counts, grouped under one parent ASIN. Parent-level estimates help with market share, brand comparison, and category sizing. Child-level estimates help with variant and SKU planning when you need to know which exact version of a product is driving sales.
 
 V7 generates estimates **natively at the variant (child ASIN) level**. From there, the same data rolls up to parent and brand for higher-level analysis.
 
@@ -99,7 +102,7 @@ DataHawk monitors <Term>BSR</Term> for all products in tracked categories daily.
 <Step>
 ### Apply the V7 model per category
 
-V7 uses an upgraded algorithm that considers more market signals to better reflect actual demand and to cover a broader set of products than previous versions.
+A rank of #50 in one category can represent a very different sales velocity than #50 in another. DataHawk calibrates estimates by category so rank position is translated into category-specific daily unit estimates. V7 also considers more market signals than previous versions to better reflect actual demand and cover a broader set of products.
 </Step>
 
 <Step>
@@ -130,7 +133,7 @@ When BSR data is temporarily unavailable, DataHawk applies linear extrapolation.
 
 ## Accuracy & reliability
 
-Each row in the dataset carries a `TRUST_INDEX` score indicating model confidence for that product and date. Rows where extrapolation was applied are flagged with `IS_EXTRAPOLATED`.
+Each row in the dataset carries a `TRUST_INDEX` score indicating model confidence for that product and date. Rows where extrapolation was applied are flagged with `IS_EXTRAPOLATED`. Estimates are most reliable in categories with stable bestseller patterns and strong public purchase-signal coverage.
 
 ---
 

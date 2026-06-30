@@ -49,7 +49,11 @@ Profit reporting needs your Amazon Seller account connection and your product co
 
 <Accordion title='Why do some fees appear under "No Brand" or "No SKU"?'>
 
-Some Amazon fees are product-level, while others are account-level. Product-level fees can be attached to a SKU or ASIN. Account-level fees, such as some storage charges, are billed by Amazon without a product breakdown. DataHawk keeps those fees in the P&L so totals remain complete, but it cannot automatically assign them to a product without a custom allocation rule.
+Some Amazon fees are product-level, while others are account-level. Product-level fees can be attached to a SKU or ASIN. Account-level fees, such as some <Term>FBA</Term> storage charges or long-term storage fees, are billed by Amazon without a product breakdown.
+
+DataHawk keeps those fees in the P&L so totals remain complete, but it cannot automatically assign them to a product without a custom allocation rule. In the Download Center, account-level fees appear grouped under **"No Brand" / "No SKU"**. They are not missing from your P&L - they are fully accounted for at the account level.
+
+For the support-style explanation and checks, see [Why are fees under No SKU?](/troubleshooting/data-discrepancies/fees-under-no-sku).
 
 </Accordion>
 
@@ -72,11 +76,16 @@ For business reporting, DataHawk's default aggregated profit tables use an accru
 | Need | Best starting point |
 |---|---|
 | High-level P&L | Seller Analytics dashboard |
-| Product or SKU profitability | Profit Explorer |
-| Exportable finance detail | Download Center |
+| Profitability by SKU or ASIN | Profit Explorer |
+| Brand -> SKU breakdown with fees and ad spend | Download Center |
+| Account-level fees such as storage | "No Brand" / "No SKU" row in Download Center |
 | Exact tables, metrics, and SQL | Amazon Seller Profit Data technical reference |
 
-## Technical reference
+<Callout type="warn">
+  Organic vs. paid sales breakdown is not currently available in the Download Center view.
+</Callout>
+
+## Where to go next
 
 When you need table names, metric formulas, accrual vs. recorded methodology, deferred transaction fields, or SQL examples, use the technical reference.
 
@@ -87,9 +96,9 @@ When you need table names, metric formulas, accrual vs. recorded methodology, de
     description="Profit ledger, metric tables, event sources, accrual and recorded views, and SQL examples."
   />
   <Card
-    title="Reading Seller Profit Reports"
-    href="/help-center/data-metrics-guides/amz-seller-profit-read-reports"
-    description="Common dashboard and Download Center questions, including account-level versus SKU-level fees."
+    title="Why are fees under No SKU?"
+    href="/troubleshooting/data-discrepancies/fees-under-no-sku"
+    description="Why account-level Amazon fees appear without a product or brand, and what to check."
   />
   <Card
     title="Upload Amazon COGS"

@@ -1,0 +1,88 @@
+---
+title: Why are fees under No SKU?
+description: Why Amazon Seller fees can appear under No SKU or No Brand in DataHawk, and how to tell whether anything is missing.
+---
+
+Use this guide when Amazon Seller profit fees are grouped in a row without a product or brand identifier. In most cases, the fees are not missing or duplicated; Amazon reported them at account level instead of attaching them to a specific product.
+
+A <Term>SKU</Term> only appears on a fee line when Amazon sends product-level attribution with the charge. If Amazon does not, DataHawk preserves the fee in an account-level row.
+
+## What I can observe
+
+- Fees appear under **No Brand** or **No SKU** in the Download Center
+- Storage fees, long-term storage fees, or service charges are not visible on individual product rows
+- The total P&L includes the fees, but the product-level breakdown does not distribute them
+- Product profitability looks higher than expected when account-level fees are ignored
+
+## Why is this happening?
+
+Amazon reports profit-related fees in two different ways.
+
+**SKU-level fees** are charges Amazon attributes directly to a specific <Term>SKU</Term> or <Term>ASIN</Term>. For example, <Term>FBA</Term> fulfillment fees per unit shipped can usually be tied to a product, so DataHawk can show them on the product row.
+
+**Account-level fees** are charges Amazon bills to the seller account without a product breakdown. Storage fees and long-term storage fees often work this way. Amazon does not tell DataHawk which product caused the charge, so DataHawk cannot assign it to a SKU automatically.
+
+<Callout type="info">
+  The fee is still included in your P&L total. The **No Brand** or **No SKU** row means the fee has no reliable product attribution from Amazon.
+</Callout>
+
+## What to check
+
+<Steps>
+
+<Step>
+### Confirm the fee category
+
+Check whether the line is a fulfillment fee, storage fee, long-term storage fee, service fee, adjustment, or another Amazon charge. Fulfillment fees are more likely to be product-level; storage and account service fees are more likely to be account-level.
+</Step>
+
+<Step>
+### Compare product rows with the account-level row
+
+Review the product-level rows first, then include the **No Brand** or **No SKU** row when checking total profit. If the total looks correct only after including that row, the issue is attribution, not a missing fee.
+</Step>
+
+<Step>
+### Match the reporting view
+
+Use the same date range, marketplace, account, and currency when comparing DataHawk to Amazon Seller Central. Some Amazon financial events can arrive after the original sale or fulfillment date.
+</Step>
+
+</Steps>
+
+## Can DataHawk allocate these fees by SKU?
+
+DataHawk cannot automatically split account-level fees without a rule because Amazon does not provide the product-level breakdown. A custom allocation can be discussed if your team needs one for reporting.
+
+Common allocation approaches include:
+
+- Revenue share
+- Unit volume
+- Storage volume or cubic space
+- A finance-owned manual rule
+
+## What to send support
+
+If the fees still look wrong after these checks, contact **[support@datahawk.co](mailto:support@datahawk.co)** with:
+
+- Your workspace ID
+- The marketplace and seller account
+- The date range
+- A screenshot of the **No Brand** or **No SKU** row
+- The Amazon Seller Central report you are comparing against
+- Whether you want to reconcile totals or allocate fees by product
+
+## Related articles
+
+<div className="card-grid">
+  <Card
+    title="Profit & P&L"
+    href="/help-center/data-metrics-guides/profit-and-loss"
+    description="How DataHawk builds Amazon Seller profit reporting and where to read P&L."
+  />
+  <Card
+    title="Amazon Seller Profit Data"
+    href="/help-center/data-reference/amz-seller-profit-data"
+    description="Profit ledger, metric tables, event sources, accrual and recorded views, and SQL examples."
+  />
+</div>
