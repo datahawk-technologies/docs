@@ -2,5 +2,5 @@
   "title": "Welcome",
   "description": "Get oriented with DataHawk",
   "root": true,
-  "pages": ["explore-datahawk", "getting-started", "pricing"]
+  "pages": ["index","explore-datahawk", "getting-started", "pricing"]
 }
