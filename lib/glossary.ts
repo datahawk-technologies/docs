@@ -150,6 +150,14 @@ export const glossary: Record<string, GlossaryEntry> = {
   },
 
   // ─── DataHawk concepts ────────────────────────────────────────────────
+  'DIGITAL SHELF ANALYTICS': {
+    title: 'Digital Shelf Analytics',
+    short: 'DataHawk\'s market and competitive intelligence layer. It tracks how products look and compete across a category, including best sellers, keyword rankings, new entrants, pricing trends, and usage based on tracked products, keywords, and categories.',
+  },
+  'ACCOUNT ANALYTICS': {
+    title: 'Account Analytics',
+    short: 'DataHawk\'s performance and operational layer for connected Seller, Vendor, and Advertising accounts. It covers day-to-day sales, ads, listings, and inventory, with pricing usage based on annual ad spend, Vendor catalog size, and/or Seller units sold.',
+  },
   MCP: {
     title: 'Model Context Protocol',
     short: 'An open standard for connecting AI assistants (Claude, ChatGPT, n8n, etc.) to DataHawk data so you can ask questions in plain English.',

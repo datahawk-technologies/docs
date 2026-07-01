@@ -375,6 +375,10 @@ article a.bg-fd-card h3 {
   margin: 2.5rem 0;
 }
 
+.card-grid.card-grid--compact {
+  margin-top: 0.875rem;
+}
+
 .expandable-card-grid {
   margin: 2.5rem 0;
 }

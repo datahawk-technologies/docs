@@ -5,23 +5,38 @@ description: Find plain-English guides and technical references for DataHawk met
 
 Use this guide when you need to understand what your DataHawk data means, how a metric is calculated, where a signal appears, or which technical reference to open next. Start with the core concepts, then choose the topic that matches the question you are trying to answer.
 
-
 ## Choose a topic
 
 <Accordions>
 
-<Accordion title="Sales, profit, and pricing">
+<Accordion title="Digital Shelf Analytics - Search">
 
-<div className="card-grid">
+<Term>Digital Shelf Analytics</Term> helps you understand how shoppers find products on Amazon and Walmart. These guides cover keyword discovery, search demand, organic and paid visibility, <Term>SoV</Term>, and Amazon search funnel behavior.
+
+<div className="card-grid card-grid--compact">
   <Card
-    title="Profit & P&L"
-    href="/help-center/data-metrics-guides/profit-and-loss"
-    description="Where to read P&L, how profit is calculated, and why some fees appear without a SKU."
+    title="Keyword Research & Search Volume"
+    href="/help-center/data-metrics-guides/keyword-research"
+    description="Keyword suggestions, lookup, seeded suggestions, real search volume, and marketplace coverage."
   />
   <Card
-    title="Amazon Sales Estimates"
-    href="/help-center/data-metrics-guides/amz-sales-estimates"
-    description="How DataHawk estimates daily sales for tracked products and competitors."
+    title="Brand Analytics / SQP"
+    href="/help-center/data-metrics-guides/brand-analytics-sqp"
+    description="Search Query Performance, Search Catalog Performance, Market Basket, and repeat-purchase signals."
+  />
+</div>
+
+</Accordion>
+
+<Accordion title="Digital Shelf Analytics - Content">
+
+Use these guides to evaluate the product detail page itself: listing quality, price and offer changes, ratings, <Term>Buy Box</Term> ownership, sales rank, and other content signals that affect conversion.
+
+<div className="card-grid card-grid--compact">
+  <Card
+    title="Listing Quality Analysis"
+    href="/help-center/data-metrics-guides/listing-quality-analysis"
+    description="How LQS is calculated and how to use it to prioritize Amazon listing improvements."
   />
   <Card
     title="Product Pricing & Offers"
@@ -32,18 +47,53 @@ Use this guide when you need to understand what your DataHawk data means, how a 
 
 </Accordion>
 
-<Accordion title="Inventory and operations">
+<Accordion title="Digital Shelf Analytics - Competition">
 
-<div className="card-grid">
+Use these guides to size the market around your products and compare performance against competitors. They cover sales estimates, competitor discovery, market share context, and competitive product signals.
+
+<div className="card-grid card-grid--compact">
   <Card
-    title="Inventory & Replenishment"
-    href="/help-center/data-metrics-guides/inventory-and-replenishment"
-    description="Stock health, FBA planning, inventory movements, restock risk, and Subscribe & Save demand."
+    title="Amazon Sales Estimates"
+    href="/help-center/data-metrics-guides/amz-sales-estimates"
+    description="How DataHawk estimates daily sales for tracked products and competitors."
   />
   <Card
-    title="Subscribe & Save Performance and Forecast"
-    href="/help-center/data-metrics-guides/subscribe-save-performance-forecast"
-    description="Recurring-demand metrics, forecast interpretation, and inventory-planning use cases."
+    title="Automated Competitors Detection"
+    href="/help-center/data-metrics-guides/auto-competitors-detection"
+    description="How DataHawk identifies competing products for tracked ASINs."
+  />
+</div>
+
+</Accordion>
+
+<Accordion title="Account Analytics - Advertising">
+
+<Term>Account Analytics</Term> connects advertising performance to the accounts you operate day to day. These guides cover campaign summaries, keyword, product, placement, and store detail, plus impressions, clicks, spend, CTR, CPC, paid sales, <Term>ACoS</Term>, and <Term>ROAS</Term>.
+
+<div className="card-grid card-grid--compact">
+  <Card
+    title="Advertising Performance"
+    href="/help-center/data-metrics-guides/advertising-performance"
+    description="Spend, sales, ACoS, ROAS, campaign, keyword, product, DSP, and Brand Store views."
+  />
+  <Card
+    title="Walmart Advertising"
+    href="/help-center/data-metrics-guides/walmart-advertising"
+    description="Walmart Connect item, keyword, placement, platform, brand, category, and health reports."
+  />
+</div>
+
+</Accordion>
+
+<Accordion title="Account Analytics - Finance">
+
+Use these guides to connect sales activity to financial outcomes. They explain expenses, returns, profitability, and account or product-level reporting differences that affect margin analysis.
+
+<div className="card-grid card-grid--compact">
+  <Card
+    title="Profitability Analysis"
+    href="/help-center/data-metrics-guides/profitability-analysis"
+    description="Where to read profit metrics, how profitability is calculated, and why some fees appear without a SKU."
   />
   <Card
     title="Understanding Amazon Returns"
@@ -59,45 +109,20 @@ Use this guide when you need to understand what your DataHawk data means, how a 
 
 </Accordion>
 
-<Accordion title="Advertising and retail media">
+<Accordion title="Account Analytics - Inventory">
 
-<div className="card-grid">
-  <Card
-    title="Advertising Performance"
-    href="/help-center/data-metrics-guides/advertising-performance"
-    description="Spend, sales, ACoS, ROAS, campaign, keyword, product, DSP, and Brand Store views."
-  />
-  <Card
-    title="Walmart Advertising"
-    href="/help-center/data-metrics-guides/walmart-advertising"
-    description="Walmart Connect item, keyword, placement, platform, brand, category, and health reports."
-  />
-</div>
+Use these guides to understand stock position, replenishment risk, and demand signals that affect inventory planning. They cover <Term>FBA</Term> inventory, movement history, stock health, and Subscribe & Save forecasting.
 
-</Accordion>
-
-<Accordion title="Product content, search, and competition">
-
-<div className="card-grid">
+<div className="card-grid card-grid--compact">
   <Card
-    title="Listing Quality Analysis"
-    href="/help-center/data-metrics-guides/listing-quality-analysis"
-    description="How LQS is calculated and how to use it to prioritize Amazon listing improvements."
+    title="Inventory & Replenishment"
+    href="/help-center/data-metrics-guides/inventory-and-replenishment"
+    description="Stock health, FBA planning, inventory movements, restock risk, and Subscribe & Save demand."
   />
   <Card
-    title="Brand Analytics / SQP"
-    href="/help-center/data-metrics-guides/brand-analytics-sqp"
-    description="Search Query Performance, Search Catalog Performance, Market Basket, and repeat-purchase signals."
-  />
-  <Card
-    title="Keyword Research & Search Volume"
-    href="/help-center/data-metrics-guides/keyword-research"
-    description="Keyword suggestions, lookup, seeded suggestions, real search volume, and marketplace coverage."
-  />
-  <Card
-    title="Automated Competitors Detection"
-    href="/help-center/data-metrics-guides/auto-competitors-detection"
-    description="How DataHawk identifies competing products for tracked ASINs."
+    title="Subscribe & Save Performance and Forecast"
+    href="/help-center/data-metrics-guides/subscribe-save-performance-forecast"
+    description="Recurring-demand metrics, forecast interpretation, and inventory-planning use cases."
   />
 </div>
 
