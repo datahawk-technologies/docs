@@ -1,9 +1,9 @@
 ---
 title: Introduction
-description: Connect any AI assistant — Claude, ChatGPT, Cursor, n8n, Make — directly to your Amazon data using the Model Context Protocol.
+description: Connect any AI assistant, Claude, ChatGPT, Cursor, n8n, Make, directly to your Amazon data using the Model Context Protocol.
 ---
 
-DataHawk MCP (Model Context Protocol) lets any AI assistant — Claude, ChatGPT, Cursor, n8n, Make, Lovable, Replit, or your own agent — talk directly to your Amazon data. Ask a question in plain English, get a grounded answer from your actual DataHawk <Term>workspace</Term>. No SQL, no waiting.
+DataHawk MCP (Model Context Protocol) lets any AI assistant, Claude, ChatGPT, Cursor, n8n, Make, Lovable, Replit, or your own agent, talk directly to your Amazon data. Ask a question in plain English, get a grounded answer from your actual DataHawk <Term>workspace</Term>. No SQL, no waiting.
 
 <img
   src="/images/help-center/modules/datahawkmcp/datahawkmcp-1.gif"
@@ -15,7 +15,7 @@ DataHawk MCP (Model Context Protocol) lets any AI assistant — Claude, ChatGPT,
 
 ## What is an MCP?
 
-MCP stands for **Model Context Protocol** — an open standard for connecting AI assistants to external data sources and tools. Think of it as USB-C for AI: one server, every AI client.
+MCP stands for **Model Context Protocol**: An open standard for connecting AI assistants to external data sources and tools. Think of it as USB-C for AI: One server, every AI client.
 
 For a deeper primer, see [Anthropic's MCP introduction](https://modelcontextprotocol.io).
 
@@ -23,21 +23,21 @@ DataHawk runs an MCP server that exposes your Amazon data to any MCP-compatible 
 
 ## Why it matters for Amazon sellers and agencies
 
-Amazon data lives across <Term>SP-API</Term>, the Ads API, vendor reports, brand analytics, <Term>DSP</Term> exports, and a dozen other surfaces. Getting a clean answer to a simple question — *which products drove growth last month?* — normally means stitching reports together, reconciling currencies, and chasing <Term>marketplace</Term>-specific quirks.
+Amazon data lives across <Term>SP-API</Term>, the Ads API, vendor reports, brand analytics, <Term>DSP</Term> exports, and a dozen other surfaces. Getting a clean answer to a simple question, *which products drove growth last month?*, normally means stitching reports together, reconciling currencies, and chasing <Term>marketplace</Term>-specific quirks.
 
 DataHawk already does that stitching. MCP lets you talk to the result in natural language, from whatever AI tool you already use.
 
-Instead of spending weeks building SP-API and Ads API integrations yourself, you plug into DataHawk and get everything — sales, ads, inventory, catalog, SEO, traffic, DSP, finance, vendor — ready to query.
+Instead of spending weeks building SP-API and Ads API integrations yourself, you plug into DataHawk and get everything, sales, ads, inventory, catalog, SEO, traffic, DSP, finance, vendor, ready to query.
 
 ## Before you start
 
 You'll need two things:
 
-- **A DataHawk workspace** with at least one source connected — Amazon (Seller, Vendor, Advertising, or public data) or Walmart (Marketplace, Connect).
-- **An AI client that supports MCP** — Claude, ChatGPT, Cursor, Replit, Lovable, n8n, Make, or your own agent.
+- **A DataHawk workspace** with at least one source connected: Amazon (Seller, Vendor, Advertising, or public data) or Walmart (Marketplace, Connect).
+- **An AI client that supports MCP**: Claude, ChatGPT, Cursor, Replit, Lovable, n8n, Make, or your own agent.
 
 <Callout type="info">
-  **Free Claude and ChatGPT tiers work fine.** You may hit message limits faster on free plans — paid tiers (Claude Pro, ChatGPT Plus, etc.) give you more <Term>capacity</Term> for back-and-forth conversations.
+  **Free Claude and ChatGPT tiers work fine.** You may hit message limits faster on free plans; paid tiers (Claude Pro, ChatGPT Plus, etc.) give you more <Term>capacity</Term> for back-and-forth conversations.
 </Callout>
 
 DataHawk MCP is currently in **beta and free for all DataHawk customers** while we polish it ahead of general availability.
@@ -48,16 +48,16 @@ DataHawk MCP is currently in **beta and free for all DataHawk customers** while 
 
 No more writing queries or navigating dashboards. Here's a sample of what your AI can handle:
 
-- **Simple lookups** — *"What was my total revenue yesterday in the US marketplace?"*
-- **Rankings** — *"Top 10 ASINs by revenue last 30 days, US marketplace."*
-- **Comparisons** — *"Compare my US and UK marketplaces for Q1 2026 — revenue, units, <Term>ACOS</Term>, conversion."*
-- **Trends** — *"Weekly revenue for the last 12 weeks in the US, as a trend."*
-- **Flags and alerts** — *"Any <Term>ASIN</Term> currently out of stock that did > \$10,000 revenue last 30 days?"*
-- **Diagnostic** — *"Why did my revenue drop last week?"*
-- **Multi-step analysis** — *"Find my worst-performing campaigns last 30 days, then show me which specific keywords inside them are pulling ACOS up."*
-- **Catalog and competitive** — *"Which of my ASINs have the <Term>buy box</Term> enabled but I'm not winning it?"*
-- **Vendor-specific** — *"Show me aged 90+ days sellable inventory by brand."*
-- **Finance** — *"Top 10 fee categories by amount in USD last quarter."*
+- **Simple lookups**: *"What was my total revenue yesterday in the US marketplace?"*
+- **Rankings**: *"Top 10 ASINs by revenue last 30 days, US marketplace."*
+- **Comparisons**, *"Compare my US and UK marketplaces for Q1 2026, revenue, units, <Term>ACOS</Term>, conversion."*
+- **Trends**: *"Weekly revenue for the last 12 weeks in the US, as a trend."*
+- **Flags and alerts**: *"Any <Term>ASIN</Term> currently out of stock that did > \$10,000 revenue last 30 days?"*
+- **Diagnostic**: *"Why did my revenue drop last week?"*
+- **Multi-step analysis**: *"Find my worst-performing campaigns last 30 days, then show me which specific keywords inside them are pulling ACOS up."*
+- **Catalog and competitive**: *"Which of my ASINs have the <Term>buy box</Term> enabled but I'm not winning it?"*
+- **Vendor-specific**: *"Show me aged 90+ days sellable inventory by brand."*
+- **Finance**: *"Top 10 fee categories by amount in USD last quarter."*
 
 <Callout type="info">
   **These are examples, not finished prompts.** They show what kinds of questions DataHawk MCP can handle. For polished templates, see [Ready-to-use prompts](/help-center/modules/datahawkmcp/ready-prompts). To learn how to write your own effective prompts, see the [Prompting guide](/help-center/modules/datahawkmcp/write-prompts).
@@ -67,7 +67,7 @@ No more writing queries or navigating dashboards. Here's a sample of what your A
 
 DataHawk MCP includes a dedicated investigation flow for diagnostic questions like *why did revenue drop last week?* or *what's driving the ACOS spike on Brand X?*
 
-The server characterizes the anomaly, ranks hypotheses, and walks your AI through evidence-gathering across sales, ads, traffic, catalog, and inventory — escalating from summary signals to drill-downs to forensic detail.
+The server characterizes the anomaly, ranks hypotheses, and walks your AI through evidence-gathering across sales, ads, traffic, catalog, and inventory; escalating from summary signals to drill-downs to forensic detail.
 
 ### Automate the boring stuff
 
@@ -79,19 +79,19 @@ MCP isn't just for chat. You can connect it to automation tools like **n8n**, **
 - A custom internal dashboard your team can check anytime
 
 <Callout type="info">
-  **Building something heavier?** For large-scale work — pulling years of data, joining DataHawk with your own systems, building custom analytics pipelines — DataHawk's API and data warehouse exports are a better fit than MCP. Email [support@datahawk.co](mailto:support@datahawk.co) and we'll point you in the right direction.
+  **Building something heavier?** For large-scale work, pulling years of data, joining DataHawk with your own systems, building custom analytics pipelines, DataHawk's API and data warehouse exports are a better fit than MCP. Email [support@datahawk.co](mailto:support@datahawk.co) and we'll point you in the right direction.
 </Callout>
 
 ### Cover every Amazon marketplace and business model
 
-- **Sellers and vendors** — dedicated data surfaces for each business model
-- **All Amazon marketplaces** — US, CA, MX, UK, DE, FR, ES, IT, NL, SE, PL, JP, AU and beyond
-- **Every major data domain** — sales, advertising (SP/<Term>SB</Term>/<Term>SD</Term> + DSP), catalog, inventory, SEO/keyword rankings, traffic, finance, and returns
+- **Sellers and vendors**: Dedicated data surfaces for each business model
+- **All Amazon marketplaces**: US, CA, MX, UK, DE, FR, ES, IT, NL, SE, PL, JP, AU and beyond
+- **Every major data domain**: Sales, advertising (SP/<Term>SB</Term>/<Term>SD</Term> + DSP), catalog, inventory, SEO/keyword rankings, traffic, finance, and returns
 - Currently with 180 days of history
 
 ### Keep your data safe
 
-Your data lives in your DataHawk workspace and stays there. When you connect an AI client through MCP, only the **answers** to your questions flow back to that AI — and only when you ask.
+Your data lives in your DataHawk workspace and stays there. When you connect an AI client through MCP, only the **answers** to your questions flow back to that AI, and only when you ask.
 
 - **You decide which AI sees your data.** MCP only talks to the AI client you've explicitly connected. You can disconnect any time.
 - **Everything's encrypted in transit.**
@@ -101,16 +101,16 @@ Your data lives in your DataHawk workspace and stays there. When you connect an 
 
 When you send a prompt, your AI runs a four-step flow against DataHawk:
 
-1. **Plan** — your question gets routed to the right data view (sales, ads, inventory, etc.) along with required filters.
-2. **Discover** — if the view doesn't already have what's needed, the AI inspects the full catalog of metrics and dimensions.
-3. **Validate** — field names, filters, and date ranges get checked server-side before anything runs.
-4. **Load** — the query executes against your workspace and returns real numbers.
+1. **Plan**: Your question gets routed to the right data view (sales, ads, inventory, etc.) along with required filters.
+2. **Discover**: If the view doesn't already have what's needed, the AI inspects the full catalog of metrics and dimensions.
+3. **Validate**: Field names, filters, and date ranges get checked server-side before anything runs.
+4. **Load**: The query executes against your workspace and returns real numbers.
 
 For diagnostic questions (*"why did X happen?"*), the AI runs a parallel **investigate** flow that ranks hypotheses and gathers evidence across domains.
 
 ## What MCP doesn't do (yet)
 
-- **Walmart data — not yet.** MCP currently covers Amazon only.
+- **Walmart data: Not yet.** MCP currently covers Amazon only.
 - **Read-only.** MCP can answer questions about your data, but it can't update listings, change ad budgets, or take any action on your Amazon accounts.
 - **Not a dashboard replacement.** For scheduled reports and visual deep-dives, the DataHawk app and Power BI / Looker dashboards remain the right home.
 - **Bounded history.** 180 days of history are available today.
@@ -128,15 +128,15 @@ For diagnostic questions (*"why did X happen?"*), the AI runs a parallel **inves
 | **Inventory** | <Term>FBA</Term> on-hand, reserved, inbound (shipped/receiving/working), unsellable, <Term>MFN</Term> fulfillable |
 | **Finance** | Profit ledger line-level detail in marketplace currency and USD |
 | **Brand store** | Store visits, page views, attributed sales and orders |
-| **Vendor** | Manufacturing and sourcing views — sales, traffic, sell-through, fill rate, lead time, aged inventory |
+| **Vendor** | Manufacturing and sourcing views; sales, traffic, sell-through, fill rate, lead time, aged inventory |
 
 **How fresh is the data?** DataHawk refreshes once a day, at **9 AM PST**. See [How DataHawk Sources Your Data](/help-center/data-metrics-guides/foundation/how-datahawk-sources-data) for the full source-by-source freshness table.
 
 ## What's shipping next
 
-- **Walmart data** — adding Walmart Marketplace and Walmart Connect surfaces
-- **Deeper Amazon data coverage** — expanding vendor, brand analytics, and market intelligence
-- **Native ChatGPT and Claude apps** — tighter integration with the major AI clients
+- **Walmart data**: Adding Walmart Marketplace and Walmart Connect surfaces
+- **Deeper Amazon data coverage**: Expanding vendor, brand analytics, and market intelligence
+- **Native ChatGPT and Claude apps**: Tighter integration with the major AI clients
 
 Have a feature request? Email [support@datahawk.co](mailto:support@datahawk.co).
 

@@ -10,14 +10,14 @@ This glossary covers the terms that come up most often. If you encounter one tha
 </Callout>
 
 <Callout type="info">
-**Terms vs metrics.** This glossary defines **terms** — industry acronyms, concepts, platform names, attribution rules, and DataHawk-specific words. For **metrics** (anything defined by a formula such as ACoS, RoAS, CTR, ASP), the acronym and concept-level definition live here, but the formula lives on the dashboard page where the metric is used. Formulas vary by context (Seller vs Vendor, attribution window, scope) — keeping them on each dashboard ensures you see the right one for the view you're reading.
+**Terms vs metrics.** This glossary defines **terms**, industry acronyms, concepts, platform names, attribution rules, and DataHawk-specific words. For **metrics** (anything defined by a formula such as ACoS, RoAS, CTR, ASP), the acronym and concept-level definition live here, but the formula lives on the dashboard page where the metric is used. Formulas vary by context (Seller vs Vendor, attribution window, scope), keeping them on each dashboard ensures you see the right one for the view you're reading.
 </Callout>
 
 ## Amazon platform
 
 ### ASIN — Amazon Standard Identification Number
 
-The unique 10-character identifier Amazon assigns to every product. For books, it's typically the ISBN. **ASINs are marketplace-specific** — the same physical product sold on Amazon.com (US) and Amazon.co.uk (UK) has a different ASIN in each country. For a deeper explanation including how DataHawk uses ASINs across datasets, see [DataHawk Data Concepts → ASIN](/help-center/data-metrics-guides/foundation/key-concepts#asin--what-it-is-and-why-it-matters).
+The unique 10-character identifier Amazon assigns to every product. For books, it's typically the ISBN. **ASINs are marketplace-specific**: The same physical product sold on Amazon.com (US) and Amazon.co.uk (UK) has a different ASIN in each country. For a deeper explanation including how DataHawk uses ASINs across datasets, see [DataHawk Data Concepts → ASIN](/help-center/data-metrics-guides/foundation/key-concepts#asin--what-it-is-and-why-it-matters).
 
 ### Parent ASIN / Child ASIN
 
@@ -33,11 +33,11 @@ Amazon's internal identifier used within FBA warehouses. Generated when you crea
 
 ### Seller Central
 
-Amazon's platform for third-party (3P) sellers — independent merchants selling directly to consumers on Amazon. Most Amazon retailers operate here.
+Amazon's platform for third-party (3P) sellers; independent merchants selling directly to consumers on Amazon. Most Amazon retailers operate here.
 
 ### Vendor Central
 
-Amazon's platform for first-party (1P) vendors — wholesalers who sell directly to Amazon. Amazon then resells those products to consumers at prices Amazon controls.
+Amazon's platform for first-party (1P) vendors; wholesalers who sell directly to Amazon. Amazon then resells those products to consumers at prices Amazon controls.
 
 ### Marketplace
 
@@ -47,8 +47,8 @@ A regional Amazon storefront (Amazon US, Amazon UK, Amazon DE, Amazon JP, etc.).
 
 Two views Amazon gives Vendor accounts:
 
-- **Manufacturing view** — you're the manufacturer of the products. DataHawk sees full sales, traffic, and inventory data.
-- **Sourcing view** — Amazon sources your products but you're not their manufacturer. DataHawk sees partial data because Amazon limits what it shares.
+- **Manufacturing view**: You're the manufacturer of the products. DataHawk sees full sales, traffic, and inventory data.
+- **Sourcing view**: Amazon sources your products but you're not their manufacturer. DataHawk sees partial data because Amazon limits what it shares.
 
 For the full explanation including which datasets are affected, see [DataHawk Data Concepts](/help-center/data-metrics-guides/foundation/key-concepts#amazon-vendor-views-sourcing-vs-manufacturing). The most common related ticket: [I can't see data in Manufacturing views, but I see it in Sourcing](/troubleshooting/data-discrepancies/manufacturing-vs-sourcing-views).
 
@@ -56,7 +56,7 @@ For the full explanation including which datasets are affected, see [DataHawk Da
 
 ### Walmart Marketplace
 
-Walmart's third-party seller platform — the equivalent of Amazon Seller Central.
+Walmart's third-party seller platform: the equivalent of Amazon Seller Central.
 
 ### WMT (in dataset names)
 
@@ -64,26 +64,26 @@ The Walmart prefix in DataHawk's table names. Tables starting with `WMT_` or `wm
 
 ### 1P / 3P
 
-**1P (first-party)**: vendor model — you sell wholesale to the marketplace, they resell to consumers.
-**3P (third-party)**: seller model — you sell directly to consumers using the marketplace as a platform.
+**1P (first-party)**: Vendor model. You sell wholesale to the marketplace, they resell to consumers.
+**3P (third-party)**: Seller model. You sell directly to consumers using the marketplace as a platform.
 
 ## Advertising
 
 ### ACoS — Advertising Cost of Sales
 
-A metric that measures advertising efficiency by comparing ad spend to ad-attributed revenue. Used to evaluate the success of ad campaigns. Lower ACoS means more efficient ads — industry benchmarks vary by category, but 15–25% is typical for healthy ad performance. See the dashboard page where ACoS appears for the formula used in that specific view.
+A metric that measures advertising efficiency by comparing ad spend to ad-attributed revenue. Used to evaluate the success of ad campaigns. Lower ACoS means more efficient ads; industry benchmarks vary by category, but 15–25% is typical for healthy ad performance. See the dashboard page where ACoS appears for the formula used in that specific view.
 
 ### TACoS — Total Advertising Cost of Sales
 
-A metric that measures advertising spend against total revenue (both organic and ad-attributed). Used to gauge advertising's overall impact on the business — useful for evaluating whether ad spending is sustainable. See the dashboard page where TACoS appears for the formula (the definition of "total revenue" changes depending on whether you're looking at Seller, Vendor, or combined views).
+A metric that measures advertising spend against total revenue (both organic and ad-attributed). Used to gauge advertising's overall impact on the business, useful for evaluating whether ad spending is sustainable. See the dashboard page where TACoS appears for the formula (the definition of "total revenue" changes depending on whether you're looking at Seller, Vendor, or combined views).
 
 ### ROAS — Return on Ad Spend
 
-A metric that measures ad-attributed revenue per dollar of ad spend. The inverse of ACoS — higher is better. Used to evaluate ad campaign profitability. See the dashboard page where ROAS appears for the formula used in that specific view.
+A metric that measures ad-attributed revenue per dollar of ad spend. The inverse of ACoS. Higher is better. Used to evaluate ad campaign profitability. See the dashboard page where ROAS appears for the formula used in that specific view.
 
 ### Sponsored Products (SP)
 
-Amazon's PPC ad type targeting individual keywords or products. The most common ad type — appears in search results and on product detail pages.
+Amazon's PPC ad type targeting individual keywords or products. The most common ad type; appears in search results and on product detail pages.
 
 ### Sponsored Brands (SB)
 
@@ -103,7 +103,7 @@ Amazon's programmatic advertising platform for display, video, and audio ads. Di
 
 ### DPV — Detail Page View
 
-A view of a product's detail page on Amazon. A core conversion-funnel metric. Attribution rules vary by context — the Ads DSP Dashboard counts a DPV when it occurs within 14 days of an ad view or click; other dashboards may use a different window. See the dashboard page for the specific attribution.
+A view of a product's detail page on Amazon. A core conversion-funnel metric. Attribution rules vary by context. The Ads DSP Dashboard counts a DPV when it occurs within 14 days of an ad view or click. Other dashboards may use a different window. See the dashboard page for the specific attribution.
 
 ### DPVR - Detail Page View Rate
 
@@ -171,8 +171,8 @@ DataHawk's canonical record of every financial event (sales, fees, refunds, taxe
 
 Two accounting methodologies for recognizing revenue:
 
-- **Accrual basis** — the date you earned the revenue (purchase / sale date). Use this for reporting aligned to marketing and sales activity.
-- **Recorded basis** — the date Amazon paid you (settlement date). Use this when reconciling to Seller Central or your bank statement.
+- **Accrual basis**: The date you earned the revenue (purchase / sale date). Use this for reporting aligned to marketing and sales activity.
+- **Recorded basis**: The date Amazon paid you (settlement date). Use this when reconciling to Seller Central or your bank statement.
 
 DataHawk supports both via the `accrual_date` and `recorded_date` columns in the Profit Ledger.
 
@@ -190,11 +190,11 @@ The seller currently winning the Buy Box for a product. Available in DataHawk vi
 
 ### Buy Box
 
-The featured offer slot on a product detail page — the seller who appears by default when a customer clicks "Add to Cart". Winning the Buy Box typically captures 80–90% of sales for that product.
+The featured offer slot on a product detail page. The seller who appears by default when a customer clicks "Add to Cart". Winning the Buy Box typically captures 80–90% of sales for that product.
 
 ### VAT — Value Added Tax
 
-A consumption tax used in the EU, UK, and several other regions. In some marketplaces (EU/UK) prices include VAT; in others (US/CA) tax is added at checkout. Affects how DataHawk reconciles sales with Amazon Seller Central reports — see [Profit data discrepancies](/troubleshooting/data-discrepancies).
+A consumption tax used in the EU, UK, and several other regions. In some marketplaces (EU/UK) prices include VAT; in others (US/CA) tax is added at checkout. Affects how DataHawk reconciles sales with Amazon Seller Central reports. See [Profit data discrepancies](/troubleshooting/data-discrepancies).
 
 ### Adjustments (in Profit data)
 
@@ -204,7 +204,7 @@ Charges or credits applied to a seller's account to correct inventory, pricing, 
 
 ### FBA — Fulfillment by Amazon
 
-Amazon stores, picks, packs, and ships your inventory. You ship to Amazon warehouses; Amazon handles the rest. Most popular fulfillment model for 3P sellers at scale.
+Amazon stores, picks, packs, and ships your inventory. You ship to Amazon warehouses. Amazon handles the rest. Most popular fulfillment model for 3P sellers at scale.
 
 ### FBM — Fulfillment by Merchant
 
@@ -240,8 +240,8 @@ Where your product appears in Amazon's search results for a given keyword, exclu
 
 Where your product appears among sponsored placements for a given keyword (Sponsored Products, Sponsored Brands). DataHawk distinguishes two tracking modes for Amazon:
 
-- **Standard Sponsored Rank — retired July 8, 2025.** The original best-effort sponsored rank collection on Standard Keywords was retired because Amazon's evolving content policies and detection mechanisms made the data inconsistent. The `SEO.SEO_PRODUCT_SPONSORED_RANK` table no longer receives Amazon Standard data, and the Search Power BI Dashboard and Analytics Essentials Looker Studio sponsored views show no Amazon Standard rows.
-- **Premium Sponsored Rank — current canonical source.** Available via the [Premium Keywords add-on](/help-center/data-setup/premium-keywords-tracking). Premium Keywords are the **only** way to access Amazon sponsored rank data going forward — Sponsored Products and Sponsored Brands, organic 5 pages plus sponsored 2 pages. The switch is at the workspace level (you cannot mix Standard and Premium in the same workspace).
+- **Standard Sponsored Rank: Retired July 8, 2025.** The original best-effort sponsored rank collection on Standard Keywords was retired because Amazon's evolving content policies and detection mechanisms made the data inconsistent. The `SEO.SEO_PRODUCT_SPONSORED_RANK` table no longer receives Amazon Standard data, and the Search Power BI Dashboard and Analytics Essentials Looker Studio sponsored views show no Amazon Standard rows.
+- **Premium Sponsored Rank, current canonical source.** Available via the [Premium Keywords add-on](/help-center/data-setup/premium-keywords-tracking). Premium Keywords are the **only** way to access Amazon sponsored rank data going forward, Sponsored Products and Sponsored Brands, organic 5 pages plus sponsored 2 pages. The switch is at the workspace level (you cannot mix Standard and Premium in the same workspace).
 
 **Walmart sponsored ranks are unaffected** by the Standard retirement.
 
@@ -273,7 +273,7 @@ Number of unique visits to your Amazon listings within a 24-hour period. Multipl
 
 ### ASP — Average Selling Price
 
-A metric that measures the average price per unit sold over a period. Used to track pricing strategy and product-mix shifts. The basis changes the formula: Seller accounts use the price the customer paid; Vendor accounts have two flavors, **ASP (Ordered Revenue basis)** at Amazon's retail price and **AWP — Average Wholesale Price** at the wholesale price Amazon paid you. See the dashboard page for the formula used in that view.
+A metric that measures the average price per unit sold over a period. Used to track pricing strategy and product-mix shifts. The basis changes the formula: Seller accounts use the price the customer paid; vendor accounts have two flavors, **ASP (Ordered Revenue basis)** at Amazon's retail price and **AWP (Average Wholesale Price)** at the wholesale price Amazon paid you. See the dashboard page for the formula used in that view.
 
 ### Ordered Revenue
 
@@ -303,11 +303,11 @@ Your isolated environment in DataHawk. Each workspace has its own data, settings
 
 ### Account (in DataHawk)
 
-A connected data source — Amazon Seller, Amazon Vendor, Amazon Advertising, Amazon DSP, Walmart Marketplace, etc. Each workspace can have multiple accounts.
+A connected data source: Amazon Seller, Amazon Vendor, Amazon Advertising, Amazon DSP, Walmart Marketplace, etc. Each workspace can have multiple accounts.
 
 ### Source
 
-The data DataHawk collects — Amazon/Walmart accounts (private data) plus tracked products, keywords, and categories (public data).
+The data DataHawk collects: Amazon/Walmart accounts (private data) plus tracked products, keywords, and categories (public data).
 
 ### Tracking
 
@@ -317,10 +317,10 @@ Selecting specific products, keywords, or categories you want DataHawk to monito
 
 DataHawk's feature areas that sit on top of your data:
 
-- **Alerts** — notifies you when tracked metrics change beyond thresholds
-- **AI Copywriter** — generates and optimizes Amazon listing copy
-- **Sherlock** — AI diagnostic for performance changes
-- **MCP** — connects DataHawk to your AI assistant of choice
+- **Alerts**: Notifies you when tracked metrics change beyond thresholds
+- **AI Copywriter**: Generates and optimizes Amazon listing copy
+- **Sherlock**: AI diagnostic for performance changes
+- **MCP**: Connects DataHawk to your AI assistant of choice
 
 See [Modules](/help-center/modules).
 
@@ -351,7 +351,7 @@ Your subscription limit for tracked products, keywords, categories, or accounts.
 
 ### Sales Estimates
 
-DataHawk's modeled estimates of units and revenue for Amazon products, based on rank and price signals. These are estimates, not Amazon-reported sales — they won't exactly match Seller Central. See [Amazon Sales Estimates](/help-center/data-metrics-guides/competition/amz-sales-estimates) for the model details, accuracy expectations, and how to use them.
+DataHawk's modeled estimates of units and revenue for Amazon products, based on rank and price signals. These are estimates, not Amazon-reported sales. They won't exactly match Seller Central. See [Amazon Sales Estimates](/help-center/data-metrics-guides/competition/amz-sales-estimates) for the model details, accuracy expectations, and how to use them.
 
 ### LQS — Listing Quality Score
 
@@ -359,7 +359,7 @@ A 0-100 score reflecting how well an Amazon listing follows best practices for t
 
 ### Workspace ID (WSID)
 
-A numeric identifier for your DataHawk workspace (e.g., `84497`). Always include your WSID in support tickets — it lets us locate your account instantly.
+A numeric identifier for your DataHawk workspace (e.g., `84497`). Always include your WSID in support tickets. It lets us locate your account instantly.
 
 ## Technical & Data
 
@@ -401,7 +401,7 @@ A discrete set of related data in your warehouse (e.g., `FINANCE.FINANCE_PROFIT_
 
 ### Refresh
 
-The process of pulling fresh data from a source. Each dataset has its own refresh cadence — most Amazon Seller data refreshes multiple times daily, Vendor data updates weekly, SQP monthly.
+The process of pulling fresh data from a source. Each dataset has its own refresh cadence. Most Amazon Seller data refreshes multiple times daily, Vendor data updates weekly, SQP monthly.
 
 ### OAuth
 

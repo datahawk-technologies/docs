@@ -3,7 +3,7 @@ title: Data not refreshing
 description: Stale numbers, missing recent days, refresh delays, or data that hasn't appeared yet after connecting an account.
 ---
 
-Data in DataHawk hasn't updated when you expected it to. This is the second-most common issue category and usually resolves itself within 24 hours — but here's how to confirm.
+Data in DataHawk hasn't updated when you expected it to. This is the second-most common issue category and usually resolves itself within 24 hours, but here's how to confirm.
 
 ## Quick checks first
 These resolve about half of all "not refreshing" reports.
@@ -36,7 +36,7 @@ If a dataset is older than its typical cadence + 24h grace period, it's worth in
 
 2. **Permissions revoked by a teammate.** Someone in your org may have removed DataHawk's access during a routine permission cleanup. Verify in Amazon Seller Central → Settings → User Permissions.
 
-3. **Amazon-side outage or slow report generation.** Some Amazon reports take longer to stabilize, especially after Prime Day or quarterly closes. DataHawk surfaces the latest available data — if Amazon hasn't released it, neither can we.
+3. **Amazon-side outage or slow report generation.** Some Amazon reports take longer to stabilize, especially after Prime Day or quarterly closes. DataHawk surfaces the latest available data. If Amazon hasn't released it, neither can we.
 
 4. **Marketplace launch delays.** Some marketplaces have later support timelines (e.g. Amazon Ireland, Amazon Belgium for `SEO_KEYWORD_VOLUME_V3` and `REPORTS_SEO_PRODUCT_ORGANIC_RANK`).
 
@@ -63,7 +63,7 @@ If you have a more specific scenario, jump directly to the article:
   <Card
     title="My finance events look stale in Power BI"
     href="/troubleshooting/data-not-refreshing/finance-events-stale-in-powerbi"
-    description="FINANCE_EVENTS appears frozen in Power BI even though the warehouse has fresh data — usually a SYNC_TIME vs POSTED_TIME filter issue."
+    description="FINANCE_EVENTS appears frozen in Power BI even though the warehouse has fresh data. Usually a SYNC_TIME vs POSTED_TIME filter issue."
   />
 
 </div>

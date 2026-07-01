@@ -1,17 +1,17 @@
 ---
 title: Data discrepancies
-description: Numbers in DataHawk don't match Seller Central, Vendor Central, your BI tool, or your accounting system — find the most common causes and fixes.
+description: Numbers in DataHawk don't match Seller Central, Vendor Central, your BI tool, or your accounting system. Find the most common causes and fixes.
 ---
 
-Numbers in DataHawk look different from another source you trust? This is the most common issue category and usually has a known explanation. Most discrepancies fall into one of eight categories below — find yours and follow the checks.
+Numbers in DataHawk look different from another source you trust? This is the most common issue category and usually has a known explanation. Most discrepancies fall into one of eight categories below. Find yours and follow the checks.
 
 ## Run these four checks first
 Most "discrepancy" cases are actually mismatched filters between the two reports you're comparing.
 
-1. **Same date range?** — Including / excluding today matters. Try expanding by one day on each side.
-2. **Same time zone?** — Amazon reports are typically UTC. Your local timezone in the DataHawk app might be different.
-3. **Same currency?** — DataHawk converts to your workspace's display currency. Native amounts in source reports differ.
-4. **Same marketplace + account scope?** — Multi-account customers sometimes compare "All accounts" in DataHawk against a single account in Seller Central.
+1. **Same date range?**: Including / excluding today matters. Try expanding by one day on each side.
+2. **Same time zone?**: Amazon reports are typically UTC. Your local timezone in the DataHawk app might be different.
+3. **Same currency?**: DataHawk converts to your workspace's display currency. Native amounts in source reports differ.
+4. **Same marketplace + account scope?**: Multi-account customers sometimes compare "All accounts" in DataHawk against a single account in Seller Central.
 
 
 
@@ -84,10 +84,10 @@ For ad data showing under the wrong account type specifically, see the dedicated
 
 **Most likely causes:**
 
-1. **Sponsored type mixing (Walmart).** In `WMT_SP_AD_ITEM`, the AD_SPEND column previously included all sponsored types — Products, Brands, and Video — even though every row was labeled `SPONSORED_TYPE = 'SponsoredProducts'`.
+1. **Sponsored type mixing (Walmart).** In `WMT_SP_AD_ITEM`, the AD_SPEND column previously included all sponsored types, Products, Brands, and Video, even though every row was labeled `SPONSORED_TYPE = 'SponsoredProducts'`.
    - **Fix:** Use `advertising.wmt_ad_item` instead (released May 12, 2026), which correctly attributes spend by sponsored type. The old `wmt_sp_ad_item` is now deprecated. See the [changelog entry](/changelog/2026-05-12-walmart-wmt-ad-item) for details.
 
-2. **Cross-dashboard rounding / aggregation.** The Advertising dashboard uses a different aggregation level (campaign) than the Seller/Vendor dashboards (account / ASIN). For accurate ad performance, always trust the **Advertising dashboard** — it pulls directly from `advertising.amzn_*` tables and matches Amazon Ads Console.
+2. **Cross-dashboard rounding / aggregation.** The Advertising dashboard uses a different aggregation level (campaign) than the Seller/Vendor dashboards (account / ASIN). For accurate ad performance, always trust the **Advertising dashboard**: It pulls directly from `advertising.amzn_*` tables and matches Amazon Ads Console.
 
 3. **Multi-account attribution.** If you have multiple ad accounts under the same Seller, ad spend may be summing across all of them while you're comparing to a single account in Amazon Ads.
 
@@ -126,15 +126,15 @@ For Walmart, confirm you're using `advertising.wmt_ad_item` (not the deprecated 
 **Most likely causes:**
 
 1. **Different tables, different purposes.** DataHawk has three layers:
-   - `FINANCE_EVENTS` — raw events from Amazon, kept for completeness
-   - `FINANCE_PROFIT_LEDGER` — events deduplicated, categorized for profit calculation (this is the **canonical refund source**)
-   - `FINANCE_PROFIT` — daily aggregations
+   - `FINANCE_EVENTS`: Raw events from Amazon, kept for completeness
+   - `FINANCE_PROFIT_LEDGER`: Events deduplicated, categorized for profit calculation (this is the **canonical refund source**)
+   - `FINANCE_PROFIT`: Daily aggregations
    
    Use the **ledger** for refund reconciliation.
 
 2. **Deferred refunds.** Like sales, refunds can be deferred. Filter `transaction_status` to compare apples-to-apples.
 
-3. **Recorded date vs accrual date.** Since July 2025, DataHawk supports both Accrual and Recorded methodologies. `FINANCE_PROFIT_LEDGER` exposes both `accrual_date` and `recorded_date`. Seller Central's Transaction Report uses recorded date — match accordingly.
+3. **Recorded date vs accrual date.** Since July 2025, DataHawk supports both Accrual and Recorded methodologies. `FINANCE_PROFIT_LEDGER` exposes both `accrual_date` and `recorded_date`. Seller Central's Transaction Report uses recorded date. Match accordingly.
    - For matching Seller Central → use `recorded_date`
    - For matching purchase-aligned reporting → use `accrual_date`
 
@@ -167,7 +167,7 @@ Add `WHERE transaction_status = 'RELEASED'` if you want only finalized refunds.
 </Step>
 </Steps>
 
-**Known edge case:** if a single order contains two units of the same product and you see one "sale" and one "refund" with different ASIN keys, there may be a ledger bug. Email support with the order ID — this is the kind of case Anna debugs case-by-case.
+**Known edge case:** if a single order contains two units of the same product and you see one "sale" and one "refund" with different ASIN keys, there may be a ledger bug. Email support with the order ID. This is the kind of case Anna debugs case-by-case.
 
 </Accordion>
 
@@ -268,7 +268,7 @@ These were introduced in November 2025 and are the recommended source. Fulfillme
 <Step>
 ### Check observation date
 
-`SELLER_INVENTORY_ALL_LISTINGS_HISTORY` should have one row per day per SKU. If you see multiple observations on a single day (Mar 21 was a known issue), that's a data pipeline anomaly — report it.
+`SELLER_INVENTORY_ALL_LISTINGS_HISTORY` should have one row per day per SKU. If you see multiple observations on a single day (Mar 21 was a known issue), that's a data pipeline anomaly. Report it.
 </Step>
 </Steps>
 
@@ -284,7 +284,7 @@ These were introduced in November 2025 and are the recommended source. Fulfillme
 
 **Most likely causes:**
 
-1. **Initial collection delay.** Newly added products and keywords are collected on a 24-hour cycle. Data only starts appearing 24 hours after addition — there's no retroactive backfill.
+1. **Initial collection delay.** Newly added products and keywords are collected on a 24-hour cycle. Data only starts appearing 24 hours after addition. There's no retroactive backfill.
 
 2. **Marketplace coverage.** Some keyword volumes aren't supported in every marketplace. `SEO_KEYWORD_VOLUME_V3` covers a specific marketplace list (NA, EU, Far East subset). If your marketplace isn't in the list, you'll see no keyword data.
 
@@ -292,7 +292,7 @@ These were introduced in November 2025 and are the recommended source. Fulfillme
 
 4. **Keyword filtering.** DataHawk filters out keywords with insufficient search volume signal. Brand-specific or highly niche keywords may be dropped if their signal is too weak.
 
-5. **Sponsored Ranks retired (July 8, 2025).** Amazon Standard Sponsored Rank data was retired in July 2025 due to quality issues — **Premium Keywords is now the only way to collect Amazon sponsored rank data**. If your workspace is not on Premium, the `SEO.SEO_PRODUCT_SPONSORED_RANK` table is empty for Amazon (Walmart sponsored ranks are unaffected). See the [Premium Keywords add-on](/help-center/data-setup/premium-keywords-tracking) for the upgrade path.
+5. **Sponsored Ranks retired (July 8, 2025).** Amazon Standard Sponsored Rank data was retired in July 2025 due to quality issues; **Premium Keywords is now the only way to collect Amazon sponsored rank data**. If your workspace is not on Premium, the `SEO.SEO_PRODUCT_SPONSORED_RANK` table is empty for Amazon (Walmart sponsored ranks are unaffected). See the [Premium Keywords add-on](/help-center/data-setup/premium-keywords-tracking) for the upgrade path.
 
 **Investigation steps:**
 
@@ -327,7 +327,7 @@ In the DataHawk UI, go to the keyword tracking section and confirm your batch is
 
 **Most likely causes:**
 
-1. **Parent vs child ASIN granularity.** As of the [Sales Estimates V7 release (June 2026)](/changelog/2026-06-15-sales-estimates-v7), DataHawk delivers estimates at the **child (variant) level** by default — the older parent-level rollup is no longer the default. Make sure you're comparing the same granularity on both sides: child-to-child or parent-to-parent. If you're querying a legacy report that still aggregates at parent level, the rolled-up number will look much bigger than a single child's actuals. See [DataHawk Data Concepts](/help-center/data-metrics-guides/foundation/key-concepts) for the parent/child distinction.
+1. **Parent vs child ASIN granularity.** As of the [Sales Estimates V7 release (June 2026)](/changelog/2026-06-15-sales-estimates-v7), DataHawk delivers estimates at the **child (variant) level** by default. The older parent-level rollup is no longer the default. Make sure you're comparing the same granularity on both sides: Child-to-child or parent-to-parent. If you're querying a legacy report that still aggregates at parent level, the rolled-up number will look much bigger than a single child's actuals. See [DataHawk Data Concepts](/help-center/data-metrics-guides/foundation/key-concepts) for the parent/child distinction.
 
 2. **Model updates.** Sales Estimates were re-modeled in March 2025 (2024+ data reprocessed) and again upgraded to V7 in June 2026 with broader catalog coverage and variant-level forecasts. Historical comparisons across these model boundaries won't match exactly by design.
 
@@ -369,7 +369,7 @@ The model is calibrated for at least weekly windows. Daily-level comparisons aga
 
 1. **Product Dashboard bug (fixed July 2, 2025).** Before this date, the Product Dashboard returned the same Buy Box metrics for all sellers due to a join bug. If you cached older results, you may still see this pattern. Refresh from current data.
 
-2. **NULL prices in `SELLER_INVENTORY_ALL_LISTINGS`.** Known issue — the table can return NULL prices for some active listings. Workaround: use `PRODUCT.AMZN_PRODUCT_FEATURED_OFFER` (released November 25, 2025) for accurate Buy Box and offer data.
+2. **NULL prices in `SELLER_INVENTORY_ALL_LISTINGS`.** Known issue. The table can return NULL prices for some active listings. Workaround: Use `PRODUCT.AMZN_PRODUCT_FEATURED_OFFER` (released November 25, 2025) for accurate Buy Box and offer data.
 
 3. **Competitive Price not collected.** DataHawk doesn't currently collect the "Competitive Price" field from the Manage Inventory screen. Use Featured Offer pricing instead.
 
@@ -420,7 +420,7 @@ If you have a more specific scenario, jump directly to the article:
   <Card
     title="I can't see data in Manufacturing views, but I see it in Sourcing"
     href="/troubleshooting/data-discrepancies/manufacturing-vs-sourcing-views"
-    description="The Sourcing vs Manufacturing data difference for Vendor accounts — explained."
+    description="The Sourcing vs Manufacturing data difference for Vendor accounts; explained."
   />
 
 </div>
@@ -439,5 +439,5 @@ If you have a more specific scenario, jump directly to the article:
 This information cuts our investigation time by ~80%. Send to **[support@datahawk.co](mailto:support@datahawk.co)** with "Discrepancy" in the subject.
 
 <Callout type="warn">
-**For active production reports** — if a customer-facing dashboard is showing wrong numbers right now, add "production issue" to your email subject for priority handling.
+**For active production reports**: If a customer-facing dashboard is showing wrong numbers right now, add "production issue" to your email subject for priority handling.
 </Callout>

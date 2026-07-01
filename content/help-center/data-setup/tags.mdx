@@ -6,17 +6,17 @@ description: Tag Products and Keywords to organize your catalog and target dashb
 Tags are labels you attach to Products and Keywords so you can group, filter, and target them everywhere DataHawk reports. Every Product or Keyword can carry as many tags as you need, and tags work whether the item is tracked or untracked.
 
 <Callout type="info">
-  Tags apply to both **tracked and untracked** Products and Keywords — useful for organizing your catalog before you decide what to track.
+  Tags apply to both **tracked and untracked** Products and Keywords, useful for organizing your catalog before you decide what to track.
 </Callout>
 
 ## Why use tags?
 
 Tags become useful as soon as you have more than a handful of products or keywords. Concrete payoffs:
 
-- **Filter dashboards** down to a meaningful slice — e.g. only your `Top Performer` products, or only `cat:HomeCare` keywords.
-- **Scope Alerts** to a group — get pinged only when *your premium SKUs* lose Buy Box, instead of for every product.
-- **Slice ad performance** by your own categories — without having to restructure how things are organized in Amazon Seller Central.
-- **Surface the right context in Sherlock** — when triaging an anomaly, your tags help you see *which* part of the catalog is affected.
+- **Filter dashboards** down to a meaningful slice: E.g. Only your `Top Performer` products, or only `cat:HomeCare` keywords.
+- **Scope Alerts** to a group: Get pinged only when *your premium SKUs* lose Buy Box, instead of for every product.
+- **Slice ad performance** by your own categories: Without having to restructure how things are organized in Amazon Seller Central.
+- **Surface the right context in Sherlock**: When triaging an anomaly, your tags help you see *which* part of the catalog is affected.
 
 ## Three types of tags
 
@@ -30,15 +30,15 @@ DataHawk gives you three flavors of tags. They cover different needs and can coe
 
 ### Automated tags
 
-DataHawk attaches these automatically based on what it knows about the item. You can't create or remove them — they reflect reality.
+DataHawk attaches these automatically based on what it knows about the item. You can't create or remove them. They reflect reality.
 
-- **<Term>FBA</Term>** — Fulfilled by Amazon
-- **Prime** — Prime-eligible
-- **Vendor** — Sold by Amazon
-- **Tracked** — Currently monitored in your <Term>workspace</Term>
-- **<Term>ASIN</Term>** — The product's ASIN identifier
-- **Variation** — Belongs to a parent/child variation family
-- **Owned Tags** — Tags found in your Seller Central or Advertising Account, mirrored into DataHawk
+- **<Term>FBA</Term>**: Fulfilled by Amazon
+- **Prime**: Prime-eligible
+- **Vendor**: Sold by Amazon
+- **Tracked**: Currently monitored in your <Term>workspace</Term>
+- **<Term>ASIN</Term>**: The product's ASIN identifier
+- **Variation**: Belongs to a parent/child variation family
+- **Owned Tags**: Tags found in your Seller Central or Advertising Account, mirrored into DataHawk
 
 ### Preset tags
 
@@ -94,7 +94,7 @@ Use a `prefix:value` format so every tag self-identifies which dimension it belo
 - Product group: `pg:Vacuum Cleaner`
 - Product color: `color:Red`
 
-This makes filtering simple and consistent — search for `cat:` to see all category tags, `pg:` for all product groups, and so on.
+This makes filtering simple and consistent; search for `cat:` to see all category tags, `pg:` for all product groups, and so on.
 
 ### Hierarchies (sub-levels within a dimension)
 
@@ -111,7 +111,7 @@ Use `/` to represent sub-levels within a dimension.
 ### Formatting rules (recommended)
 
 - Always include the dimension prefix (`cat:`, `pg:`, `color:` etc.)
-- Keep prefix casing consistent — convention is lowercase prefixes.
+- Keep prefix casing consistent: Convention is lowercase prefixes.
 - No spaces around `/` separators.
 - Trim trailing/leading whitespace before saving.
 
@@ -136,7 +136,7 @@ See [Track Products](/help-center/data-setup/products-tracking) or [Track Keywor
 
 Useful when you're triaging a single SKU and want to add an `On Watch` or `cat:NewSegment` tag on the fly.
 
-{/* TODO: confirm exact UI flow + add screenshot — currently inferred from product tracking UI. */}
+{/* TODO: Confirm exact UI flow + add screenshot; currently inferred from product tracking UI. */}
 
 <Steps>
 
@@ -183,8 +183,8 @@ Navigate to **Sources**, scroll to **Product Tags** or **Keyword Tags**, and cli
 <Step>
 ### Pick the right CSV template
 
-- **Template CSV** — blank, pre-formatted file. Use this if you're starting fresh.
-- **Product/Keyword Catalog & Tags CSV** — pre-filled with your existing tagged items. Use this when updating tags you've already set. Note: this template **does not include untagged items**.
+- **Template CSV**: Blank, pre-formatted file. Use this if you're starting fresh.
+- **Product/Keyword Catalog & Tags CSV**: Pre-filled with your existing tagged items. Use this when updating tags you've already set. Note: This template **does not include untagged items**.
 </Step>
 
 <Step>
@@ -208,9 +208,9 @@ Use the in-app **Find and replace** to fix bad rows quickly.
 <Step>
 ### Choose the import mode
 
-- **Add New Only** — adds the tags in your file without touching tags already on each item. Safe default.
-- **Replace Matching** — for items that appear in your file, replaces their existing tags with the ones in the file. Items not in the file are untouched.
-- **Replace All** — wipes the existing tag set and replaces it with what's in your file. **Destructive** — be sure before running this.
+- **Add New Only**: Adds the tags in your file without touching tags already on each item. Safe default.
+- **Replace Matching**: For items that appear in your file, replaces their existing tags with the ones in the file. Items not in the file are untouched.
+- **Replace All**, wipes the existing tag set and replaces it with what's in your file. **Destructive**, be sure before running this.
 </Step>
 
 <Step>
@@ -238,17 +238,17 @@ To rename, merge, or delete tags across your workspace, open the Tag Management 
 From the module you can:
 
 - **Add** a new tag without attaching it to anything (useful for setting up a taxonomy in advance).
-- **Edit** an existing tag's name — assignments follow the rename.
+- **Edit** an existing tag's name: Assignments follow the rename.
 - **Remove** a tag entirely from the workspace.
 
 {/* TODO: confirm if a removed tag is cleared from all items, or only from the central list while assignments remain. */}
 
 ### Tagging rules and limits
 
-{/* TODO: confirm all four facts below — current values are placeholders. */}
+{/* TODO: Confirm all four facts below. Current values are placeholders. */}
 
 - **Case sensitivity:** tags are case-sensitive (`HomeCare` and `homecare` are two different tags).
-- **Max tags per item:** TBD — confirm with support if you expect to attach more than ~50 per item.
+- **Max tags per item:** TBD: Confirm with support if you expect to attach more than ~50 per item.
 - **Tag name length:** TBD.
 - **Allowed characters:** TBD. The `prefix:value/sublevel` pattern documented above works in practice; confirm whether other special characters are accepted.
 
@@ -256,9 +256,9 @@ From the module you can:
 
 Tags propagate to every part of DataHawk where you can filter or scope:
 
-- **Dashboards (Power BI, Looker Studio)** — every standard dashboard has a Tags filter. Apply one or more tags to narrow the view.
-- **Alerts** — when creating an Alert, the recipient/scope picker lets you target items by tag instead of one ASIN at a time.
-- **Sherlock** — case-study triage groups items by their tags so you see catalog patterns rather than individual products.
+- **Dashboards (Power BI, Looker Studio)**: Every standard dashboard has a Tags filter. Apply one or more tags to narrow the view.
+- **Alerts**: When creating an Alert, the recipient/scope picker lets you target items by tag instead of one ASIN at a time.
+- **Sherlock**: Case-study triage groups items by their tags so you see catalog patterns rather than individual products.
 - **Data layer (Snowflake / BigQuery):** {/* TODO: confirm column name (likely TAGS in PRODUCT_LISTING / KEYWORD tables) and format (array vs. semicolon-delimited string). */}
 
 ## FAQ
@@ -267,14 +267,14 @@ Tags propagate to every part of DataHawk where you can filter or scope:
 
 <Accordion title="Are tags case-sensitive?">
 
-Yes. `HomeCare` and `homecare` are stored as two different tags. Set a casing convention up front and stick to it — lowercase prefixes (`cat:`, `pg:`) plus PascalCase values (`HomeCare`) is a common pattern.
+Yes. `HomeCare` and `homecare` are stored as two different tags. Set a casing convention up front and stick to it; lowercase prefixes (`cat:`, `pg:`) plus PascalCase values (`HomeCare`) is a common pattern.
 
 </Accordion>
 
 <Accordion title="How many tags can I attach to one Product or Keyword?">
 
 {/* TODO: confirm exact limit; placeholder answer below. */}
-There is no practical limit for typical use. If you're attaching more than ~50 tags to a single item, reach out to support — there may be performance implications at extreme volumes.
+There is no practical limit for typical use. If you're attaching more than ~50 tags to a single item, reach out to support. There may be performance implications at extreme volumes.
 
 </Accordion>
 
@@ -287,20 +287,20 @@ Yes. From **Sources → View Tags**, edit the tag's name. Every item currently c
 <Accordion title="Do tags appear in the Snowflake or BigQuery data?">
 
 {/* TODO: confirm column name and format. */}
-Yes — tags surface in the data layer alongside the Products and Keywords tables. Check with your analytics lead for the exact column name in your warehouse.
+Yes; tags surface in the data layer alongside the Products and Keywords tables. Check with your analytics lead for the exact column name in your warehouse.
 
 </Accordion>
 
 <Accordion title="Are tags shared across workspaces?">
 
-{/* TODO: confirm — likely workspace-scoped given how workspaces isolate data. */}
+{/* TODO: Confirm; likely workspace-scoped given how workspaces isolate data. */}
 Tags are scoped to a single workspace. If you maintain multiple workspaces with overlapping catalogs, you'll need to recreate (or CSV-import) the same tag set in each.
 
 </Accordion>
 
 <Accordion title="What's the difference between a Preset tag and an Automated tag?">
 
-Preset tags are **curated suggestions** — DataHawk ships them as a starter taxonomy, but you choose whether to apply them. Automated tags are **system-attached** — DataHawk decides when to apply them (e.g. attaching `FBA` to any product that's Fulfilled by Amazon), and you can't manually add or remove them.
+Preset tags are **curated suggestions**, DataHawk ships them as a starter taxonomy, but you choose whether to apply them. Automated tags are **system-attached**, DataHawk decides when to apply them (e.g. Attaching `FBA` to any product that's Fulfilled by Amazon), and you can't manually add or remove them.
 
 </Accordion>
 

@@ -1,9 +1,9 @@
 ---
 title: Vendor Analytics Dashboard User Guide
-description: Guide to the Vendor Analytics Power BI dashboard — traffic, sales, inventory, advertising, and share of voice for Vendor Central teams.
+description: Guide to the Vendor Analytics Power BI dashboard; traffic, sales, inventory, advertising, and share of voice for Vendor Central teams.
 ---
 
-DataHawk's Vendor Analytics Dashboard gives Vendor Central managers a complete view of their business with Amazon — covering traffic, sales, inventory, advertising, and share of voice analysis. It is designed for weekly and monthly reporting, with up to two years of history for trend analysis.
+DataHawk's Vendor Analytics Dashboard gives Vendor Central managers a complete view of their business with Amazon, covering traffic, sales, inventory, advertising, and share of voice analysis. It is designed for weekly and monthly reporting, with up to two years of history for trend analysis.
 
 ## Questions this dashboard helps answer
 
@@ -30,7 +30,7 @@ DataHawk's Vendor Analytics Dashboard gives Vendor Central managers a complete v
 
 | Tab | What it shows |
 |---|---|
-| **Executive Report** | Top KPIs across sales, inventory, and advertising — weekly or monthly |
+| **Executive Report** | Top KPIs across sales, inventory, and advertising; weekly or monthly |
 | **Traffic** | Glance views, conversion rate, and period-over-period traffic trends |
 | **Sales** | Shipped revenue, shipped <Term>COGS</Term>, units, returns, and ordered revenue |
 | **Advertising** | Account-level and product-level ad performance (SP + <Term>SD</Term> + <Term>SB</Term>) |
@@ -45,11 +45,11 @@ Most tabs support **Weekly**, **Monthly**, and **Quarterly** views (Quarter view
 
 Comparisons use:
 
-- **PoP (Period over Period)** — the previous week, month, or quarter, depending on your view
-- **YoY (Year over Year)** — the same period in the prior year
-- **YTD (Year to Date)** — cumulative from January 1 to the current period
+- **PoP (Period over Period)**: The previous week, month, or quarter, depending on your view
+- **YoY (Year over Year)**: The same period in the prior year
+- **YTD (Year to Date)**: Cumulative from January 1 to the current period
 
-For simple metrics (e.g. revenue), changes show as a percentage. For ratio metrics (e.g. conversion), changes show in **bps** (basis points — 100 bps = 1 percentage point).
+For simple metrics (e.g. Revenue), changes show as a percentage. For ratio metrics (e.g. Conversion), changes show in **bps** (basis points; 100 bps = 1 percentage point).
 
 ## Dashboard filters
 
@@ -89,8 +89,8 @@ All tabs share a common filter panel:
 <Accordion title="Advertising">
   Two sections:
 
-  1. **Account level** — ad spend, ad sales, <Term>ACoS</Term>, <Term>RoAS</Term>, impressions, and clicks, broken down by country and sponsored type (SB, SP, SD).
-  2. **Product level** — same metrics scoped to Sponsored Products and Sponsored Display only. Sponsored Brands are excluded from product-level data.
+  1. **Account level**: Ad spend, ad sales, <Term>ACoS</Term>, <Term>RoAS</Term>, impressions, and clicks, broken down by country and sponsored type (SB, SP, SD).
+  2. **Product level**: Same metrics scoped to Sponsored Products and Sponsored Display only. Sponsored Brands are excluded from product-level data.
 
   Includes a custom timeline graph where you can set your own date range and compare any two metrics side by side.
 
@@ -104,7 +104,7 @@ All tabs share a common filter panel:
 </Accordion>
 
 <Accordion title="Search">
-  Share of voice (<Term>SoV</Term>) analysis at the brand level, based on your tracked keywords. You can filter by search type — Organic, Sponsored (SB + SP), Sponsored SB only, or Sponsored SP only — and by page range. Charts include: competitive SoV breakdown for the current month, historical SoV over 12 months by brand, owned brand comparison, and a two-brand comparative chart. A keyword count table at the bottom shows how many distinct keywords were tracked each month. Note: SoV is calculated monthly from daily data and depends on the keywords tracked at the time. Changes in your keyword tracking set will affect how SoV trends are interpreted.
+  Share of voice (<Term>SoV</Term>) analysis at the brand level, based on your tracked keywords. You can filter by search type, Organic, Sponsored (SB + SP), Sponsored SB only, or Sponsored SP only, and by page range. Charts include: Competitive SoV breakdown for the current month, historical SoV over 12 months by brand, owned brand comparison, and a two-brand comparative chart. A keyword count table at the bottom shows how many distinct keywords were tracked each month. Note: SoV is calculated monthly from daily data and depends on the keywords tracked at the time. Changes in your keyword tracking set will affect how SoV trends are interpreted.
 
   {/* TODO: add screenshot at /images/help-center/dashboard-templates/power-bi/vendor-analytics-dashboard/vendor-analytics-dashboard-6.gif */}
 </Accordion>
@@ -116,7 +116,7 @@ All tabs share a common filter panel:
 </Accordion>
 
 <Accordion title="Imported Product Catalog">
-  Reference table of all products being tracked, including ASIN, name, brand, and tags. Not an analytics tab — use it for product lookups or to verify tracking scope.
+  Reference table of all products being tracked, including ASIN, name, brand, and tags. Not an analytics tab. Use it for product lookups or to verify tracking scope.
 
   {/* TODO: add screenshot at /images/help-center/dashboard-templates/power-bi/vendor-analytics-dashboard/vendor-analytics-dashboard-8.gif */}
 </Accordion>
@@ -132,7 +132,7 @@ Formulas used in this dashboard. Concept-level definitions for acronyms live in 
 | Metric | Formula / definition | Notes |
 |---|---|---|
 | **Conversion** | Shipped Units ÷ Glance Views | Vendor-side traffic-to-purchase rate |
-| **<Term>ASP</Term> (Ordered Revenue basis)** | Ordered Revenue ÷ Ordered Units | Amazon's retail price per unit — demand view |
+| **<Term>ASP</Term> (Ordered Revenue basis)** | Ordered Revenue ÷ Ordered Units | Amazon's retail price per unit: demand view |
 | **AWP (Average Wholesale Price)** | Shipped COGS ÷ Shipped Units | Actual price per unit received by the vendor from Amazon |
 | **Return Rate** | Customer Returns ÷ Shipped Revenue × 100 | Returns applied to the original sale date |
 
@@ -163,16 +163,16 @@ Formulas used in this dashboard. Concept-level definitions for acronyms live in 
 
 This dashboard reads from your connected Vendor Central and Advertising accounts. For a full column reference, see the [Exhaustive Column Referential](https://docs.google.com/spreadsheets/d/1gYGqKQP9Z71nz1lOb4y0wJ15i27NvsUzdliIJeIx0HY/edit#gid=175439716).
 
-- **Traffic** — Vendor Central Glance Views (Retail-featured product detail page views).
-- **Sales** — Vendor Central Sales Diagnostic (Shipped Revenue, Shipped COGS, Shipped Units, Ordered Revenue, Ordered Units, Customer Returns).
-- **Inventory** — Vendor Central Inventory Health (Sellable On Hand, Unsellable On Hand, Aged 90+ Days, Net Received, Open Purchase Order Units, Unfilled Customer Ordered Units) and PO operations (Average Vendor Lead Time, Receive Fill Rate, Vendor Confirmation Rate).
-- **Advertising** — Amazon Ads API daily feeds for Sponsored Products, Sponsored Brands, and Sponsored Display, plus the Ad Clicks Ratio metric added in the October 2025 release.
+- **Traffic**: Vendor Central Glance Views (Retail-featured product detail page views).
+- **Sales**: Vendor Central Sales Diagnostic (Shipped Revenue, Shipped COGS, Shipped Units, Ordered Revenue, Ordered Units, Customer Returns).
+- **Inventory**: Vendor Central Inventory Health (Sellable On Hand, Unsellable On Hand, Aged 90+ Days, Net Received, Open Purchase Order Units, Unfilled Customer Ordered Units) and PO operations (Average Vendor Lead Time, Receive Fill Rate, Vendor Confirmation Rate).
+- **Advertising**: Amazon Ads API daily feeds for Sponsored Products, Sponsored Brands, and Sponsored Display, plus the Ad Clicks Ratio metric added in the October 2025 release.
 
 ### Attribution and methodology
 
-- **Manufacturing vs Sourcing view** — Procurable Products Out of Stock Rate (OOS GVs on procurable ASINs ÷ Total GVs) is only populated in the Manufacturing view. Receive Fill Rate also restricts to procurable ASINs.
+- **Manufacturing vs Sourcing view**: Procurable Products Out of Stock Rate (OOS GVs on procurable ASINs ÷ Total GVs) is only populated in the Manufacturing view. Receive Fill Rate also restricts to procurable ASINs.
 - **Customer Returns** are applied to the original sale date, not the date of the return.
-- **Shipped Revenue vs Shipped COGS** — Shipped Revenue is Amazon's retail price for the units it shipped; Shipped COGS is the price Amazon paid the vendor for those units (the brand's earned revenue from Amazon).
+- **Shipped Revenue vs Shipped COGS**: Shipped Revenue is Amazon's retail price for the units it shipped; shipped COGS is the price Amazon paid the vendor for those units (the brand's earned revenue from Amazon).
 - **Ordered Revenue and Ordered Units** capture customer demand at the time the order is placed, regardless of whether Amazon has shipped the unit. Use these for demand-side analysis; use Shipped Revenue / Shipped COGS for revenue recognition.
 - **Ad attribution** uses Amazon's 14-day post-click window. Ad Sales split into Same-SKU and Other-SKU.
 - **TACoS** is calculable two ways on this dashboard: at the account level using total Shipped COGS, or at the product level using SP + SD ad spend linked to the ASINs featured in the ads.

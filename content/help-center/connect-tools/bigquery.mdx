@@ -1,13 +1,13 @@
 ---
 title: BigQuery
-description: Connect DataHawk to BigQuery — Google's cloud data warehouse — for use with Looker Studio, Google Sheets, Python, and other tools.
+description: Connect DataHawk to BigQuery, Google's cloud data warehouse, for use with Looker Studio, Google Sheets, Python, and other tools.
 ---
 
-BigQuery is Google's cloud data warehouse — serverless, scalable, and natively integrated with Google's ecosystem (Looker Studio, Google Sheets, Python, etc.). DataHawk uses BigQuery as the hosted database for users who work primarily in Google's tools.
+BigQuery is Google's cloud data warehouse; serverless, scalable, and natively integrated with Google's ecosystem (Looker Studio, Google Sheets, Python, etc.). DataHawk uses BigQuery as the hosted database for users who work primarily in Google's tools.
 
 ## Your DataHawk BigQuery database
 
-When you set up a BigQuery destination, DataHawk creates and manages a dedicated database containing all your collected data. You don't need to configure or maintain anything — we handle it.
+When you set up a BigQuery destination, DataHawk creates and manages a dedicated database containing all your collected data. You don't need to configure or maintain anything. We handle it.
 
 What's included:
 
@@ -15,7 +15,7 @@ What's included:
 - Analysis-ready views, cleaned and enriched by DataHawk
 - Zero infrastructure management on your side
 
-DataHawk refreshes your BigQuery database every day. Not all data arrives at the same time — some datasets are populated later in the day depending on when Amazon's API makes them available. See the individual dataset pages in the Knowledge Hub for dataset-specific freshness details.
+DataHawk refreshes your BigQuery database every day. Not all data arrives at the same time. Some datasets are populated later in the day depending on when Amazon's API makes them available. See the individual dataset pages in the Knowledge Hub for dataset-specific freshness details.
 
 ## Option 1 — DataHawk-hosted BigQuery (recommended for most users)
 
@@ -38,7 +38,7 @@ Navigate to **Setup \> Destinations \> BigQuery \> Access**.
 
 The database is accessible to the Google email addresses listed on this page. Each email must be added individually.
 
-- **Ready** — the user has active access
+- **Ready**: The user has active access
 - You can add or remove users at any time by clicking **Add User**
 
 You can also connect via **Service Account** for automated workflows and integrations (advanced).
@@ -69,7 +69,7 @@ Go to [https://console.cloud.google.com/](https://console.cloud.google.com/) and
   className="rounded-lg border"
 />
 
-Click the project selector and choose **New Project**. Name it as you like — we suggest something like `<company>-datahawk-bigquery`. Note that the Project ID may differ from the project name.
+Click the project selector and choose **New Project**. Name it as you like. We suggest something like `<company>-datahawk-bigquery`. Note that the Project ID may differ from the project name.
 
 <img
   src="/images/help-center/connect-tools/bigquery/bigquery-3.png"

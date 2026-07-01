@@ -11,7 +11,7 @@ A few core concepts come up constantly in DataHawk dashboards and datasets. This
 
 ## ASIN — What it is and why it matters
 
-An **<Term>ASIN</Term>** (Amazon Standard Identification Number) is Amazon's internal identifier for a product. Every product listed on Amazon has one. Think of it as Amazon's own product ID — separate from any reference you or your supplier use.
+An **<Term>ASIN</Term>** (Amazon Standard Identification Number) is Amazon's internal identifier for a product. Every product listed on Amazon has one. Think of it as Amazon's own product ID; separate from any reference you or your supplier use.
 
 ASINs are **marketplace-specific**: the same physical product sold on Amazon.com (US) and Amazon.co.uk (UK) will have different ASINs in each country.
 
@@ -19,7 +19,7 @@ DataHawk uses ASINs as the primary key to identify and track products across all
 
 ## SKU — Your internal product reference
 
-A **<Term>SKU</Term>** (Stock Keeping Unit) is the product identifier *you* assign — it's your own internal code, not Amazon's. While ASINs are assigned by Amazon and shared across all sellers who list that product, a SKU is specific to your seller account.
+A **<Term>SKU</Term>** (Stock Keeping Unit) is the product identifier *you* assign. It's your own internal code, not Amazon's. While ASINs are assigned by Amazon and shared across all sellers who list that product, a SKU is specific to your seller account.
 
 One ASIN can be linked to multiple SKUs (for example, if you sell the same product through different fulfillment methods), and one SKU maps to one ASIN.
 
@@ -29,8 +29,8 @@ In DataHawk, SKUs appear in private data (orders, inventory, profit) because the
 
 Amazon groups product variations together using a **parent/child structure**:
 
-- A **parent ASIN** is a virtual container that groups related variations — it doesn't exist as a buyable product itself. You can't add a parent ASIN to your cart.
-- A **child ASIN** is a specific, purchasable version of that product — for example, a blue t-shirt in size M.
+- A **parent ASIN** is a virtual container that groups related variations: It doesn't exist as a buyable product itself. You can't add a parent ASIN to your cart.
+- A **child ASIN** is a specific, purchasable version of that product: For example, a blue t-shirt in size M.
 
 **Example:** A t-shirt sold in 3 colors and 4 sizes would have 12 child ASINs, all grouped under one parent ASIN.
 
@@ -47,9 +47,9 @@ This distinction matters in DataHawk because some data is reported at the parent
 A few things worth knowing:
 
 - BSR is updated **hourly** by Amazon, but DataHawk captures it on a **daily** snapshot.
-- A product can have **multiple BSRs** — one for its main category and one or more for sub-categories.
+- A product can have **multiple BSRs**: One for its main category and one or more for sub-categories.
 - BSR is a **relative ranking**, not an absolute sales figure. A BSR of 500 means 499 products are selling faster than yours *in that category*, but the category size varies enormously.
-- BSR drops (numerically higher = worse rank) can indicate lost sales, price increases, or competitor surges — even if your absolute sales are unchanged.
+- BSR drops (numerically higher = worse rank) can indicate lost sales, price increases, or competitor surges. Even if your absolute sales are unchanged.
 
 DataHawk uses BSR as one of the signals in its sales estimation model and surfaces it in product tracking dashboards.
 

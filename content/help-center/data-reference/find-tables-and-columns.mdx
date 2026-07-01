@@ -15,11 +15,11 @@ Start from the [Exhaustive Column Referential](https://docs.google.com/spreadshe
 
 Each row represents a field in a table. The most useful columns are usually:
 
-- **Schema** — top-level grouping such as `PRODUCT`, `FINANCE`, `ADVERTISING`, or `REPORTS`
-- **Table** — table name within that schema
-- **Column** — field name as it appears in <Term>Snowflake</Term> or <Term>BigQuery</Term>
-- **Description** — what the field represents
-- **Data type** — expected format for the field
+- **Schema**: Top-level grouping such as `PRODUCT`, `FINANCE`, `ADVERTISING`, or `REPORTS`
+- **Table**: Table name within that schema
+- **Column**: Field name as it appears in <Term>Snowflake</Term> or <Term>BigQuery</Term>
+- **Description**: What the field represents
+- **Data type**: Expected format for the field
 
 ## Start from the business question
 
@@ -111,10 +111,10 @@ For source-system delays and freshness guidance, see [Source Systems & Freshness
 
 The schema reference may include tables marked as preview, experimental, deprecated, legacy, or aliases. Treat those labels as implementation guidance:
 
-- **Preview / experimental** — useful for exploration, but avoid production dashboards unless your DataHawk contact confirms stability.
-- **Deprecated / legacy** — migrate to the replacement table where documented.
-- **Alias** — still resolves today, but use the canonical table for new work.
-- **Raw** — closer to the source API, often more granular and less curated.
+- **Preview / experimental**: Useful for exploration, but avoid production dashboards unless your DataHawk contact confirms stability.
+- **Deprecated / legacy**: Migrate to the replacement table where documented.
+- **Alias**: Still resolves today, but use the canonical table for new work.
+- **Raw**: Closer to the source API, often more granular and less curated.
 
 ## Examples
 

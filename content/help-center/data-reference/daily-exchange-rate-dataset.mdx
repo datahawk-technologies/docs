@@ -1,11 +1,11 @@
 ---
 title: Daily Exchange Rate Dataset
-description: DataHawk's daily exchange rate table for cross-marketplace currency conversion — sourced from exchangeratesapi.io, USD as base, available since 2016.
+description: DataHawk's daily exchange rate table for cross-marketplace currency conversion; sourced from exchangeratesapi.io, USD as base, available since 2016.
 ---
 
 DataHawk operates across multiple Amazon and Walmart marketplaces, each with its own local currency (EUR, GBP, CAD, JPY, etc.). To make cross-<Term>marketplace</Term> comparisons meaningful, DataHawk maintains a daily exchange rate table that lets you convert any financial metric into a common currency.
 
-In practice, this means you can report revenue, profit, or pricing in USD — or in any currency you choose — regardless of the marketplace it came from. Most DataHawk dashboards handle this conversion automatically.
+In practice, this means you can report revenue, profit, or pricing in USD, or in any currency you choose, regardless of the marketplace it came from. Most DataHawk dashboards handle this conversion automatically.
 
 <Callout type="info">
   **If you're using the DataHawk dashboards**, currency conversion is already handled for you. This page is primarily relevant if you're writing your own SQL queries against the DataHawk database.
@@ -33,7 +33,7 @@ The dataset contains **one exchange rate per currency per day since January 1, 2
 |---|---|
 | `DATE_DAY` | Date of the exchange rate |
 | `CURRENCY` | 3-letter currency code (EUR, GBP, CAD, etc.) |
-| `BASE` | Base currency used for the rate — always USD |
+| `BASE` | Base currency used for the rate. Always USD |
 | `RATE` | Exchange rate relative to USD |
 
 ## Typical usage pattern

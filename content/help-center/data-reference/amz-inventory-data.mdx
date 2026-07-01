@@ -1,6 +1,6 @@
 ---
 title: Amazon Inventory Data
-description: Guide to Amazon inventory datasets in DataHawk — FBA planning, ledger detail, restock recommendations, and SQL examples for common inventory questions.
+description: Guide to Amazon inventory datasets in DataHawk; FBA planning, ledger detail, restock recommendations, and SQL examples for common inventory questions.
 ---
 
 This guide explains Amazon inventory datasets for tracking stock, resolving discrepancies, and optimizing replenishment.
@@ -10,8 +10,8 @@ This guide explains Amazon inventory datasets for tracking stock, resolving disc
 
   If your goal is simply to see your <Term>ASIN</Term>/<Term>SKU</Term> inventory the same way Seller Central shows it, use:
 
-  - **<Term>FBA</Term> → `SELLER_INVENTORY_FBA_PLANNING`** — <Term>FBA</Term> qty with AI-driven recommendations for aged stock and removals
-  - **<Term>FBM</Term> → `SELLER_INVENTORY_ALL_LISTINGS`** — your catalog with pricing and availability for <Term>MFN</Term>
+  - **<Term>FBA</Term> → `SELLER_INVENTORY_FBA_PLANNING`**: <Term>FBA</Term> qty with AI-driven recommendations for aged stock and removals
+  - **<Term>FBM</Term> → `SELLER_INVENTORY_ALL_LISTINGS`**: Your catalog with pricing and availability for <Term>MFN</Term>
 
   These tables show your day-to-day inventory quantities at the country level with key fields: stock, aging, health, and availability.
 </Callout>
@@ -28,10 +28,10 @@ This guide explains Amazon inventory datasets for tracking stock, resolving disc
 | **RAW_INVENTORY** | `RAW_INVENTORY_FBA_HISTORY` | Daily historical snapshots of FBA inventory. **No deduplication** | Daily | Region-based |
 | **SELLING_PARTNER** | `SELLER_INVENTORY_FBA_HISTORY_DAILY` | Daily seller-level inventory snapshots. **No deduplication** | Daily | Region-based |
 | **RAW_INVENTORY** | `RAW_INVENTORY_RESTOCK_RECOMMENDATIONS` | Amazon's restock advice for SKUs with ≤14 days of supply | Daily | MX, FR, DE, CA, JP, US, IT, ES, GB |
-| **SELLING_PARTNER** | `SELLER_INVENTORY_LEDGER_DETAIL` | Granular log of all inventory movements (shipments, returns, adjustments, removals) — past 18 months | Daily (≤3 day delay) | Region + Country + warehouse |
+| **SELLING_PARTNER** | `SELLER_INVENTORY_LEDGER_DETAIL` | Granular log of all inventory movements (shipments, returns, adjustments, removals); past 18 months | Daily (≤3 day delay) | Region + Country + warehouse |
 | **SELLING_PARTNER** | `SELLER_INVENTORY_LEDGER_SUMMARY` | Daily aggregated view of inventory health | Daily (≤3 day delay) | Region + Country + warehouse |
 | **SELLING_PARTNER** | `SELLER_INVENTORY_FBA_PLANNING` | FBA qty, AI-driven recommendations for aged stock, pricing, and removals | Daily | All except MX |
-| **SELLING_PARTNER** | `SELLER_INVENTORY_ALL_LISTINGS` | Snapshot of your catalog — current pricing and quantity for <Term>MFN</Term> | Daily | <Term>Marketplace</Term> Key |
+| **SELLING_PARTNER** | `SELLER_INVENTORY_ALL_LISTINGS` | Snapshot of your catalog. Current pricing and quantity for <Term>MFN</Term> | Daily | <Term>Marketplace</Term> Key |
 
 <img
   src="/images/help-center/knowledge-hub/amz-inventory-data/amz-inventory-data-1.png"

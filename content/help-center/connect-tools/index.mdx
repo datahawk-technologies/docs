@@ -1,6 +1,6 @@
 ---
 title: Connecting Tools Overview
-description: Connect DataHawk to your preferred BI tool or database — Power BI, Looker Studio, Google Sheets, Excel, Snowflake, BigQuery, or a writable database.
+description: Connect DataHawk to your preferred BI tool or database, including Power BI, Looker Studio, Google Sheets, Excel, Snowflake, and BigQuery.
 ---
 
 Destinations give you direct access to your DataHawk data inside the tools you already use. Instead of manually exporting files, DataHawk builds and maintains a dedicated database for you, filled with all your collected data and refreshed automatically every day.
@@ -47,24 +47,24 @@ Destinations give you direct access to your DataHawk data inside the tools you a
 
 ## How it works
 
-When you add a destination, DataHawk creates a dedicated database hosted on either **<Term>Snowflake</Term>** or **<Term>BigQuery</Term>** (depending on the tool you connect). This database is populated with all your DataHawk data and refreshed daily — no manual exports needed.
+When you add a destination, DataHawk creates a dedicated database hosted on either **<Term>Snowflake</Term>** or **<Term>BigQuery</Term>** (depending on the tool you connect). This database is populated with all your DataHawk data and refreshed daily. No manual exports needed.
 
-DataHawk refreshes your database **every day**, for both <Term>Snowflake</Term> and <Term>BigQuery</Term>. However, not all data is available at the same time — some datasets are populated later in the day because Amazon's API does not deliver all data types on the same schedule. See the individual dataset pages in the Knowledge Hub for dataset-specific freshness details.
+DataHawk refreshes your database **every day**, for both <Term>Snowflake</Term> and <Term>BigQuery</Term>. However, not all data is available at the same time. Some datasets are populated later in the day because Amazon's API does not deliver all data types on the same schedule. See the individual dataset pages in the Knowledge Hub for dataset-specific freshness details.
 
 - **Snowflake** is the underlying database for Power BI, Excel, and SQL-based tools.
 - **BigQuery** is the underlying database for Looker Studio and Google Sheets.
 
-Each destination guide includes the database setup step inline — you don't need to set up the database separately before starting.
+Each destination guide includes the database setup step inline. You don't need to set up the database separately before starting.
 
 ## What data is available?
 
 All data you collect through your DataHawk <Term>workspace</Term> is available via the Destinations of your choice:
 
-- **Product data** — tracked products, listings, sales ranks, search rankings (organic and sponsored)
-- **Seller Central data** — orders, profit & loss, financial events, traffic
-- **Vendor Central data** — revenue, financial events, traffic
-- **Advertising data** — aggregated per account, campaign, or product
-- **DataHawk KPIs** — sales estimates, keyword search volume, and more
+- **Product data**: Tracked products, listings, sales ranks, search rankings (organic and sponsored)
+- **Seller Central data**: Orders, profit & loss, financial events, traffic
+- **Vendor Central data**: Revenue, financial events, traffic
+- **Advertising data**: Aggregated per account, campaign, or product
+- **DataHawk KPIs**: Sales estimates, keyword search volume, and more
 
 ## How to add a destination
 
@@ -90,7 +90,7 @@ Click **Add Destination**.
 
 ### Select your tool
 
-Select the tool you want to connect (e.g. Google Sheets, Power BI). DataHawk will recommend the right hosted database for that tool — BigQuery or Snowflake.
+Select the tool you want to connect (e.g. Google Sheets, Power BI). DataHawk will recommend the right hosted database for that tool: BigQuery or Snowflake.
 
 </Step>
 
@@ -130,5 +130,5 @@ Follow the relevant guide above to connect your tool.
 
 For full schema documentation, supported integrations, and advanced setup (including self-hosted options):
 
-- [BigQuery — technical reference](/help-center/connect-tools/bigquery)
-- [Snowflake — technical reference](/help-center/connect-tools/snowflake)
+- [BigQuery: Technical reference](/help-center/connect-tools/bigquery)
+- [Snowflake: Technical reference](/help-center/connect-tools/snowflake)

@@ -1,9 +1,9 @@
 ---
 title: Product Dashboard User Guide
-description: Guide to the Product Power BI dashboard — monitor rankings, pricing, ratings, listing quality, and estimated sales for your tracked products.
+description: Guide to the Product Power BI dashboard; monitor rankings, pricing, ratings, listing quality, and estimated sales for your tracked products.
 ---
 
-The Product dashboard lets you monitor performance across your tracked products on Amazon and Walmart. Use it to track rankings, pricing, ratings, listing quality, and estimated sales — for your own products and the top products in your tracked categories.
+The Product dashboard lets you monitor performance across your tracked products on Amazon and Walmart. Use it to track rankings, pricing, ratings, listing quality, and estimated sales; for your own products and the top products in your tracked categories.
 
 ## Questions this dashboard helps answer
 
@@ -65,7 +65,7 @@ All tabs share the same set of filters. Key filters to know:
 <Accordions>
 
 <Accordion title="Dashboard">
-  A summary view showing the most important metrics for your tracked products across the selected date range. Use this as your daily health check — it surfaces top-level figures for BSR, pricing, Buy Box, ratings, and estimated sales in one place.
+  A summary view showing the most important metrics for your tracked products across the selected date range. Use this as your daily health check. It surfaces top-level figures for BSR, pricing, Buy Box, ratings, and estimated sales in one place.
 
   {/* TODO: add screenshot at /images/help-center/dashboard-templates/power-bi/product-dashboard/product-dashboard-1.gif */}
 </Accordion>
@@ -77,7 +77,7 @@ All tabs share the same set of filters. Key filters to know:
 </Accordion>
 
 <Accordion title="History">
-  A time-series view showing how your products' metrics have evolved. Useful for spotting trends — for example, a drop in BSR following a price change, or a spike in ratings after a product launch. You can filter by date range, product, or marketplace.
+  A time-series view showing how your products' metrics have evolved. Useful for spotting trends. For example, a drop in BSR following a price change, or a spike in ratings after a product launch. You can filter by date range, product, or marketplace.
 
   {/* TODO: add screenshot at /images/help-center/dashboard-templates/power-bi/product-dashboard/product-dashboard-3.gif */}
 </Accordion>
@@ -120,30 +120,30 @@ Formulas used in this dashboard. Concept-level definitions for acronyms live in 
 
 The Product dashboard pulls from two data models:
 
-- **Products** — [Amazon](/help-center/data-setup/products-tracking) / [Walmart](/help-center/data-setup/products-tracking)
-- **Categories** — [Amazon](/help-center/data-setup/categories-tracking) / [Walmart](/help-center/data-setup/categories-tracking)
+- **Products**: [Amazon](/help-center/data-setup/products-tracking) / [Walmart](/help-center/data-setup/products-tracking)
+- **Categories**: [Amazon](/help-center/data-setup/categories-tracking) / [Walmart](/help-center/data-setup/categories-tracking)
 
 Product data comes from your tracked products. Category data covers the top 100 products within each of your tracked categories.
  For a full column reference, see the [Exhaustive Column Referential](https://docs.google.com/spreadsheets/d/1gYGqKQP9Z71nz1lOb4y0wJ15i27NvsUzdliIJeIx0HY/edit#gid=175439716).
 
 **Dashboard-specific fields**
 
-- **Sales Score** — DataHawk-computed estimated demand score, used for ranking products by relative sales potential.
-- **LQS (Listing Quality Score)** — DataHawk-computed score that summarizes listing completeness and quality (images, content, A+, video, etc.) on a 0–100 scale.
-- **Sellers (Winners)** — Count of distinct Buy Box winners observed during the period.
-- **Seller (Latest)** — Most recent Buy Box winner.
-- **Price (Distinct)** — Count of distinct price points observed during the period.
-- **Badges** — Count of badges (e.g. Amazon's Choice, Best Seller) observed on the listing.
+- **Sales Score**: DataHawk-computed estimated demand score, used for ranking products by relative sales potential.
+- **LQS (Listing Quality Score)**: DataHawk-computed score that summarizes listing completeness and quality (images, content, A+, video, etc.) on a 0–100 scale.
+- **Sellers (Winners)**: Count of distinct Buy Box winners observed during the period.
+- **Seller (Latest)**: Most recent Buy Box winner.
+- **Price (Distinct)**: Count of distinct price points observed during the period.
+- **Badges**: Count of badges (e.g. Amazon's Choice, Best Seller) observed on the listing.
 
 ### Buy Box variants
 
 The dashboard exposes three distinct Buy Box rates, each measuring a different aspect of competitive positioning.
 
-- **Buy Box % (Active)** — Share of observation time the listing was Buy Box-eligible. Measures whether your listing qualifies to compete for the Buy Box at all, independent of which seller wins it.
-- **Buy Box % (Public)** — Share of observation time your offer was the publicly Featured Offer (visible to shoppers). Computed from DataHawk's polling of the public product page.
-- **Buy Box % (Private)** — Share of page views where your offer was the Featured Offer, computed from Seller Central session-level data. Requires a Seller Central connection. Reflects actual shopper-facing Buy Box ownership rather than polled snapshots.
+- **Buy Box % (Active)**: Share of observation time the listing was Buy Box-eligible. Measures whether your listing qualifies to compete for the Buy Box at all, independent of which seller wins it.
+- **Buy Box % (Public)**: Share of observation time your offer was the publicly Featured Offer (visible to shoppers). Computed from DataHawk's polling of the public product page.
+- **Buy Box % (Private)**: Share of page views where your offer was the Featured Offer, computed from Seller Central session-level data. Requires a Seller Central connection. Reflects actual shopper-facing Buy Box ownership rather than polled snapshots.
 
-The three variants can disagree — a listing can be Buy Box-eligible most of the time (Active high), publicly win the Buy Box less often (Public lower), and still convert most of its real traffic with the Buy Box (Private higher than Public).
+The three variants can disagree; a listing can be Buy Box-eligible most of the time (Active high), publicly win the Buy Box less often (Public lower), and still convert most of its real traffic with the Buy Box (Private higher than Public).
 
 ### BSR Min / Avg / Max
 

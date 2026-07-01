@@ -1,9 +1,9 @@
 ---
 title: Ready-to-use prompts
-description: Finished prompt templates for DataHawk MCP — weekly reports, deep-dives, inventory tracking, and more. Fill in the variables and run.
+description: Finished prompt templates for DataHawk MCP; weekly reports, deep-dives, inventory tracking, and more. Fill in the variables and run.
 ---
 
-Finished prompt templates you fill in and run — for recurring reports, weekly reviews, and one-click deep-dives. Each one produces a polished output you can drop into Slack, email, or a team meeting.
+Finished prompt templates you fill in and run; for recurring reports, weekly reviews, and one-click deep-dives. Each one produces a polished output you can drop into Slack, email, or a team meeting.
 
 <Callout type="info">
   **Use these when** you want a polished, repeatable report. **Write your own** (see [How to write effective MCP prompts](/help-center/modules/datahawkmcp/write-prompts)) when you have a one-off question that doesn't fit any template here.
@@ -53,7 +53,7 @@ The "What to expect" section on each page tells you what the output will look li
 
 Most templates include threshold values you'll want to adjust to your business.
 
-A \$500 spend threshold feels like signal at \$50K/week revenue and noise at \$5M/week. Same for <Term>ACOS</Term> percentages, days of cover, and rank-drop counts — what's a flag for one business is normal for another.
+A \$500 spend threshold feels like signal at \$50K/week revenue and noise at \$5M/week. Same for <Term>ACOS</Term> percentages, days of cover, and rank-drop counts; what's a flag for one business is normal for another.
 
 When you first run a template, treat the suggested defaults as a starting point. After a week or two of running it, you'll know which thresholds to tighten or loosen.
 
@@ -67,10 +67,10 @@ A once-a-week, copy-paste prompt to generate a complete executive summary of you
 
 **Variables to set before running**
 
-- `[MARKETPLACE_SCOPE]` — *e.g., "the US marketplace"; "the US, UK, and DE marketplaces"; "all my active marketplaces"*
-- `[ACOS_FLAG]` — ACOS threshold for flagging campaigns. *Start at 40 (%)*
-- `[SPEND_FLAG]` — spend threshold for flagging campaigns. *Tune to your scale: $500 for ~$50K/week sellers, $5,000 for ~$5M/week sellers*
-- `[HIGH_SPEND_FLAG]` — higher spend threshold for ROAS-flag campaigns. *Roughly 2× your `[SPEND_FLAG]`*
+- `[MARKETPLACE_SCOPE]`: *e.g., "the US marketplace"; "the US, UK, and DE marketplaces"; "all my active marketplaces"*
+- `[ACOS_FLAG]`: ACOS threshold for flagging campaigns. *Start at 40 (%)*
+- `[SPEND_FLAG]`: Spend threshold for flagging campaigns. *Tune to your scale: $500 for ~$50K/week sellers, $5,000 for ~$5M/week sellers*
+- `[HIGH_SPEND_FLAG]`: Higher spend threshold for ROAS-flag campaigns. *Roughly 2× your `[SPEND_FLAG]`*
 
 **What to expect**
 
@@ -79,8 +79,8 @@ Typical output structure (actual length and formatting vary based on your data a
 - **Topline**: a table showing this week's metrics, last week's, and the percent change for each
 - **Marketplace breakdown**: same metrics, one row per marketplace, with any marketplace down >15% flagged
 - **Top movers**: two ranked lists of 5 ASINs each (growth and decline), with a one-line reason for each decliner
-- **Inventory risk**: a short list of at-risk ASINs — or "no inventory risks this week", which is a valid result
-- **Advertising flags**: a list of campaigns hitting your thresholds — often empty if nothing crosses them
+- **Inventory risk**: A short list of at-risk ASINs: Or "no inventory risks this week", which is a valid result
+- **Advertising flags**: A list of campaigns hitting your thresholds: Often empty if nothing crosses them
 - **One thing to watch**: a single bolded recommendation at the bottom
 
 **The prompt**
@@ -127,9 +127,9 @@ A month-end PPC report split by marketplace, designed for owner or executive rep
 
 **Variables to set before running**
 
-- `[REPORT_MONTH]` — month to report, *e.g., "March 2026"*
-- `[MARKETPLACE_SCOPE]` — *e.g., "all non-US marketplaces"; "all my European marketplaces"; "all my active marketplaces"*
-- `[MIN_SPEND_FILTER]` — exclude marketplaces with less than this spend. *Start at 1,000 ($)*
+- `[REPORT_MONTH]`: Month to report, *e.g., "March 2026"*
+- `[MARKETPLACE_SCOPE]`: *e.g., "all non-US marketplaces"; "all my European marketplaces"; "all my active marketplaces"*
+- `[MIN_SPEND_FILTER]`: Exclude marketplaces with less than this spend. *Start at 1,000 ($)*
 
 **What to expect**
 
@@ -184,20 +184,20 @@ Surface inventory problems before they become stockouts. Run weekly for best res
 
 **Variables to set before running**
 
-- `[MARKETPLACE_SCOPE]` — *e.g., "the US marketplace"; "the US and UK marketplaces"*
-- `[COVER_DAYS_THRESHOLD]` — days-of-cover threshold to flag low stock. *Start at 30*
-- `[UNSELLABLE_PCT_THRESHOLD]` — unsellable percentage to flag. *Start at 10 (%)*
-- `[FULFILLMENT_TYPE]` — *FBA, MFN, or both — pick what applies to your business*
+- `[MARKETPLACE_SCOPE]`: *e.g., "the US marketplace"; "the US and UK marketplaces"*
+- `[COVER_DAYS_THRESHOLD]`: Days-of-cover threshold to flag low stock. *Start at 30*
+- `[UNSELLABLE_PCT_THRESHOLD]`: Unsellable percentage to flag. *Start at 10 (%)*
+- `[FULFILLMENT_TYPE]`, *FBA, MFN, or both, pick what applies to your business*
 
 **What to expect**
 
 Typical output structure (actual length and formatting vary based on your data and AI client):
 
-- **Currently out of stock**: a ranked table by lost revenue — could be empty if nothing's out of stock
+- **Currently out of stock**: A ranked table by lost revenue: Could be empty if nothing's out of stock
 - **Low cover**: a table of ASINs approaching stockout with cover days and inbound quantities
-- **Inbound bottlenecks**: a short list — often empty if your supply chain is healthy
+- **Inbound bottlenecks**: A short list: Often empty if your supply chain is healthy
 - **Unsellable**: top ASINs with trapped inventory, with dollar values
-- **Vendor-specific**: present only if a vendor account is connected — otherwise skipped
+- **Vendor-specific**: Present only if a vendor account is connected: Otherwise skipped
 - **Action plan**: 3 specific items to fix this week, each with the dollar value at stake
 
 **The prompt**
@@ -241,10 +241,10 @@ Monitor buy box share and competitive pricing pressure across your catalog.
 
 **Variables to set before running**
 
-- `[MARKETPLACE_SCOPE]` — *e.g., "the US marketplace"*
-- `[TOP_N_ASINS]` — how many top ASINs to analyze. *Start at 50*
-- `[BUY_BOX_DROP_THRESHOLD]` — percentage-point drop to flag. *Start at 10 (pp)*
-- `[LOOKBACK_PERIOD]` — *e.g., "14 days"*
+- `[MARKETPLACE_SCOPE]`: *e.g., "the US marketplace"*
+- `[TOP_N_ASINS]`: How many top ASINs to analyze. *Start at 50*
+- `[BUY_BOX_DROP_THRESHOLD]`: Percentage-point drop to flag. *Start at 10 (pp)*
+- `[LOOKBACK_PERIOD]`: *e.g., "14 days"*
 
 **What to expect**
 
@@ -253,7 +253,7 @@ Typical output structure (actual length and formatting vary based on your data a
 - **Buy box loss**: a table of ASINs that lost buy box share, with the current winning seller and price comparison
 - **Price changes**: your recent price moves, plus any that didn't have the expected impact on buy box share
 - **New competitors**: ASINs where new sellers appeared in the period
-- **Rating / review shifts**: any ASINs trending down — could be empty if your reviews are stable
+- **Rating / review shifts**: Any ASINs trending down: Could be empty if your reviews are stable
 - **Recommended actions**: 3 specific pricing moves with predicted impact on buy box percentage
 
 
@@ -270,7 +270,7 @@ Cite the DataHawk numbers and explain your reasoning briefly. If any number isn'
    - For each: who's winning the buy box now, their price vs. mine
 
 2. PRICE CHANGES
-   - My price changes during the lookback period — which ASINs, up or down, by how much
+   - My price changes during the lookback period: Which ASINs, up or down, by how much
    - Any ASIN where I lowered the price but my buy box percentage still dropped?
 
 3. NEW COMPETITORS
@@ -299,10 +299,10 @@ A once-a-week, copy-paste prompt to generate a complete executive summary of you
 
 **Variables to set before running**
 
-- `[MARKETPLACE_SCOPE]` — *e.g., "the US marketplace"*
-- `[ANALYSIS_PERIOD]` — *e.g., "last 28 days"*
-- `[ACOS_DRILL_THRESHOLD]` — campaigns above this ACOS get flagged for review. *Start at 35 (%)*
-- `[TOP_N_CAMPAIGNS]` — how many campaigns to drill into. *Start at 10*
+- `[MARKETPLACE_SCOPE]`: *e.g., "the US marketplace"*
+- `[ANALYSIS_PERIOD]`: *e.g., "last 28 days"*
+- `[ACOS_DRILL_THRESHOLD]`: Campaigns above this ACOS get flagged for review. *Start at 35 (%)*
+- `[TOP_N_CAMPAIGNS]`: How many campaigns to drill into. *Start at 10*
 
 **What to expect**
 
@@ -341,7 +341,7 @@ Cite the DataHawk numbers and briefly explain your reasoning. If any number isn'
 
 5. RECOMMENDED ACTIONS
    - What to pause, what to reduce bids on, what to investigate further
-   - Be specific — name campaigns and keywords
+   - Be specific: Name campaigns and keywords
 
 Format as a clean report. Use tables where helpful.
 ```
@@ -353,17 +353,17 @@ Find organic rankings you're losing and what to do about it.
 
 **Variables to set before running**
 
-- `[MARKETPLACE_SCOPE]` — *e.g., "the US marketplace"*
-- `[TOP_N_ASINS]` — how many top ASINs to analyze. *Start at 20*
-- `[RANK_DROP_THRESHOLD]` — positions dropped to flag. *Start at 5*
-- `[LOOKBACK_PERIOD]` — *e.g., "14 days"*
+- `[MARKETPLACE_SCOPE]`: *e.g., "the US marketplace"*
+- `[TOP_N_ASINS]`: How many top ASINs to analyze. *Start at 20*
+- `[RANK_DROP_THRESHOLD]`: Positions dropped to flag. *Start at 5*
+- `[LOOKBACK_PERIOD]`: *e.g., "14 days"*
 
 **What to expect**
 
 Typical output structure (actual length and formatting vary based on your data and AI client):
 
 - **Lost rankings**: a table per ASIN of dropped keywords with old rank, new rank, and search volume
-- **Sponsored vs. organic gap**: keywords where you have paid visibility but not organic — listed as opportunities
+- **Sponsored vs. Organic gap**: Keywords where you have paid visibility but not organic. Listed as opportunities
 - **Competitor gains**: who took your rankings, by keyword, with any pattern noted
 - **Possible causes**: cross-referenced findings across catalog, review velocity, inventory, and price changes
 - **Action plan**: top 3 keywords to recover with the lever to pull for each (content, ads, pricing, or inventory)
@@ -404,9 +404,9 @@ Format as a clean report. Use tables where helpful.
 A comprehensive snapshot of one product: sales, traffic, rank, reviews, buy box, listing health, keyword performance. Useful before product review meetings, account check-ins, or any deep-dive.
 **Variables to set before running**
 
-- `[ASIN]` — the product you want to profile
-- `[MARKETPLACE_SCOPE]` — *e.g., "the US marketplace"*
-- `[LOOKBACK_PERIOD]` — analysis window, *e.g., "last 90 days"*
+- `[ASIN]`: The product you want to profile
+- `[MARKETPLACE_SCOPE]`: *e.g., "the US marketplace"*
+- `[LOOKBACK_PERIOD]`: Analysis window, *e.g., "last 90 days"*
 
 **What to expect**
 
@@ -464,10 +464,10 @@ Measure how sales, traffic, and buy box moved after a price change on a specific
 
 **Variables to set before running**
 
-- `[ASIN]` — the SKU you changed
-- `[MARKETPLACE_SCOPE]` — *e.g., "the US marketplace"*
-- `[CHANGE_DATE]` — when the price changed, *YYYY-MM-DD format*
-- `[LOOKBACK_DAYS]` — how many days before vs. after to compare. *Start at 7*
+- `[ASIN]`: The SKU you changed
+- `[MARKETPLACE_SCOPE]`: *e.g., "the US marketplace"*
+- `[CHANGE_DATE]`: When the price changed, *YYYY-MM-DD format*
+- `[LOOKBACK_DAYS]`: How many days before vs. After to compare. *Start at 7*
 
 **What to expect**
 
@@ -477,7 +477,7 @@ Typical output structure (actual length and formatting vary based on your data a
 - **Before vs. after metrics**: side-by-side table of units, revenue, sessions, conversion, buy box %, ad spend, ACOS
 - **Daily breakdown**: a line-by-line view through the change date so you can see how quickly the change took effect
 - **Cause attribution**: did price alone explain the movement, or did something else change at the same time?
-- **Recommended action**: hold the new price, revert, or push further — with one-line reasoning
+- **Recommended action**: Hold the new price, revert, or push further: With one-line reasoning
 
 
 **The prompt**
@@ -495,7 +495,7 @@ Cite the DataHawk numbers and briefly explain your reasoning. If any number isn'
    - Note the old price, new price, and percent change
 
 2. BEFORE VS. AFTER METRICS
-   - Side-by-side table: units ordered, revenue, sessions, conversion rate, buy box %, ad spend, ACOS — for the period before and after
+   - Side-by-side table: Units ordered, revenue, sessions, conversion rate, buy box %, ad spend, ACOS; for the period before and after
    - Highlight any metric that moved more than 15%
 
 3. DAILY BREAKDOWN
@@ -518,14 +518,14 @@ Format as a clean report. Use tables where helpful.
 
 <Accordions>
 <Accordion title='New Product Launch Tracker'>
-Track a new product launch against expectations — catch issues early when you can still course-correct.
+Track a new product launch against expectations; catch issues early when you can still course-correct.
 
 **Variables to set before running**
 
-- `[ASIN]` — the ASIN you're tracking
-- `[LAUNCH_DATE]` — *YYYY-MM-DD format, e.g., 2026-03-15*
-- `[MARKETPLACE_SCOPE]` — *e.g., "the US marketplace"*
-- `[CONVERSION_FLAG]` — percentage of running average to flag low-conversion days. *Start at 50 (%)*
+- `[ASIN]`: The ASIN you're tracking
+- `[LAUNCH_DATE]`: *YYYY-MM-DD format, e.g., 2026-03-15*
+- `[MARKETPLACE_SCOPE]`: *e.g., "the US marketplace"*
+- `[CONVERSION_FLAG]`: Percentage of running average to flag low-conversion days. *Start at 50 (%)*
 
 **What to expect**
 
@@ -536,7 +536,7 @@ Typical output structure (actual length and formatting vary based on your data a
 - **Ad performance**: weekly ad metrics since launch, plus the top campaigns driving attributed sales
 - **Keyword rankings**: a list of keywords this ASIN ranks for, with rank progression over the launch period
 - **Rating & reviews**: current state plus review velocity (per week)
-- **Red flags / green flags**: two bulleted lists — things working and things to investigate
+- **Red flags / green flags**: Two bulleted lists: Things working and things to investigate
 
 
 **The prompt**
@@ -584,14 +584,14 @@ Format as a clean report. Use tables where helpful.
 
 <Accordions>
 <Accordion title='MAP Compliance Check'>
-A scan for Minimum Advertised Price violations across your protected SKUs. Critical for regulated or brand-protected categories — tires, electronics, pharmaceuticals, premium goods.
+A scan for Minimum Advertised Price violations across your protected SKUs. Critical for regulated or brand-protected categories; tires, electronics, pharmaceuticals, premium goods.
 
 **Variables to set before running**
 
-- `[ASIN_LIST]` — your MAP-protected ASINs (comma-separated, or a brand name)
-- `[MARKETPLACE_SCOPE]` — *e.g., "the US marketplace"*
-- `[LOOKBACK_PERIOD]` — how far back to check, *e.g., "last 7 days"*
-- **MAP prices** — you'll paste these into the prompt (one ASIN + price per line)
+- `[ASIN_LIST]`: Your MAP-protected ASINs (comma-separated, or a brand name)
+- `[MARKETPLACE_SCOPE]`: *e.g., "the US marketplace"*
+- `[LOOKBACK_PERIOD]`: How far back to check, *e.g., "last 7 days"*
+- **MAP prices**: You'll paste these into the prompt (one ASIN + price per line)
 
 **What to expect**
 
@@ -649,11 +649,11 @@ A category-level share-of-market report showing where your brand sits versus com
 
 **Variables to set before running**
 
-- `[CATEGORY]` — Amazon category or browse node, or a set of keywords defining the category
-- `[MARKETPLACE_SCOPE]` — *e.g., "the US marketplace"*
-- `[PERIOD]` — analysis window, *e.g., "last 30 days"*
-- `[MY_BRAND]` — your brand name
-- `[TOP_N_COMPETITORS]` — how many competitors to surface. *Start at 10*
+- `[CATEGORY]`: Amazon category or browse node, or a set of keywords defining the category
+- `[MARKETPLACE_SCOPE]`: *e.g., "the US marketplace"*
+- `[PERIOD]`: Analysis window, *e.g., "last 30 days"*
+- `[MY_BRAND]`: Your brand name
+- `[TOP_N_COMPETITORS]`: How many competitors to surface. *Start at 10*
 
 
 **What to expect**
@@ -717,9 +717,9 @@ Surface stale ASINs and keywords no longer worth tracking, plus new ASINs and ke
 
 **Variables to set before running**
 
-- `[MARKETPLACE_SCOPE]` — *e.g., "the US marketplace"*
-- `[STALE_THRESHOLD_DAYS]` — days of low or no activity to flag a tracked item as stale. *Start at 90*
-- `[NEW_ASIN_REVENUE_FLOOR]` — minimum revenue an untracked ASIN must have to be worth adding. *Tune to your scale: $1,000 for ~$50K/week sellers, $10,000 for ~$5M/week sellers*
+- `[MARKETPLACE_SCOPE]`: *e.g., "the US marketplace"*
+- `[STALE_THRESHOLD_DAYS]`: Days of low or no activity to flag a tracked item as stale. *Start at 90*
+- `[NEW_ASIN_REVENUE_FLOOR]`: Minimum revenue an untracked ASIN must have to be worth adding. *Tune to your scale: $1,000 for ~$50K/week sellers, $10,000 for ~$5M/week sellers*
 
 **What to expect**
 
@@ -773,9 +773,9 @@ Format as a clean report. Use tables for the lists. Always show ASIN + product t
 
 Most AI clients let you save a prompt so you don't have to paste it every time:
 
-- **Claude** — create a Project, paste the template as your custom instructions
-- **ChatGPT** — create a custom GPT with the template baked in
-- **Cursor, Lovable, Replit, n8n, Make** — save in your prompt library or call from a workflow
+- **Claude**: Create a Project, paste the template as your custom instructions
+- **ChatGPT**: Create a custom GPT with the template baked in
+- **Cursor, Lovable, Replit, n8n, Make**: Save in your prompt library or call from a workflow
 
 Once pinned, running your weekly summary is one click.
 

@@ -3,7 +3,7 @@ title: Writable Database Service
 description: Add write access to a separate database alongside your DataHawk read-only database to bring in your own data, build custom pipelines, and create combined views.
 ---
 
-By default, your DataHawk database is read-only — DataHawk writes your data into it, and you query it. The Writable Database Service adds write access to a separate database, allowing you to bring in your own data, build custom pipelines, and create combined views that blend DataHawk data with your own.
+By default, your DataHawk database is read-only. DataHawk writes your data into it, and you query it. The Writable Database Service adds write access to a separate database, allowing you to bring in your own data, build custom pipelines, and create combined views that blend DataHawk data with your own.
 
 <Callout type="warn">
   **This is an advanced, paid service.** It requires a Professional Services engagement.
@@ -15,18 +15,18 @@ The Writable Database Service is designed for teams that want to go beyond query
 
 Common use cases include:
 
-- **Blending DataHawk data with internal data** — for example, combining DataHawk sales estimates with your own ERP or inventory system data
-- **Custom KPI tables** — pre-computing metrics that aren't in DataHawk natively and storing them in the database
-- **ETL pipelines** — loading data from third-party sources into your DataHawk database for centralized reporting
-- **Custom security controls** — implementing row-level access or custom views for different teams or clients
-- **Agency or white-label setups** — creating client-specific views on top of shared DataHawk data
+- **Blending DataHawk data with internal data**: For example, combining DataHawk sales estimates with your own ERP or inventory system data
+- **Custom KPI tables**: Pre-computing metrics that aren't in DataHawk natively and storing them in the database
+- **ETL pipelines**: Loading data from third-party sources into your DataHawk database for centralized reporting
+- **Custom security controls**: Implementing row-level access or custom views for different teams or clients
+- **Agency or white-label setups**: Creating client-specific views on top of shared DataHawk data
 
 ## How it works
 
 DataHawk creates a **separate writable database** alongside your existing read-only DataHawk database. You receive credentials for both:
 
-- The **read-only database** — managed entirely by DataHawk, contains all your collected DataHawk data
-- The **writable database** — yours to use, where you can add your own tables, views, and pipelines
+- The **read-only database**: Managed entirely by DataHawk, contains all your collected DataHawk data
+- The **writable database**: Yours to use, where you can add your own tables, views, and pipelines
 
 You can create combined views that join data from both databases to build custom reports.
 

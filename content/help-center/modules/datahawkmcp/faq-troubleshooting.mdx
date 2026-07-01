@@ -1,9 +1,9 @@
 ---
 title: Frequently Asked Questions (FAQ)
-description: Common questions about DataHawk MCP — getting started, security, multi-workspace, troubleshooting, and roadmap.
+description: Common questions about DataHawk MCP; getting started, security, multi-workspace, troubleshooting, and roadmap.
 ---
 
-Questions about DataHawk <Term>MCP</Term> cluster around the same themes — setup, what the AI can and can't see, multi-workspace access, and what's coming next. The sections below mirror that order. If you're looking for installation steps, see the [setup guide](/help-center/modules/datahawkmcp/setup) instead.
+Questions about DataHawk <Term>MCP</Term> cluster around the same themes; setup, what the AI can and can't see, multi-workspace access, and what's coming next. The sections below mirror that order. If you're looking for installation steps, see the [setup guide](/help-center/modules/datahawkmcp/setup) instead.
 
 
 <Accordions>
@@ -13,7 +13,7 @@ No. Your AI handles the query construction entirely. The data layer exists so po
 </Accordion>
 
 <Accordion title='Can the AI hallucinate numbers?'>
-Every number comes from a real `datahawk_load_data` call against your actual data. The validation step catches invalid queries before they run, and the router enforces required filters so you can't accidentally get data from the wrong <Term>marketplace</Term> or time window. That said, LLMs can still misrepresent results in their prose summary — always cross-check specific numbers against the tool output in the conversation.
+Every number comes from a real `datahawk_load_data` call against your actual data. The validation step catches invalid queries before they run, and the router enforces required filters so you can't accidentally get data from the wrong <Term>marketplace</Term> or time window. That said, LLMs can still misrepresent results in their prose summary. Always cross-check specific numbers against the tool output in the conversation.
 </Accordion>
 
 <Accordion title='Which AI clients are supported?'>
@@ -27,11 +27,11 @@ Under 2 minutes for any <Term>OAuth</Term>-based client (Claude, ChatGPT, Cursor
 </Accordion>
 
 <Accordion title='Does my data leave my workspace?'>
-Query results flow to the AI that asked the question — the same AI you're already talking to. DataHawk doesn't send your data anywhere else.
+Query results flow to the AI that asked the question. The same AI you're already talking to. DataHawk doesn't send your data anywhere else.
 </Accordion>
 
 <Accordion title='Who in my organization can connect?'>
-Anyone with an active login to your DataHawk workspace. Admin-only restrictions are on the roadmap — for now, use DataHawk's workspace roles to control who has access.
+Anyone with an active login to your DataHawk workspace. Admin-only restrictions are on the roadmap; for now, use DataHawk's workspace roles to control who has access.
 </Accordion>
 
 <Accordion title='I run DataHawk for multiple brands — can I connect them all to one AI?'>
@@ -39,15 +39,15 @@ Yes. All brands connected in one DataHawk workspace are accessible through the M
 </Accordion>
 
 <Accordion title='Can I restrict what data specific team members see?'>
-Access follows your DataHawk workspace roles — if a user can see something in DataHawk, they can query it via MCP. If they can't see it in DataHawk, they can't query it.
+Access follows your DataHawk workspace roles. If a user can see something in DataHawk, they can query it via MCP. If they can't see it in DataHawk, they can't query it.
 </Accordion>
 
 <Accordion title='"No data returned" — what&apos;s wrong?'>
-Usually one of: (1) your Amazon account isn't connected/syncing in DataHawk, (2) the date range you specified has no data yet, (3) a required filter was rejected by the validator. Ask the AI to show the tool call output — it usually pinpoints the issue.
+Usually one of: (1) your Amazon account isn't connected/syncing in DataHawk, (2) the date range you specified has no data yet, (3) a required filter was rejected by the validator. Ask the AI to show the tool call output. It usually pinpoints the issue.
 </Accordion>
 
 <Accordion title='The AI is giving me a different number than the DataHawk app.'>
-Most common causes: different date range (MCP uses last 90 days by default), different marketplace filter, or different currency. Ask the AI to show the exact query it ran — copy the date range and filters and run them in the app to reconcile.
+Most common causes: Different date range (MCP uses last 90 days by default), different marketplace filter, or different currency. Ask the AI to show the exact query it ran. Copy the date range and filters and run them in the app to reconcile.
 </Accordion>
 
 <Accordion title="I'm hitting rate limits.">
@@ -67,7 +67,7 @@ We're continuously expanding. Recent additions: <Term>DSP</Term> creative-level 
 </Accordion>
 
 <Accordion title='Can I request a new metric or view?'>
-Yes — email [support@datahawk.co](mailto:support@datahawk.co) with your use case. If multiple users request the same thing, it moves up the priority list fast.
+Yes; email [support@datahawk.co](mailto:support@datahawk.co) with your use case. If multiple users request the same thing, it moves up the priority list fast.
 </Accordion>
 
 </Accordions>

@@ -1,9 +1,9 @@
 ---
 title: My finance events look stale in Power BI
-description: How to troubleshoot when FINANCE_EVENTS in Power BI appears to stop updating — usually a query filter issue (sync_time vs posted_time), not a sync issue.
+description: How to troubleshoot when FINANCE_EVENTS in Power BI appears to stop updating. Usually a query filter issue (sync_time vs posted_time), not a sync issue.
 ---
 
-You're querying `FINANCE.FINANCE_EVENTS` from Power BI and the data appears frozen — recent transactions (FBA fees, refunds, settlement events) aren't showing up even though they should. In most cases this is a query problem inside Power BI, not a refresh issue on DataHawk's side.
+You're querying `FINANCE.FINANCE_EVENTS` from Power BI and the data appears frozen. Recent transactions (FBA fees, refunds, settlement events) aren't showing up even though they should. In most cases this is a query problem inside Power BI, not a refresh issue on DataHawk's side.
 
 ## What I can observe
 
@@ -15,9 +15,9 @@ You're querying `FINANCE.FINANCE_EVENTS` from Power BI and the data appears froz
 
 ## Why is this happening?
 
-The most common cause is **filtering on `SYNC_TIME`** in the Power BI query. `SYNC_TIME` is a technical column that records when DataHawk loaded a specific row into the warehouse — NOT when the financial event happened. If your incremental-refresh policy uses `SYNC_TIME` as the time boundary, rows whose event dates fall before that boundary appear missing, even though they're present in the table.
+The most common cause is **filtering on `SYNC_TIME`** in the Power BI query. `SYNC_TIME` is a technical column that records when DataHawk loaded a specific row into the warehouse; NOT when the financial event happened. If your incremental-refresh policy uses `SYNC_TIME` as the time boundary, rows whose event dates fall before that boundary appear missing, even though they're present in the table.
 
-The correct field for business-meaningful filtering is **`POSTED_TIME`** (or `POSTED_DATE` for date-only filtering) — the time Amazon posted the event. That's also what drives the visible "last updated" date on DataHawk dashboards.
+The correct field for business-meaningful filtering is **`POSTED_TIME`** (or `POSTED_DATE` for date-only filtering): the time Amazon posted the event. That's also what drives the visible "last updated" date on DataHawk dashboards.
 
 ## What can I do?
 
@@ -65,14 +65,14 @@ GROUP BY ALL;
 
 Replace `<your WSID>` with your <Term>WSID</Term> (find it in the DataHawk app under **Setup → Workspace**). Adjust the `event_signature` filter to match the row type you're investigating.
 
-If this query returns recent rows, the data IS in the warehouse — the issue is in your Power BI query (go back to Step 2). If the query returns no recent rows, contact support — that's a real sync problem.
+If this query returns recent rows, the data IS in the warehouse, the issue is in your Power BI query (go back to Step 2). If the query returns no recent rows, contact support, that's a real sync problem.
 </Step>
 
 </Steps>
 
 ## Recommendation: prefer `FINANCE_PROFIT_LEDGER` over `FINANCE_EVENTS`
 
-For most finance reporting, **`FINANCE.FINANCE_PROFIT_LEDGER` is the recommended table.** It's a profit-oriented version of `FINANCE_EVENTS` with cleaner attribution, deduplication already applied, and consistent semantics across event types — the same view DataHawk's own finance dashboards use.
+For most finance reporting, **`FINANCE.FINANCE_PROFIT_LEDGER` is the recommended table.** It's a profit-oriented version of `FINANCE_EVENTS` with cleaner attribution, deduplication already applied, and consistent semantics across event types. The same view DataHawk's own finance dashboards use.
 
 If your Power BI report was built on `FINANCE_EVENTS` directly, consider migrating to `FINANCE_PROFIT_LEDGER`. See [Amazon Seller Profit Data](/help-center/data-reference/amz-seller-profit-data) for the side-by-side and how the two tables relate.
 
@@ -93,6 +93,6 @@ If you've confirmed all three of:
 
 ## Related articles
 
-- [Amazon Seller Profit Data](/help-center/data-reference/amz-seller-profit-data) — when to use `finance_profit_ledger` vs `finance_events`
+- [Amazon Seller Profit Data](/help-center/data-reference/amz-seller-profit-data): When to use `finance_profit_ledger` vs `finance_events`
 - [My advertising data is not populating](/troubleshooting/data-not-refreshing/my-advertising-data-is-not-populating)
 - [I don't see traffic data for my ASIN](/troubleshooting/data-not-refreshing/no-traffic-data-for-asin)

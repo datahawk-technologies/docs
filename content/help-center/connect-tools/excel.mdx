@@ -1,6 +1,6 @@
 ---
 title: Connect to Excel
-description: Connect your DataHawk Snowflake database to Excel via ODBC for automatically refreshed data — no manual exports needed.
+description: Connect your DataHawk Snowflake database to Excel via ODBC for automatically refreshed data. No manual exports needed.
 ---
 
 Instead of exporting data manually, you can connect your DataHawk-powered <Term>Snowflake</Term> database directly to Excel. This gives you automatically refreshed data inside an Excel file using an ODBC connection.
@@ -13,9 +13,9 @@ Instead of exporting data manually, you can connect your DataHawk-powered <Term>
 
 Before connecting Excel, make sure you have:
 
-- **Data sources connected** — your Amazon and/or Walmart accounts are connected and collecting data. If not yet, see [Set up data](/help-center/data-setup) first.
-- **A DataHawk <Term>Snowflake</Term> database** — activated and showing **Enabled** in your DataHawk App. Provisioning can take up to 4 hours; see [Send data to your tool](/help-center/connect-tools) if you haven't set one up.
-- **Your Snowflake credentials** — available from **Setup → Destinations → Snowflake → See Credentials** in the DataHawk App.
+- **Data sources connected**: Your Amazon and/or Walmart accounts are connected and collecting data. If not yet, see [Set up data](/help-center/data-setup) first.
+- **A DataHawk <Term>Snowflake</Term> database**: Activated and showing **Enabled** in your DataHawk App. Provisioning can take up to 4 hours. See [Send data to your tool](/help-center/connect-tools) if you haven't set one up.
+- **Your Snowflake credentials**: Available from **Setup → Destinations → Snowflake → See Credentials** in the DataHawk App.
 
 ## Set up
 
@@ -61,11 +61,11 @@ To keep your file up to date:
 
 1. In the **Data** tab, click **Queries & Connections**.
 2. Right-click on a query and select **Properties**.
-3. Tick **Refresh data when opening the file** — this updates data every time you open Excel.
+3. Tick **Refresh data when opening the file**: This updates data every time you open Excel.
 4. Optionally, tick **Refresh every 999 minutes** if you plan to keep the file open continuously.
 
 <Callout type="info">
-  **Why 999 minutes?** Excel's maximum scheduled refresh interval is 999 minutes (approximately 16 hours). Since DataHawk updates data once per day, refreshing when opening the file is sufficient for most users — the 999-minute option is only useful if you keep the file open across days.
+  **Why 999 minutes?** Excel's maximum scheduled refresh interval is 999 minutes (approximately 16 hours). Since DataHawk updates data once per day, refreshing when opening the file is sufficient for most users. The 999-minute option is only useful if you keep the file open across days.
 </Callout>
 </Step>
 
@@ -99,4 +99,4 @@ Excel is not designed for large datasets. Keep the following in mind:
 | Maximum rows per worksheet | 1,048,576 |
 | Maximum columns per worksheet | 16,384 |
 
-These limits can be hit quickly if you load unfiltered large tables. Use Power Query filters or write a SQL query to limit your dataset to what you actually need. If you regularly need to analyze large volumes of data, consider using [Power BI](/help-center/connect-tools/powerbi) instead — DataHawk offers pre-built Power BI templates covering sales, advertising, keywords, and more.
+These limits can be hit quickly if you load unfiltered large tables. Use Power Query filters or write a SQL query to limit your dataset to what you actually need. If you regularly need to analyze large volumes of data, consider using [Power BI](/help-center/connect-tools/powerbi) instead. DataHawk offers pre-built Power BI templates covering sales, advertising, keywords, and more.

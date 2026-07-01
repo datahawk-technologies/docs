@@ -1,21 +1,21 @@
 ---
 title: Amazon Product Pricing & Offers Intelligence
-description: How DataHawk tracks daily product offers, prices, and Buy Box information — and the data structure behind it.
+description: How DataHawk tracks daily product offers, prices, and Buy Box information, and the data structure behind it.
 ---
 
 DataHawk tracks daily product offers, prices, and featured offer (<Term>Buy Box</Term>) information for every product you monitor. This gives you a continuous, historical view of pricing movements and competitive offer dynamics on Amazon.
 
 ## What you can use it for
 
-- **Price monitoring and alerts** — track how your prices and competitors' prices change day to day
-- **<Term>Buy Box</Term> tracking** — see who holds the Buy Box, how often it rotates, and whether it is being suppressed
-- **Offer-level competition analysis** — understand how many sellers are competing on a listing and how their fulfillment methods (<Term>FBA</Term> vs <Term>FBM</Term>) differ
-- **Long-term trend analysis** — build a daily snapshot history of pricing and offer conditions for any product on Amazon
-- **Integration into BI tools, reporting, or ML models** — data is structured for direct use in dashboards and automated workflows
+- **Price monitoring and alerts**: Track how your prices and competitors' prices change day to day
+- **<Term>Buy Box</Term> tracking**: See who holds the Buy Box, how often it rotates, and whether it is being suppressed
+- **Offer-level competition analysis**: Understand how many sellers are competing on a listing and how their fulfillment methods (<Term>FBA</Term> vs <Term>FBM</Term>) differ
+- **Long-term trend analysis**: Build a daily snapshot history of pricing and offer conditions for any product on Amazon
+- **Integration into BI tools, reporting, or ML models**: Data is structured for direct use in dashboards and automated workflows
 
 ## Refresh frequency
 
-Data is delivered **daily by default**. Refresh frequency can be adjusted on demand — for example, twice a day or weekly — depending on your needs.
+Data is delivered **daily by default**. Refresh frequency can be adjusted on demand, for example, twice a day or weekly, depending on your needs.
 
 ## Data history
 
@@ -23,14 +23,14 @@ History is collected **moving forward from the date tracking is activated**. The
 
 ## Which products are covered
 
-**Seller-owned products (automatic)** — Products tied to a connected Seller account are auto-snapshotted daily without manual tracking. Enrichment runs for all paid customers' seller-owned products (checking listing, traffic, and order sources), so you get coverage by default when connecting an account.
+**Seller-owned products (automatic)**: Products tied to a connected Seller account are auto-snapshotted daily without manual tracking. Enrichment runs for all paid customers' seller-owned products (checking listing, traffic, and order sources), so you get coverage by default when connecting an account.
 
-**Manually tracked products** — Pricing & Offers Intelligence is also enabled for any product you explicitly track in DataHawk, including products outside your own catalog.
+**Manually tracked products**: Pricing & Offers Intelligence is also enabled for any product you explicitly track in DataHawk, including products outside your own catalog.
 
 ## Buy Box and Top Sales Rank semantics
 
 - **Buy Box scope:** DataHawk reports only the **New-condition** featured offer. Used-condition Buy Box information is no longer available.
-- **`buy_box_seller_uri` is null** — the field is no longer populated. Use `FEATURED_SELLER_ID` / `FEATURED_SELLER_NAME` on `AMZN_PRODUCT_FEATURED_OFFER` to identify the Buy Box owner instead.
+- **`buy_box_seller_uri` is null**: The field is no longer populated. Use `FEATURED_SELLER_ID` / `FEATURED_SELLER_NAME` on `AMZN_PRODUCT_FEATURED_OFFER` to identify the Buy Box owner instead.
 - **Top Sales Rank** is the rank of the **top-level category only**, not the best rank across all ranking categories. This keeps performance monitoring consistent by limiting node switches.
 
 See the [changelog entry](/changelog/2025-11-27-alerting-catalog-featured-offers-source) for context.

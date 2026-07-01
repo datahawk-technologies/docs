@@ -1,9 +1,9 @@
 ---
 title: Connect to Google Sheets
-description: Connect your DataHawk BigQuery database directly to Google Sheets for automatically refreshed data — no manual exports needed.
+description: Connect your DataHawk BigQuery database directly to Google Sheets for automatically refreshed data. No manual exports needed.
 ---
 
-Instead of exporting data manually, you can connect your DataHawk-powered <Term>BigQuery</Term> database directly to Google Sheets. This gives you automatically refreshed data inside a Google Sheets file — no downloads, no copy-pasting.
+Instead of exporting data manually, you can connect your DataHawk-powered <Term>BigQuery</Term> database directly to Google Sheets. This gives you automatically refreshed data inside a Google Sheets file. No downloads, no copy-pasting.
 
 <Callout type="info">
   Estimated setup time: under 5 minutes.
@@ -13,9 +13,9 @@ Instead of exporting data manually, you can connect your DataHawk-powered <Term>
 
 Before connecting Google Sheets, make sure you have:
 
-- **A DataHawk <Term>BigQuery</Term> database** — activated in your DataHawk App. If you haven't set one up yet, see [Send data to your tool](/help-center/connect-tools).
-- **Data sources connected** — your Amazon and/or Walmart accounts are connected and collecting data. If not yet, see [Set up data](/help-center/data-setup) first.
-- **Your Google email registered on the BigQuery access list** — go to **Setup → Destinations → BigQuery → Access** in the DataHawk App and add your email. DataHawk uses this to share access to templates.
+- **A DataHawk <Term>BigQuery</Term> database**: Activated in your DataHawk App. If you haven't set one up yet, see [Send data to your tool](/help-center/connect-tools).
+- **Data sources connected**: Your Amazon and/or Walmart accounts are connected and collecting data. If not yet, see [Set up data](/help-center/data-setup) first.
+- **Your Google email registered on the BigQuery access list**: Go to **Setup → Destinations → BigQuery → Access** in the DataHawk App and add your email. DataHawk uses this to share access to templates.
 
 ## Set up
 
@@ -72,7 +72,7 @@ Click **Connect**, then **Create an Extract**.
 
 ### 2. Create an Extract
 
-After connecting, you'll see only a preview of the data. An **Extract** loads the full results — up to 25,000 rows — with optional column selection, filters, and sorting.
+After connecting, you'll see only a preview of the data. An **Extract** loads the full results, up to 25,000 rows, with optional column selection, filters, and sorting.
 
 <Steps>
 
@@ -97,7 +97,7 @@ In the Extract Editor, choose the columns you need, add filters, and apply sorti
 <Step>
 ### Apply
 
-Click **Apply**. The Extract stays in sync with your query — refresh it to pull fresh data.
+Click **Apply**. The Extract stays in sync with your query. Refresh it to pull fresh data.
 </Step>
 
 </Steps>
@@ -135,7 +135,7 @@ Click **Save**.
 </Steps>
 
 <Callout type="info">
-  No need to refresh more frequently — DataHawk updates data once per day.
+  No need to refresh more frequently. DataHawk updates data once per day.
 </Callout>
 
 ## SQL query examples
@@ -218,7 +218,7 @@ Google Sheets is not designed for large datasets. Keep the following limits in m
 | Maximum Pivot Table rows | 30,000 |
 | Maximum total cells in a spreadsheet | 10 million |
 
-The best way to stay within these limits is to use filters in your queries — date ranges, specific ASINs, or joins to tracked products only. Aim to keep your working dataset under 25,000 rows.
+The best way to stay within these limits is to use filters in your queries; date ranges, specific ASINs, or joins to tracked products only. Aim to keep your working dataset under 25,000 rows.
 
 For larger datasets, consider using [BigQuery](/help-center/connect-tools/bigquery) directly with Looker Studio, or [<Term>Snowflake</Term>](/help-center/connect-tools/snowflake) with Power BI.
 

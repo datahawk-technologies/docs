@@ -34,13 +34,13 @@ These tables still resolve to active V7 data, so existing queries continue to re
 
 | Column | Level | Description |
 |---|---|---|
-| `WORKSPACE_ID` | — | DataHawk workspace identifier |
-| `OBSERVATION_DATE` | — | Date of the estimate |
-| `MARKETPLACE_KEY` | — | Amazon marketplace (US, FR, DE, etc.) |
-| `PRODUCT_KEY` | — | DataHawk internal product identifier |
+| `WORKSPACE_ID` |; | DataHawk workspace identifier |
+| `OBSERVATION_DATE` |; | Date of the estimate |
+| `MARKETPLACE_KEY` |; | Amazon marketplace (US, FR, DE, etc.) |
+| `PRODUCT_KEY` |; | DataHawk internal product identifier |
 | `ASIN` | Child | Child ASIN |
-| `PARENT_ASIN` | — | Parent ASIN |
-| `CURRENCY_CODE` | — | Local marketplace currency |
+| `PARENT_ASIN` |; | Parent ASIN |
+| `CURRENCY_CODE` |; | Local marketplace currency |
 | `BRAND` | Child | Latest known brand name |
 | `NAME` | Child | Latest known product name |
 | `UNITS_CHILD` | Child | Estimated daily units sold for this variant |
@@ -58,9 +58,9 @@ These tables still resolve to active V7 data, so existing queries continue to re
 | `IS_EXTRAPOLATED` | Child | `true` when the estimate was extrapolated because source data was missing |
 | `TAGS_ARRAY` | Child | Tags applied to this product in DataHawk |
 | `TRUST_INDEX` | Child | Model confidence score for this estimate |
-| `VARIATION_COUNT` | — | Number of known variants in the family |
+| `VARIATION_COUNT` |; | Number of known variants in the family |
 | `MODEL_VERSION` | Child | Version of the estimation model used |
-| `SYNC_TIME` | — | Last data sync timestamp |
+| `SYNC_TIME` |; | Last data sync timestamp |
 
 The V7 table no longer exposes `OBSERVED_CHANNEL_PRODUCT_ID`, `RATING`, or `RATING_COUNT`.
 

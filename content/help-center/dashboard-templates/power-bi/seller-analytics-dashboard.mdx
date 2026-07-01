@@ -1,9 +1,9 @@
 ---
 title: Seller Analytics Dashboard User Guide
-description: Complete guide to DataHawk's Seller Analytics Power BI Dashboard — covering advertising, traffic, sales, profitability, and inventory in one place.
+description: Complete guide to DataHawk's Seller Analytics Power BI Dashboard, covering advertising, traffic, sales, profitability, and inventory in one place.
 ---
 
-DataHawk's Seller Analytics Dashboard gives Seller Central managers a complete view of their business across advertising, traffic, sales, profitability, and inventory — all in one place. It covers both financial performance and operational health, making it suited for daily reporting as well as deeper weekly or monthly analysis.
+DataHawk's Seller Analytics Dashboard gives Seller Central managers a complete view of their business across advertising, traffic, sales, profitability, and inventory: all in one place. It covers both financial performance and operational health, making it suited for daily reporting as well as deeper weekly or monthly analysis.
 
 ## Questions this dashboard helps answer
 
@@ -21,7 +21,7 @@ DataHawk's Seller Analytics Dashboard gives Seller Central managers a complete v
 
 - [Seller Central account](/help-center/data-setup/seller-account) connected in DataHawk
 - [Advertising account](/help-center/data-setup/ads-account) connected in DataHawk
-- <Term>COGS</Term> uploaded to DataHawk (required for P&L tabs — see [Upload Product Expenses](/help-center/data-setup/cogs-amz-upload))
+- <Term>COGS</Term> uploaded to DataHawk (required for P&L tabs: See [Upload Product Expenses](/help-center/data-setup/cogs-amz-upload))
 
 **Set up:** Download and configure the Power BI template. See [Connect to Power BI](/help-center/connect-tools/powerbi).
 
@@ -31,15 +31,15 @@ DataHawk's Seller Analytics Dashboard gives Seller Central managers a complete v
 
 | Tab | What it shows |
 |---|---|
-| **Executive Report** | Top KPIs across sales, advertising, and inventory — weekly or monthly |
+| **Executive Report** | Top KPIs across sales, advertising, and inventory; weekly or monthly |
 | **Product Units Economics Report** | <Term>SKU</Term>-level unit economics including revenue, fees, and margins |
 | **Traffic Report** | Page views, sessions, conversion rate, and <Term>Buy Box</Term> win rate |
 | **Sales Report** | Orders, units sold, revenue, and average selling/order values |
 | **P&L Report** | Full profit and loss: gross revenue, fees, <Term>COGS</Term>, marketing, and net profit |
 | **Profit Explorer** | Flexible P&L exploration by product, brand, tag, or <Term>marketplace</Term> |
-| **Advertising — Advertising** | Advertising performance overview of the account |
-| **Advertising — Campaign** | Campaign-level ad performance (spend, sales, <Term>ACoS</Term>, <Term>RoAS</Term>, <Term>TACoS</Term>) |
-| **Advertising — Product** | Product-level ad performance for Sponsored Products and Display |
+| **Advertising: Advertising** | Advertising performance overview of the account |
+| **Advertising: Campaign** | Campaign-level ad performance (spend, sales, <Term>ACoS</Term>, <Term>RoAS</Term>, <Term>TACoS</Term>) |
+| **Advertising: Product** | Product-level ad performance for Sponsored Products and Display |
 | **<Term>FBA</Term> Recommendations** | Current FBA stock levels with Amazon and custom restock recommendations |
 | **Inventory Timeline** | 30-day history of inventory movements and fulfillment center status |
 | **Explorer** | Custom cross-metric analysis with flexible dimensions |
@@ -52,14 +52,14 @@ Most tabs let you switch between **Weekly**, **Monthly**, and **Quarterly** view
 
 **Week definition:** A week starts on Sunday.
 
-**What's selected by default:** When you open the dashboard, it preselects the most recently completed week, the current month, or the current quarter — depending on the view.
+**What's selected by default:** When you open the dashboard, it preselects the most recently completed week, the current month, or the current quarter; depending on the view.
 
 ### Comparison types
 
-- **PoP (Period over Period)** — % change versus the previous comparable period (WoW / MoM / QoQ, depending on granularity)
-- **YoY (Year over Year)** — % change versus the same period, prior year
-- **YTD (Year to Date)** — cumulative from January 1 to the end of the chosen reporting period
-- **Last 12 Months** — rolling 12-month total
+- **PoP (Period over Period)**: % change versus the previous comparable period (WoW / MoM / QoQ, depending on granularity)
+- **YoY (Year over Year)**: % change versus the same period, prior year
+- **YTD (Year to Date)**: Cumulative from January 1 to the end of the chosen reporting period
+- **Last 12 Months**: Rolling 12-month total
 
 <Callout type="info">
   For weekly granularity, YTD usually gives more useful context than Last 12 Months.
@@ -68,7 +68,7 @@ Most tabs let you switch between **Weekly**, **Monthly**, and **Quarterly** view
 ### How changes display
 
 - **Simple metrics** (e.g. revenue, units) show changes as a **percentage**.
-- **Ratio metrics** (e.g. conversion rate, <Term>ACoS</Term>) show changes in **bps** (basis points — 100 bps = 1 percentage point).
+- **Ratio metrics** (e.g. Conversion rate, <Term>ACoS</Term>) show changes in **bps** (basis points; 100 bps = 1 percentage point).
 
 ## Dashboard filters
 
@@ -233,8 +233,8 @@ All tabs share a common filter panel at the top. The same data can be sliced by:
   <Accordion title="FBA Recommendations">
     Two sections:
 
-    1. **Amazon FBA Recommendations** — Amazon's own restock suggestions, based on their algorithm.
-    2. **Custom FBA Recommendations** — your own restock logic, using three slicers: which inventory components to include, your lead time in days, and your target weeks on hand.
+    1. **Amazon FBA Recommendations**: Amazon's own restock suggestions, based on their algorithm.
+    2. **Custom FBA Recommendations**: Your own restock logic, using three slicers: Which inventory components to include, your lead time in days, and your target weeks on hand.
 
     The resulting table shows OOS Forecast date, Replenishment Date, and Replenishment Quantity per ASIN.
 
@@ -283,15 +283,15 @@ All tabs share a common filter panel at the top. The same data can be sliced by:
     </Callout>
 
     <Callout type="warn">
-      **Account-level fees (e.g. FBA storage fees)** are not attributed to individual products by Amazon. In a Brand or SKU breakdown, these will appear under **"No Brand"** or **"No SKU"**. This is expected behavior — include these rows when calculating your total costs.
+      **Account-level fees (e.g. FBA storage fees)** are not attributed to individual products by Amazon. In a Brand or SKU breakdown, these will appear under **"No Brand"** or **"No SKU"**. This is expected behavior; include these rows when calculating your total costs.
     </Callout>
 
     **How to Use the Download Center**
 
-    1. **Select Rows and Columns** — Use the **Rows** and **Columns** slicers to define how your data is structured. Rows typically define the primary breakdown (e.g., **Year, Country, ASIN**). Columns help create comparisons across categories (e.g., **Month Year, Selling Program**).
-    2. **Choosing Metrics (Values)** — The Metrics slicer consists of key performance indicators (KPIs) related to sales, profit and advertising performance. Users can select multiple metrics to include in the matrix.
-    3. **Drilling Down** — For in-depth analysis, users can drill down on rows or columns. This functionality helps navigate hierarchical data structures such as Year → Month → Week or Country → Brand → Seller Account.
-    4. **Downloading the Data** — Once the table is configured, users can export the dataset in a downloadable format (e.g., Excel, CSV) by using Power BI's built-in export feature.
+    1. **Select Rows and Columns**: Use the **Rows** and **Columns** slicers to define how your data is structured. Rows typically define the primary breakdown (e.g., **Year, Country, ASIN**). Columns help create comparisons across categories (e.g., **Month Year, Selling Program**).
+    2. **Choosing Metrics (Values)**: The Metrics slicer consists of key performance indicators (KPIs) related to sales, profit and advertising performance. Users can select multiple metrics to include in the matrix.
+    3. **Drilling Down**: For in-depth analysis, users can drill down on rows or columns. This functionality helps navigate hierarchical data structures such as Year → Month → Week or Country → Brand → Seller Account.
+    4. **Downloading the Data**: Once the table is configured, users can export the dataset in a downloadable format (e.g., Excel, CSV) by using Power BI's built-in export feature.
 
 <img
   src="/images/help-center/dashboard-templates/power-bi/seller-analytics-dashboard/seller-analytics-dashboard-14.png"
@@ -303,7 +303,7 @@ All tabs share a common filter panel at the top. The same data can be sliced by:
 
   </Accordion>
   <Accordion title="Product Catalog">
-    A reference table of all products being tracked, with their attributes (ASIN, name, brand, tags). Not an analytics tab — use it for quick product lookups or to verify which products are in scope.
+    A reference table of all products being tracked, with their attributes (ASIN, name, brand, tags). Not an analytics tab. Use it for quick product lookups or to verify which products are in scope.
   
   <img
   src="/images/help-center/dashboard-templates/power-bi/seller-analytics-dashboard/seller-analytics-dashboard-15.png"
@@ -361,11 +361,11 @@ Formulas used in this dashboard. Concept-level definitions for acronyms live in 
 
 This dashboard reads from your connected Seller Central and Advertising accounts. For a full column reference, see the [Exhaustive Column Referential](https://docs.google.com/spreadsheets/d/1gYGqKQP9Z71nz1lOb4y0wJ15i27NvsUzdliIJeIx0HY/edit#gid=175439716).
 
-- **Traffic** — `seller_retail_traffic_by_asin_src` (ASIN-level). As of February 2026 the dashboard reads ASIN-level traffic rather than SKU-level so page-view counts match Seller Central. Update any parallel custom queries to the ASIN-level source.
-- **Sales and orders** — Seller Central orders and finance feeds via the Selling Partner API.
-- **P&L** — `FINANCE.FINANCE_PROFIT_LEDGER` plus user-uploaded COGS for cost-of-goods application.
-- **Advertising** — Amazon Ads API daily feeds for Sponsored Products, Sponsored Brands, and Sponsored Display.
-- **Inventory** — Seller Central FBA inventory states (Available, Inbound, Working, FC Processing, FC Transfer, Researching, Reserved, Unfulfillable, MFN Fulfillable) plus Amazon's restock recommendations.
+- **Traffic**: `seller_retail_traffic_by_asin_src` (ASIN-level). As of February 2026 the dashboard reads ASIN-level traffic rather than SKU-level so page-view counts match Seller Central. Update any parallel custom queries to the ASIN-level source.
+- **Sales and orders**: Seller Central orders and finance feeds via the Selling Partner API.
+- **P&L**: `FINANCE.FINANCE_PROFIT_LEDGER` plus user-uploaded COGS for cost-of-goods application.
+- **Advertising**: Amazon Ads API daily feeds for Sponsored Products, Sponsored Brands, and Sponsored Display.
+- **Inventory**: Seller Central FBA inventory states (Available, Inbound, Working, FC Processing, FC Transfer, Researching, Reserved, Unfulfillable, MFN Fulfillable) plus Amazon's restock recommendations.
 
 ### Attribution and methodology
 
@@ -375,4 +375,4 @@ This dashboard reads from your connected Seller Central and Advertising accounts
 - **Amazon Fees** combine FBA/FBM fulfillment fees, referral fees, account fees, storage fees, and service fees.
 - **Account-level fees** (for example FBA storage) are not attributed to individual products by Amazon; in a Brand or SKU breakdown they appear under "No Brand" or "No SKU".
 - **Ad attribution** uses Amazon's 14-day post-click window. Ad Sales are split into Same-SKU and Other-SKU.
-- **Custom Inventory slicer** lets analysts pick which FBA inventory states feed Total Inventory, Total Weeks on Hand, OOS Forecast, Replenishment Date, and Replenishment Quantity. Replenishment Date subtracts configured lead time from OOS Forecast; Replenishment Quantity is derived from 30-day sales rate and target weeks on hand.
+- **Custom Inventory slicer** lets analysts pick which FBA inventory states feed Total Inventory, Total Weeks on Hand, OOS Forecast, Replenishment Date, and Replenishment Quantity. Replenishment Date subtracts configured lead time from OOS Forecast; replenishment Quantity is derived from 30-day sales rate and target weeks on hand.

@@ -1,6 +1,6 @@
 ---
 title: How to write effective MCP prompts
-description: How to phrase DataHawk MCP prompts so you get the right answer the first time — anatomy, domain vocabulary, patterns, and iteration tips.
+description: How to phrase DataHawk MCP prompts so you get the right answer the first time; anatomy, domain vocabulary, patterns, and iteration tips.
 ---
 
 Your AI assistant is only as good as the question you give it. This guide shows you how to phrase prompts so DataHawk MCP returns the right answer the first time.
@@ -13,12 +13,12 @@ Your AI assistant is only as good as the question you give it. This guide shows 
 
 Most disappointing answers come from a vague prompt. A solid DataHawk MCP prompt usually names six things:
 
-1. **The metric** — what you want to measure (revenue, <Term>ACOS</Term>, units, sessions, on-hand inventory, rating…)
-2. **The dimension** — how to break it down (by <Term>ASIN</Term>, by campaign, by keyword, by <Term>marketplace</Term>, by day…)
-3. **The time range** — be explicit ("March 2026", "last 30 days", "Q1 2026")
-4. **The marketplace** — "US", "all European marketplaces", "US + UK", etc.
-5. **The filter** — narrow the scope ("Sponsored Products only", "vendor brand X", "spend > \$500")
-6. **The output format** — table, ranked list, trend chart, short summary
+1. **The metric**: What you want to measure (revenue, <Term>ACOS</Term>, units, sessions, on-hand inventory, rating…)
+2. **The dimension**: How to break it down (by <Term>ASIN</Term>, by campaign, by keyword, by <Term>marketplace</Term>, by day…)
+3. **The time range**: Be explicit ("March 2026", "last 30 days", "Q1 2026")
+4. **The marketplace**: "US", "all European marketplaces", "US + UK", etc.
+5. **The filter**: Narrow the scope ("Sponsored Products only", "vendor brand X", "spend > \$500")
+6. **The output format**: Table, ranked list, trend chart, short summary
 
 You won't need all six every time, but the more you include, the closer the first answer lands.
 
@@ -96,22 +96,22 @@ The AI will run the steps in order, using each result as input to the next.
 
 If a number looks off, don't start over. Use this short diagnostic loop:
 
-**Step 1 — Ask to see the query.**
+**Step 1: Ask to see the query.**
 > *"Show me the DataHawk tool call you ran."*
 
-The AI will surface the exact filters, date range, and view it used. Most issues are visible at a glance — wrong marketplace, wrong date, missing filter.
+The AI will surface the exact filters, date range, and view it used. Most issues are visible at a glance; wrong marketplace, wrong date, missing filter.
 
-**Step 2 — Narrow the scope.**
+**Step 2: Narrow the scope.**
 
 If the result is empty or strange, shrink the question. Try one <Term>ASIN</Term>, one marketplace, one week. Once you see real numbers, expand back out.
 
-**Step 3 — Cross-check with the DataHawk app.**
+**Step 3: Cross-check with the DataHawk app.**
 
-Run the same date range and marketplace inside the DataHawk web app. If the numbers match, you're good. If they don't, ask the AI: *"Why might my answer differ from the DataHawk dashboard?"* — usually it's a currency or filter difference.
+Run the same date range and marketplace inside the DataHawk web app. If the numbers match, you're good. If they don't, ask the AI: *"Why might my answer differ from the DataHawk dashboard?"*. Usually it's a currency or filter difference.
 
-**Step 4 — Retry with sharper phrasing.**
+**Step 4: Retry with sharper phrasing.**
 
-Once you know what went wrong, rewrite the prompt with the missing element added. Don't ask the AI to "try again" — give it the new information directly.
+Once you know what went wrong, rewrite the prompt with the missing element added. Don't ask the AI to "try again". Give it the new information directly.
 
 ## Common mistakes and quick fixes
 
@@ -119,7 +119,7 @@ Once you know what went wrong, rewrite the prompt with the missing element added
 |---|---|
 | "Recently…" or "lately…" | Use an explicit range: "March 2026", "last 30 days" |
 | No marketplace specified | Add "in the US marketplace" or "across all European marketplaces" |
-| "All my data" | Pick one domain: sales, ads, inventory — broad scans hit timeouts |
+| "All my data" | Pick one domain: Sales, ads, inventory; broad scans hit timeouts |
 | Vague metric ("performance") | Use a real metric name: revenue, ACOS, units, sessions |
 | Asking for raw data, getting a summary | Add "Return as a markdown table with columns X, Y, Z" |
 | Asking why something happened but getting a list | Use diagnostic language: "Why did X drop?" triggers the investigation flow |
@@ -137,7 +137,7 @@ If the AI gives you a number without running a query, it might be guessing. Push
 
 The AI can join data across domains in a single question:
 
-> *"For my top 10 ASINs by revenue last 30 days, show me sales, ad spend, ACOS, sessions, and current <Term>FBA</Term> on-hand — all in one table."*
+> *"For my top 10 ASINs by revenue last 30 days, show me sales, ad spend, ACOS, sessions, and current <Term>FBA</Term> on-hand: all in one table."*
 
 ### Set defaults for a session
 
@@ -157,14 +157,14 @@ For full reusable templates, see [Ready-to-use prompts](/help-center/modules/dat
 
 When you send a prompt, your AI runs a four-step flow against DataHawk:
 
-1. **Plan** — your question gets routed to the right data view (sales, ads, inventory, etc.) along with required filters.
-2. **Discover** — if the view doesn't already have what's needed, the AI inspects the full catalog of metrics and dimensions.
-3. **Validate** — field names, filters, and date ranges get checked server-side before anything runs.
-4. **Load** — the query executes against your <Term>workspace</Term> and returns real numbers.
+1. **Plan**: Your question gets routed to the right data view (sales, ads, inventory, etc.) along with required filters.
+2. **Discover**: If the view doesn't already have what's needed, the AI inspects the full catalog of metrics and dimensions.
+3. **Validate**: Field names, filters, and date ranges get checked server-side before anything runs.
+4. **Load**: The query executes against your <Term>workspace</Term> and returns real numbers.
 
 For diagnostic questions (*"why did X happen?"*), the AI runs a parallel **investigate** flow that ranks hypotheses and gathers evidence across domains.
 
-Knowing this helps you write better prompts. When you specify a domain ("advertising"), a marketplace ("US"), and a time range ("last 30 days"), you're handing the planning step exactly what it needs — and that's why the answer comes back faster and more accurate.
+Knowing this helps you write better prompts. When you specify a domain ("advertising"), a marketplace ("US"), and a time range ("last 30 days"), you're handing the planning step exactly what it needs, and that's why the answer comes back faster and more accurate.
 
 ---
 

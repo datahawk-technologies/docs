@@ -15,27 +15,27 @@ DataHawk pulls data from two fundamentally different places: **Amazon and Walmar
 
 DataHawk collects data across millions of products, such as:
 
-- **Product information** — titles, descriptions, images, ratings, review counts
-- **Pricing** — listed price, <Term>buy box</Term> price, competitor pricing
-- **Best Seller Rank (<Term>BSR</Term>)** — category rankings
-- **Sales estimates** — estimated units sold per <Term>ASIN</Term> (DataHawk's own model, based on public signals)
-- **Keyword search volumes** — estimated monthly search frequency per keyword
-- **Organic and sponsored search rankings** — where a product appears for a given keyword
-- **Category structures** — Amazon's browse node tree
+- **Product information**: Titles, descriptions, images, ratings, review counts
+- **Pricing**: Listed price, <Term>buy box</Term> price, competitor pricing
+- **Best Seller Rank (<Term>BSR</Term>)**: Category rankings
+- **Sales estimates**: Estimated units sold per <Term>ASIN</Term> (DataHawk's own model, based on public signals)
+- **Keyword search volumes**: Estimated monthly search frequency per keyword
+- **Organic and sponsored search rankings**: Where a product appears for a given keyword
+- **Category structures**: Amazon's browse node tree
 
 You can access all of this for your own products *and* your competitors' products.
 
 ### Data that requires account connection
 
-Other data only exists inside your seller or vendor account — Those data can only be accessed with your explicit authorisation via Amazon's or Walmart's API.
+Other data only exists inside your seller or vendor account; those data can only be accessed with your explicit authorisation via Amazon's or Walmart's API.
 
 Private data includes:
 
-- **Orders and sales** — actual units sold, revenue, returns (from your account)
-- **Inventory levels** — stock on hand, inbound shipments, <Term>FBA</Term> storage
-- **Advertising data** — spend, impressions, clicks, <Term>ACoS</Term>, campaigns
-- **Profit and costs** — fees, <Term>COGS</Term>, net margin
-- **Vendor-specific data** — purchase orders, shipped cost of goods, vendor metrics
+- **Orders and sales**: Actual units sold, revenue, returns (from your account)
+- **Inventory levels**: Stock on hand, inbound shipments, <Term>FBA</Term> storage
+- **Advertising data**: Spend, impressions, clicks, <Term>ACoS</Term>, campaigns
+- **Profit and costs**: Fees, <Term>COGS</Term>, net margin
+- **Vendor-specific data**: Purchase orders, shipped cost of goods, vendor metrics
 
 You need to connect your Seller Central, Vendor Central, or Advertising account to DataHawk. See the [Set up data](/help-center/data-setup) section for step-by-step instructions.
 
@@ -53,11 +53,11 @@ Even after connecting your account, not all data appears instantly. The delay de
 | Advertising | Daily (D+2) | Amazon Ads API standard delay |
 | Vendor metrics | Weekly | Vendor Central API update cadence |
 
-"D+2" means data for a given day becomes available 2 days later. This is an Amazon-side constraint — DataHawk fetches data as soon as Amazon makes it available.
+"D+2" means data for a given day becomes available 2 days later. This is an Amazon-side constraint. DataHawk fetches data as soon as Amazon makes it available.
 
 ## What happens if you don't connect an account
 
-You can still use DataHawk without connecting any account — you'll have access to all public data. This is useful for product research, competitor monitoring, and keyword analysis.
+You can still use DataHawk without connecting any account. You'll have access to all public data. This is useful for product research, competitor monitoring, and keyword analysis.
 
 However, without an account connection, you will not see:
 
@@ -71,7 +71,7 @@ DataHawk dashboards that display private data will show empty or placeholder val
 
 ## Data collection across marketplaces
 
-If you sell in multiple countries (e.g., US, UK, Germany), DataHawk collects data **per marketplace independently**. Connecting your US Seller account does not automatically pull UK data — each marketplace requires its own configuration.
+If you sell in multiple countries (e.g., US, UK, Germany), DataHawk collects data **per marketplace independently**. Connecting your US Seller account does not automatically pull UK data. Each marketplace requires its own configuration.
 
 ---
 

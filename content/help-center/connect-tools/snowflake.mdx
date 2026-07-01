@@ -1,13 +1,13 @@
 ---
 title: Snowflake
-description: Connect DataHawk to Snowflake — a cloud-native data warehouse for use with Power BI, Excel, Tableau, and any SQL-compatible tool.
+description: Connect DataHawk to Snowflake; a cloud-native data warehouse for use with Power BI, Excel, Tableau, and any SQL-compatible tool.
 ---
 
 Snowflake is a cloud-native data warehouse built for performance and scale. DataHawk uses Snowflake as the hosted database for users who work with Power BI, Excel, Tableau, or any SQL-compatible tool outside of Google's ecosystem.
 
 ## Your DataHawk Snowflake database
 
-When you set up a Snowflake destination, DataHawk creates and manages a dedicated database containing all your collected data. You don't need to configure or maintain anything — we handle setup, scaling, and maintenance.
+When you set up a Snowflake destination, DataHawk creates and manages a dedicated database containing all your collected data. You don't need to configure or maintain anything. We handle setup, scaling, and maintenance.
 
 What's included:
 
@@ -15,7 +15,7 @@ What's included:
 - Optimized views, cleaned and enriched by DataHawk
 - No infrastructure management on your side
 
-DataHawk refreshes your Snowflake database every day. Not all data arrives at the same time — some datasets are populated later in the day depending on when Amazon's API makes them available. See the individual dataset pages in the Knowledge Hub for dataset-specific freshness details.
+DataHawk refreshes your Snowflake database every day. Not all data arrives at the same time. Some datasets are populated later in the day depending on when Amazon's API makes them available. See the individual dataset pages in the Knowledge Hub for dataset-specific freshness details.
 
 ## Option 1 — DataHawk-hosted Snowflake (recommended for most users)
 
@@ -66,13 +66,13 @@ Contact your DataHawk representative for details on how to track and manage your
 Since **November 2025**, all Snowflake Data Sharing queries are subject to a **default 30-minute timeout**. Queries that exceed 30 minutes are cancelled by the warehouse. This guardrail prevents runaway queries from consuming credits and is applied at the warehouse level for every customer.
 </Callout>
 
-**How to verify the limit:** In your SQL client, run `SHOW PARAMETERS LIKE 'STATEMENT_TIMEOUT_IN_SECONDS' IN WAREHOUSE <your_warehouse>;` — the value should be `1800` (seconds).
+**How to verify the limit:** In your SQL client, run `SHOW PARAMETERS LIKE 'STATEMENT_TIMEOUT_IN_SECONDS' IN WAREHOUSE <your_warehouse>;`: The value should be `1800` (seconds).
 
 **Write queries that finish in under 30 minutes:**
 
-- Filter early — restrict by `marketplace_key`, `date`, brand, or ASIN before joining wide tables.
+- Filter early: Restrict by `marketplace_key`, `date`, brand, or ASIN before joining wide tables.
 - Limit date ranges in exploratory queries (e.g. `WHERE date >= DATEADD(month, -3, CURRENT_DATE)`).
-- Use the curated `REPORTS.*` views when possible — they are pre-aggregated and substantially faster than building from raw layers.
+- Use the curated `REPORTS.*` views when possible. They are pre-aggregated and substantially faster than building from raw layers.
 - Avoid `SELECT *` on the largest raw tables (advertising, profit ledger, search). Project only the columns you need.
 - Break very large extracts into multiple smaller queries (e.g. month-by-month) rather than a single multi-year scan.
 
@@ -113,6 +113,6 @@ Power BI is the recommended tool for DataHawk users on Snowflake. DataHawk provi
   <Card
     title="Power BI Dashboards"
     href="/help-center/dashboard-templates/power-bi"
-    description="Browse the dashboard catalog — seller, advertising, vendor, market intelligence, and more."
+    description="Browse the dashboard catalog; seller, advertising, vendor, market intelligence, and more."
   />
 </div>

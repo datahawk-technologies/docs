@@ -17,11 +17,11 @@ Following the migration to accrual, some customers asked to roll back to the pre
 
 - No breaking change to current behavior.
 - **Changes to existing models:**
-  - `FINANCE_PROFIT_LEDGER` — addition of `accrual_date` and `recorded_date` (each reflecting events date depending on the method type). `posted_date` remains as an alias of `accrual_date`.
-  - `FINANCE_PROFIT` — addition of `date_day` (alias of `posted_date`).
-  - `FINANCE_PROFIT_METRICS` — addition of `date_day` (alias of `posted_date`).
+  - `FINANCE_PROFIT_LEDGER`: Addition of `accrual_date` and `recorded_date` (each reflecting events date depending on the method type). `posted_date` remains as an alias of `accrual_date`.
+  - `FINANCE_PROFIT`: Addition of `date_day` (alias of `posted_date`).
+  - `FINANCE_PROFIT_METRICS`: Addition of `date_day` (alias of `posted_date`).
 - **New models:**
-  - `FINANCE_PROFIT_RECORDED_BASIS` — daily profit aggregated on recorded date.
-  - `FINANCE_PROFIT_METRICS_RECORDED_BASIS` — daily profit aggregated on recorded date.
+  - `FINANCE_PROFIT_RECORDED_BASIS`: Daily profit aggregated on recorded date.
+  - `FINANCE_PROFIT_METRICS_RECORDED_BASIS`: Daily profit aggregated on recorded date.
 
 With this change, the ledger exposes both dates, and we provide pre-aggregated profit analysis models for each method.
