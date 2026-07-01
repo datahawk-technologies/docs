@@ -1,20 +1,12 @@
 {
   "title": "Data & Metrics Guide",
   "pages": [
-    "how-datahawk-sources-data",
-    "key-concepts",
-    "profitability-analysis",
-    "amz-sales-estimates",
-    "amz-product-pricing-offers-intelligence",
-    "inventory-and-replenishment",
-    "subscribe-save-performance-forecast",
-    "understanding-amazon-returns",
-    "amz-vendor-account-sourcing-manufacturing",
-    "advertising-performance",
-    "walmart-advertising",
-    "listing-quality-analysis",
-    "brand-analytics-sqp",
-    "keyword-research",
-    "auto-competitors-detection"
+    "foundation",
+    "search",
+    "content",
+    "competition",
+    "advertising",
+    "finance",
+    "inventory"
   ]
 }

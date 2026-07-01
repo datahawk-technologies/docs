@@ -1,9 +1,9 @@
 ---
-title: Key Concepts
-description: Core concepts that come up constantly in DataHawk — ASIN, SKU, Parent/Child ASINs, BSR, Marketplace vs Channel, and Walmart equivalents.
+title: DataHawk Data Concepts
+description: Core identifiers, marketplace concepts, Amazon Vendor views, and Walmart equivalents used across DataHawk.
 ---
 
-A few core concepts come up constantly in DataHawk dashboards and datasets. This page explains them in plain language so you're not caught off guard when you see them.
+A few core concepts come up constantly in DataHawk dashboards and datasets. This page explains them in plain language so you know what each identifier, marketplace concept, and platform-specific view means before reading the analysis guides.
 
 <Callout type="info">
   This page applies to both Amazon and Walmart unless otherwise noted.
@@ -37,7 +37,7 @@ Amazon groups product variations together using a **parent/child structure**:
 This distinction matters in DataHawk because some data is reported at the parent level (e.g., total product visibility in search) and other data at the child level (e.g., individual sales or inventory per variant). The platform will usually indicate which level a metric refers to.
 
 <Callout type="info">
-  **Amazon Sales Estimates note:** DataHawk now provides sales estimates at the child (variant) level by default. See the Amazon Sales Estimates page in Sales & Financials for details.
+  **Amazon Sales Estimates note:** DataHawk now provides sales estimates at the child (variant) level by default. See [Amazon Sales Estimates](/help-center/data-metrics-guides/competition/amz-sales-estimates) for details.
 </Callout>
 
 ## BSR — Best Seller Rank
@@ -64,16 +64,16 @@ DataHawk tracks data **per marketplace**. If you sell in multiple countries, eac
 
 ## Amazon Vendor views: Sourcing vs. Manufacturing
 
-Amazon Vendor Central can expose data through different reporting views. The two most important views are **Sourcing** and **Manufacturing**.
+Amazon Vendor Central can expose data through different reporting views. These views are controlled by Amazon's relationship with the ASIN, not by DataHawk. The two most important views are **Sourcing** and **Manufacturing**.
 
 | View | What it represents | Why it matters in DataHawk |
 |---|---|---|
 | Sourcing | Products Amazon purchases directly from your vendor account | You mainly see your own contribution to sales and inventory |
 | Manufacturing | Products that belong to your brand as the producer or brand owner | You can often see broader product performance, including sales, inventory, traffic, orders, and forecasting |
 
-If you see data in one view but not the other, it usually reflects Amazon's permissions and reporting model, not a DataHawk collection issue.
+If a product is available only in Sourcing, you may see sales and inventory data but miss traffic, forecasting, or some order-related metrics. If a product is available in Manufacturing, Amazon usually exposes a broader view of the product's total performance, whether Amazon bought the product directly from you or from another vendor.
 
-[Read the full guide](/help-center/data-metrics-guides/amz-vendor-account-sourcing-manufacturing)
+If you see data in one view but not the other, it usually reflects Amazon's permissions and reporting model, not a DataHawk collection issue. For troubleshooting steps, see [I cannot see data in manufacturing views, but I see it in sourcing](/troubleshooting/data-discrepancies/manufacturing-vs-sourcing-views).
 
 ## Walmart equivalents
 

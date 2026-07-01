@@ -13,12 +13,19 @@ Use this guide when Vendor Central data appears in Sourcing views but not Manufa
 
 ## Why is this happening?
 
+Amazon Vendor Central can expose data through two different reporting views:
+
+| View | What it represents | What DataHawk can usually show |
+|---|---|---|
+| Sourcing | Products Amazon purchases directly from your vendor account | Your contribution to sales and inventory |
+| Manufacturing | Products that belong to your brand as the producer or brand owner | Broader product performance, often including sales, inventory, traffic, orders, and forecasting |
+
 If a product appears only in **Sourcing**, it usually means:
 
 - Amazon **does not recognize your account as the manufacturer for this ASIN**, or
 - The ASIN is not linked to your **brand/manufacturing scope** in Vendor Central
 
-[Learn more about sourcing and manufacturing view and the impact on DataHawk](/help-center/data-metrics-guides/amz-vendor-account-sourcing-manufacturing)
+This can cause DataHawk dashboards to show sales or inventory while traffic, forecasting, or some order-related metrics stay empty. That does not necessarily mean DataHawk failed to collect the data; it often means Amazon did not expose that metric for your account relationship.
 
 ## What you can check
 
