@@ -13,6 +13,10 @@ import type { Metadata } from 'next';
 import { PostHog } from '@/components/PostHog';
 
 export const metadata: Metadata = {
+  icons: {
+    icon: '/favicon.ico',
+    shortcut: '/favicon.ico',
+  },
   alternates: {
     types: {
       'application/rss+xml': '/feed.xml',
