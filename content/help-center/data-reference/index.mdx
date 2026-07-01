@@ -65,9 +65,9 @@ These simplified flows help you choose the right family before opening the Sheet
 
 ```text
 FINANCE_EVENTS
-  -> FINANCE_PROFIT_LEDGER
-  -> FINANCE_PROFIT / FINANCE_PROFIT_LOSS
-  -> FINANCE_PRODUCT_PROFIT_LOSS
+FINANCE_PROFIT_LEDGER
+FINANCE_PROFIT / FINANCE_PROFIT_LOSS
+FINANCE_PRODUCT_PROFIT_LOSS
 ```
 
 For profit-specific fields, event timing, and use-case queries, see [Amazon Seller Profit Data](/help-center/data-reference/amz-seller-profit-data).
@@ -76,9 +76,9 @@ For profit-specific fields, event timing, and use-case queries, see [Amazon Sell
 
 ```text
 SELLER_INVENTORY_LEDGER_DETAIL
-  -> SELLER_INVENTORY_LEDGER_SUMMARY
-  -> SELLER_INVENTORY_FBA_HISTORY_DAILY
-  -> SELLER_INVENTORY_FBA_PLANNING
+SELLER_INVENTORY_LEDGER_SUMMARY
+SELLER_INVENTORY_FBA_HISTORY_DAILY
+SELLER_INVENTORY_FBA_PLANNING
 ```
 
 For inventory examples and operational query patterns, see [Amazon Inventory Data](/help-center/data-reference/amz-inventory-data).
@@ -87,9 +87,9 @@ For inventory examples and operational query patterns, see [Amazon Inventory Dat
 
 ```text
 ADVERTISING_ACCOUNT_METRICS
-  -> ADVERTISING_CAMPAIGN_METRICS
-  -> ADVERTISING_KEYWORD_METRICS_V2
-  -> ADVERTISING_PRODUCT_METRICS
+ADVERTISING_CAMPAIGN_METRICS
+ADVERTISING_KEYWORD_METRICS_V2
+ADVERTISING_PRODUCT_METRICS
 ```
 
 For Walmart-specific advertising tables, see [Walmart Advertising Data](/help-center/data-reference/wmt-advertising-data).
@@ -98,8 +98,8 @@ For Walmart-specific advertising tables, see [Walmart Advertising Data](/help-ce
 
 ```text
 PRODUCT.PRODUCT_SALES_ESTIMATES
-  -> MARKET.PRODUCT_SALES_ESTIMATES
-  -> REPORTS.REPORT_MARKET_BEST_SELLER_RANK_AND_ESTIMATES
+MARKET.PRODUCT_SALES_ESTIMATES
+REPORTS.REPORT_MARKET_BEST_SELLER_RANK_AND_ESTIMATES
 ```
 
 For V7 tables, aliases, key columns, grain, and FAQ, see [Sales Estimates Data](/help-center/data-reference/sales-estimates-data).

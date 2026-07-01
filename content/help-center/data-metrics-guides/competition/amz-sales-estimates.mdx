@@ -68,7 +68,7 @@ To receive sales estimates, you need to track **at least one of the following:**
 
 Amazon products often have multiple variations, such as sizes, colors, or pack counts, grouped under one parent ASIN. Parent-level estimates help with market share, brand comparison, and category sizing. Child-level estimates help with variant and SKU planning when you need to know which exact version of a product is driving sales.
 
-V7 generates estimates **natively at the variant (child ASIN) level**. From there, the same data rolls up to parent and brand for higher-level analysis.
+We generate estimated sales **natively at the variant (child ASIN) level**. From there, the same data rolls up to parent and brand for higher-level analysis.
 
 | Level | What it represents | When to use |
 |---|---|---|
@@ -78,7 +78,7 @@ V7 generates estimates **natively at the variant (child ASIN) level**. From ther
 
 ## Data history by marketplace
 
-Two full years of history are maintained to support year-over-year analysis. On June 15, 2026, the full June-2024-onwards history was reprocessed with the V7 model, so historical values may differ from what you saw under V5/V6.
+Two full years of history are maintained to support year-over-year analysis. 
 
 ## Precision
 
@@ -100,15 +100,15 @@ DataHawk monitors <Term>BSR</Term> for all products in tracked categories daily.
 </Step>
 
 <Step>
-### Apply the V7 model per category
+### Apply the model per category
 
-A rank of #50 in one category can represent a very different sales velocity than #50 in another. DataHawk calibrates estimates by category so rank position is translated into category-specific daily unit estimates. V7 also considers more market signals than previous versions to better reflect actual demand and cover a broader set of products.
+A rank of #50 in one category can represent a very different sales velocity than #50 in another. DataHawk calibrates estimates by category so rank position is translated into category-specific daily unit estimates.
 </Step>
 
 <Step>
 ### Estimate at the variant level
 
-V7 outputs estimated daily units and revenue **at the variant (child ASIN) level** directly, without going through a parent-then-distribute step.
+Our outputs estimate daily units and revenue **at the variant (child ASIN) level** directly, without going through a parent-then-distribute step.
 </Step>
 
 <Step>
