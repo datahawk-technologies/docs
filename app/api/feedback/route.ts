@@ -14,7 +14,7 @@
  * Required env vars (see .env.local.example):
  *   SLACK_FEEDBACK_WEBHOOK_URL  — Incoming Webhook pointing at #docs-gaps
  *   POSTHOG_API_KEY             — server-side project API key
- *   POSTHOG_HOST                — optional, defaults to https://eu.posthog.com
+ *   POSTHOG_HOST                — optional, defaults to https://eu.i.posthog.com
  */
 
 import { NextRequest, NextResponse } from 'next/server';
@@ -26,6 +26,7 @@ type FeedbackPayload = {
 };
 
 const SITE_ORIGIN = 'https://docs.datahawk.co';
+const DEFAULT_POSTHOG_HOST = 'https://eu.i.posthog.com';
 
 export async function POST(req: NextRequest) {
   let body: FeedbackPayload;
@@ -103,8 +104,11 @@ async function sendToSlack({ page, comment }: { page: string; comment?: string }
 
 async function sendToPostHog({ rating, page, comment }: FeedbackPayload) {
   const key = process.env.POSTHOG_API_KEY;
-  const host = process.env.POSTHOG_HOST || 'https://eu.posthog.com';
-  if (!key) return; // silently no-op locally
+  const host = getPostHogHost();
+  if (!key) {
+    console.warn('[feedback] POSTHOG_API_KEY is not configured; skipping PostHog dispatch');
+    return;
+  }
 
   // Use the page URL as the distinct_id so PostHog groups feedback by page
   // without ever associating it to a real user (docs site is anonymous).
@@ -117,6 +121,7 @@ async function sendToPostHog({ rating, page, comment }: FeedbackPayload) {
       page,
       comment: comment ?? null,
       $current_url: `${SITE_ORIGIN}${page}`,
+      $process_person_profile: false,
     },
     timestamp: new Date().toISOString(),
   };
@@ -129,4 +134,15 @@ async function sendToPostHog({ rating, page, comment }: FeedbackPayload) {
   if (!res.ok) {
     throw new Error(`PostHog returned ${res.status}: ${await res.text()}`);
   }
+}
+
+function getPostHogHost() {
+  const configuredHost = process.env.POSTHOG_HOST?.replace(/\/+$/, '');
+
+  if (!configuredHost) return DEFAULT_POSTHOG_HOST;
+
+  // PostHog capture API calls must use the ingestion host, not the app host.
+  if (configuredHost === 'https://eu.posthog.com') return DEFAULT_POSTHOG_HOST;
+
+  return configuredHost;
 }
