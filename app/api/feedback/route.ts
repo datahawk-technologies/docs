@@ -63,8 +63,11 @@ export async function POST(req: NextRequest) {
 }
 
 async function sendToSlack({ page, comment }: { page: string; comment?: string }) {
-  const url = process.env.SLACK_FEEDBACK_WEBHOOK_URL;
-  if (!url) return; // silently no-op in local dev where webhook isn't configured
+  const url = getSlackWebhookUrl();
+  if (!url) {
+    console.warn('[feedback] SLACK_FEEDBACK_WEBHOOK_URL is not configured; skipping Slack dispatch');
+    return;
+  }
 
   const fullUrl = `${SITE_ORIGIN}${page}`;
   const message = {
@@ -100,6 +103,18 @@ async function sendToSlack({ page, comment }: { page: string; comment?: string }
   if (!res.ok) {
     throw new Error(`Slack webhook returned ${res.status}: ${await res.text()}`);
   }
+}
+
+function getSlackWebhookUrl() {
+  const configuredUrl = process.env.SLACK_FEEDBACK_WEBHOOK_URL?.trim();
+  if (!configuredUrl) return undefined;
+
+  // Tolerate accidentally pasted Markdown links:
+  // [https://hooks.slack.com/services/...](https://hooks.slack.com/services/...)
+  const markdownMatch = configuredUrl.match(/^\[[^\]]+\]\((https:\/\/hooks\.slack\.com\/services\/[^)]+)\)$/);
+  if (markdownMatch) return markdownMatch[1];
+
+  return configuredUrl;
 }
 
 async function sendToPostHog({ rating, page, comment }: FeedbackPayload) {

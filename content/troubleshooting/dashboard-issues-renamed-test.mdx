@@ -1,0 +1,52 @@
+---
+title: Dashboard issues
+description: Power BI or Looker Studio dashboards that won't load, show empty results, have broken filters, or numbers that look unexpected.
+---
+
+Power BI or Looker Studio dashboards aren't behaving as expected. Most issues are filter-related, currency-related, or a known limitation of a specific dashboard template.
+
+## Quick checks first
+
+1. **Did you refresh the data?** Right-click the dataset in Power BI → Refresh. The dashboard reads from a cached extract.
+2. **Are all filters set correctly?** Marketplace, currency, account, tag, and brand filters can each silently filter to zero.
+3. **Have you opened the latest version of the template?** Templates get updated regularly.
+
+
+## Common scenarios
+
+### Dashboard won't load
+
+| Symptom | Likely cause | Fix |
+|---|---|---|
+| "Failed to test the connection" | Snowflake/BigQuery credentials wrong | See [Connection failures](/troubleshooting/connection-failures) |
+| Empty visuals across the whole dashboard | Data source not refreshed | Refresh the dataset in Power BI / Looker Studio |
+| Visual shows error icon | Field renamed in DataHawk's schema | Update the visual's field reference. Check the [Changelog](/changelog) for schema changes |
+
+### Empty results with filters applied
+
+| Symptom | Likely cause | Fix |
+|---|---|---|
+| Vendor Analytics → Best Seller Product is empty | Filter combination has no data | Loosen filters one at a time until results appear; common culprits are Distribution View (sourcing/manufacturing) and Selling Program |
+| Sales appear but Ads don't | Ad account not linked to the same marketplace as the Seller account | Check Workspace → Integrations |
+
+### Numbers look wrong
+
+| Symptom | Likely cause | Fix |
+|---|---|---|
+| Ad sales > total sales | Multi-account attribution issue | Filter to one account at a time to verify |
+| BSR limited to 12 months | Template historical window | This is a current template limitation. Full BSR history is in the underlying `report_market_best_seller_rank_and_estimates` table |
+| Profit Explorer P&L doesn't match pivot export | Different aggregation logic | The pivot export uses raw ledger data; the dashboard rolls up by category. They should match at marketplace+month grain but can differ at finer grain |
+| Currency picker shows wrong values | Currency conversion bug (Analytics Essentials Looker Studio dashboard) | Known issue. Confirm the currency parameter on the dashboard's data source matches the visual filter |
+
+
+If you're on an older version, [download the latest template](https://datahawk.notion.site/Download-Power-BI-Templates-72b20d0f42904086aae9fbe485883dfb).
+
+---
+
+## Still stuck?
+
+Email [support@datahawk.co](mailto:support@datahawk.co) with:
+- The dashboard name and version (look at the bottom-right of any Power BI tab for the version date)
+- The specific visual or tab that's broken
+- A screenshot showing the issue and the active filters
+- Your workspace ID
