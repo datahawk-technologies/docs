@@ -1,0 +1,55 @@
+---
+title: FBA Inventory Planning Data
+description: Reference for SELLER_INVENTORY_FBA_PLANNING, DataHawk's daily FBA inventory health snapshot covering stock, aging, velocity, and Amazon's recommendations.
+---
+
+`SELLING_PARTNER.SELLER_INVENTORY_FBA_PLANNING` is sourced from Amazon's FBA Manage Inventory Health Report (`GET_FBA_INVENTORY_PLANNING_DATA`). It's a daily country-level snapshot of every <Term>FBA</Term> <Term>SKU</Term>, combining stock levels, inventory aging, sales velocity, inbound pipeline, storage costs, and Amazon's own action recommendations in one place. It mirrors what you see on the Manage FBA Inventory page in Seller Central, so you can spot aging and excess stock before fees hit and validate Amazon's restock or removal suggestions.
+
+## Freshness & coverage
+
+| Field | Value |
+|---|---|
+| **Refresh** | Daily |
+| **Geographic scope** | Country level. All marketplaces except **NL, PL, SE, and BE** |
+| **Grain** | One row per <Term>ASIN</Term> × <Term>FNSKU</Term> × SKU × snapshot date × <Term>marketplace</Term> |
+
+<Callout type="info">
+  `report_date` is the date the report was requested. `snapshot_date` reflects the actual date of the inventory data in the report.
+</Callout>
+
+## What's in it
+
+- **Stock levels** — Available units, unfulfillable stock, pending removals, and inbound units broken down by stage (working, shipped, received).
+- **Reserved inventory** — Reserved quantity splits into four components: FC Transfer, FC Processing, Customer Order, and Staging. We surface two totals: `RESERVED_QUANTITY` (Amazon's own reserved figure) and `RESERVED_QUANTITY_INCLUDING_TRANSFER` (our sum of all four components). These totals aren't always equal — see [Limitations](#limitations) below.
+- **Inventory aging** — Units bucketed by how long they've been in Amazon's fulfillment centers, from 0-30 days up to 365+ days.
+
+<Callout type="info">
+  For **US, DE, UK, FR, IT, and ES**, the 365+ band splits into two finer buckets: `inv_age_366_to_455_days` and `inv_age_456_plus_days`. These pair with projected aged-inventory surcharge fees per band (`estimated_ais_*` fields), so you can see exactly what you'll be charged if aged stock isn't cleared.
+</Callout>
+
+- **Sales velocity** — Units shipped and revenue over the last 7, 30, 60, and 90 days, plus a flag for SKUs with no sales in the past 6 months.
+- **Supply & demand** — Days of supply, weeks of cover (T30 and T90), sell-through rate, and estimated excess quantity. A large gap between T30 and T90 weeks of cover signals a velocity change.
+- **Pricing** — The price of the product's featured offer.
+- **Storage costs** — Estimated storage fee for next month and per-unit volume data.
+- **Amazon recommendations** — Suggested actions (reprice, remove, restock), recommended prices and quantities, projected savings, and an overall inventory health status flag per SKU.
+
+## Questions this dataset answers
+
+- What's my current sellable stock by SKU and country?
+- Why is my available quantity lower than expected?
+- Which SKUs have inventory older than 180 days, and what will it cost me?
+- What's my total projected aged-inventory surcharge for next month?
+- Which SKUs have had no sales in 6 months?
+- Do I have excess inventory relative to current demand?
+- Which SKUs does Amazon recommend removing or repricing, and what are the projected savings?
+- Are my reserved units stuck in FC staging, or just allocated to open orders?
+- How much aged inventory (365+ days) do I have, accounting for the marketplace split in the 366-455 and 456+ buckets?
+- Do my two reserved-quantity totals agree, or is there a gap worth investigating?
+
+## Limitations
+
+- **NL, PL, SE, and BE aren't supported.** These marketplaces aren't covered by this report.
+- **No warehouse-level detail.** Data sits at the country level. For warehouse-level movements, use `SELLER_INVENTORY_LEDGER_DETAIL`.
+- **`RESERVED_QUANTITY` and `RESERVED_QUANTITY_INCLUDING_TRANSFER` can differ.** For some marketplaces, Amazon's reported reserved figure doesn't fully reflect FC Transfer units. We recompute a second total from the four reserved components to capture these units.
+- **The 365+ day aging bucket splits for six marketplaces.** For US, DE, UK, FR, IT, and ES, `inv_age_365_plus_days`, `quantity_to_be_charged_ais_365_plus_days`, and `estimated_ais_365_plus_days` aren't populated. Use the split fields instead: `inv_age_366_to_455_days` / `inv_age_456_plus_days`, `quantity_to_be_charged_ais_366_455_days` / `quantity_to_be_charged_ais_456_plus_days`, and `estimated_ais_366_455_days` / `estimated_ais_456_plus_days`. For all other marketplaces, the single 365+ fields remain the source of truth.
+- **Amazon's recommendations are signals, not directives.** Always cross-check `WEEKS_OF_COVER_T30` and `ESTIMATED_EXCESS_QUANTITY` before acting on a removal or restock suggestion.
