@@ -14,6 +14,7 @@
     "amz-datahawk-reports", 
     "amz-inventory-data",
     "fba-seller-inventory-fba-planning",
+    "fbm-seller-inventory-all-listings",
     "amz-removal-data", 
     "amz-replenishment", 
     "amz-returns-data", 
