@@ -1,0 +1,58 @@
+---
+title: "FBM Seller Inventory"
+description: "Daily snapshot of FBM stock levels, pricing, and listing status (active/inactive/suppressed) by SKU and marketplace."
+---
+
+**Source:** Amazon All Listings Report (`GET_MERCHANT_LISTINGS_ALL_DATA`).
+
+In DataHawk, this is modeled as `SELLER_INVENTORY_ALL_LISTINGS` — the latest snapshot per ASIN × SKU. For a fully historized version tracking every change over time, see `SELLER_INVENTORY_ALL_LISTINGS_HISTORY`.
+
+## What this dataset is
+
+A daily snapshot of your entire Amazon catalog - every SKU you've listed, regardless of fulfillment method or status. It shows how each listing is currently set up: its price, quantity, condition, and whether Amazon considers it active and buyable.
+
+For **FBM sellers**, this is the primary place to check your live inventory levels, since FBM stock is seller-managed and doesn't appear in FBA inventory tables. For **FBA sellers**, it's most useful as a catalog health check - confirming which listings are active, suppressed, or inactive - rather than for stock quantities (FBA quantity is not populated here; use `SELLER_INVENTORY_FBA_PLANNING` for that).
+
+---
+
+## Freshness & coverage
+
+| | |
+| --- | --- |
+| **Refresh** | Daily |
+| **Geographic scope** | Marketplace level |
+| **Grain** | One row per SKU × marketplace |
+
+---
+
+## What's in it
+
+- **Listing identity** — ASIN, SKU, FNSKU, product name, and condition. Covers your full catalog including listings that are inactive or suppressed.
+
+- **Status** — Whether the listing is active, inactive, incomplete, or suppressed. This is the key field for diagnosing why a product isn't showing up on Amazon.
+
+- **Pricing** — Your current selling price.
+
+- **FBM quantity** — The quantity you have declared as available for merchant-fulfilled orders. This is the live sellable stock figure for FBM.
+
+- **Listing details** — Open date, product group, merchant shipping group, and whether the listing is in the Buy Box.
+
+---
+
+## Questions you can answer
+
+- Which of my listings are currently active vs. inactive or suppressed?
+- What is my current FBM stock level by SKU and marketplace?
+- What price am I listing each SKU at across marketplaces?
+- Which SKUs exist in my catalog but aren't buyable right now?
+- When was each listing first created?
+- Do I have duplicate SKUs mapped to the same ASIN?
+
+---
+
+## Limitations
+
+- **FBA quantity is not available here.** The quantity field reflects FBM stock only. For FBA inventory use `SELLER_INVENTORY_FBA_PLANNING`.
+- **Snapshot only, no history.** This table always reflects the current state. To track how listings or prices changed over time, use `SELLER_INVENTORY_ALL_LISTINGS_HISTORY`.
+- **No sales or velocity data.** This is a catalog snapshot, not a performance report. It won't tell you how fast SKUs are selling.
+- **Suppression reasons are not included.** If a listing is suppressed, you'll see the status but not the reason. Check Seller Central directly to resolve suppression issues.

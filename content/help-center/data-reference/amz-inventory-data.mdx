@@ -11,28 +11,15 @@ This guide explains Amazon inventory datasets for tracking stock, resolving disc
   If your goal is simply to see your <Term>ASIN</Term>/<Term>SKU</Term> inventory the same way Seller Central shows it, use:
 
   - **<Term>FBA</Term> → [`SELLER_INVENTORY_FBA_PLANNING`](/help-center/data-reference/fba-seller-inventory-fba-planning)**: FBA qty with AI-driven recommendations for aged stock and removals
-  - **<Term>FBM</Term> → `SELLER_INVENTORY_ALL_LISTINGS`**: Your catalog with pricing and availability for <Term>MFN</Term>
+  - **<Term>FBM</Term> → [`SELLER_INVENTORY_ALL_LISTINGS`](/help-center/data-reference/fbm-seller-inventory-all-listings.mdx)**: Your catalog with pricing and availability for <Term>MFN</Term>
 
   These tables show your day-to-day inventory quantities at the country level with key fields: stock, aging, health, and availability.
 </Callout>
 
-## Inventory Datasets
-
-<Callout type="warn">
-  Tables labeled **No deduplication** below return raw snapshots with possible duplicate rows. Deduplicate in your own query (e.g. by `OBSERVATION_DATE` + `SKU` + `FULFILLMENT_CENTER`) before aggregating.
-</Callout>
-
-| Schema | View | Purpose | Data Freshness | Geographic Scope |
-|---|---|---|---|---|
-| **RAW_INVENTORY** | `RAW_INVENTORY_FBA` | Latest snapshot of FBA inventory (sellable/unsellable stock, inbound shipments). **No deduplication** | Daily | Region-based |
-| **RAW_INVENTORY** | `RAW_INVENTORY_FBA_HISTORY` | Daily historical snapshots of FBA inventory. **No deduplication** | Daily | Region-based |
-| **SELLING_PARTNER** | `SELLER_INVENTORY_FBA_HISTORY_DAILY` | Daily seller-level inventory snapshots. **No deduplication** | Daily | Region-based |
-| **RAW_INVENTORY** | `RAW_INVENTORY_RESTOCK_RECOMMENDATIONS` | Amazon's restock advice for SKUs with ≤14 days of supply | Daily | MX, FR, DE, CA, JP, US, IT, ES, GB |
-| **SELLING_PARTNER** | `SELLER_INVENTORY_LEDGER_DETAIL` | Granular log of all inventory movements (shipments, returns, adjustments, removals); past 18 months | Daily (≤3 day delay) | Region + Country + warehouse |
-| **SELLING_PARTNER** | `SELLER_INVENTORY_LEDGER_SUMMARY` | Daily aggregated view of inventory health | Daily (≤3 day delay) | Region + Country + warehouse |
-| **SELLING_PARTNER** | `SELLER_INVENTORY_FBA_PLANNING` | FBA qty, AI-driven recommendations for aged stock, pricing, and removals | Daily | All except MX |
-| **SELLING_PARTNER** | `SELLER_INVENTORY_ALL_LISTINGS` | Snapshot of your catalog. Current pricing and quantity for <Term>MFN</Term> | Daily | <Term>Marketplace</Term> Key |
-
+## Decision Flowchart
+ 
+This diagram acts as a decision tree to identify which inventory tables address your specific needs. Start with your question (e.g. "What's my current stock?" or "Why did inventory change?") and follow the branches to locate datasets for real-time snapshots, historical trends, restock alerts, or logistics planning.
+ 
 <img
   src="/images/help-center/knowledge-hub/amz-inventory-data/amz-inventory-data-1.png"
   alt="Inventory Dataset Decision Tree"
@@ -41,8 +28,43 @@ This guide explains Amazon inventory datasets for tracking stock, resolving disc
   className="rounded-lg border"
 />
 
-## Practical Scenarios & Example Queries
 
+## Inventory Datasets
+ 
+All tables live in either the `RAW_INVENTORY` or `SELLING_PARTNER` schema (noted per table below).
+ 
+
+### Start here — covers most questions
+ 
+| Schema | View | Purpose | Freshness | Coverage |
+|---|---|---|---|---|
+| `SELLING_PARTNER` | `SELLER_INVENTORY_FBA_PLANNING` | <Term>FBA</Term> stock, aging, pricing/removal recommendations | Daily | All marketplaces except NL, PL, SE, BE |
+| `SELLING_PARTNER` | `SELLER_INVENTORY_ALL_LISTINGS` | <Term>FBM</Term> price, status, quantity | Daily | All marketplaces |
+ 
+### For specific needs
+ 
+| Schema | View | Use it for | Why not the default? | Freshness | Coverage |
+|---|---|---|---|---|---|
+| `SELLING_PARTNER` | `SELLER_INVENTORY_LEDGER_DETAIL` | Transaction-level reason for a stock change | Planning shows current state only — it doesn't log individual transactions or their causes | Daily | Country + warehouse |
+| `SELLING_PARTNER` | `SELLER_INVENTORY_LEDGER_SUMMARY` | Net stock-change rollup by country/warehouse | Same gap as above, but lighter-weight than pulling every Ledger Detail row | Daily | Country + warehouse |
+| `RAW_INVENTORY` | `RAW_INVENTORY_RESTOCK_RECOMMENDATIONS` | Amazon's dedicated stock alert + reorder qty/date | Real overlap with Planning, not a clean split — see note below | Daily (with a gap, since Amazon takes time to process recommendations) | — |
+| `RAW_INVENTORY` | `RAW_INVENTORY_RESTOCK_RECOMMENDATIONS_HISTORY` | Trend of the restock alert above | Same purpose as the restock report, just historized | Daily | Same as above |
+| `SELLING_PARTNER` | `SELLER_INVENTORY_ALL_LISTINGS_HISTORY` | Trend of <Term>FBM</Term> price/status/quantity | Listings only gives the latest snapshot — this is its historized counterpart | Daily | All marketplaces |
+ 
+<Callout type="info">
+  **Restock signals overlap.** `SELLER_INVENTORY_FBA_PLANNING` carries a parallel signal via `recommended_action = 'GoToRestock'` with `recommended_ship_in_quantity` / `recommended_ship_in_date`. It's not a clean split from `RAW_INVENTORY_RESTOCK_RECOMMENDATIONS` — check both if you're building alerts.
+</Callout>
+### Legacy or internal — avoid querying directly
+ 
+| Schema | View | Why it exists | Why not just use it? |
+|---|---|---|---|
+| `RAW_INVENTORY` | `RAW_INVENTORY_FBA` *(deprecated)* | Raw feed behind older dashboards | Superseded by `FBA_PLANNING`, which gives the same current-stock numbers at finer (marketplace vs. region) granularity, plus aging and recommendations on top |
+| `RAW_INVENTORY` | `RAW_INVENTORY_FBA_HISTORY` *(deprecated)* | Historized version of the report above | Same limitation as `RAW_INVENTORY_FBA` |
+| `SELLING_PARTNER` | `SELLER_INVENTORY_FBA_HISTORY_DAILY` | Region-level daily trend | Region-level, while Planning is country level |
+
+## How Tables Connect
+ 
+The diagram below traces how raw Amazon reports feed into the transformed views available in your database.
 <img
   src="/images/help-center/knowledge-hub/amz-inventory-data/amz-inventory-data-2.png"
   alt="Inventory Source Reports Flow"
@@ -51,54 +73,109 @@ This guide explains Amazon inventory datasets for tracking stock, resolving disc
   className="rounded-lg border"
 />
 
-### "How much sellable AFN stock do I have for SKU-X today in US?"
 
+## Practical Scenarios & Example Queries
+ 
+### Everyday FBA stock questions
+ 
+**"What's my current FBA stock, and does Amazon recommend any action on it?"**
+ 
+Use `SELLER_INVENTORY_FBA_PLANNING` — your default for <Term>FBA</Term> questions.
+ 
+Key columns:
+ 
+- `available` — current sellable stock
+- `recommended_action` — Amazon's pricing/removal advice
+- `inv_age_365_plus_days` — units aged over 1 year
+- `estimated_storage_cost` — projected fee exposure
 ```sql
-SELECT SKU, AFN_FULFILLABLE_QUANTITY, AFN_INBOUND_SHIPPED_QUANTITY
-FROM RAW_INVENTORY_FBA
+SELECT ASIN, SKU, AVAILABLE, RECOMMENDED_ACTION, INV_AGE_365_PLUS_DAYS, ESTIMATED_STORAGE_COST
+FROM SELLER_INVENTORY_FBA_PLANNING
 WHERE SKU = 'X';
 ```
-
-### "Why did my inventory drop by 200 units in the US last week?"
-
-```sql
-SELECT EVENT_TYPE, QUANTITY, FULFILLMENT_CENTER, DATE
-FROM SELLING_PARTNER.SELLER_INVENTORY_LEDGER_DETAIL
-WHERE SKU = 'X' AND COUNTRY = 'US'
-AND DATE BETWEEN '2024-01-01' AND '2024-01-07';
-```
-
-### "Which FBA SKUs need urgent restocking?"
-
-```sql
-SELECT SKU, ALERT, RECOMMENDED_REPLENISHMENT_QTY
-FROM RAW_INVENTORY_RESTOCK_RECOMMENDATIONS
-WHERE ALERT IN ('low_stock', 'out_of_stock');
-```
-
-### "Which aged SKUs should I remove to avoid storage fees?"
-
+ 
+**"Which aged SKUs should I remove to avoid storage fees?"**
+ 
 ```sql
 SELECT SKU, INV_AGE_365_PLUS_DAYS, RECOMMENDED_ACTION, ESTIMATED_STORAGE_COST
-FROM SELLING_PARTNER.SELLER_INVENTORY_FBA_PLANNING
+FROM SELLER_INVENTORY_FBA_PLANNING
 WHERE INV_AGE_365_PLUS_DAYS > 0;
 ```
-
-### "How has my sellable stock for ASIN-Y changed over the past month?"
-
+ 
+<Callout type="warn">
+  `inv_age_365_plus_days` is **not populated for US, DE, UK, FR, IT, or ES**. For those marketplaces, use `inv_age_366_to_455_days` and `inv_age_456_plus_days` instead to capture the same "aged over a year" population.
+</Callout>
+**"Amazon says restock, but I have inventory — what's going on?"**
+ 
+The likely explanation: what you're counting as "my inventory" is total units on hand, but Amazon's restock alert is based on `available` — sellable stock only. A SKU can have plenty of total inventory while very little of it is actually sellable, if a large share is tied up in transit, processing, or unfulfillable status.
+ 
+First, check the breakdown in `SELLER_INVENTORY_FBA_PLANNING`:
+ 
 ```sql
-SELECT OBSERVATION_DATE, AFN_FULFILLABLE_QUANTITY
-FROM SELLER_INVENTORY_FBA_HISTORY_DAILY
-WHERE ASIN = 'Y'
-AND OBSERVATION_DATE BETWEEN '2024-01-01' AND '2024-01-31';
-```
-
-### "Amazon says restock but I have inventory"
-
-```sql
-SELECT estimated_excess_quantity, weeks_of_cover_T30
-FROM SELLING_PARTNER.SELLER_INVENTORY_FBA_PLANNING
+SELECT AVAILABLE, RESERVED_FC_TRANSFER, RESERVED_FC_PROCESSING, RESERVED_CUSTOMER_ORDER,
+       UNFULFILLABLE_QUANTITY, INBOUND_WORKING, INBOUND_SHIPPED, INBOUND_RECEIVED
+FROM SELLER_INVENTORY_FBA_PLANNING
 WHERE SKU = 'YOUR_SKU';
 ```
-
-If `weeks_of_cover_T30 = 1`, Amazon expects a demand surge despite current stock levels.
+ 
+If `RESERVED_FC_TRANSFER`, `RESERVED_FC_PROCESSING`, or `UNFULFILLABLE_QUANTITY` account for a large chunk of the total, that's inventory that exists but isn't currently sellable — which explains the alert despite what looks like enough stock.
+ 
+If `available` genuinely looks sufficient and reserved/unfulfillable doesn't explain it, check `weeks_of_cover_t30`: a low value means Amazon's recommendation is forward-looking — it's forecasting that your current stock won't cover projected demand, not claiming you're already out.
+ 
+```sql
+SELECT WEEKS_OF_COVER_T30, DAYS_OF_SUPPLY
+FROM SELLER_INVENTORY_FBA_PLANNING
+WHERE SKU = 'YOUR_SKU';
+```
+ 
+Cross-check the actual alert in `RAW_INVENTORY_RESTOCK_RECOMMENDATIONS`.
+ 
+### Everyday FBM questions
+ 
+**"What products are active/inactive, and what's my current price per SKU?"**
+ 
+Use `SELLER_INVENTORY_ALL_LISTINGS` — your default for <Term>FBM</Term>/<Term>MFN</Term> questions.
+ 
+```sql
+SELECT SKU, PRICE, STATUS, QUANTITY
+FROM SELLER_INVENTORY_ALL_LISTINGS
+WHERE SKU = 'X';
+```
+ 
+### When you need more than Planning or Listings
+ 
+**"Which SKUs need urgent restocking?"**
+ 
+Use `RAW_INVENTORY_RESTOCK_RECOMMENDATIONS` — the report Amazon uses specifically for stock alerts.
+ 
+```sql
+SELECT SKU, ALERT, RECOMMENDED_REPLENISHMENT_QTY, RECOMMENDED_SHIP_DATE
+FROM RAW_INVENTORY_RESTOCK_RECOMMENDATIONS
+WHERE ALERT IN ('low stock', 'no stock');
+```
+ 
+Two things worth knowing:
+ 
+- **Planning has a parallel signal.** `recommended_action = 'GoToRestock'` with `recommended_ship_in_quantity` / `recommended_ship_in_date` can carry similar guidance.
+- **SKU missing from this report?** It likely means Amazon doesn't currently flag it as at-risk — no recent sales, healthy days-of-supply, or no projected demand are the usual reasons.
+**"Why did my inventory drop by 200 units in a specific country/warehouse last week?"**
+ 
+Planning gives you marketplace-level current state, not the transaction-level reason for a change. For that, use the ledger.
+ 
+```sql
+SELECT EVENT_TYPE, QUANTITY, FULFILLMENT_CENTER, DATE
+FROM SELLER_INVENTORY_LEDGER_DETAIL
+WHERE SKU = 'X'
+  AND COUNTRY = 'US'
+  AND DATE BETWEEN '2023-10-01' AND '2023-10-07';
+```
+ 
+**"What's my net inventory change across all warehouses this week?"**
+ 
+Same idea, but you just want the aggregated net change — not every individual transaction.
+ 
+```sql
+SELECT COUNTRY, FULFILLMENT_CENTER, STARTING_WAREHOUSE_BALANCE, ENDING_WAREHOUSE_BALANCE
+FROM SELLER_INVENTORY_LEDGER_SUMMARY
+WHERE DATE BETWEEN '2023-10-01' AND '2023-10-07';
+```
