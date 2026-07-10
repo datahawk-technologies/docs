@@ -76,6 +76,12 @@ We generate estimated sales **natively at the variant (child ASIN) level**. From
 | **Parent** | Sum of all variants in the family | Market share analysis, family-level comparisons, category sizing |
 | **Brand** | Sum of all parents owned by a brand | Brand-share and brand-vs-brand benchmarking |
 
+<Callout type="info">
+  **Partially tracked families.** When you track only one child ASIN from a product family, DataHawk uses the parent ASIN to discover the family structure, but it does not collect sales signals for the untracked children. Estimates for the tracked child rely on that child's own public purchase signals.
+
+  If the tracked child has no public purchase signal, DataHawk treats the absence of signals as a low monthly range of 0-50 units, represented as 25 monthly units. That can happen even when the parent family is a bestseller and the full family sells more than 30,000 units per month.
+</Callout>
+
 ## Data history by marketplace
 
 Two full years of history are maintained to support year-over-year analysis. 

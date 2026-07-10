@@ -40,3 +40,6 @@ next-env.d.ts
 .source/browser.ts
 .source/server.ts
 .source/browser.ts
+
+# Power BI templates are published as GitHub Release assets
+/public/files/dashboard-templates/power-bi/*.pbix
