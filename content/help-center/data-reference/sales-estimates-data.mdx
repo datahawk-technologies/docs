@@ -91,7 +91,9 @@ The full 2024+ history was reprocessed with V7 on June 15, 2026.
   </Accordion>
 
   <Accordion title="My child estimates don't add up to the parent. Why?">
-    This can happen when the family definition changes over time, or when only some variants in a family are tracked. Use `VARIATION_COUNT` to understand the full known family size used at estimation time.
+    This can happen when the family definition changes over time, or when only some variants in a family are tracked. When you track one child ASIN from a larger family, DataHawk uses the parent ASIN to discover the family structure, but it does not collect sales signals for the untracked children.
+
+    If the tracked child has no public purchase signal, its estimate uses the default low-signal range of 0-50 monthly units, represented as 25 monthly units. That child-level estimate can stay low even when the full parent family sells more than 30,000 units per month. Use `VARIATION_COUNT` to understand the full known family size used at estimation time.
   </Accordion>
 
   <Accordion title="Can I get estimates for products I don't track directly?">
