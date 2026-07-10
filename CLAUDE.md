@@ -714,6 +714,109 @@ When you rename or move a file:
 
 ---
 
+## 13b. Power BI template downloads — GitHub Releases, never Git LFS
+
+Power BI `.pbix` files are binary distribution assets, not documentation source files. They are hosted on the public [`power-bi-templates` GitHub Release](https://github.com/datahawk-technologies/docs/releases/tag/power-bi-templates), outside the Git repository history.
+
+The stable download URL format is:
+
+```text
+https://github.com/datahawk-technologies/docs/releases/download/power-bi-templates/<filename>.pbix
+```
+
+The public download center is `content/help-center/connect-tools/powerbi-templates-library.mdx`. Local `.pbix` files under `public/files/dashboard-templates/power-bi/` are an ignored staging area for release uploads only. Operational instructions and the current asset list live in `public/files/dashboard-templates/power-bi/README.md`.
+
+### Cardinal rules for `.pbix` files
+
+1. **Never commit a `.pbix` file to Git**, including with `git add -f`. Binary revisions permanently inflate repository history.
+2. **Never track `.pbix` files with Git LFS.** Do not add an LFS `.gitattributes` rule, run `git lfs track`, or reintroduce LFS hooks. The repository intentionally avoids LFS storage and bandwidth budgets.
+3. **Never link the docs to a local `/files/.../*.pbix` path.** Production downloads must use the public GitHub Release URL shown above.
+4. **Never delete or rename the `power-bi-templates` release, its tag, or an existing asset casually.** The asset URL is customer-facing and permanent. Renaming an asset breaks every existing download link.
+5. **Do not enable immutable releases while this workflow uses `--clobber`.** Immutable release assets cannot be replaced. If immutability becomes mandatory, move to versioned release tags and update all documentation URLs as part of every template release.
+6. **Keep the repository public.** Downloads from a private repository require GitHub authentication and will not work as a public customer download center.
+
+### Download-center table contract
+
+The table in `powerbi-templates-library.mdx` always uses these five columns in this order:
+
+```md
+| Template | User guide | Content | Version | Changes |
+|---|---|---|---|---|
+```
+
+Each row follows these rules:
+
+- **Template** — the template name links directly to its GitHub Release `.pbix` asset.
+- **User guide** — link to the corresponding local Fumadocs dashboard guide using `/help-center/dashboard-templates/power-bi/<slug>`. Write plain text `Not available` when no guide exists; never invent a placeholder URL.
+- **Content** — a concise semicolon-separated summary of what the template covers.
+- **Version** — the actual template release date in `Month D, YYYY` format. This is not the GitHub upload date and is maintained manually.
+- **Changes** — a factual summary of the template changes in that version. Use `<br />` between multiple release notes inside the table cell.
+
+Do not add a build-time component that derives Version from Git history or the Release upload timestamp. `.pbix` files are not in Git, and asset upload time may differ from the actual template version date.
+
+### Dashboard user-guide download cards
+
+Every Power BI dashboard guide that has a matching template ends with one direct-download card. The card URL must be identical to the corresponding Template link in the download-center table.
+
+```mdx
+## Download this template
+
+<div className="card-grid">
+  <Card
+    title="Download the Seller Analytics template"
+    href="https://github.com/datahawk-technologies/docs/releases/download/power-bi-templates/seller-analytics-dashboard.pbix"
+    description="Download the latest Power BI template for the Seller Analytics dashboard."
+  />
+</div>
+```
+
+- Use the required `<div className="card-grid">` wrapper even for one Card.
+- Put the section at the end of the guide.
+- Do not add a second horizontal rule when the page already uses one before its analyst-only section.
+- If a guide is created for a template currently marked `Not available`, add both the table link and the end-of-guide download card in the same change.
+- If an asset filename changes, update the download-center row and every matching guide card together. Prefer keeping the existing filename instead.
+
+### Updating an existing template
+
+Keep the filename unchanged so all download URLs remain stable.
+
+1. Replace the ignored local staging file at `public/files/dashboard-templates/power-bi/<filename>.pbix`.
+2. Confirm GitHub CLI authentication with `gh auth status`.
+3. Replace the existing Release asset:
+
+   ```bash
+   gh release upload power-bi-templates public/files/dashboard-templates/power-bi/<filename>.pbix --clobber --repo datahawk-technologies/docs
+   ```
+
+4. Update that row's **Version** and **Changes** cells in `powerbi-templates-library.mdx`.
+5. Confirm the related dashboard guide still points to the same asset URL.
+6. Verify the public URL follows redirects and returns HTTP 200 without authentication:
+
+   ```bash
+   curl -I -L https://github.com/datahawk-technologies/docs/releases/download/power-bi-templates/<filename>.pbix
+   ```
+
+7. Commit only the documentation and instruction changes. The `.pbix` file must remain ignored and absent from `git status`.
+
+Replacing an asset with `--clobber` does not preserve binary version history. The Version and Changes cells are the public history. If old binaries must remain downloadable, create a separately versioned Release instead of overwriting the stable asset.
+
+### Adding a new template
+
+1. Name the asset in lowercase kebab-case using `<template-slug>-dashboard.pbix`.
+2. Upload it to the existing release without `--clobber`:
+
+   ```bash
+   gh release upload power-bi-templates public/files/dashboard-templates/power-bi/<filename>.pbix --repo datahawk-technologies/docs
+   ```
+
+3. Add a row to `powerbi-templates-library.mdx` using the stable Release download URL.
+4. Add the matching User guide link, or `Not available` if no guide exists.
+5. If a guide exists, add its end-of-page download card using the exact same asset URL.
+6. Add the filename to the Current assets list in `public/files/dashboard-templates/power-bi/README.md`.
+7. Verify the public download before merging.
+
+---
+
 ## 14. Filename conventions
 
 - **Always lowercase**
@@ -932,6 +1035,7 @@ A converted or new page passes if:
 - ✅ At least one technical term is wrapped in `<Term>` if any appear on the page (unless the page is ABOUT that term)
 - ✅ Filenames are lowercase kebab-case with no punctuation
 - ✅ Internal links resolve (test by navigating in the dev server)
+- ✅ Power BI template rows and guide cards use matching public GitHub Release URLs; `.pbix` files and Git LFS configuration are not tracked
 - ✅ Description and intro paragraph don't repeat the same information
 - ✅ American English throughout (no British spellings)
 
