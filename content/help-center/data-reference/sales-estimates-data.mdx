@@ -87,7 +87,7 @@ The full 2024+ history was reprocessed with V7 on June 15, 2026.
   </Accordion>
 
   <Accordion title="Why are child estimates different from the parent total?">
-    Parent estimates represent total family sales. `UNITS_PARENT` is the rolled-up value across known variants in that family on that date. When you compare a complete family for the same date, the sum of `UNITS_CHILD` should reconcile with `UNITS_PARENT`.
+    Parent estimates represent total family sales. `UNITS_PARENT` is the family-level estimate, computed from the parent sales rank. `UNITS_CHILD` values are allocated from that family total using public purchase signals (with a conservative fallback, or an equal split when no signal is available). When you compare a complete family for the same date, the sum of `UNITS_CHILD` should reconcile with `UNITS_PARENT`. Do not use `UNITS_PARENT` to represent a single variant's sales: it covers the whole family and would count sibling sales onto that ASIN.
   </Accordion>
 
   <Accordion title="My child estimates don't add up to the parent. Why?">

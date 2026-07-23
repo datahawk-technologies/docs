@@ -6,7 +6,7 @@ description: How DataHawk estimates daily sales for tracked products and competi
 Sales Estimates give you a daily view of how many units any tracked product sells, including competitors you don't have access to.
 
 <Callout type="warn">
-  **June 15, 2026; V7 model release.** DataHawk now generates sales estimates at the **variant (child <Term>ASIN</Term>) level** natively, with rollups to parent and brand. The full 2024+ history was reprocessed with the V7 algorithm on June 15, 2026.
+  **June 15, 2026; V7 model release.** DataHawk now delivers sales estimates at the **variant (child <Term>ASIN</Term>) level**, with rollups to parent and brand. The full 2024+ history was reprocessed with the V7 algorithm on June 15, 2026.
 
   All V5 and V6 tables are now **deprecated aliases** pointing to V7 data. Existing integrations continue to work, but you should migrate to the active table names below.
 </Callout>
@@ -68,7 +68,7 @@ To receive sales estimates, you need to track **at least one of the following:**
 
 Amazon products often have multiple variations, such as sizes, colors, or pack counts, grouped under one parent ASIN. Parent-level estimates help with market share, brand comparison, and category sizing. Child-level estimates help with variant and SKU planning when you need to know which exact version of a product is driving sales.
 
-We generate estimated sales **natively at the variant (child ASIN) level**. From there, the same data rolls up to parent and brand for higher-level analysis.
+Estimates are computed first at the **family (parent ASIN) level**, using the parent sales rank, which is the most reliable signal in the model. The family total is then allocated to each variant using public purchase signals (see [How it works](#how-it-works)). The data is **delivered at the variant (child ASIN) level**, and rolls up to parent and brand for higher-level analysis.
 
 | Level | What it represents | When to use |
 |---|---|---|
@@ -112,15 +112,21 @@ A rank of #50 in one category can represent a very different sales velocity than
 </Step>
 
 <Step>
-### Estimate at the variant level
+### Estimate at the family (parent) level
 
-Our outputs estimate daily units and revenue **at the variant (child ASIN) level** directly, without going through a parent-then-distribute step.
+The model first computes the estimate at the **family (parent ASIN) level**, based on the parent sales rank. This is the most reliable signal available and produces the most accurate value in the model.
 </Step>
 
 <Step>
-### Roll up to parent and brand
+### Distribute to child variants
 
-Variant estimates are aggregated to parent ASIN and brand for family-level and brand-level views.
+The family total is then allocated across the children of the family, guided by the strongest evidence available for that family on that day:
+
+- **Direct purchase signal.** When public purchase evidence exists for a variant, its observed share is used.
+- **Conservative fallback.** When some children are covered by the catalog but lack their own signal, a conservative fallback share is applied.
+- **Equal split.** When no useful child-level signal is available, the family estimate is split evenly across all known variants.
+
+Child estimates are not computed independently: they are allocated from the family total, so the sum of `UNITS_CHILD` across a complete family reconciles with `UNITS_PARENT`. Brand-level views aggregate parent estimates across a brand.
 </Step>
 
 <Step>
