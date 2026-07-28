@@ -11,6 +11,7 @@ import { Poppins } from 'next/font/google';
 import { RootProvider } from 'fumadocs-ui/provider/next';
 import type { Metadata } from 'next';
 import { PostHog } from '@/components/PostHog';
+import { Chatwoot } from '@/components/Chatwoot';
 
 export const metadata: Metadata = {
   icons: {
@@ -39,6 +40,7 @@ export default function Layout({ children }: { children: ReactNode }) {
     >
       <body className="flex flex-col min-h-screen" suppressHydrationWarning>
         <PostHog />
+        <Chatwoot />
         <RootProvider
           theme={{
             enabled: false,
