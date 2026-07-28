@@ -13,6 +13,7 @@ import { Term } from '@/components/Term';
 import { PageFeedback } from '@/components/PageFeedback';
 import { ImageCarousel } from '@/components/ImageCarousel';
 import { ExpandableCardGrid } from '@/components/ExpandableCardGrid';
+import { Iframe } from '@/components/Iframe';
 
 // ─── Callout: emoji icon override ──────────────────────────────────────────
 type CalloutType = 'info' | 'warn' | 'warning' | 'error' | 'success';
@@ -53,6 +54,7 @@ export const mdxComponents = {
   Term,
   ImageCarousel,
   ExpandableCardGrid,
+  Iframe,
 
   // Layout & structure
   Card,
