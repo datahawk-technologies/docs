@@ -10,9 +10,10 @@ This guide explains Amazon inventory datasets for tracking stock, resolving disc
 
   If your goal is simply to see your <Term>ASIN</Term>/<Term>SKU</Term> inventory the same way Seller Central shows it, use:
 
-  - **<Term>FBA</Term> → [`SELLER_INVENTORY_FBA_PLANNING`](/help-center/data-reference/fba-seller-inventory-fba-planning)**: FBA qty with AI-driven recommendations for aged stock and removals
+  - **<Term>FBA</Term> → [`SELLER_INVENTORY_FBA_PLANNING_LATEST`](/help-center/data-reference/fba-seller-inventory-fba-planning)**: FBA qty with AI-driven recommendations for aged stock and removals
   - **<Term>FBM</Term> → [`SELLER_INVENTORY_ALL_LISTINGS`](/help-center/data-reference/fbm-seller-inventory-all-listings.mdx)**: Your catalog with pricing and availability for <Term>MFN</Term>
-
+  - **Both channels side by side → [`SELLER_INVENTORY`](/help-center/data-reference/fba-fbm-seller-inventory)**: One row per ASIN × SKU × Marketplace, blending FBA and FBM stock, price, and condition
+  
   These tables show your day-to-day inventory quantities at the country level with key fields: stock, aging, health, and availability.
 </Callout>
 
@@ -35,12 +36,17 @@ All tables live in either the `RAW_INVENTORY` or `SELLING_PARTNER` schema (noted
  
 
 ### Start here — covers most questions
- 
+
 | Schema | View | Purpose | Freshness | Coverage |
 |---|---|---|---|---|
-| `SELLING_PARTNER` | `SELLER_INVENTORY_FBA_PLANNING` | <Term>FBA</Term> stock, aging, pricing/removal recommendations | Daily | All marketplaces except NL, PL, SE, BE |
+| `SELLING_PARTNER` | `SELLER_INVENTORY_FBA_PLANNING_LATEST` | <Term>FBA</Term> stock, aging, pricing/removal recommendations | Daily | All marketplaces except NL, PL, SE, BE |
 | `SELLING_PARTNER` | `SELLER_INVENTORY_ALL_LISTINGS` | <Term>FBM</Term> price, status, quantity | Daily | All marketplaces |
- 
+| `SELLING_PARTNER` | `SELLER_INVENTORY` | Unified FBA + FBM view — combined stock, price, and condition per ASIN/SKU | Daily | FBA side excludes NL, PL, SE, BE; FBM side all marketplaces |
+
+<Callout type="info">
+`SELLER_INVENTORY` doesn't add new data — it joins `SELLER_INVENTORY_FBA_PLANNING_LATEST` and `SELLER_INVENTORY_ALL_LISTINGS` on ASIN × SKU × Marketplace so you don't have to. Use the individual tables above if you only need one channel or want FBA-specific fields like aging or reserved detail not exposed on the unified view.
+</Callout>
+
 ### For specific needs
  
 | Schema | View | Use it for | Why not the default? | Freshness | Coverage |
@@ -50,7 +56,8 @@ All tables live in either the `RAW_INVENTORY` or `SELLING_PARTNER` schema (noted
 | `RAW_INVENTORY` | `RAW_INVENTORY_RESTOCK_RECOMMENDATIONS` | Amazon's dedicated stock alert + reorder qty/date | Real overlap with Planning, not a clean split — see note below | Daily (with a gap, since Amazon takes time to process recommendations) | — |
 | `RAW_INVENTORY` | `RAW_INVENTORY_RESTOCK_RECOMMENDATIONS_HISTORY` | Trend of the restock alert above | Same purpose as the restock report, just historized | Daily | Same as above |
 | `SELLING_PARTNER` | `SELLER_INVENTORY_ALL_LISTINGS_HISTORY` | Trend of <Term>FBM</Term> price/status/quantity | Listings only gives the latest snapshot — this is its historized counterpart | Daily | All marketplaces |
- 
+| `SELLING_PARTNER` | `SELLER_INVENTORY_FBA_PLANNING` | Trend of FBA stock, aging, and recommendations over time | Planning Latest only gives the current snapshot — this is its historized counterpart | Daily | All marketplaces except NL, PL, SE, BE |
+
 <Callout type="info">
   **Restock signals overlap.** `SELLER_INVENTORY_FBA_PLANNING` carries a parallel signal via `recommended_action = 'GoToRestock'` with `recommended_ship_in_quantity` / `recommended_ship_in_date`. It's not a clean split from `RAW_INVENTORY_RESTOCK_RECOMMENDATIONS` — check both if you're building alerts.
 </Callout>
@@ -80,7 +87,7 @@ The diagram below traces how raw Amazon reports feed into the transformed views 
  
 **"What's my current FBA stock, and does Amazon recommend any action on it?"**
  
-Use `SELLER_INVENTORY_FBA_PLANNING` — your default for <Term>FBA</Term> questions.
+Use `SELLER_INVENTORY_FBA_PLANNING_LATEST` — your default for <Term>FBA</Term> questions.
  
 Key columns:
  
@@ -89,32 +96,36 @@ Key columns:
 - `inv_age_365_plus_days` — units aged over 1 year
 - `estimated_storage_cost` — projected fee exposure
 ```sql
-SELECT ASIN, SKU, AVAILABLE, RECOMMENDED_ACTION, INV_AGE_365_PLUS_DAYS, ESTIMATED_STORAGE_COST
+SELECT SNAPSHOT_DATE,ASIN, SKU, AVAILABLE, RECOMMENDED_ACTION, INV_AGE_365_PLUS_DAYS, ESTIMATED_STORAGE_COST
 FROM SELLER_INVENTORY_FBA_PLANNING
-WHERE SKU = 'X';
+WHERE SKU = 'X'
+ORDER BY SNAPSHOT_DATE DESC;
 ```
  
+
 **"Which aged SKUs should I remove to avoid storage fees?"**
  
 ```sql
 SELECT SKU, INV_AGE_365_PLUS_DAYS, RECOMMENDED_ACTION, ESTIMATED_STORAGE_COST
-FROM SELLER_INVENTORY_FBA_PLANNING
+FROM SELLER_INVENTORY_FBA_PLANNING_LATEST
 WHERE INV_AGE_365_PLUS_DAYS > 0;
 ```
  
 <Callout type="warn">
   `inv_age_365_plus_days` is **not populated for US, DE, UK, FR, IT, or ES**. For those marketplaces, use `inv_age_366_to_455_days` and `inv_age_456_plus_days` instead to capture the same "aged over a year" population.
 </Callout>
+
+
 **"Amazon says restock, but I have inventory — what's going on?"**
- 
+
 The likely explanation: what you're counting as "my inventory" is total units on hand, but Amazon's restock alert is based on `available` — sellable stock only. A SKU can have plenty of total inventory while very little of it is actually sellable, if a large share is tied up in transit, processing, or unfulfillable status.
  
-First, check the breakdown in `SELLER_INVENTORY_FBA_PLANNING`:
+First, check the breakdown in `SELLER_INVENTORY_FBA_PLANNING_LATEST`:
  
 ```sql
 SELECT AVAILABLE, RESERVED_FC_TRANSFER, RESERVED_FC_PROCESSING, RESERVED_CUSTOMER_ORDER,
        UNFULFILLABLE_QUANTITY, INBOUND_WORKING, INBOUND_SHIPPED, INBOUND_RECEIVED
-FROM SELLER_INVENTORY_FBA_PLANNING
+FROM SELLER_INVENTORY_FBA_PLANNING_LATEST
 WHERE SKU = 'YOUR_SKU';
 ```
  
@@ -124,7 +135,7 @@ If `available` genuinely looks sufficient and reserved/unfulfillable doesn't exp
  
 ```sql
 SELECT WEEKS_OF_COVER_T30, DAYS_OF_SUPPLY
-FROM SELLER_INVENTORY_FBA_PLANNING
+FROM SELLER_INVENTORY_FBA_PLANNING_LATEST
 WHERE SKU = 'YOUR_SKU';
 ```
  
@@ -140,6 +151,26 @@ Use `SELLER_INVENTORY_ALL_LISTINGS` — your default for <Term>FBM</Term>/<Term>
 SELECT SKU, PRICE, STATUS, QUANTITY
 FROM SELLER_INVENTORY_ALL_LISTINGS
 WHERE SKU = 'X';
+```
+
+### Cross-channel questions
+
+**"What's my combined FBA + FBM available and total stock for this SKU?"**
+
+Use `SELLER_INVENTORY` — it blends both channels so you don't need to join manually.
+
+```sql
+SELECT ASIN, SKU, TOTAL_AVAILABLE_QUANTITY, TOTAL_QUANTITY, FBA_LISTING_EXISTS, FBM_LISTING_EXISTS
+FROM SELLER_INVENTORY
+WHERE SKU = 'X';
+```
+
+**"Is this listing only on one channel?"**
+
+```sql
+SELECT ASIN, SKU, FBA_LISTING_EXISTS, FBM_LISTING_EXISTS
+FROM SELLER_INVENTORY
+WHERE FBA_LISTING_EXISTS = 'No' OR FBM_LISTING_EXISTS = 'No';
 ```
  
 ### When you need more than Planning or Listings
