@@ -1,9 +1,9 @@
 ---
 title: FBA Inventory Planning Data
-description: Reference for SELLER_INVENTORY_FBA_PLANNING, DataHawk's daily FBA inventory health snapshot covering stock, aging, velocity, and Amazon's recommendations.
+description: Reference for SELLER_INVENTORY_FBA_PLANNING_LATEST, DataHawk's daily FBA inventory health snapshot covering stock, aging, velocity, and Amazon's recommendations.
 ---
 
-`SELLING_PARTNER.SELLER_INVENTORY_FBA_PLANNING` is sourced from Amazon's FBA Manage Inventory Health Report (`GET_FBA_INVENTORY_PLANNING_DATA`). It's a daily country-level snapshot of every <Term>FBA</Term> <Term>SKU</Term>, combining stock levels, inventory aging, sales velocity, inbound pipeline, storage costs, and Amazon's own action recommendations in one place. It mirrors what you see on the Manage FBA Inventory page in Seller Central, so you can spot aging and excess stock before fees hit and validate Amazon's restock or removal suggestions.
+`SELLING_PARTNER.SELLER_INVENTORY_FBA_PLANNING_LATEST` is sourced from Amazon's FBA Manage Inventory Health Report (`GET_FBA_INVENTORY_PLANNING_DATA`). It's a daily country-level snapshot of every <Term>FBA</Term> <Term>SKU</Term>, combining stock levels, inventory aging, sales velocity, inbound pipeline, storage costs, and Amazon's own action recommendations in one place. It mirrors what you see on the Manage FBA Inventory page in Seller Central, so you can spot aging and excess stock before fees hit and validate Amazon's restock or removal suggestions.
 
 ## Freshness & coverage
 
@@ -15,6 +15,9 @@ description: Reference for SELLER_INVENTORY_FBA_PLANNING, DataHawk's daily FBA i
 
 <Callout type="info">
   `report_date` is the date the report was requested. `snapshot_date` reflects the actual date of the inventory data in the report.
+</Callout>
+<Callout type="info">
+Need aging, velocity, or recommendations **over time** rather than the current snapshot? Use [`SELLER_INVENTORY_FBA_PLANNING`](/help-center/data-reference/fba-seller-inventory-fba-planning) — the historized version of this table.
 </Callout>
 
 ## What's in it
