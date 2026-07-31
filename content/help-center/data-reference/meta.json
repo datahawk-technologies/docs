@@ -16,6 +16,7 @@
     "amz-inventory-data",
     "fba-seller-inventory-fba-planning",
     "fbm-seller-inventory-all-listings",
+    "fba-fbm-seller-inventory",
     "amz-removal-data", 
     "amz-replenishment", 
     "amz-returns-data", 

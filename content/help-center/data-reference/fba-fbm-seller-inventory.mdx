@@ -1,0 +1,134 @@
+---
+title: "Unified View (FBA + FBM) Seller Inventory"
+description: "A single, unified view of FBA and FBM inventory side by side, one row per ASIN × SKU × Marketplace."
+---
+
+**Source:** Combines `SELLER_INVENTORY_FBA_PLANNING` (Amazon FBA Manage Inventory Health Report) and `SELLER_INVENTORY_ALL_LISTINGS` (Amazon All Listings Report)
+
+## What this dataset is
+
+A single, unified view of your inventory across both fulfillment channels — one row per **ASIN × SKU × Marketplace**, showing FBA and FBM stock side by side. Instead of querying two separate tables and manually matching rows, you can directly compare price, condition, and stock health across channels for the same product, or pull a blended total quantity across FBA and FBM.
+
+Use it to answer questions like "is this listing active on FBA, FBM, both, or neither?", "how does my price/condition differ by channel?", or "what's my combined available stock for this SKU?"
+
+---
+
+## Freshness & coverage
+
+| | |
+| --- | --- |
+| **Refresh** | Daily |
+| **Geographic scope** | Marketplace level. FBA side excludes **NL, PL, SE, and BE** (not covered by Amazon's FBA planning report); FBM side covers all marketplaces. |
+| **Grain** | One row per **ASIN × SKU × Marketplace**. A row can be FBA-only, FBM-only, or both — see `FBA_LISTING_EXISTS` / `FBM_LISTING_EXISTS` below. |
+
+<Note>
+If a listing exists on only one channel, the columns for the other channel will simply be null.
+</Note>
+
+---
+
+## Field reference
+
+### Identity
+
+| Field | Definition |
+| --- | --- |
+| `WORKSPACE_ID` | Internal workspace identifier |
+| `ACCOUNT_KEY` | Internal identifier for the seller account |
+| `MARKETPLACE_KEY` | Internal identifier for the Amazon marketplace |
+| `ASIN` | Amazon Standard Identification Number, coalesced from FBA or FBM (`ASIN1`) source |
+| `SKU` | Seller SKU, coalesced from FBA or FBM (`seller_sku`) source |
+| `SELLER_NAME` | Name of the selling account |
+| `PRODUCT_NAME` | Product title, coalesced from FBA `PRODUCT_NAME` or FBM `ITEM_NAME` |
+| `REGION_NAME` | Geographic region the marketplace belongs to |
+| `CURRENCY` | Currency code for price fields on this row |
+
+### Listing presence
+
+| Field | Definition |
+| --- | --- |
+| `FBA_LISTING_EXISTS` | `Yes`/`No` — whether this ASIN/SKU has an FBA listing |
+| `FBM_LISTING_EXISTS` | `Yes`/`No` — whether this ASIN/SKU has an FBM (merchant-fulfilled) listing |
+
+### Snapshot dates
+
+| Field | Definition |
+| --- | --- |
+| `FBA_SNAPSHOT_DATE` | Date of the underlying FBA inventory snapshot |
+| `FBM_SNAPSHOT_DATE` | Date of the underlying FBM listing snapshot |
+
+### Condition & price (kept separate by channel, not merged)
+
+| Field | Definition |
+| --- | --- |
+| `FBA_CONDITION` | Item condition as reported on the FBA side (e.g. New, Used - Like New, Collectible - Good) |
+| `FBM_CONDITION` | Item condition as reported on the FBM side, decoded from Amazon's numeric condition code |
+| `FBA_PRICE` | Current FBA listing price |
+| `FBM_PRICE` | Current FBM listing price |
+
+### Stock — available
+
+| Field | Definition |
+| --- | --- |
+| `FBA_AVAILABLE` | Units currently available for sale via FBA |
+| `FBM_QUANTITY` | Units declared as available for merchant-fulfilled orders |
+| `TOTAL_AVAILABLE_QUANTITY` | `FBA_AVAILABLE + FBM_QUANTITY` |
+
+### Stock — total
+
+| Field | Definition |
+| --- | --- |
+| `FBA_TOTAL_QUANTITY` | `FBA_AVAILABLE + FBA_UNFULFILLABLE_QUANTITY + FBA_RESERVED_QUANTITY_INCLUDING_TRANSFER + FBA_INBOUND_TOTAL + FBA_PENDING_REMOVAL_QUANTITY` |
+| `FBM_TOTAL_QUANTITY` | `FBM_QUANTITY + FBM_PENDING_QUANTITY` |
+| `TOTAL_QUANTITY` | `FBA_TOTAL_QUANTITY + FBM_TOTAL_QUANTITY` |
+
+### FBA — reserved / inbound / removal detail
+
+| Field | Definition |
+| --- | --- |
+| `FBA_UNFULFILLABLE_QUANTITY` | Units in FBA marked as unsellable (damaged, expired, etc.) |
+| `FBA_RESERVED_FC_TRANSFER` | Reserved units in transit between fulfillment centers |
+| `FBA_RESERVED_FC_PROCESSING` | Reserved units being processed within a fulfillment center |
+| `FBA_RESERVED_CUSTOMER_ORDER` | Reserved units allocated to open customer orders |
+| `FBA_RESERVED_STAGING` | Reserved units in staging |
+| `FBA_RESERVED_QUANTITY` | Amazon's own total reserved figure |
+| `FBA_RESERVED_QUANTITY_INCLUDING_TRANSFER` | Our recomputed total: sum of the four reserved components above |
+| `FBA_INBOUND_WORKING` | Inbound units in "working" status (shipment created, not yet shipped) |
+| `FBA_INBOUND_SHIPPED` | Inbound units shipped, not yet received at an FC |
+| `FBA_INBOUND_RECEIVED` | Inbound units received at an FC, not yet available for sale |
+| `FBA_INBOUND_TOTAL` | Sum of working + shipped + received inbound units |
+| `FBA_PENDING_REMOVAL_QUANTITY` | Units pending removal or disposal from FBA |
+
+### FBA — aging & supply
+
+| Field | Definition |
+| --- | --- |
+| `FBA_DAYS_OF_SUPPLY` | Estimated days of inventory remaining at current sales velocity |
+| `FBA_INV_AGE_0_TO_30_DAYS` | Units in FBA for 0–30 days |
+| `FBA_INV_AGE_31_TO_60_DAYS` | Units in FBA for 31–60 days |
+| `FBA_INV_AGE_61_TO_90_DAYS` | Units in FBA for 61–90 days |
+| `FBA_INV_AGE_91_TO_180_DAYS` | Units in FBA for 91–180 days |
+| `FBA_INV_AGE_181_TO_330_DAYS` | Units in FBA for 181–330 days |
+| `FBA_INV_AGE_331_TO_365_DAYS` | Units in FBA for 331–365 days |
+| `FBA_INV_AGE_365_PLUS_DAYS` | Units in FBA over 365 days. **Not populated for US, DE, UK, FR, IT, ES** — for these marketplaces use `FBA_INV_AGE_366_TO_455_DAYS` + `FBA_INV_AGE_456_PLUS_DAYS` instead |
+| `FBA_INV_AGE_366_TO_455_DAYS` | Units in FBA for 366–455 days (populated only for US, DE, UK, FR, IT, ES) |
+| `FBA_INV_AGE_456_PLUS_DAYS` | Units in FBA over 456 days (populated only for US, DE, UK, FR, IT, ES) |
+
+### FBM-only detail
+
+| Field | Definition |
+| --- | --- |
+| `FBM_PENDING_QUANTITY` | Units pending/reserved on the FBM side, not yet fulfilled |
+| `FBM_STATUS` | Listing status (e.g. active, inactive, suppressed) |
+| `FBM_FULFILLMENT_CHANNEL` | Fulfillment channel reported on the FBM source row |
+
+---
+
+## Questions you can answer
+
+- Is this listing active on FBA, FBM or both?
+- How does price or condition compare across fulfillment channels for the same ASIN?
+- What's my combined (FBA + FBM) available and total stock per SKU?
+- What's the current stock health — aging, reserved breakdown, inbound pipeline — for my FBA inventory?
+- Are there products only sold via one channel that I'm not tracking on the other?
+- How much aged inventory (365+ days) do I have, accounting for the marketplace split in the 366–455 and 456+ buckets?
