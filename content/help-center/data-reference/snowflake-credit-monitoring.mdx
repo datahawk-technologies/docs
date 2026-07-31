@@ -1,0 +1,115 @@
+---
+title: Snowflake Credit Usage and Consumption Monitoring
+description: Understand how Snowflake credits work, what happens when you hit your quota, and how to monitor your own consumption.
+---
+
+<Term>Snowflake</Term> credits are the currency behind your DataHawk-hosted database — they measure the compute your warehouse burns through when it runs queries. This page covers what drives consumption, what happens if you run out, and how to track your own usage with self-serve SQL queries against the `USAGE` schema.
+
+## What are Snowflake credits?
+
+Snowflake credits measure your consumption of compute resources. They're used up whenever your virtual warehouse is running and executing queries. The number of credits you get each month depends on your subscription plan — Standard subscriptions include **20 credits per month**.
+
+Credits are consumed by:
+
+- Running SQL queries
+- Powering dashboards and BI tools (Power BI, Tableau, and similar)
+- Data transformations and scheduled jobs
+
+Once you've used up your monthly credits, Snowflake automatically suspends the warehouse. Queries can't run again until credits are replenished or your monthly quota resets.
+
+## How credit usage works in practice
+
+Every query you run spins up compute through a virtual warehouse, and credits are consumed based on:
+
+- How long the warehouse runs
+- How many queries are executed
+- How many users or tools are querying the data at the same time
+
+Usage adds up. Even small, lightweight queries can eat into your quota fast if they run often — a dashboard set to auto-refresh every few minutes is a common culprit.
+
+[Learn more about Snowflake's compute cost model](https://docs.snowflake.com/en/user-guide/cost-understanding-compute)
+
+## What happens when you reach your quota
+
+<Callout type="warn">
+Once your monthly credit quota is used up, Snowflake blocks further usage. You may see an error like: "Warehouse cannot be resumed because the resource monitor has exceeded its quota."
+</Callout>
+
+This means:
+
+- Your warehouse hit the **monthly credit limit** on your plan
+- Snowflake won't resume the warehouse, to prevent overconsumption
+- Queries, dashboards, and reports fail until credits are available again
+
+A Standard plan's 20 monthly credits works out to roughly **20 hours of compute time**. Quotas reset automatically each month.
+
+If you hit this limit repeatedly, it's a sign your actual usage has outgrown your current plan.
+
+## How to monitor your usage
+
+You don't need to wait for an error to find out where your credits are going. The `USAGE` schema in your Snowflake database gives you full visibility into your own consumption.
+
+### Find your heaviest queries
+
+Run this to pull your 20 most expensive queries from the last 30 days, ranked by execution time:
+
+```sql
+select *
+from usage.usage_query_history
+where start_time > current_date() - 30
+order by total_elapsed_time desc
+limit 20;
+```
+
+Use it to spot inefficient or overly complex queries, flag which dashboards or users are generating the heaviest load, and focus your optimization effort where it'll actually move the needle.
+
+### Track daily credit consumption
+
+Run this to see how many credits you're burning per day:
+
+```sql
+select
+  date_trunc('day', start_time) as usage_day,
+  sum(credits_used) as credits_consumed
+from usage.usage_query_history
+where start_time > current_date() - 30
+group by usage_day
+order by usage_day desc;
+```
+
+This surfaces daily trends, flags abnormal spikes, and helps you tell early whether your monthly quota will hold.
+
+## Reduce your consumption
+
+**Short-term fixes:**
+
+- Reduce dashboard refresh frequency
+- Narrow date ranges where you can (shorten the lookback window on Power BI dashboards)
+- Optimize long-running or frequently executed queries
+- Limit unnecessary concurrent usage
+
+**Long-term fix:** if you consistently run over your monthly allocation, upgrading your plan is the more reliable fix. It avoids repeated service interruptions and the need to manually manage consumption every month. You can review plans from **Workspace → Settings → Subscription**, or reach out to your account manager.
+
+Still seeing unexplained high consumption? Reach out to your DataHawk representative — we're happy to help investigate.
+
+---
+
+## Where to go next
+
+<div className="card-grid">
+  <Card
+    title="Find Tables and Columns"
+    href="/help-center/data-reference/find-tables-and-columns"
+    description="Learn how to use the source-of-truth schema reference to find tables, columns, grains, and field definitions."
+  />
+  <Card
+    title="Snowflake"
+    href="/help-center/connect-tools/snowflake"
+    description="Set up your DataHawk-hosted or self-hosted Snowflake database, credentials, and query timeout limits."
+  />
+  <Card
+    title="Subscription management"
+    href="/help-center/datahawk-app/subscription-management"
+    description="Upgrade or downgrade your plan directly from your workspace."
+  />
+</div>
