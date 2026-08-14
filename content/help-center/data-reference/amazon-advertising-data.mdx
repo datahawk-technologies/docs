@@ -232,6 +232,17 @@ Ad performance metrics use Amazon's 14-day post-click attribution window for sal
 
 For exact metric definitions in dashboards, see [Advertising Power BI Dashboard](/help-center/dashboard-templates/power-bi/advertising-dashboard).
 
+## Search Term Impression Share (SP vs SB)
+
+Search Term Impression Share, the share of eligible impressions your ads actually won for a given search term, isn't collected the same way across ad types.
+
+- **Sponsored Brands:** already in DataHawk. `ADVERTISING.AMZN_SB_SEARCH_TERM` includes a `SEARCH_TERM_IMPRESSION_SHARE` column, sourced from Amazon's Search Term Impression Share (SIS) report. Query it directly, no manual download needed.
+- **Sponsored Products:** not available through DataHawk today. Amazon's Ads API doesn't expose `searchTermImpressionShare` for Sponsored Products, so `ADVERTISING.AMZN_SP_SEARCH_TERM` doesn't carry this field. Amazon only offers it for SP as a report you download manually from Seller or Vendor Central.
+
+<Callout type="info">
+  Want SP Search Term Impression Share alongside your DataHawk data anyway? Since Amazon doesn't expose it through the API, the only way to bring it in today is to upload your manual report downloads yourself, for example through the [Writable Database Service](/help-center/connect-tools/writable-database). Reach out to your DataHawk contact if you'd like help setting that up.
+</Callout>
+
 ## Where to go next
 
 <div className="card-grid">
