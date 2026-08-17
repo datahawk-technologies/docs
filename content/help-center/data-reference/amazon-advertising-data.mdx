@@ -234,13 +234,19 @@ For exact metric definitions in dashboards, see [Advertising Power BI Dashboard]
 
 ## Search Term Impression Share (SP vs SB)
 
-Search Term Impression Share, the share of eligible impressions your ads actually won for a given search term, isn't collected the same way across ad types.
+Search Term Impression Share, the share of eligible impressions your ads won for a given search term, is available for Sponsored Brands but not for Sponsored Products.
 
-- **Sponsored Brands:** already in DataHawk. `ADVERTISING.AMZN_SB_SEARCH_TERM` includes a `SEARCH_TERM_IMPRESSION_SHARE` column, sourced from Amazon's Search Term Impression Share (SIS) report. Query it directly, no manual download needed.
-- **Sponsored Products:** not available through DataHawk today. Amazon's Ads API doesn't expose `searchTermImpressionShare` for Sponsored Products, so `ADVERTISING.AMZN_SP_SEARCH_TERM` doesn't carry this field. Amazon only offers it for SP as a report you download manually from Seller or Vendor Central.
+| Ad type | Available in DataHawk | Table and column |
+|---|---|---|
+| Sponsored Brands (SB) | Yes | `ADVERTISING.AMZN_SB_SEARCH_TERM`, column `SEARCH_TERM_IMPRESSION_SHARE` |
+| Sponsored Products (SP) | No | Not collected. Manual download from the Amazon ads console only |
+
+**Sponsored Brands:** DataHawk collects this from Amazon's Search Term Impression Share (SIS) report. Query `SEARCH_TERM_IMPRESSION_SHARE` in `ADVERTISING.AMZN_SB_SEARCH_TERM` directly, with no manual download.
+
+**Sponsored Products:** DataHawk does not provide this metric. Amazon's Advertising API doesn't expose `searchTermImpressionShare` for Sponsored Products, so `ADVERTISING.AMZN_SP_SEARCH_TERM` carries no impression share column. Amazon offers it for Sponsored Products only as a manual download from the ads console. This is an Amazon API limitation rather than a DataHawk gap.
 
 <Callout type="info">
-  Want SP Search Term Impression Share alongside your DataHawk data anyway? Since Amazon doesn't expose it through the API, the only way to bring it in today is to upload your manual report downloads yourself, for example through the [Writable Database Service](/help-center/connect-tools/writable-database). Reach out to your DataHawk contact if you'd like help setting that up.
+  You can still bring the Sponsored Products report into your warehouse yourself. Download it from the Amazon ads console and load it through the [Writable Database Service](/help-center/connect-tools/writable-database), then join it to your DataHawk Sponsored Products tables.
 </Callout>
 
 ## Where to go next
