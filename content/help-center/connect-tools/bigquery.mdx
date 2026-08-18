@@ -43,6 +43,46 @@ The database is accessible to the Google email addresses listed on this page. Ea
 
 You can also connect via **Service Account** for automated workflows and integrations (advanced).
 
+<Callout type="info">
+  **The email needs to be a Google Account, but it doesn't need to be a `@gmail.com` address.** Any email, including a work email on your own company's domain, can be turned into a Google Account. If you try to add an email that isn't one yet, you'll see: "BigQuery only support Google Account. Please use a Google Account email instead."
+</Callout>
+
+#### Turning an existing email into a Google Account
+
+If the email you want to grant access to isn't a Google Account yet:
+
+<Steps>
+
+<Step>
+### Go to the Google Account sign-up page
+
+Open [accounts.google.com/signup](https://accounts.google.com/signup).
+</Step>
+
+<Step>
+### Choose to use your current email instead of creating a new one
+
+Google's sign-up form defaults to creating a new `@gmail.com` address. Look for an option to use an existing email address instead, and enter the work email you want to grant BigQuery access to.
+</Step>
+
+<Step>
+### Verify the email and set a password
+
+Google sends a verification code to that email address. Enter it, then set a password for signing in to Google with this account. Your day-to-day use of the email (inbox, sending mail, etc.) doesn't change.
+</Step>
+
+<Step>
+### Add the email in DataHawk
+
+Once the email is a Google Account, add it under **Setup \> Destinations \> BigQuery \> Access** as usual.
+</Step>
+
+</Steps>
+
+<Callout type="warn">
+  **Already sure this email is a Google Account and still getting the error?** This can happen even for genuine Google Accounts in rare cases — see [BigQuery access errors](/troubleshooting/connection-failures#snowflake--bigquery-warehouse-connections) in Troubleshooting, and contact [support@datahawk.co](mailto:support@datahawk.co) with your workspace ID rather than trying to recreate the account.
+</Callout>
+
 ## Option 2 — Self-hosted BigQuery (advanced)
 
 If you already use Google Cloud Platform (GCP) and prefer to host the database yourself, you can connect your own BigQuery project to DataHawk. DataHawk will write your data into your project directly.

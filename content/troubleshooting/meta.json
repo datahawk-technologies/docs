@@ -9,6 +9,7 @@
     "dashboard-issues",
     "connection-failures",
     "access-permissions",
-    "account-billing"
+    "account-billing",
+    "uploads-bulk-imports"
   ]
 }

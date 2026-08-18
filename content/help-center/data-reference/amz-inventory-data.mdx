@@ -189,6 +189,16 @@ Two things worth knowing:
  
 - **Planning has a parallel signal.** `recommended_action = 'GoToRestock'` with `recommended_ship_in_quantity` / `recommended_ship_in_date` can carry similar guidance.
 - **SKU missing from this report?** It likely means Amazon doesn't currently flag it as at-risk — no recent sales, healthy days-of-supply, or no projected demand are the usual reasons.
+
+**"Which FNSKU is linked to each ASIN/SKU?"**
+
+<Term>FNSKU</Term> isn't exposed on `SELLER_INVENTORY_FBA_PLANNING_LATEST`, `SELLER_INVENTORY_ALL_LISTINGS`, or the unified `SELLER_INVENTORY` view (see the [known gap note](/help-center/data-reference/fba-fbm-seller-inventory) on the unified view's page). It is available on `RAW_INVENTORY_RESTOCK_RECOMMENDATIONS`, even though that table's primary purpose is restock alerts, not identifiers.
+
+```sql
+SELECT ASIN, FNSKU
+FROM RAW_INVENTORY_RESTOCK_RECOMMENDATIONS;
+```
+
 **"Why did my inventory drop by 200 units in a specific country/warehouse last week?"**
  
 Planning gives you marketplace-level current state, not the transaction-level reason for a change. For that, use the ledger.

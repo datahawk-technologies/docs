@@ -274,6 +274,89 @@ Once refreshed, navigate back to your workspace to open the report.
 
 </Steps>
 
+## Changing the historical lookback window
+
+Most DataHawk Power BI templates cap how much history a tab loads by default, both to keep the report fast and because that default isn't right for everyone. If a tab shows less history than you expected (BSR ranking limited to the last 12 months is a common example), you can usually extend it yourself, without needing raw database access.
+
+<Callout type="info">
+  This only controls how much of your *existing* data the dashboard displays — it can't show more history than DataHawk has actually collected for your account. See [Historical data storage](/help-center/data-setup/seller-account#historical-data-storage) for how far back your data goes.
+</Callout>
+
+**If you're working from the published report in Power BI Service** (the setup used in Option 1 above):
+
+<Steps>
+<Step>
+### Open the semantic model settings
+
+In your Power BI workspace, hover over the semantic model (not the report), click **⋯ More options**, and select **Settings**.
+<img
+  src="/images/help-center/connect-tools/powerbi/powerbi-12.png"
+  alt="Power BI 12"
+  width={600}
+  height={340}
+  className="rounded-lg border"
+/>
+</Step>
+<Step>
+### Go to Parameters
+
+Expand **Parameters** and find the history/lookback parameter `[TO CONFIRM: exact parameter name(s), they can vary by template]`.
+<img
+  src="/images/help-center/connect-tools/powerbi/powerbi-13.png"
+  alt="Power BI 13"
+  width={600}
+  height={340}
+  className="rounded-lg border"
+/>
+
+</Step>
+<Step>
+### Enter the value you want and apply
+
+Enter the number of days (or months, depending on the template) you want, then click **Apply**.
+<img
+  src="/images/help-center/connect-tools/powerbi/powerbi-14.png"
+  alt="Power BI 14"
+  width={300}
+  height={170}
+  className="rounded-lg border"
+/>
+</Step>
+<Step>
+### Refresh the semantic model
+
+Hover over the semantic model again and select **Refresh now**. This can take up to 30 minutes depending on your data volume.
+<img
+  src="/images/help-center/connect-tools/powerbi/powerbi-15.png"
+  alt="Power BI 15"
+  width={600}
+  height={340}
+  className="rounded-lg border"
+/>
+</Step>
+</Steps>
+
+**If you're working from Power BI Desktop** (the `.pbix` file itself): open **Transform data \> Manage Parameters** instead, update the same parameter, and click **Close & Apply**.
+
+### Default lookback by template
+
+Each template ships with its own default, chosen to keep the report fast. If your tab's history looks capped, check this table before assuming data is missing or a bug:
+
+| Template | Default lookback |
+|---|---|
+| [Seller Analytics](/help-center/dashboard-templates/power-bi/seller-analytics-dashboard) | 730 days (2 years) |
+| [Vendor Analytics](/help-center/dashboard-templates/power-bi/vendor-analytics-dashboard) | 730 days (2 years) |
+| [Seller + Vendor Analytics](/help-center/dashboard-templates/power-bi/seller-vendor-analytics-dashboard) | 730 days (2 years) |
+| [Market Intelligence](/help-center/dashboard-templates/power-bi/market-intelligence-dashboard) | 365 days (1 year) |
+| [Ads DSP](/help-center/dashboard-templates/power-bi/ads-dsp-dashboard) | 365 days (1 year) |
+| [Advertising](/help-center/dashboard-templates/power-bi/advertising-dashboard) | 180 days |
+| Search | 180 days `[TO CONFIRM: this template has no dedicated reference page yet — see note below]` |
+| [Product](/help-center/dashboard-templates/power-bi/product-dashboard) | 90 days |
+
+<Callout type="info">
+  The Search dashboard is referenced in [Dashboard issues](/troubleshooting/dashboard-issues) as a shipped template but doesn't have its own guide on this site yet. `[TO CONFIRM: confirm this is a gap to fill, not a template being retired]`
+</Callout>
+
 ## Option 2 — Build your own reports
 
 If you prefer to build from scratch or connect an existing Power BI file to your DataHawk data, [Learn how to connect to Snowflake in the power bi documentation](https://learn.microsoft.com/en-us/power-bi/connect-data/service-connect-snowflake).

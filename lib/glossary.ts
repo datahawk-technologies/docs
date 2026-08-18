@@ -133,6 +133,11 @@ export const glossary: Record<string, GlossaryEntry> = {
     title: 'Value Added Tax',
     short: 'A consumption tax used in the EU and UK. In some marketplaces VAT is included in prices; in others added at checkout.',
   },
+  'SALES PRINCIPAL': {
+    title: 'Sales Principal',
+    short: 'The net-of-VAT sales figure in Profit Explorer (Category: Sales, Subcategory: Sales Principal). Not the same as "Sales," "Sales (Orders)," or "Gross Revenue" — those all include VAT.',
+    readMore: '/help-center/glossary#sales-vs-sales-orders-vs-gross-revenue-vs-sales-principal',
+  },
   'BUY BOX': {
     title: 'Buy Box (Featured Offer)',
     short: 'The default offer shown on a product page. Winning the Buy Box typically captures 80–90% of that product\'s sales.',

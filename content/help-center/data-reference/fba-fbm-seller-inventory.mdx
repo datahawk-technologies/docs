@@ -5,6 +5,10 @@ description: "A single, unified view of FBA and FBM inventory side by side, one 
 
 **Source:** Combines `SELLER_INVENTORY_FBA_PLANNING` (Amazon FBA Manage Inventory Health Report) and `SELLER_INVENTORY_ALL_LISTINGS` (Amazon All Listings Report)
 
+<Callout type="info">
+  Not to be confused with `SELLER_INVENTORY_ALL_LISTINGS` itself — that's the FBM-only source table this view is built from (see [FBM Seller Inventory (All Listings)](/help-center/data-reference/fbm-seller-inventory-all-listings)). This page covers `SELLER_INVENTORY`, the unified FBA + FBM view.
+</Callout>
+
 ## What this dataset is
 
 A single, unified view of your inventory across both fulfillment channels — one row per **ASIN × SKU × Marketplace**, showing FBA and FBM stock side by side. Instead of querying two separate tables and manually matching rows, you can directly compare price, condition, and stock health across channels for the same product, or pull a blended total quantity across FBA and FBM.
@@ -41,6 +45,12 @@ If a listing exists on only one channel, the columns for the other channel will 
 | `PRODUCT_NAME` | Product title, coalesced from FBA `PRODUCT_NAME` or FBM `ITEM_NAME` |
 | `REGION_NAME` | Geographic region the marketplace belongs to |
 | `CURRENCY` | Currency code for price fields on this row |
+
+<Callout type="warn">
+  **Known gap (as of April 2026): no `FNSKU` column on this unified view.** `FNSKU` exists on both source tables (`SELLER_INVENTORY_FBA_PLANNING` and `SELLER_INVENTORY_ALL_LISTINGS`) but wasn't carried into this coalesced view. DataHawk was evaluating adding it reliably at the time this note was written — if you're reading this later, check whether it's since been added before using the workaround.
+
+  In the meantime, see [Which FNSKU is linked to each ASIN/SKU?](/help-center/data-reference/amz-inventory-data) for the join (join on `ASIN`, and `SKU` too if you need SKU-level precision, to bring `FNSKU` onto your `SELLER_INVENTORY` rows).
+</Callout>
 
 ### Listing presence
 

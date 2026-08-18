@@ -38,6 +38,11 @@ You're trying to wire up an integration, Amazon Seller, Walmart, Snowflake, BigQ
 | "Failed to test the connection to your data source" (in Power BI) | Snowflake credentials copy-paste error or expired | Re-copy from Workspace → Integrations and paste fresh |
 | "Data Set Configuration Error" (Looker Studio with BigQuery) | Service account permissions missing | Grant `BigQuery Data Viewer` role to the service account |
 | "Access Denied: Permission `bigquery.tables.create` denied" | Read-only role assigned where write needed | Upgrade service account role or work in a project where you have write access |
+| "BigQuery only support Google Account. Please use a Google Account email instead." | The email you're adding under BigQuery access isn't a Google Account yet | Turn the email into a Google Account — see [Managing user access](/help-center/connect-tools/bigquery#managing-user-access) |
+
+<Callout type="warn">
+  **Known gap (as of April 2026):** in at least one case, this error appeared for an email that turned out to already be a genuine Google Account — a detection issue on our side, not a real account problem. If you're confident the email is already a Google Account and still see this error, don't try to recreate the account — contact support with your workspace ID instead.
+</Callout>
 
 ### Amazon DSP
 

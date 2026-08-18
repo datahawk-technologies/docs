@@ -69,6 +69,14 @@ For business reporting, DataHawk's default aggregated profit tables use an accru
 
 </Accordion>
 
+<Accordion title="How do I see Net Sales excluding VAT?">
+
+<Term>VAT</Term> is included in "Sales," "Sales (Orders)," and "Gross Revenue," but not identically: "Sales" and "Sales (Orders)" exclude it for the US marketplace (where sales tax works differently), while "Gross Revenue" currently includes it everywhere, US included — see the [comparison table](/help-center/glossary#sales-vs-sales-orders-vs-gross-revenue-vs-sales-principal) for the full breakdown, including why that's provisional. Because of these differences, avoid mixing "Sales" figures with other profit metrics when you specifically need a net-of-VAT number — they aren't built to reconcile directly.
+
+Instead, use the **Profit Explorer** tab: group by **Category → Subcategory**. Under the **Sales** category, use <Term>Sales Principal</Term> — this is DataHawk's net-of-VAT, net-of-shipping sales figure (sales tax and shipping charges are both broken out into their own subcategories). Profit Explorer's **Including Tax / Excluding Tax** slicer won't change this number, since Sales Principal is already net of VAT by definition. See [Sales vs Sales (Orders) vs Gross Revenue vs Sales Principal](/help-center/glossary#sales-vs-sales-orders-vs-gross-revenue-vs-sales-principal) if you're unsure which sales figure to use elsewhere.
+
+</Accordion>
+
 </Accordions>
 
 ## Where to read profitability
@@ -79,6 +87,7 @@ For business reporting, DataHawk's default aggregated profit tables use an accru
 | Profitability by SKU or ASIN | Profit Explorer |
 | Brand -> SKU breakdown with fees and ad spend | Download Center |
 | Account-level fees such as storage | "No Brand" / "No SKU" row in Download Center |
+| Net Sales excluding VAT | Profit Explorer, Sales > Sales Principal |
 | Exact tables, metrics, and SQL | Amazon Seller Profit Data technical reference |
 
 <Callout type="warn">

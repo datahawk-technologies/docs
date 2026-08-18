@@ -123,7 +123,7 @@ Total amount spent on advertising campaigns in a given time frame.
 
 ### Ad Sales
 
-Total revenue generated from sales attributed to advertising campaigns.
+Total revenue generated from sales attributed to advertising campaigns. Because it includes sales of products other than the one advertised (see Ad Sales Other SKU below) and is attributed to the ad click date rather than the purchase date, it can be higher than Total Sales for the same product and period. See [why Ad Sales can exceed Total Sales](/troubleshooting/data-discrepancies#ad-spend-or-ad-sales-look-inflated-or-wrong) if you're seeing that.
 
 ### Ad Sales Same SKU
 
@@ -195,6 +195,23 @@ The featured offer slot on a product detail page. The seller who appears by defa
 ### VAT — Value Added Tax
 
 A consumption tax used in the EU, UK, and several other regions. In some marketplaces (EU/UK) prices include VAT; in others (US/CA) tax is added at checkout. Affects how DataHawk reconciles sales with Amazon Seller Central reports. See [Profit data discrepancies](/troubleshooting/data-discrepancies).
+
+### Sales vs Sales (Orders) vs Gross Revenue vs Sales Principal
+
+These four terms sound interchangeable but aren't — each includes or excludes VAT and shipping differently, and each lives on a different page.
+
+| Term | Where you'll find it | Includes VAT/tax? | Includes shipping? |
+|---|---|---|---|
+| **Sales** | Ledger category in `FINANCE.FINANCE_PROFIT_LEDGER` (technical reference) | Yes (except US marketplace) | Yes, plus giftwrap |
+| **Gross Revenue** | P&L Report tab, Profit Explorer | Yes — including the US, no exception (see note below) | Yes, including shipping |
+| **Sales (Orders)** | Seller Analytics dashboard, Sales Report tab (also the basis for ASP and AOV) | Yes (except US marketplace) | No |
+| **Sales Principal** | Profit Explorer, grouped by Category → Subcategory, under Sales | No — this is Sales net of VAT | No — shipping and sales tax are broken out into separate subcategories |
+
+Need a net-of-VAT sales figure? Use **Sales Principal** in Profit Explorer — see [Net Sales excluding VAT](/help-center/data-metrics-guides/finance/profitability-analysis) for the full walkthrough. For the full category/subcategory breakdown (including the Marketplace Facilitator VAT lines under Tax Expenses), see [Amazon Seller Profit Data](/help-center/data-reference/amz-seller-profit-data).
+
+<Callout type="warn">
+  **Gross Revenue's tax handling is provisional (as of August 2026).** Unlike Sales and Sales (Orders), Gross Revenue doesn't carve out an exception for the US marketplace — it includes VAT/tax everywhere, because the P&L Report and Profit Explorer are still built on an older profit-metrics model that doesn't yet distinguish tax handling by marketplace. A new P&L is planned; Gross Revenue's definition will likely change once that ships and the dashboards are rewired.
+</Callout>
 
 ### Adjustments (in Profit data)
 

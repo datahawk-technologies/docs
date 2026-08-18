@@ -10,6 +10,7 @@ Power BI or Looker Studio dashboards aren't behaving as expected. Most issues ar
 1. **Did you refresh the data?** Right-click the dataset in Power BI → Refresh. The dashboard reads from a cached extract.
 2. **Are all filters set correctly?** Marketplace, currency, account, tag, and brand filters can each silently filter to zero.
 3. **Have you opened the latest version of the template?** Templates get updated regularly. See the [Changelog](/changelog) for recent dashboard updates.
+4. **Want more history than the tab is showing?** Many tabs cap their default lookback window to keep the report fast. See [Changing the historical lookback window](/help-center/connect-tools/powerbi#changing-the-historical-lookback-window) before assuming data is missing.
 
 
 ## Common scenarios
@@ -33,8 +34,8 @@ Power BI or Looker Studio dashboards aren't behaving as expected. Most issues ar
 
 | Symptom | Likely cause | Fix |
 |---|---|---|
-| Ad sales > total sales | Multi-account attribution issue | Filter to one account at a time to verify |
-| BSR limited to 12 months | Template historical window | This is a current template limitation. Full BSR history is in the underlying `report_market_best_seller_rank_and_estimates` table |
+| Ad sales > total sales | Multi-account attribution issue, or expected attribution behavior | Filter to one account at a time to verify. If it persists, this can be normal — see [why Ad Sales can exceed Total Sales](/troubleshooting/data-discrepancies#ad-spend-or-ad-sales-look-inflated-or-wrong) |
+| BSR (or other tabs) limited to less history than expected, e.g. 12 months | Template's lookback parameter is set lower than the data actually available | You can raise this yourself — see [Changing the historical lookback window](/help-center/connect-tools/powerbi#changing-the-historical-lookback-window). No need to query raw tables. |
 | Profit Explorer P&L doesn't match pivot export | Different aggregation logic | The pivot export uses raw ledger data; the dashboard rolls up by category. They should match at marketplace+month grain but can differ at finer grain |
 | Currency picker shows wrong values | Currency conversion bug (Analytics Essentials Looker Studio dashboard) | Known issue. Confirm the currency parameter on the dashboard's data source matches the visual filter |
 

@@ -294,6 +294,33 @@ A well-scoped dev section does NOT contain:
 - Restated concept definitions (those are in the glossary)
 - Generic Amazon/Walmart terminology (also in the glossary)
 
+### Disambiguating overlapping names — metrics AND tables/datasets
+
+Some metrics share a root name but aren't the same number. `Sales`, `Sales (Orders)`, `Gross Revenue`, and `Sales Principal` each include or exclude VAT and shipping differently, and each lives on a different page. Left undocumented, this is exactly the kind of gap that makes both customers and the support chatbot answer with unwarranted confidence — the chatbot's retriever surfaces whichever page it finds first, with no signal that other candidate metrics existed and might be the one the reader actually meant.
+
+The same failure mode happens with table and dataset names, not just metrics — and it's just as costly there, because it can send even an internal engineer to the wrong table when answering a support question. `SELLER_INVENTORY` (unified FBA+FBM view), `SELLER_INVENTORY_ALL_LISTINGS` (FBM-only source table), `SELLER_INVENTORY_ALL_LISTINGS_HISTORY`, and `SELLER_INVENTORY_FBA_PLANNING` are four distinct tables sharing one root name — a real support thread was misdirected at the wrong one before anyone caught it.
+
+**When you notice two or more entries whose names overlap (same root word, or one name contains another):**
+
+*For metrics:*
+
+1. Add a glossary H3 entry titled `X vs Y vs Z` (see `### Sales vs Sales (Orders) vs Gross Revenue vs Sales Principal` for the pattern) with a comparison table: where each one lives, and the specific fields that differ (VAT, shipping, date basis, whichever applies here).
+2. Add a matching entry to `lib/glossary.ts` for at least the least-familiar term in the group, with `readMore` pointing at the glossary comparison entry, so the `<Term>` tooltip is the discovery path for anyone who hits the unfamiliar name first.
+3. Cross-link from each individual metric's own definition (its `## Metrics` table row, its "For analysts" section, or the technical reference) back to the comparison entry, rather than re-explaining the distinction in more than one place.
+
+*For tables/datasets:* a full glossary comparison entry is usually overkill — these are schema-reference pages, not customer concepts. Instead:
+
+1. On each table's own reference page, add a short `<Callout type="info">` near the top naming its close-namesake(s) and the one-line distinction ("this is the unified view; for the FBM-only source table, see X").
+2. If three or more tables share a root name, consider a comparison table on [Find Tables and Columns](/help-center/data-reference/find-tables-and-columns) instead of repeating the same callout on every page.
+
+Don't try to collapse the metrics into one definition — per the context-specific-formulas rule above, each one is correct for its own view. The comparison entry's job is to make the differences findable, not to pick a winner.
+
+### Known gaps and workarounds — mark them as provisional
+
+When a customer asks for a field or capability that isn't available where they expect it, but the underlying data exists somewhere else, document the gap on the page where a reader would naturally look for the missing field — not just in Slack. Follow the existing pattern in `amazon-advertising-data.mdx` (Search Term Impression Share): state plainly what's missing, why (Amazon API limitation vs. a DataHawk modeling gap — say which), where the data does exist, and the workaround, generalized (strip any hardcoded workspace ID or account-specific filter from example queries).
+
+If engineering is still evaluating a permanent fix at the time you write the note, say so, with the date the note was written (`**Known gap (as of <month year>)**`). A workaround note that outlives the reason it existed is worse than no note — it teaches people to route around a limitation that may no longer be there. Whoever next touches the page should check whether the gap's been closed before repeating a stale workaround.
+
 ---
 
 ## 6. Cards — always wrap in `<div className="card-grid">`

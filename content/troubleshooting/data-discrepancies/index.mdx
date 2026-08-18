@@ -91,6 +91,11 @@ For ad data showing under the wrong account type specifically, see the dedicated
 
 3. **Multi-account attribution.** If you have multiple ad accounts under the same Seller, ad spend may be summing across all of them while you're comparing to a single account in Amazon Ads.
 
+4. **Ad Sales exceeding Total Sales for the same ASIN and period (expected behavior, not a bug).** This one looks alarming but is usually correct. Two attribution differences explain it:
+   - **Ad Sales covers all SKUs, Total Sales doesn't.** Amazon credits Ad Sales to any purchase made within the attribution window of an ad click, regardless of which product was bought. A shopper who clicks an ad for Product A and buys Product B counts toward Product A's Ad Sales (see <Term>Ad Sales Other SKU</Term> in the glossary). Total Sales only counts actual purchases of that specific product.
+   - **The two metrics use different reference dates.** Ad Sales is attributed to the date of the ad *click*; Total Sales is recorded on the date of *purchase*. A click and its resulting purchase can land in different reporting periods, especially near period boundaries, which shifts the numbers further apart.
+   - Because of this, Ad Sales for one ASIN in one period can legitimately be higher than that ASIN's Total Sales for the same period.
+
 **Investigation steps:**
 
 <Steps>
