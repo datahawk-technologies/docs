@@ -191,7 +191,7 @@ Add `WHERE transaction_status = 'RELEASED'` if you want only finalized refunds.
 
 2. **VAT inclusion in Seller Central but not in raw amounts.** Some EU Sales reports in Seller Central are tax-inclusive by default. DataHawk's `FINANCE_PROFIT.NET_REVENUE` excludes VAT. For matching EU sales, ensure both reports are on the same tax treatment.
 
-3. **Marketing metric scope.** The "Marketing" metric in seller dashboards = Ad Spend + Coupons + Promotions. If Ad Spend > Marketing in your view, your dashboard may be summing only partial categories. Use the raw `advertising_account_metrics` table for the unambiguous total.
+3. **Marketing metric scope.** The "Marketing" category in the profit ledger = Ad Spend + Coupons + Promotions. In confirmed cases, this does reconcile once you compare the same scope, one investigated case matched exactly (Ads + Coupons + Promotions = Marketing) once both numbers were pulled for the same account, marketplace, and period. **Ad Spend appearing higher than Marketing is almost always a scope mismatch, not a calculation bug**: the two numbers are commonly pulled from different dashboards, tabs, or filters (for example, an Advertising-dashboard Ad Spend figure filtered to one sponsored type or account, compared against a Marketing figure from a different filter set). Use `ADVERTISING.ADVERTISING_ACCOUNT_METRICS` for an unfiltered Ad Spend total to compare against.
 
 **Investigation steps:**
 
@@ -221,6 +221,12 @@ If a marketplace shows much less than expected, check whether your products are 
 ### For Tax Liability metric specifically
 
 In `FINANCE_PROFIT_METRICS`, the *Tax Liability* and *Net Profit* metrics were recalculated in November 2025. If you cached older snapshots, they won't match current values.
+</Step>
+
+<Step>
+### For Marketing vs Ad Spend specifically
+
+Before assuming a bug, pin down exactly where each number comes from: which dashboard, tab, and filters (marketplace, account, sponsored type) for Ad Spend, and which category/subcategory view for Marketing. Comparing both at the account level for the same marketplace and period is the fastest way to confirm whether they actually reconcile.
 </Step>
 </Steps>
 
