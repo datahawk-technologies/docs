@@ -31,6 +31,12 @@ DataHawk runs the daily check once per day and emails the recipient group everyd
 DataHawk Alerts module does not offer this natively. If you need non-email delivery today, build a workflow with [DataHawk <Term>MCP</Term>](/help-center/modules/datahawkmcp) and a tool like n8n or Make. They can pull your DataHawk data and post anywhere.
 </Accordion>
 
+<Accordion title="Are Alerts available through the API?">
+No, and there's nothing on the roadmap or in the release notes suggesting this is coming. DataHawk's API configures the **workspace** (which products, keywords, and categories are tracked); it doesn't create, update, retrieve, or delete Alerts, and there's no Alerts table in the Snowflake or BigQuery data share either. See [API Reference](/api-reference) for what the API does cover.
+
+If you need alert-like behavior in another system, your best options today are building your own thresholds on the underlying raw data (via [DataHawk MCP](/help-center/modules/datahawkmcp) or your data share), or forwarding the notification emails DataHawk already sends into your own tooling.
+</Accordion>
+
 <Accordion title="How long is alert history kept?">
 Alert events are retained for **3 months**.
 </Accordion>

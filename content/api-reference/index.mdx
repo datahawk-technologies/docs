@@ -1,6 +1,73 @@
 ---
 title: API Reference
-description: Build with the DataHawk API.
+description: What the DataHawk API configures, what it doesn't, and where to go for data instead.
 ---
 
-The API Reference will document the endpoints, authentication patterns, and integration examples developers need to build with DataHawk.
+The DataHawk API (`api.datahawk.co`) is a **workspace-configuration API**, not a data-retrieval one. Use it to manage the sources a workspace tracks; use [DataHawk MCP](/help-center/modules/datahawkmcp) or your Snowflake/BigQuery data share to pull actual data, dashboards, or feature-level information such as Alerts.
+
+<Callout type="warn">
+  **Known gap (as of August 2026):** this page covers what the API is *for* and its current capability coverage. Full endpoint, authentication, and integration documentation is not yet published here. [TO CONFIRM] whether this section is publicly linked in navigation yet.
+</Callout>
+
+## What the API is for
+
+The API configures a **workspace**: which products, keywords, and categories DataHawk tracks. It does not retrieve business data (sales, ads, inventory, profit, etc.) and it does not manage or expose most in-app features. If a chatbot or teammate is asked "is [feature] available via the API," the default answer is no unless that feature is specifically about tracked-entity configuration, listed below.
+
+## Capability coverage
+
+| Capability | Available via the API today |
+|---|---|
+| Add, remove, or update tracked products | Yes |
+| Add, remove, or update tracked keywords | Yes |
+| Add, remove, or update tracked categories | [TO CONFIRM] |
+| Connect or manage Amazon Seller Central accounts | No |
+| Connect or manage Amazon Vendor Central accounts | No |
+| Connect or manage Amazon Advertising accounts | No |
+| Connect or manage Walmart accounts | [TO CONFIRM] |
+| Retrieve sales, finance, inventory, or advertising data | No — see [DataHawk MCP](/help-center/modules/datahawkmcp) or [Source Systems & Freshness](/help-center/data-reference/source-systems-freshness) |
+| Retrieve dashboard metrics | No |
+| Create, update, retrieve, or delete Alerts | No |
+
+For anything marked "No" above, the closest programmatic options today are [DataHawk MCP](/help-center/modules/datahawkmcp) for conversational or automated data pulls, or your Snowflake/BigQuery data share for direct SQL access.
+
+## Common questions
+
+<Accordions>
+
+<Accordion title="Is [some feature] available via the API, or could it be?">
+Start from the capability table above. If the feature is about which products, keywords, or categories a workspace tracks, it's likely already covered. If it's about retrieving data, viewing results, or managing a feature such as Alerts, the answer today is no; the API's purpose is workspace configuration, not data access or feature management. Ask what the underlying goal is (what would they do with API access?) before proposing a workaround, since the right alternative (MCP vs. the data share vs. a manual setup) depends on it.
+</Accordion>
+
+<Accordion title="Are Alerts available through the API?">
+No, and nothing on the roadmap or in the release notes suggests this is coming. Alerts can't be created, updated, retrieved, or deleted via the API, and there's no Alerts table in the Snowflake or BigQuery data share. See [Alerts FAQ & troubleshooting](/help-center/modules/alerts/faq-troubleshooting) for workaround options.
+</Accordion>
+
+<Accordion title="Can I retrieve any DataHawk data through this API?">
+No. This API only configures tracked sources. For data, either connect an AI client through [DataHawk MCP](/help-center/modules/datahawkmcp), or query your Snowflake/BigQuery data share directly, see [Find Tables and Columns](/help-center/data-reference/find-tables-and-columns).
+</Accordion>
+
+<Accordion title="Can I connect my Seller, Vendor, or Advertising account via the API?">
+Not through a self-serve API endpoint today. [TO CONFIRM: current process for connecting these accounts on a customer's behalf without the standard OAuth flow in the app] Contact [support@datahawk.co](mailto:support@datahawk.co) if you have a use case that needs this.
+</Accordion>
+
+</Accordions>
+
+## Where to go next
+
+<div className="card-grid">
+  <Card
+    title="DataHawk MCP"
+    href="/help-center/modules/datahawkmcp"
+    description="Connect an AI assistant or automation tool directly to your DataHawk data."
+  />
+  <Card
+    title="Find Tables and Columns"
+    href="/help-center/data-reference/find-tables-and-columns"
+    description="Query your Snowflake or BigQuery data share directly."
+  />
+  <Card
+    title="Alerts FAQ & troubleshooting"
+    href="/help-center/modules/alerts/faq-troubleshooting"
+    description="Common Alerts questions, including programmatic access."
+  />
+</div>

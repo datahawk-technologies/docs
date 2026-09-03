@@ -187,12 +187,40 @@ a.text-fd-muted-foreground[href^="#"]:hover {
 /* ─────────────────────────────────────────────────────────────
    5a. UNIVERSAL HOVER (article links + all buttons everywhere)
    ───────────────────────────────────────────────────────────── */
+/* Excludes anything inside a dialog (:not([role="dialog"] *)) so this
+   doesn't bleed into the search popup, whose result rows are <button>
+   elements with their own selected-state color (see search dialog highlight
+   below). Without this guard, this rule wins the cascade over Fumadocs'
+   built-in bg-fd-accent / text-fd-accent-foreground classes (Tailwind v4
+   utilities sit in a lower-priority layer than hand-written CSS like this),
+   so hovering a search result flashed brand-yellow instead of the intended
+   blue, and the text underneath became unreadable. */
 article a:hover,
-button:hover,
-[role="button"]:hover,
+button:hover:not([role="dialog"] *),
+[role="button"]:hover:not([role="dialog"] *),
 a[class*="button"]:hover {
   background-color: #ffd573;
   color: #122c47;
+}
+
+/* --- Search dialog result highlight (blue, not the yellow above) ---
+   Fumadocs marks each search result row with aria-selected (true/false) —
+   that's what distinguishes a result row from the dialog's other buttons
+   (ESC close button, tag filters), so we only touch those here. Reinforces
+   Fumadocs' own selected-state classes (bg-fd-accent / text-fd-accent-
+   foreground) on the active/hovered row, so mouse-hover and keyboard
+   arrow-navigation always agree and match the site's blue accent instead
+   of the yellow hover color above. The `* { color: inherit }` keeps the
+   highlighted search term (rendered in --color-fd-primary blue) legible
+   against the blue selected background instead of blue-on-blue. */
+[role="dialog"] [aria-selected]:hover,
+[role="dialog"] [aria-selected="true"] {
+  background-color: var(--color-fd-accent) !important;
+  color: var(--color-fd-accent-foreground) !important;
+}
+
+[role="dialog"] [aria-selected="true"] * {
+  color: inherit !important;
 }
 
 /* --- Exclude heading anchor links from yellow flash ------------ */
