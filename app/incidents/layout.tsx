@@ -19,19 +19,6 @@ export const metadata: Metadata = {
 export default function Layout({ children }: { children: ReactNode }) {
   const { nav, ...base } = baseOptions();
 
-  // Compute latest 5 entries for the sidebar widget
-  const latestEntries = incidentsSource
-    .getPages()
-    .map((p) => ({
-      title: p.data.title,
-      date: (p.data as any).date ?? '',
-      recoverable: (p.data as any).recoverable ?? true,
-      url: p.url,
-    }))
-    .filter((e) => e.date)
-    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
-    .slice(0, 5);
-
   return (
     <DocsLayout
       {...base}
@@ -41,7 +28,7 @@ export default function Layout({ children }: { children: ReactNode }) {
       tabs={tabs}
       sidebar={{
         defaultOpenLevel: 0,
-        banner: <IncidentsSidebar latestEntries={latestEntries} />,
+        banner: <IncidentsSidebar />,
       }}
     >
       {children}

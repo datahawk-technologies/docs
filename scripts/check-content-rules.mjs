@@ -4,6 +4,7 @@
  *
  * Enforces the event-triggered rules from CLAUDE.md Section 24:
  *   - a changelog entry is added
+ *   - an incident entry is added (see incident-playbook/writing-rules.md)
  *   - a new doc page is added
  *   - an existing page is edited (incl. renamed/moved/deleted)
  *
@@ -252,6 +253,52 @@ function lintChangelog(file, fm) {
 }
 
 // ---------------------------------------------------------------------------
+// 5b. Incident-specific checks (incident-playbook/writing-rules.md)
+// ---------------------------------------------------------------------------
+
+function lintIncident(file, fm, body) {
+  const base = path.basename(file, '.mdx');
+
+  if (!/^\d{4}-\d{2}-\d{2}-[a-z0-9]+(-[a-z0-9]+)*$/.test(base)) {
+    report(file, 'error', 'Incident filename must be YYYY-MM-DD-short-slug in lowercase kebab-case.');
+  }
+
+  if (!fm.date) {
+    report(file, 'error', 'Incident entry is missing required `date` frontmatter field.');
+  } else if (fm.date !== base.slice(0, 10)) {
+    report(file, 'error', `Frontmatter date "${fm.date}" does not match filename date "${base.slice(0, 10)}".`);
+  }
+
+  if (!fm.dateRangeImpacted) {
+    report(file, 'error', 'Incident entry is missing required `dateRangeImpacted` frontmatter field (the data dates affected).');
+  }
+
+  if (!fm.datasetsImpacted) {
+    report(file, 'error', 'Incident entry is missing required `datasetsImpacted` frontmatter field.');
+  } else if (!Array.isArray(fm.datasetsImpacted) || fm.datasetsImpacted.length === 0) {
+    report(file, 'error', '`datasetsImpacted` must be a non-empty array, e.g. ["Raw Inventory (FBA)"].');
+  }
+
+  if (fm.recoverable !== 'true' && fm.recoverable !== 'false') {
+    report(file, 'error', '`recoverable` must be exactly true or false — it drives the "Not recoverable" badge and the RSS category.');
+  }
+
+  // Never identify a customer or account (writing-rules.md Section 4)
+  if (/\bWID\b|\bworkspace id\b/i.test(body)) {
+    report(file, 'error', 'Mentions a workspace ID — incident entries must never identify an account.');
+  }
+  if (/[\w.+-]+@(?!datahawk\.co)[\w-]+\.[\w.]+/.test(body)) {
+    report(file, 'error', 'Contains a non-DataHawk email address — incident entries must never identify a person or account.');
+  }
+
+  // Mechanism-agnostic language matters most on this page (Section 16)
+  const m = body.match(/\b(crawl|crawler|crawling|scrape|scraper|scraping|spider|harvest)\w*\b/i);
+  if (m) {
+    report(file, 'error', `Uses "${m[0]}" about data collection — use collect, track, or monitor instead (Section 16).`);
+  }
+}
+
+// ---------------------------------------------------------------------------
 // 6. New-doc structural checks (meta.json membership, filename convention)
 // ---------------------------------------------------------------------------
 
@@ -337,9 +384,11 @@ function main() {
     if (!fs.existsSync(abs)) continue;
     const content = fs.readFileSync(abs, 'utf8');
 
-    const { fm } = lintGeneral(file, content);
+    const { fm, body } = lintGeneral(file, content);
     if (file.startsWith('content/changelog/')) {
       lintChangelog(file, fm);
+    } else if (file.startsWith('content/incidents/')) {
+      lintIncident(file, fm, body);
     } else if (entry.status === 'A') {
       lintNewDoc(file, fm);
     }

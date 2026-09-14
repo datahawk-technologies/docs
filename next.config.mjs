@@ -65,6 +65,8 @@ const config = {
       { source: '/help-center/data-metrics-guides/keyword-search-volume', destination: '/help-center/data-metrics-guides/search/keyword-research', permanent: true },
       { source: '/help-center/modules/insights', destination: '/changelog/2026-06-30-insights-module-retired', permanent: true },
       { source: '/help-center/modules/insights/:path*', destination: '/changelog/2026-06-30-insights-module-retired', permanent: true },
+      // Incident entry renamed so the filename date matches its `date` frontmatter (resolution date).
+      { source: '/incidents/2026-08-19-best-seller-rank-estimates-gap', destination: '/incidents/2026-08-24-best-seller-rank-estimates-gap', permanent: true },
     ];
 
     const notionRedirectEntries = notionRedirects.map(({ from, to }) => ({

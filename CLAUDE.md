@@ -6,13 +6,14 @@ You are an agent working inside the DataHawk Fumadocs documentation repository. 
 
 ## 1. Repository overview
 
-This is a **Fumadocs UI 16.x** docs site running on **Next.js 16.x** with **pnpm**. Pages live in `content/` as MDX. The site has four user-visible top-level tabs and one hidden one:
+This is a **Fumadocs UI 16.x** docs site running on **Next.js 16.x** with **pnpm**. Pages live in `content/` as MDX. The site has four user-visible top-level tabs, one hidden tab, and one section that is deliberately not in the tab bar:
 
 - `content/welcome/` → **Welcome** tab — onboarding for new customers
 - `content/help-center/` → **Help Center** tab — main reference content (98+ pages)
 - `content/troubleshooting/` → **Troubleshooting** tab — problem/solution guides
 - `content/changelog/` → **Changelog** tab — release notes, one MDX per release
 - `content/api-reference/` → **API Reference** tab — currently hidden in `lib/tabs.ts`
+- `content/incidents/` → **Incidents** — public log of data incidents at `/incidents`. Not a tab: readers reach it from Troubleshooting, site search, or the RSS feed at `/incidents/feed.xml`. Keeping it out of `lib/tabs.ts` is intentional — don't "fix" it by adding one.
 
 Each tab has its own catchall route at `app/<tab>/[[...slug]]/page.tsx` that renders MDX via the registered global components.
 
@@ -99,6 +100,10 @@ tags: ["improvement", "breaking"]
 | `company` | Company news (acquisition, leadership) |
 
 Combine tags freely (e.g. `["new", "breaking"]` for a new dataset that deprecates an old one).
+
+**Incident entries** (`content/incidents/`) have their own required fields — `date`, `dateRangeImpacted`, `datasetsImpacted`, `recoverable` — and wording rules that apply nowhere else on the site: never identify a customer or an employee, never name internal systems, always end with a next step, and be exact about which dates and datasets were affected.
+
+Do not write one from this file alone. Read `incident-playbook/writing-rules.md` first; the input should be a filled `incident-playbook/intake-template.md`. `scripts/check-content-rules.mjs` enforces the frontmatter contract and the identity rules.
 
 ### Optional frontmatter
 
