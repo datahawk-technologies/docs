@@ -79,16 +79,6 @@ export function IncidentsSidebar({ latestEntries }: { latestEntries: LatestIncid
         </p>
       </section>
 
-      <section className="pt-4 border-t border-fd-border space-y-1">
-        <p className="text-xs text-fd-muted-foreground px-2">
-          Wondering if a specific date range affected your account? Contact your
-          account team or{' '}
-          <Link href="/help-center/contact" className="text-fd-primary hover:underline">
-            support
-          </Link>
-          .
-        </p>
-      </section>
     </div>
   );
 }
