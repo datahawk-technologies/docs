@@ -27,4 +27,16 @@ export const changelog = defineDocs({
   },
 });
 
+export const incidents = defineDocs({
+  dir: 'content/incidents',
+  docs: {
+  schema: frontmatterSchema.extend({
+    date: z.coerce.string(),
+    dateRangeImpacted: z.string(),
+    datasetsImpacted: z.array(z.string()),
+    recoverable: z.boolean(),
+  }),
+  },
+});
+
 export default defineConfig();

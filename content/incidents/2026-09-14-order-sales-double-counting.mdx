@@ -1,0 +1,18 @@
+---
+title: "Order data temporarily double-counted for two days"
+description: "A migration bug briefly double-counted some orders on Sep 11 and 12, inflating sales figures until it was fixed the same day."
+date: "2026-09-14"
+dateRangeImpacted: "Sep 11 - Sep 12, 2026"
+datasetsImpacted: ["Order and daily sales data (BigQuery Data Sharing)"]
+recoverable: true
+---
+
+A customer flagged a sales spike on September 11 and 12 that looked too high compared to Seller Central. We traced it to a migration of our order collection system: some orders were briefly counted twice, which inflated sales and units-sold figures for those two days.
+
+## What this means for you
+
+If you pulled order or sales data for September 11 or 12 through BigQuery Data Sharing before the fix went live, those figures may have been overstated. Nothing was lost - the underlying order data was correct throughout, only the shared, duplicated copy was wrong.
+
+## What we are doing about it
+
+We shipped a fix the same day and corrected the affected figures. We have also added safeguards so this type of duplication cannot happen again during future migrations.

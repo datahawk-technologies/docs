@@ -1,0 +1,20 @@
+---
+title: "Small data gap in Best Seller Rank and estimates"
+description: "A drop in ranked products on Aug 16 and 18 was mostly expected variation, plus a small unrecovered gap on Aug 20."
+date: "2026-08-24"
+dateRangeImpacted: "Aug 16, Aug 18, and Aug 20, 2026"
+datasetsImpacted: ["REPORT_MARKET_BEST_SELLER_RANK_AND_ESTIMATES_V7"]
+recoverable: false
+---
+
+We looked into a reported drop in the Best Seller Rank and estimates dataset on August 16 and 18. After checking, most of it was not a data problem: the number of categories tracked stayed constant, and the drop was in how many products ranked within some sub-categories - a handful had fewer than 100 ranked products that day, which is expected variation, not missing data.
+
+## What was genuinely affected
+
+There is one confirmed gap: for August 20, we are missing ASINs for one sub-category, because that day's data was not extrapolated the way it usually is. That gap has not been backfilled.
+
+## What we are doing about it
+
+This dataset does use extrapolation to fill small holes in coverage, and we are evaluating whether to apply it retroactively for August 20. We will update this entry if that changes.
+
+If you rely on complete category coverage from this dataset around that date, reach out to your account team so we can confirm what to expect for your specific categories.

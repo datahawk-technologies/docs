@@ -18,4 +18,6 @@ export const tabs = [
   { title: 'Troubleshooting', url: '/troubleshooting' },
   // { title: 'API Reference', url: '/api-reference' },  // hidden for now
   { title: 'Changelog', url: '/changelog' },
+  // Incidents is deliberately NOT a tab — it lives at /incidents and is
+  // reached from Troubleshooting and site search. See content/incidents/.
 ];

@@ -1,5 +1,5 @@
 import { loader } from 'fumadocs-core/source';
-import { welcome, helpCenter, troubleshooting, apiReference, changelog } from '@/.source/server';
+import { welcome, helpCenter, troubleshooting, apiReference, changelog, incidents } from '@/.source/server';
 import type { PageData } from 'fumadocs-core/source';
 
 export const welcomeSource = loader({
@@ -27,6 +27,11 @@ export const changelogSource = loader({
   source: changelog.toFumadocsSource(),
 });
 
+export const incidentsSource = loader({
+  baseUrl: '/incidents',
+  source: incidents.toFumadocsSource(),
+});
+
 function getUrlSegments(page: { url: string }) {
   return page.url.split('/').filter(Boolean);
 }
@@ -48,6 +53,9 @@ export const source = loader({
     }),
     changelog: changelog.toFumadocsSource({
       baseDir: 'changelog',
+    }),
+    incidents: incidents.toFumadocsSource({
+      baseDir: 'incidents',
     }),
   },
 });

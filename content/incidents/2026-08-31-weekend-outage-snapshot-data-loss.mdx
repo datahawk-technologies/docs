@@ -1,0 +1,20 @@
+---
+title: "Weekend outage caused permanent loss of snapshot-based data"
+description: "A data collection outage over August 30 and 31 permanently affected snapshot-based datasets, including FBA inventory."
+date: "2026-08-31"
+dateRangeImpacted: "Aug 30 - Aug 31, 2026"
+datasetsImpacted: ["Raw Inventory (FBA)", "other snapshot-based datasets"]
+recoverable: false
+---
+
+Over the weekend of August 30 and 31, DataHawk had a data collection outage. Collection is back to normal now, but snapshot-based data from that weekend could not be recovered.
+
+## What this means for you
+
+Snapshot-based datasets capture a single point-in-time view of your data. When collection stops, that snapshot is skipped, and there is no way to reconstruct it after the fact. This is different from data that gets refreshed on the next run - here, the gap stays in your history.
+
+The Raw Inventory (FBA) dataset was affected. If your reports or dashboards pull FBA inventory data for August 30 or 31, expect a gap for those two days.
+
+## What we are doing about it
+
+If a specific report or query depends on that date range, reach out to your account team and we will help you work around the gap.
