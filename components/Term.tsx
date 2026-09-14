@@ -14,10 +14,12 @@
  * Behavior:
  *   - If term exists in glossary.ts: dotted-underline + tooltip on hover/focus/tap
  *   - If not found: renders children as plain text (no decoration)
- *   - Tooltip renders via a React Portal at <body> level. This is what
- *     lets the bubble escape ANY ancestor's overflow/clip context — Tabs,
- *     Accordions, code blocks, etc. Without portaling, the tooltip would
- *     get clipped at the first ancestor with overflow:hidden.
+ *   - Tooltip renders via a React Portal into a dedicated node under
+ *     <body> (see getTooltipPortalRoot below), not into <body> itself.
+ *     This is what lets the bubble escape ANY ancestor's overflow/clip
+ *     context — Tabs, Accordions, code blocks, etc. — while keeping it
+ *     isolated from third-party scripts that mutate <body>'s children
+ *     directly (e.g. the Chatwoot widget in components/Chatwoot.tsx).
  *
  * Registered globally in mdx-components.tsx, no MDX import needed.
  */
@@ -45,6 +47,34 @@ const TOOLTIP_WIDTH_PX = 288;
 
 // Vertical gap between the term and the tooltip body.
 const TOOLTIP_GAP_PX = 8;
+
+// Dedicated container for every Term tooltip's portal, appended once as a
+// single direct child of <body> and reused by all instances.
+//
+// Why not portal straight into document.body (as before): document.body is
+// also where third-party embeds attach themselves directly to the DOM,
+// bypassing React entirely -- e.g. components/Chatwoot.tsx's widget script
+// inserts/removes its own nodes as direct children of <body> on its own
+// schedule. When that happens between this tooltip's mount and unmount,
+// React's cached reference to "the parent that holds the tooltip node" can
+// go stale, so when the tooltip later closes and React tries
+// `parentNode.removeChild(tooltipNode)`, parentNode is no longer what React
+// expects -- surfacing as "Cannot read properties of null (reading
+// 'removeChild')". Giving the portal its own dedicated node means nothing
+// but React ever touches that node's children, so this race can't happen.
+let sharedTooltipPortalRoot: HTMLDivElement | null = null;
+
+function getTooltipPortalRoot(): HTMLDivElement | null {
+  if (typeof document === 'undefined') return null;
+  if (sharedTooltipPortalRoot && document.body.contains(sharedTooltipPortalRoot)) {
+    return sharedTooltipPortalRoot;
+  }
+  const el = document.createElement('div');
+  el.id = 'term-tooltip-root';
+  document.body.appendChild(el);
+  sharedTooltipPortalRoot = el;
+  return el;
+}
 
 // useLayoutEffect logs a warning when run on the server. Use the effect
 // only on the client so SSR stays quiet.
@@ -78,6 +108,13 @@ export function Term({
   const id = useId();
   const triggerRef = useRef<HTMLSpanElement | null>(null);
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  // Portal target — a dedicated node under <body> (see
+  // getTooltipPortalRoot above). The lazy initializer only touches
+  // `document` on the client, so this stays null during SSR; it must be
+  // declared here, alongside the component's other hooks, and not after
+  // the `if (!def)` early return below.
+  const [portalTarget] = useState<HTMLElement | null>(() => getTooltipPortalRoot());
 
   // Cancel a pending close — called when cursor re-enters the term OR
   // enters the tooltip body. Keeps the tooltip visible while the user
@@ -173,10 +210,6 @@ export function Term({
   const readMoreLabel = def.readMore
     ? 'Read more →'
     : 'Read more in glossary →';
-
-  // Portal target — only available on the client.
-  const portalTarget =
-    typeof document !== 'undefined' ? document.body : null;
 
   return (
     <>
