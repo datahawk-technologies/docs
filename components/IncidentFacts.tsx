@@ -39,7 +39,9 @@ export function IncidentFacts({
         </div>
         <div
           className={`text-sm font-medium break-words ${
-            recoverable ? 'text-fd-foreground' : 'text-red-600 dark:text-red-400'
+            recoverable
+              ? 'text-green-700 dark:text-green-400'
+              : 'text-red-600 dark:text-red-400'
           }`}
         >
           {recoverable ? 'Data recovered' : 'Data not recoverable'}

@@ -30,7 +30,7 @@ function StatusBadge({ recoverable }: { recoverable: boolean }) {
     <span
       className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium border ${
         recoverable
-          ? 'text-fd-muted-foreground border-fd-border bg-transparent'
+          ? 'text-green-700 border-green-200 bg-green-50 dark:text-green-400 dark:border-green-900 dark:bg-green-950/40'
           : 'text-red-600 border-red-200 bg-red-50 dark:text-red-400 dark:border-red-900 dark:bg-red-950/40'
       }`}
     >
