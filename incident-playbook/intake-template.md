@@ -8,6 +8,9 @@ translates them into customer language and strips anything that shouldn't go
 public. Write "not sure" where you're not sure. A gap is easy to chase; a
 confident guess that turns out wrong is what we end up apologizing for twice.
 
+Questions 2, 3, 4, 5 and 5b are the ones an entry can't be written without. Leave
+any of them blank and the agent will come back asking rather than guess.
+
 ---
 
 ## First: does this need a public entry?
@@ -36,7 +39,9 @@ conversation.
 
 **2. Which datasets or tables were affected?**
 Exact names where you have them (`MARKET.PRODUCT_SALES_RANK`), plus a plain-English
-name if the table name is cryptic.
+name if the table name is cryptic. Also say:
+- Was the whole dataset hit, or only part of it (some rows, some ASINs)?
+- All marketplaces, or only certain regions?
 >
 
 **3. Which data dates are affected?**
@@ -44,22 +49,40 @@ The dates of the *data*, not the day you noticed. If the data for Sep 11 was wro
 but you found it on Sep 14, the answer is Sep 11.
 >
 
-**4. When did it start and when was it fixed?**
-> Started:
-> Fixed:
-> Still open:
+**4. Key dates**
+Detection and resolution are the two we can't write the entry without. "Started"
+is useful but optional.
+> Detected (when we spotted it):
+> Resolved (when it was fixed):
+> Started (if known):
 
-**5. Is the data recoverable?** Pick one:
-- [ ] Already recovered - the history is complete now
-- [ ] Will be backfilled - expected by: ______
-- [ ] Permanently lost - cannot be reconstructed
-- [ ] Not a data-loss issue - delay only, access only, or wrong values now corrected
+**5. Where does it stand?** Pick one:
+- [ ] **Still open** - not fixed yet. Say so; we can publish now and update later.
+      This also puts a notice at the top of the incidents page for as long as it
+      stays open, so tell us when it resolves - that's what takes the notice down.
+- [ ] **Fixed, no data impact** - recovered, corrected, or it never touched the data
+- [ ] **Fixed, some data permanently lost** - cannot be reconstructed
 
-If it's partial, say exactly which part is lost and which part came back.
+If it's partial, say exactly which part is lost and which part came back. If a
+backfill is planned but hasn't run, it still counts as lost until it does.
+>
+
+**5b. How severe was it?** Pick one:
+- [ ] **Low** - one dataset, short window, few customers, nothing to do
+- [ ] **Minor** - real impact, now resolved (delayed and caught up, wrong then corrected, access restored)
+- [ ] **Major** - data permanently lost, or wide enough that customers have to act
+
+If anything was permanently lost, it's major - that one isn't a judgment call.
+Otherwise, if you're not sure, say which two you're between and why; the lower
+one usually wins.
 >
 
 **6. What caused it?**
-Internal words are fine. The agent will translate.
+Internal words are fine - the agent translates them.
+- **Required** if any data was permanently lost, however fast we fixed it.
+- **Not needed** if this is a low-severity notice.
+- Otherwise optional when it was resolved within 48 hours; required if it ran
+  longer or could recur.
 >
 
 **7. What did we do to fix it?**
@@ -95,10 +118,11 @@ under investigation.
 
 > **1. What went wrong:** Order report got counted twice during the migration to the new
 > collection system, so shared sales numbers were inflated.
-> **2. Datasets:** order + daily sales data in the BigQuery share. Internal tables were fine.
+> **2. Datasets:** order + daily sales data in the BigQuery share, all marketplaces, partial (only duplicated orders). Internal tables were fine.
 > **3. Data dates:** Sep 11 and Sep 12, worst on the 12th.
-> **4. Started/fixed:** started Sep 11 with the migration, fixed Sep 14 around noon.
-> **5. Recoverable:** not a data-loss issue - values were wrong, now corrected.
+> **4. Dates:** detected Sep 14 morning, resolved Sep 14 around noon, started Sep 11 with the migration.
+> **5. Status:** fixed, no data impact - values were wrong, now corrected.
+> **5b. Severity:** minor - two days of wrong numbers, one destination, fixed same day.
 > **6. Cause:** overlapping window in the sharing incremental during migration, double-counted some orders.
 > **7. Fix:** re-ran the share, corrected figures live within ~20 min.
 > **8. Prevention:** added safeguards on the incremental so overlap can't double-count.

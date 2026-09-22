@@ -4,7 +4,8 @@ description: "A stalled processing job delayed Sales Rank and Best Seller Rank d
 date: "2026-09-14"
 dateRangeImpacted: "Sep 12 - Sep 14, 2026"
 datasetsImpacted: ["MARKET.PRODUCT_SALES_RANK", "REPORT_MARKET_BEST_SELLER_RANK_AND_ESTIMATES_V7"]
-recoverable: true
+status: "resolved-no-data-impact"
+severity: "minor"
 ---
 
 On September 14, we noticed Sales Rank and Best Seller Rank data had stopped updating since September 11. The cause was a processing job that failed to start correctly, which meant new data was not being produced for those datasets.

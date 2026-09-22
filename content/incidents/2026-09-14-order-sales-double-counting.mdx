@@ -4,10 +4,11 @@ description: "A migration bug briefly double-counted some orders on Sep 11 and 1
 date: "2026-09-14"
 dateRangeImpacted: "Sep 11 - Sep 12, 2026"
 datasetsImpacted: ["Order and daily sales data (BigQuery Data Sharing)"]
-recoverable: true
+status: "resolved-no-data-impact"
+severity: "minor"
 ---
 
-We have a detected an unusual variation in orders metrics on September 11 and 12 that looked too high compared to Seller Central. We traced it to a migration of our order collection system: some orders were briefly counted twice, which inflated sales and units-sold figures for those two days.
+We detected an unusual variation in order metrics on September 11 and 12 that looked too high compared to Seller Central. We traced it to a migration of our order collection system: some orders were briefly counted twice, which inflated sales and units-sold figures for those two days.
 
 ## What this means for you
 
