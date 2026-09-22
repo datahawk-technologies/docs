@@ -1,24 +1,32 @@
 ---
 title: "Incomplete FBA inventory and planning data for one day"
-description: "Some products are missing from FBA inventory and planning data for September 20, 2026, and we are still investigating."
+description: "Some products were missing from FBA inventory and planning data for September 20, 2026. The missing data has since been recovered."
 date: "2026-09-22"
+updated: "2026-09-22"
 dateRangeImpacted: "Sep 20, 2026"
 datasetsImpacted: ["Raw Inventory (FBA)", "Seller Inventory FBA History Daily", "Seller Inventory FBA Planning"]
-status: "in-progress"
+status: "resolved-no-data-impact"
 severity: "minor"
 ---
 
 FBA inventory and planning data for September 20, 2026 came in with about half
-the usual number of products. We spotted it on September 21. September 21 and 22
-are complete. September 20 is still being investigated.
+the usual number of products. We spotted it on September 21 and recovered the
+missing records on September 22. September 21 and 22 were complete throughout.
+
+Update, September 22: the missing September 20 data has been recovered and
+reloaded. Nothing was lost.
 
 ## What this means for you
 
-Some of your products are missing for September 20. The figures that are there
-are correct, so you will see a gap in product coverage rather than wrong numbers.
-North America is the most affected region.
+September 20 was complete. If you queried Raw Inventory (FBA), Seller
+Inventory FBA History Daily, or Seller Inventory FBA Planning for that date
+before the recovery, you may have seen a gap in product coverage, most visibly in
+North America. The figures that were present were correct, so this was missing
+products rather than wrong numbers.
 
 ## What we are doing about it
 
-We are working to recover September 20. We will update this entry as we learn more. Until then,
-treat the September 20 gap as missing data, not a real change in your catalog.
+Amazon's daily inventory reports for September 20 reached us late and incomplete,
+so the snapshot we stored for that day was short. We have since retrieved the
+full reports and reloaded them. If you pulled September 20 before the recovery,
+run your query again and you will get complete coverage.
