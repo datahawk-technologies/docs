@@ -28,6 +28,8 @@ const ROOT = path.resolve(__dirname, '..');
 const ALL_MODE = process.argv.includes('--all');
 const BASE_REF = process.env.BASE_REF || 'origin/main';
 
+const ALLOWED_SEVERITIES = ['low', 'minor', 'major'];
+const ALLOWED_STATUSES = ['in-progress', 'resolved-no-data-impact', 'resolved-data-unrecoverable'];
 const ALLOWED_TAGS = ['new', 'improvement', 'fix', 'breaking', 'maintenance', 'dashboard', 'company'];
 const BRITISH_WORDS = [
   ['analyse', 'analyze'], ['analysing', 'analyzing'], ['analysed', 'analyzed'],
@@ -279,8 +281,16 @@ function lintIncident(file, fm, body) {
     report(file, 'error', '`datasetsImpacted` must be a non-empty array, e.g. ["Raw Inventory (FBA)"].');
   }
 
-  if (fm.recoverable !== 'true' && fm.recoverable !== 'false') {
-    report(file, 'error', '`recoverable` must be exactly true or false — it drives the "Not recoverable" badge and the RSS category.');
+  if (!ALLOWED_STATUSES.includes(fm.status)) {
+    report(file, 'error', `\`status\` must be one of: ${ALLOWED_STATUSES.join(', ')} (got ${fm.status ? `"${fm.status}"` : 'nothing'}).`);
+  }
+
+  if (fm.status === 'resolved-data-unrecoverable' && fm.severity !== 'major') {
+    report(file, 'error', 'status "resolved-data-unrecoverable" requires severity "major" — permanent data loss is always major (playbook section 3b).');
+  }
+
+  if (!ALLOWED_SEVERITIES.includes(fm.severity)) {
+    report(file, 'error', `\`severity\` must be one of: ${ALLOWED_SEVERITIES.join(', ')} (got ${fm.severity ? `"${fm.severity}"` : 'nothing'}).`);
   }
 
   // Never identify a customer or account (writing-rules.md Section 4)

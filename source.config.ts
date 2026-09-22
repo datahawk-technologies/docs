@@ -34,7 +34,8 @@ export const incidents = defineDocs({
     date: z.coerce.string(),
     dateRangeImpacted: z.string(),
     datasetsImpacted: z.array(z.string()),
-    recoverable: z.boolean(),
+    status: z.enum(['in-progress', 'resolved-no-data-impact', 'resolved-data-unrecoverable']),
+    severity: z.enum(['low', 'minor', 'major']),
   }),
   },
 });

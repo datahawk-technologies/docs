@@ -5,8 +5,12 @@ what the Incidents page is for, the file contract, and the rules that govern the
 wording. The general repo rules in `CLAUDE.md` still apply on top of this - this
 file only adds what is specific to incidents.
 
-Input is a filled `incident-playbook/intake-template.md`. Output is one MDX file
-in `content/incidents/`.
+Input is a filled `incident-playbook/intake-template.md`. Output is one `.mdx`
+file in `content/incidents/`. Use `.mdx`, not `.md`: every entry in the folder is
+`.mdx`, and the schema and the rule checker are written against that extension.
+
+Section 2b lists the six inputs an entry can't be written without, and what to do
+when one of them is missing. Read that before deciding you have enough.
 
 ---
 
@@ -55,7 +59,8 @@ description: "A data collection outage over August 30 and 31 permanently affecte
 date: "2026-08-31"
 dateRangeImpacted: "Aug 30 - Aug 31, 2026"
 datasetsImpacted: ["Raw Inventory (FBA)", "other snapshot-based datasets"]
-recoverable: false
+status: "resolved-data-unrecoverable"
+severity: "major"
 ---
 ```
 
@@ -65,13 +70,15 @@ recoverable: false
 | `description` | One sentence, 160 characters max, quoted. Appears in the list, in search results, and in the RSS item. |
 | `date` | `"YYYY-MM-DD"`, must match the filename prefix. Drives ordering everywhere. |
 | `dateRangeImpacted` | The *data* dates affected, human-readable: `"Aug 30 - Aug 31, 2026"` or `"Sep 10, 2026"`. Use a hyphen, not an en dash. |
-| `datasetsImpacted` | Array. Exact table names where customers query them, plain-English names otherwise. Never empty. |
-| `recoverable` | Boolean. See section 3 - this is the field customers care most about. |
+| `datasetsImpacted` | Array. Exact table names where customers query them, plain-English names otherwise. Never empty. If only part of a dataset or only some marketplaces were hit, the array still names the dataset - the body carries the "partial" and "US and Canada only" detail. |
+| `status` | One of `"in-progress"`, `"resolved-no-data-impact"`, `"resolved-data-unrecoverable"`. See section 3 - this is the field customers care most about. |
+| `severity` | One of `"low"`, `"minor"`, `"major"`. See section 3b. |
 
 **Body shape:**
 
 1. An opening paragraph in prose - never a heading first, and don't repeat the
-   description verbatim. Say what happened and roughly why.
+   description verbatim. Say what happened, when we spotted it, and when it was
+   fixed. Those two dates are what a reader checks to see how long we sat on it.
 2. `## What this means for you` - the practical impact: which data, which dates,
    what they'll see.
 3. `## What we are doing about it` - the fix, the safeguard, and what the reader
@@ -81,8 +88,17 @@ Section names can flex when the entry genuinely needs it (`## What was genuinely
 affected` fits an entry that's mostly a false alarm), but the order - what
 happened, what it means for you, what we're doing - stays.
 
-**Length:** 150-300 words. An entry that needs more than that is usually hiding a
-troubleshooting page inside it - write that page and link to it.
+**Length:** 150-250 words. Minimal verbosity is the house style here: what
+happened, what it means for the reader, what to do, stop. An entry that needs
+much more is usually hiding a troubleshooting page inside it - write that page
+and link to it.
+
+**Short form for `severity: "low"`.** A low-severity entry doesn't need the
+three-part shape. Two to four sentences in one block is right: what was affected,
+which dates, that it's resolved, and whether the reader needs to do anything. No
+`##` headings, no cause, under about 80 words. The aim is a notice, not a report -
+the reader rules themselves in or out and moves on. Frontmatter is unchanged:
+every field is still required, and the facts block still renders above the text.
 
 Don't add `<PageFeedback />`, don't import components, and don't touch
 `content/incidents/meta.json` - new files are picked up automatically and sorted
@@ -90,26 +106,99 @@ by date.
 
 ---
 
-## 3. The recoverable flag
+## 2b. Required inputs, and what to do when one is missing
+
+Six inputs have to be settled before an entry is publishable. Each maps to the
+intake form on one side and the frontmatter or body on the other.
+
+| Input | Where it lands | If you don't have it |
+|---|---|---|
+| **Detection date** - when we spotted it | Opening paragraph | Use the first date a customer could have seen the symptom and write "identified on". Never leave the reader guessing how long we knew. |
+| **Resolution date** - when it was fixed | Opening paragraph, plus `date` and the filename prefix | Not fixed yet is `status: "in-progress"` and no resolution date. Publish anyway - that's what the status is for. |
+| **Impacted datasets**, and whether the hit was partial or region-scoped | `datasetsImpacted` plus the body | Don't publish a vague list. Name the surface you are sure of, say the full scope is still being confirmed, and set `status: "in-progress"`. |
+| **Impacted data date range** | `dateRangeImpacted` | If the end is still open, write an open range ("From Sep 11, 2026") and keep `status: "in-progress"`. |
+| **Impact** - delay, wrong values, or permanent loss, with its scope | `status` plus the body | Unknown means `in-progress`. Never guess the data outcome in either direction. |
+| **Severity** | `severity` | Take the lower of the two levels you are torn between (section 3b) - unless the data is permanently lost, which is always `major`. |
+
+**Never invent a missing value.** If an input is missing and the fallback above
+doesn't fit, say plainly what is missing and ask for it - don't quietly write
+around it. If two or more are missing, the entry isn't ready: ask first, write
+second.
+
+**Cause is not always required.** Permanent data loss always needs one, a `low`
+severity entry never does, and everything else needs one only when it ran longer
+than 48 hours or could recur. Section 3c has the table.
+
+---
+
+## 3. Status
 
 This is the one thing the page promises to get right. Everything else is context.
 
-Set `recoverable: true` when the affected data is complete and correct **now** -
-it was delayed and caught up, it was wrong and has been corrected, or the problem
-never touched the data at all (an access outage).
-
-Set `recoverable: false` when any part of the affected data cannot be
-reconstructed, however small. A narrow permanent gap is still permanent.
+| Value | Use when |
+|---|---|
+| `in-progress` | We know something is wrong and it is not fixed yet. Publish before you have the full story. |
+| `resolved-no-data-impact` | Fixed, and the data is complete and correct now - delayed then caught up, wrong then corrected, or never touched (an access outage). |
+| `resolved-data-unrecoverable` | Fixed, but some part of the affected data cannot be reconstructed, however small. |
 
 Rules that decide the edge cases:
 
-- **Partial recovery is `false`.** Then state precisely what came back and what didn't.
-- **"We could backfill it but haven't" is `false`** until the backfill actually runs. Update the entry when it does.
-- **Unknown at publish time is `false`**, with a sentence saying the investigation is ongoing. Correct it upward later if the data comes back. Never publish `true` on the hope that it will.
-- **Wrong values that were corrected is `true`** - nothing was lost, the numbers were briefly wrong.
+- **Partial loss is `resolved-data-unrecoverable`.** Then state precisely what came back and what did not.
+- **"We could backfill it but haven't" is `resolved-data-unrecoverable`** until the backfill actually runs. Change the status when it does.
+- **Unknown at publish time is `in-progress`,** not a guess at the outcome. This is the point of having the status: you can tell customers on day one and settle the data question later.
+- **Wrong values that were corrected is `resolved-no-data-impact`** - nothing was lost, the numbers were briefly wrong.
+
+An `in-progress` entry is a promise to come back to it. Don't open one you won't
+close: when the incident resolves, update the status, the body, and add a dated
+line saying what changed (see "Updating a published entry" in section 4).
 
 Never round this in our favor. The entire value of this page is that a customer
-can trust the flag without asking us.
+can trust the status without asking us.
+
+---
+
+## 3b. Severity
+
+How much this mattered, in one word. It is separate from `status`, and the two
+answer different questions: `status` is "is my data gone?", severity is "how much
+did this cost me?".
+
+- **`major`** - data is permanently lost, or the disruption was wide enough that
+  customers have to act. Should stay rare; if everything is major, nothing is.
+- **`minor`** - real, customer-visible impact that is now resolved. Data was
+  delayed and caught up, values were wrong and were corrected, access broke and
+  was restored.
+- **`low`** - narrow and brief. One dataset, a short window, a small subset of
+  customers, and nothing anyone needs to do.
+
+The two fields are mostly independent, with one hard coupling: **permanent data
+loss is always `major`**. If `status` is `resolved-data-unrecoverable`, severity
+is `major` - the rule checker enforces it. Losing a piece of a customer's history
+for good is never a small thing, however narrow the window.
+
+Everywhere else they move separately. A platform-wide delay that fully recovered
+is `resolved-no-data-impact` but still `severity: "minor"`.
+
+When you are torn between two levels, pick the lower one and make the body carry
+the detail. Overstating severity trains people to ignore the field.
+
+---
+
+## 3c. When an explanation is required
+
+"Explanation" here means the cause - why it happened - not just what happened.
+
+| Case | Explanation |
+|---|---|
+| `status: "resolved-data-unrecoverable"` | **Required, always.** Data is gone for good, so the reader is owed the reason however fast we fixed it. This overrides the 48-hour rule below. |
+| `severity: "low"` | **Not needed.** The entry exists to say it happened and it's handled. Don't pad it with a cause nobody asked for. |
+| Everything else | Optional when the incident was resolved within 48 hours. Required when it ran longer than that, or when it could recur. |
+
+These cases never collide: permanent loss is always `major` (section 3b), so an
+entry can't be both `low` and unrecoverable.
+
+One sentence usually does it - "an overlapping window during a migration counted
+some orders twice". Keep the internal architecture out of it (section 4).
 
 ---
 
@@ -155,6 +244,10 @@ to support.
 - Exact dates, exact dataset names. "Some data around the end of August" fails.
 - Bound the scope when it's bounded: "only the BigQuery copy - Snowflake was
   correct", "only accounts tracking Walmart".
+- Say whether a dataset was hit fully or partially, and name the regions when
+  only some were affected ("US and Canada only", "a share of rows, not all").
+  "The dataset was affected" sends every customer to support to find out whether
+  that means them.
 - Say what was *not* affected when that meaningfully narrows the worry.
 - Use the dataset names customers actually query, spelled exactly.
 
@@ -176,9 +269,10 @@ The exception is customer-facing dataset and table names - always exact.
 
 ### Updating a published entry
 
-Facts change: a backfill runs, an investigation concludes. Edit the entry and say
-what changed ("Update, Sep 20: the August 20 gap has been backfilled"). Don't
-silently rewrite history, and don't flip `recoverable` without a line explaining it.
+Facts change: a backfill runs, an investigation concludes, an `in-progress`
+incident closes. Edit the entry and say what changed ("Update, Sep 20: the
+August 20 gap has been backfilled"). Don't silently rewrite history, and don't
+change `status` without a line explaining it.
 
 ---
 
@@ -215,7 +309,8 @@ description: "A migration bug briefly double-counted some orders on Sep 11 and 1
 date: "2026-09-14"
 dateRangeImpacted: "Sep 11 - Sep 12, 2026"
 datasetsImpacted: ["Order and daily sales data (BigQuery Data Sharing)"]
-recoverable: true
+status: "resolved-no-data-impact"
+severity: "minor"
 ---
 
 Sales figures for September 11 and 12 came out higher than they should have. We
@@ -244,8 +339,14 @@ system name, and the fact that a customer found it rather than our monitoring.
 
 ## 7. Before publishing
 
+- [ ] All six required inputs settled, or the missing ones raised rather than guessed (section 2b)
 - [ ] Frontmatter complete, `date` matches the filename prefix, `description` at most 160 characters
-- [ ] `recoverable` is honest by section 3, and the body matches the flag
+- [ ] Detection and resolution dates appear in the opening paragraph
+- [ ] Partial and regional scope stated where the hit wasn't total
+- [ ] `status` is honest by section 3, and the body matches it
+- [ ] `severity` is set by section 3b, and is the lower level when it was a close call
+- [ ] Permanent loss carries an explanation of the cause, and `severity` is `major` (sections 3b, 3c)
+- [ ] A `low` severity entry uses the short form and skips the cause (sections 2, 3c)
 - [ ] No customer, company, workspace ID, or employee name anywhere
 - [ ] Exact dates and dataset names - a reader can decide "was I affected?" without asking
 - [ ] The entry ends with a next step, even if that step is "nothing to do"

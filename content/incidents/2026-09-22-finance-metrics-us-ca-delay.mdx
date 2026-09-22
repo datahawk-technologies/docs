@@ -4,25 +4,13 @@ description: "Finance product metrics for Sep 21 were incomplete for US and Cana
 date: "2026-09-22"
 dateRangeImpacted: "Sep 21, 2026"
 datasetsImpacted: ["FINANCE.FINANCE_PRODUCT_METRICS_DAILY"]
-recoverable: true
+status: "resolved-no-data-impact"
+severity: "low"
 ---
 
-On the morning of September 22, finance product metrics for September 21 were
-incomplete: a large share of rows for the US and Canada marketplaces had not yet
-arrived. Data collection had been running less frequently than usual, so part of
-that day's data came in later than normal.
+Finance product metrics for September 21 were incomplete for the US and Canada
+until late morning (CEST) on September 22, when the missing rows caught up in
+full. Other marketplaces and other dates were not affected, and no data was lost.
 
-## What this means for you
-
-If you queried `FINANCE.FINANCE_PRODUCT_METRICS_DAILY` for September 21 before
-late morning (CEST) on September 22, figures for US and Canada may have looked
-lower than expected or been missing. Other marketplaces and other dates were not
-affected, and no data was lost. The unique product and account counts were
-correct throughout; only part of the daily volume was late.
-
-## What we are doing about it
-
-We restored the normal collection frequency the same morning, and the missing
-rows flowed through on the next run within a few hours. Your history for
-September 21 is now complete. If you exported or cached that date early on
-September 22, pull it again; otherwise no action is needed.
+If you queried or exported `FINANCE.FINANCE_PRODUCT_METRICS_DAILY` for
+September 21 before then, pull it again. Otherwise no action is needed.

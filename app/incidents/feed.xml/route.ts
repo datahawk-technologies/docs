@@ -8,8 +8,8 @@
  * in its frontmatter, sorted newest-first. No manual maintenance - publishing
  * an incident publishes the feed item.
  *
- * Each item carries a `recovered` or `not-recoverable` category, so a
- * subscriber can filter or alert on permanent data loss specifically. The
+ * Each item carries its status as a category, so a subscriber can filter or
+ * alert on permanent data loss specifically. The
  * status, date range and datasets are also folded into the description, since
  * most readers only surface the description text.
  *
@@ -25,6 +25,12 @@ export const revalidate = false;
 // Set your production URL here, or via NEXT_PUBLIC_SITE_URL env var
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://docs.datahawk.co';
 
+const STATUS_LABEL: Record<string, string> = {
+  'in-progress': 'In progress',
+  'resolved-no-data-impact': 'Resolved (no data impact)',
+  'resolved-data-unrecoverable': 'Resolved (data unrecoverable)',
+};
+
 export function GET() {
   const entries = incidentsSource
     .getPages()
@@ -34,7 +40,8 @@ export function GET() {
       date: (p.data as any).date ?? '',
       dateRangeImpacted: (p.data as any).dateRangeImpacted ?? '',
       datasetsImpacted: ((p.data as any).datasetsImpacted ?? []) as string[],
-      recoverable: (p.data as any).recoverable ?? true,
+      status: (p.data as any).status ?? 'resolved-no-data-impact',
+      severity: (p.data as any).severity ?? 'minor',
       url: p.url,
     }))
     .filter((e) => e.date)
@@ -47,11 +54,12 @@ export function GET() {
 
   const items = entries.map((e) => {
     const pubDate = new Date(e.date).toUTCString();
-    const status = e.recoverable ? 'Data recovered' : 'Data not recoverable';
-    const category = e.recoverable ? 'recovered' : 'not-recoverable';
+    const status = STATUS_LABEL[e.status] ?? e.status;
+    const category = e.status;
 
     const details = [
       e.description,
+      `Severity: ${e.severity}.`,
       `Status: ${status}.`,
       e.dateRangeImpacted ? `Date range affected: ${e.dateRangeImpacted}.` : '',
       e.datasetsImpacted.length > 0
@@ -69,6 +77,7 @@ export function GET() {
       <description>${escapeXml(details)}</description>
       <pubDate>${pubDate}</pubDate>
       <category>${escapeXml(category)}</category>
+      <category>severity-${escapeXml(e.severity)}</category>
     </item>`;
   }).join('');
 

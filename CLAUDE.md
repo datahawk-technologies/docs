@@ -101,7 +101,7 @@ tags: ["improvement", "breaking"]
 
 Combine tags freely (e.g. `["new", "breaking"]` for a new dataset that deprecates an old one).
 
-**Incident entries** (`content/incidents/`) have their own required fields — `date`, `dateRangeImpacted`, `datasetsImpacted`, `recoverable` — and wording rules that apply nowhere else on the site: never identify a customer or an employee, never name internal systems, always end with a next step, and be exact about which dates and datasets were affected.
+**Incident entries** (`content/incidents/`) have their own required fields — `date`, `dateRangeImpacted`, `datasetsImpacted`, `status`, `severity` — and wording rules that apply nowhere else on the site: never identify a customer or an employee, never name internal systems, always end with a next step, and be exact about which dates and datasets were affected.
 
 Do not write one from this file alone. Read `incident-playbook/writing-rules.md` first; the input should be a filled `incident-playbook/intake-template.md`. `scripts/check-content-rules.mjs` enforces the frontmatter contract and the identity rules.
 

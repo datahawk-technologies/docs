@@ -6,8 +6,8 @@
  * Used by:      app/incidents/[[...slug]]/page.tsx
  *
  * Server component - no client-side state. Mirrors the fields agreed in the
- * #cs process discussion: date range impacted, datasets impacted, and
- * whether the affected data was recoverable.
+ * #cs process discussion: date range impacted, datasets impacted, the
+ * incident's status, and how severe it was.
  *
  * Layout note: dataset names can be long, unbroken strings (for example
  * REPORT_MARKET_BEST_SELLER_RANK_AND_ESTIMATES_V7). They get their own
@@ -15,17 +15,37 @@
  * name wraps inside its own column instead of overlapping the next one.
  */
 
+const STATUS_LABEL: Record<string, string> = {
+  'in-progress': 'In progress',
+  'resolved-no-data-impact': 'Resolved (no data impact)',
+  'resolved-data-unrecoverable': 'Resolved (data unrecoverable)',
+};
+
+const STATUS_COLOR: Record<string, string> = {
+  'in-progress': 'text-blue-700 dark:text-blue-400',
+  'resolved-no-data-impact': 'text-green-700 dark:text-green-400',
+  'resolved-data-unrecoverable': 'text-red-600 dark:text-red-400',
+};
+
+const SEVERITY_LABEL: Record<string, string> = {
+  major: 'Major',
+  minor: 'Minor',
+  low: 'Low',
+};
+
 export function IncidentFacts({
   dateRangeImpacted,
   datasetsImpacted,
-  recoverable,
+  status,
+  severity,
 }: {
   dateRangeImpacted: string;
   datasetsImpacted: string[];
-  recoverable: boolean;
+  status: string;
+  severity: string;
 }) {
   return (
-    <div className="not-prose grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-4 mb-6 p-4 rounded-xl border bg-fd-card/30">
+    <div className="not-prose grid grid-cols-1 sm:grid-cols-3 gap-x-6 gap-y-4 mb-6 p-4 rounded-xl border bg-fd-card/30">
       <div className="min-w-0">
         <div className="text-xs font-semibold uppercase tracking-wide text-fd-muted-foreground mb-1">
           Date range affected
@@ -39,17 +59,28 @@ export function IncidentFacts({
         </div>
         <div
           className={`text-sm font-medium break-words ${
-            recoverable
-              ? 'text-green-700 dark:text-green-400'
-              : 'text-red-600 dark:text-red-400'
+            STATUS_COLOR[status] ?? 'text-fd-foreground'
           }`}
         >
-          {recoverable ? 'Data recovered' : 'Data not recoverable'}
+          {STATUS_LABEL[status] ?? status}
+        </div>
+      </div>
+
+      <div className="min-w-0">
+        <div className="text-xs font-semibold uppercase tracking-wide text-fd-muted-foreground mb-1">
+          Severity
+        </div>
+        <div
+          className={`text-sm font-medium break-words ${
+            severity === 'major' ? 'text-amber-700 dark:text-amber-400' : 'text-fd-foreground'
+          }`}
+        >
+          {SEVERITY_LABEL[severity] ?? severity}
         </div>
       </div>
 
       {datasetsImpacted.length > 0 && (
-        <div className="min-w-0 sm:col-span-2">
+        <div className="min-w-0 sm:col-span-3">
           <div className="text-xs font-semibold uppercase tracking-wide text-fd-muted-foreground mb-1.5">
             Datasets affected
           </div>

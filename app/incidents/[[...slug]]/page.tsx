@@ -31,7 +31,8 @@ function getDatedEntries() {
       date: (p.data as any).date ?? '',
       dateRangeImpacted: (p.data as any).dateRangeImpacted ?? '',
       datasetsImpacted: ((p.data as any).datasetsImpacted ?? []) as string[],
-      recoverable: (p.data as any).recoverable ?? true,
+      status: ((p.data as any).status ?? 'resolved-no-data-impact') as IncidentEntry['status'],
+      severity: ((p.data as any).severity ?? 'minor') as IncidentEntry['severity'],
       url: p.url,
     }))
     .filter((e) => e.date);
@@ -51,15 +52,15 @@ export default async function Page(props: { params: Promise<{ slug?: string[] }>
       <DocsPage>
         <DocsTitle>Incidents</DocsTitle>
         <DocsDescription>
-          A history of incidents that affected DataHawk data, and whether the
-          affected data could be recovered.
+          A history of incidents that affected DataHawk data, what they
+          affected, and where each one stands.
         </DocsDescription>
         <DocsBody>
           <p>
             We log every incident that affects the data you rely on here, as
             soon as we can confirm the impact. Each entry says which datasets
-            and date range were affected, and whether that data was
-            recoverable.
+            and date range were affected, how severe it was, and where the
+            incident stands.
           </p>
           <p className="not-prose mb-8">
             <a
@@ -86,7 +87,8 @@ export default async function Page(props: { params: Promise<{ slug?: string[] }>
   const allEntries = getDatedEntries();
   const dateRangeImpacted = (page.data as any).dateRangeImpacted ?? '';
   const datasetsImpacted = ((page.data as any).datasetsImpacted ?? []) as string[];
-  const recoverable = (page.data as any).recoverable ?? true;
+  const status = (page.data as any).status ?? 'resolved-no-data-impact';
+  const severity = (page.data as any).severity ?? 'minor';
 
   // Prefer the published `date` over the last git commit, same reasoning as
   // changelog entries: a typo fix shouldn't make an old incident look fresh.
@@ -101,7 +103,8 @@ export default async function Page(props: { params: Promise<{ slug?: string[] }>
         <IncidentFacts
           dateRangeImpacted={dateRangeImpacted}
           datasetsImpacted={datasetsImpacted}
-          recoverable={recoverable}
+          status={status}
+          severity={severity}
         />
         <MDX components={mdxComponents} />
         <IncidentsPager currentUrl={page.url} allEntries={allEntries} />
@@ -123,7 +126,7 @@ export async function generateMetadata(props: { params: Promise<{ slug?: string[
     return {
       title: 'Incidents | DataHawk Docs',
       description:
-        'A history of incidents that affected DataHawk data, and whether the affected data could be recovered.',
+        'A history of incidents that affected DataHawk data, what they affected, and where each one stands.',
     };
   }
 
