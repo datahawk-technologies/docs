@@ -73,6 +73,7 @@ title: "Weekend outage caused permanent loss of snapshot-based data"
 description: "A data collection outage over August 30 and 31 permanently affected snapshot-based datasets, including FBA inventory."
 date: "2026-08-31"
 updated: "2026-09-04"        # optional - only when revising a published entry
+                             # same-day revision needs a time: "2026-09-04T16:50:00+02:00"
 dateRangeImpacted: "Aug 30 - Aug 31, 2026"
 datasetsImpacted: ["Raw Inventory (FBA)", "other snapshot-based datasets"]
 status: "resolved-data-unrecoverable"
@@ -85,7 +86,7 @@ severity: "major"
 | `title` | What happened, in plain words. No date in the title - the page shows it. Quote the string. |
 | `description` | One sentence, 160 characters max, quoted. Appears in the list, in search results, and in the RSS item. |
 | `date` | `"YYYY-MM-DD"`, must match the filename prefix. Drives ordering everywhere. Set once, at publication - never changed afterwards. |
-| `updated` | Optional `"YYYY-MM-DD"`. Omit on a new entry. Set it when you materially revise a published one - closing an `in-progress` incident, or a backfill landing. It moves the entry's RSS `pubDate`, which is what re-surfaces it for subscribers who already received it. |
+| `updated` | Optional. Omit on a new entry. Set it when you materially revise a published one - closing an `in-progress` incident, or a backfill landing. It moves the entry's RSS `pubDate`, which is what re-surfaces it for subscribers who already received it. **Revising on the entry's own publication day requires a time**: `"2026-09-22T16:50:00+02:00"`. A bare date is midnight, which is the pubDate the entry already had, so the revision would ship silently. A later day can stay a bare date. The rule checker enforces this. |
 | `dateRangeImpacted` | The *data* dates affected, human-readable: `"Aug 30 - Aug 31, 2026"` or `"Sep 10, 2026"`. Use a hyphen, not an en dash. |
 | `datasetsImpacted` | Array. Exact table names where customers query them, plain-English names otherwise. Never empty. If only part of a dataset or only some marketplaces were hit, the array still names the dataset - the body carries the "partial" and "US and Canada only" detail. |
 | `status` | One of `"in-progress"`, `"resolved-no-data-impact"`, `"resolved-data-unrecoverable"`. See section 3 - this is the field customers care most about. |
@@ -306,9 +307,13 @@ Closing an `in-progress` entry is four edits to the same file, and no fifth:
 1. `status` - to the resolved value that's actually true.
 2. The body - the opening paragraph gains the resolution date, and a dated update
    line says what changed.
-3. `updated` - the date of this revision. This moves the entry's RSS `pubDate`, so
-   subscribers who already have the item see it again as resolved rather than
-   keeping a stale "In progress" copy.
+3. `updated` - when this revision happened. This moves the entry's RSS `pubDate`,
+   so subscribers who already have the item see it again as resolved rather than
+   keeping a stale "In progress" copy. Most incidents open and close on the same
+   day, and that case needs a time, not just a date -
+   `updated: "2026-09-22T16:50:00+02:00"`. Two bare dates that match produce the
+   same pubDate twice, and readers skip an item whose guid and pubDate are both
+   unchanged. Use roughly the wall-clock time you're making the change.
 4. `severity`, if the outcome turned out worse than first published (permanent
    loss is always `major`).
 
@@ -398,7 +403,8 @@ system name, and the fact that a customer found it rather than our monitoring.
 - [ ] No internal system names, no crawl/scrape language, no emoji, American English
 - [ ] `node scripts/check-content-rules.mjs --all` reports no errors for the new file
 - [ ] `pnpm dev`, then check `/incidents` - the entry appears in the list with the right badge, the banner at the top matches (all-clear, or naming this incident when it's `in-progress`), and `/incidents/feed.xml` includes it
-- [ ] Revising a published entry: filename and `date` untouched, `updated` set to today
+- [ ] Revising a published entry: filename and `date` untouched, `updated` set to now - with a time if the revision is on the same day the entry was published
+- [ ] Revising a published entry: merged to `main`, since that is what deploys - a merged revision can still take up to an hour to appear in the feed (CDN cache)
 - [ ] Someone on CS reads the wording before it merges
 
 Publishing the entry is not the whole job. Post it in `#cs` too, so support knows

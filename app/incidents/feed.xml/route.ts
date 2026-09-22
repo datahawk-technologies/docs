@@ -115,6 +115,13 @@ export function GET() {
 // The date an item is published under: the revision date once an entry has been
 // revised, otherwise the original. Ordering, pubDate and lastBuildDate all use
 // it, so a reopened-then-closed entry sorts and alerts by when it last changed.
+//
+// `updated` must carry a time when the revision lands on the entry's own
+// publication day. A bare date parses to midnight UTC, which is the pubDate the
+// entry was already published under, and an unchanged pubDate under an unchanged
+// guid is precisely what tells a reader "you already have this one" - the
+// revision then ships silently. check-content-rules.mjs rejects that pairing so
+// it can't reach the feed.
 function effectiveDate(e: { date: string; updated: string }): Date {
   return new Date(e.updated || e.date);
 }

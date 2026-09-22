@@ -36,6 +36,11 @@ export const incidents = defineDocs({
     // in-progress incident closes. Drives the RSS pubDate so subscribers see the
     // update, while the filename (and therefore the URL and the feed GUID) stays
     // frozen. Never rename a published entry to carry a new date.
+    //
+    // Carry a time whenever the revision lands on the same day the entry was
+    // published: a bare "2026-09-22" becomes midnight, which is the pubDate the
+    // entry already had, so readers see nothing new. The rule checker rejects
+    // that case. Full form: "2026-09-22T16:50:00+02:00".
     updated: z.string().optional(),
     dateRangeImpacted: z.string(),
     datasetsImpacted: z.array(z.string()),

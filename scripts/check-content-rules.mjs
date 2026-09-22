@@ -271,6 +271,27 @@ function lintIncident(file, fm, body) {
     report(file, 'error', `Frontmatter date "${fm.date}" does not match filename date "${base.slice(0, 10)}".`);
   }
 
+  // A revision only reaches subscribers if it moves the RSS pubDate. The guid is
+  // the entry's permalink and never changes, so pubDate is the sole signal that
+  // an item a reader already holds has changed. `updated` on the publication day
+  // must therefore carry a time - bare dates both parse to midnight.
+  if (fm.updated) {
+    const hasTime = /\d{4}-\d{2}-\d{2}[T ]\d{2}:\d{2}/.test(String(fm.updated));
+    const updatedDay = String(fm.updated).slice(0, 10);
+
+    if (!/^\d{4}-\d{2}-\d{2}/.test(String(fm.updated))) {
+      report(file, 'error', `\`updated\` must start with YYYY-MM-DD (got "${fm.updated}").`);
+    } else if (updatedDay < String(fm.date)) {
+      report(file, 'error', `\`updated\` ("${fm.updated}") is earlier than \`date\` ("${fm.date}") — a revision cannot predate publication.`);
+    } else if (updatedDay === String(fm.date) && !hasTime) {
+      report(
+        file,
+        'error',
+        `\`updated\` is the same day as \`date\` with no time, so the RSS pubDate stays at midnight and subscribers get no alert for the revision. Use a timestamp, e.g. "${updatedDay}T16:50:00+02:00".`,
+      );
+    }
+  }
+
   if (!fm.dateRangeImpacted) {
     report(file, 'error', 'Incident entry is missing required `dateRangeImpacted` frontmatter field (the data dates affected).');
   }
