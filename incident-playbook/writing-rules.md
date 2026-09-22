@@ -29,6 +29,12 @@ know in under a minute whether it was us, which dates are affected, and whether
 the data is coming back. Often they're technical enough to query a warehouse, but
 assume nothing beyond that.
 
+**What they see first.** A status banner above the list, before any entry. It
+reads "No incidents in progress" when nothing is open, and turns blue and names
+each open incident when something is. Its state is derived from the `status`
+field of the entries themselves (section 3), so there is nothing to switch on or
+off by hand and the banner cannot disagree with the list beneath it.
+
 **Where it lives.** `/incidents`. Deliberately not a nav tab - people reach it
 from Troubleshooting ("Still stuck?", "Data not refreshing", "Data discrepancies"),
 from site search, from an RSS subscription, or from a link support pastes into a
@@ -50,6 +56,15 @@ something is genuinely both, write the incident and link to the changelog entry.
 must match the `date` frontmatter field. Use the date the incident was resolved
 (or the date we're publishing, if still open) - not the date the data broke.
 
+**Once published, the filename is frozen.** It is the entry's URL, and the URL is
+its RSS `guid` - the one thing that tells a subscriber's reader "this is the item
+you already have". Rename it and the reader shows a second copy while the first
+sits there saying "In progress" forever, support's pasted links 404, and the
+entry loses its search history. So an entry published while still open keeps its
+original date and filename when it closes, even though that date is now the
+publication date rather than the resolution date. Record the resolution with
+`updated` and the in-body update line instead.
+
 **Frontmatter** - every field is required:
 
 ```mdx
@@ -57,6 +72,7 @@ must match the `date` frontmatter field. Use the date the incident was resolved
 title: "Weekend outage caused permanent loss of snapshot-based data"
 description: "A data collection outage over August 30 and 31 permanently affected snapshot-based datasets, including FBA inventory."
 date: "2026-08-31"
+updated: "2026-09-04"        # optional - only when revising a published entry
 dateRangeImpacted: "Aug 30 - Aug 31, 2026"
 datasetsImpacted: ["Raw Inventory (FBA)", "other snapshot-based datasets"]
 status: "resolved-data-unrecoverable"
@@ -68,7 +84,8 @@ severity: "major"
 |---|---|
 | `title` | What happened, in plain words. No date in the title - the page shows it. Quote the string. |
 | `description` | One sentence, 160 characters max, quoted. Appears in the list, in search results, and in the RSS item. |
-| `date` | `"YYYY-MM-DD"`, must match the filename prefix. Drives ordering everywhere. |
+| `date` | `"YYYY-MM-DD"`, must match the filename prefix. Drives ordering everywhere. Set once, at publication - never changed afterwards. |
+| `updated` | Optional `"YYYY-MM-DD"`. Omit on a new entry. Set it when you materially revise a published one - closing an `in-progress` incident, or a backfill landing. It moves the entry's RSS `pubDate`, which is what re-surfaces it for subscribers who already received it. |
 | `dateRangeImpacted` | The *data* dates affected, human-readable: `"Aug 30 - Aug 31, 2026"` or `"Sep 10, 2026"`. Use a hyphen, not an en dash. |
 | `datasetsImpacted` | Array. Exact table names where customers query them, plain-English names otherwise. Never empty. If only part of a dataset or only some marketplaces were hit, the array still names the dataset - the body carries the "partial" and "US and Canada only" detail. |
 | `status` | One of `"in-progress"`, `"resolved-no-data-impact"`, `"resolved-data-unrecoverable"`. See section 3 - this is the field customers care most about. |
@@ -102,7 +119,9 @@ every field is still required, and the facts block still renders above the text.
 
 Don't add `<PageFeedback />`, don't import components, and don't touch
 `content/incidents/meta.json` - new files are picked up automatically and sorted
-by date.
+by date. The status banner at the top of `/incidents` is derived the same way:
+there is no banner file to edit and no copy to write for it. Set `status`
+correctly and the banner follows.
 
 ---
 
@@ -148,9 +167,17 @@ Rules that decide the edge cases:
 - **Unknown at publish time is `in-progress`,** not a guess at the outcome. This is the point of having the status: you can tell customers on day one and settle the data question later.
 - **Wrong values that were corrected is `resolved-no-data-impact`** - nothing was lost, the numbers were briefly wrong.
 
+**`in-progress` also drives the banner.** The top of `/incidents` shows an
+overall status read from this field: green "No incidents in progress" when no
+entry carries it, blue and naming each open incident when one or more do. Setting
+`in-progress` is therefore a site-wide announcement, and clearing it is what takes
+the announcement down.
+
 An `in-progress` entry is a promise to come back to it. Don't open one you won't
 close: when the incident resolves, update the status, the body, and add a dated
-line saying what changed (see "Updating a published entry" in section 4).
+line saying what changed (see "Updating a published entry" in section 4). A
+forgotten `in-progress` entry now costs more than a stale page - it leaves a
+banner up telling every reader something is broken when it isn't.
 
 Never round this in our favor. The entire value of this page is that a customer
 can trust the status without asking us.
@@ -274,6 +301,24 @@ incident closes. Edit the entry and say what changed ("Update, Sep 20: the
 August 20 gap has been backfilled"). Don't silently rewrite history, and don't
 change `status` without a line explaining it.
 
+Closing an `in-progress` entry is four edits to the same file, and no fifth:
+
+1. `status` - to the resolved value that's actually true.
+2. The body - the opening paragraph gains the resolution date, and a dated update
+   line says what changed.
+3. `updated` - the date of this revision. This moves the entry's RSS `pubDate`, so
+   subscribers who already have the item see it again as resolved rather than
+   keeping a stale "In progress" copy.
+4. `severity`, if the outcome turned out worse than first published (permanent
+   loss is always `major`).
+
+Do not rename the file, and do not touch `date`. The filename is the entry's URL
+and its feed identity - see section 2.
+
+Then load `/incidents` and confirm the banner went back to all-clear, or dropped
+this incident if others are still open. Closing the entry is what clears the
+banner; nothing else does.
+
 ---
 
 ## 5. Tone calibration
@@ -352,7 +397,8 @@ system name, and the fact that a customer found it rather than our monitoring.
 - [ ] The entry ends with a next step, even if that step is "nothing to do"
 - [ ] No internal system names, no crawl/scrape language, no emoji, American English
 - [ ] `node scripts/check-content-rules.mjs --all` reports no errors for the new file
-- [ ] `pnpm dev`, then check `/incidents` - the entry appears in the list with the right badge, and `/incidents/feed.xml` includes it
+- [ ] `pnpm dev`, then check `/incidents` - the entry appears in the list with the right badge, the banner at the top matches (all-clear, or naming this incident when it's `in-progress`), and `/incidents/feed.xml` includes it
+- [ ] Revising a published entry: filename and `date` untouched, `updated` set to today
 - [ ] Someone on CS reads the wording before it merges
 
 Publishing the entry is not the whole job. Post it in `#cs` too, so support knows

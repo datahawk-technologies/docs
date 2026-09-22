@@ -58,6 +58,8 @@ is useful but optional.
 
 **5. Where does it stand?** Pick one:
 - [ ] **Still open** - not fixed yet. Say so; we can publish now and update later.
+      This also puts a notice at the top of the incidents page for as long as it
+      stays open, so tell us when it resolves - that's what takes the notice down.
 - [ ] **Fixed, no data impact** - recovered, corrected, or it never touched the data
 - [ ] **Fixed, some data permanently lost** - cannot be reconstructed
 

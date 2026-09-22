@@ -15,6 +15,7 @@ import { notFound } from 'next/navigation';
 import { join } from 'node:path';
 import { mdxComponents } from '@/mdx-components';
 import { IncidentsList, type IncidentEntry } from '@/components/IncidentsList';
+import { IncidentStatusBanner } from '@/components/IncidentStatusBanner';
 import { IncidentFacts } from '@/components/IncidentFacts';
 import { IncidentsPager } from '@/components/IncidentsPager';
 import { PageFeedback } from '@/components/PageFeedback';
@@ -56,6 +57,7 @@ export default async function Page(props: { params: Promise<{ slug?: string[] }>
           affected, and where each one stands.
         </DocsDescription>
         <DocsBody>
+          <IncidentStatusBanner entries={entries} />
           <p>
             We log every incident that affects the data you rely on here, as
             soon as we can confirm the impact. Each entry says which datasets
@@ -93,7 +95,8 @@ export default async function Page(props: { params: Promise<{ slug?: string[] }>
   // Prefer the published `date` over the last git commit, same reasoning as
   // changelog entries: a typo fix shouldn't make an old incident look fresh.
   const filePath = join(process.cwd(), 'content/incidents', (page as any).file?.path ?? '');
-  const lastUpdated = (page.data as any).date || getLastModified(filePath);
+  const lastUpdated =
+    (page.data as any).updated || (page.data as any).date || getLastModified(filePath);
 
   return (
     <DocsPage toc={page.data.toc} full={page.data.full}>

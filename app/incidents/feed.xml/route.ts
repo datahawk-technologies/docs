@@ -13,6 +13,15 @@
  * status, date range and datasets are also folded into the description, since
  * most readers only surface the description text.
  *
+ * Updating an entry rather than duplicating it: `guid` is the entry's permalink
+ * and the permalink comes from the filename, so an entry keeps one identity for
+ * life and a status change edits the item a subscriber already has. That only
+ * holds while the file is never renamed - a rename mints a new guid, which
+ * readers show as a second item while the first sits there saying "In progress"
+ * forever. The optional `updated` frontmatter field is how an entry moves
+ * instead: it drives pubDate, so closing an incident re-surfaces the existing
+ * item in readers that sort or alert on date, under the same guid.
+ *
  * The feed is statically generated at build time. For dev mode, it's
  * regenerated on each request.
  */
@@ -40,20 +49,21 @@ export function GET() {
       date: (p.data as any).date ?? '',
       dateRangeImpacted: (p.data as any).dateRangeImpacted ?? '',
       datasetsImpacted: ((p.data as any).datasetsImpacted ?? []) as string[],
+      updated: (p.data as any).updated ?? '',
       status: (p.data as any).status ?? 'resolved-no-data-impact',
       severity: (p.data as any).severity ?? 'minor',
       url: p.url,
     }))
     .filter((e) => e.date)
-    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+    .sort((a, b) => effectiveDate(b).getTime() - effectiveDate(a).getTime());
 
   const buildDate = new Date().toUTCString();
   const latestDate = entries.length > 0
-    ? new Date(entries[0].date).toUTCString()
+    ? effectiveDate(entries[0]).toUTCString()
     : buildDate;
 
   const items = entries.map((e) => {
-    const pubDate = new Date(e.date).toUTCString();
+    const pubDate = effectiveDate(e).toUTCString();
     const status = STATUS_LABEL[e.status] ?? e.status;
     const category = e.status;
 
@@ -100,6 +110,13 @@ export function GET() {
       'Cache-Control': 'public, max-age=3600, s-maxage=3600',
     },
   });
+}
+
+// The date an item is published under: the revision date once an entry has been
+// revised, otherwise the original. Ordering, pubDate and lastBuildDate all use
+// it, so a reopened-then-closed entry sorts and alerts by when it last changed.
+function effectiveDate(e: { date: string; updated: string }): Date {
+  return new Date(e.updated || e.date);
 }
 
 function escapeXml(text: string): string {
