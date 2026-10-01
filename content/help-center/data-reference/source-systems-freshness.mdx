@@ -31,7 +31,7 @@ For the full schema map, see [Technical Reference](/help-center/data-reference).
 | Channel | Historical backfill on connection | Refresh frequency | Typical delay on recent data |
 |---|---|---|---|
 | **Seller** | Up to 2 years | Daily | Latest 48 hours may be incomplete. See [Seller account setup](/help-center/data-setup/seller-account). |
-| **Vendor** | Up to 3 years | Daily | About 72 hours (roughly 3 days), due to Amazon API limitations. Demand Forecasts specifically refresh weekly, not daily. See [Vendor account setup](/help-center/data-setup/vendor-account). |
+| **Vendor** | Up to 3 years | Daily | About 72 hours (roughly 3 days), due to Amazon API limitations. Demand Forecasts refresh weekly, every Wednesday. See [Amazon Vendor Demand Forecasts](/help-center/data-reference/amz-vendor-forecasting). See [Vendor account setup](/help-center/data-setup/vendor-account). |
 | **Advertising** | Up to 60 days (the maximum Amazon's Ads API allows) | Daily | Latest 24–48 hours may still be incomplete while Amazon finishes processing. See [Advertising account setup](/help-center/data-setup/ads-account). |
 
 Regardless of channel, DataHawk keeps accumulating history day by day after connection, so your usable history grows past the initial backfill the longer you stay connected.

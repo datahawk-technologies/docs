@@ -3,7 +3,7 @@ title: Amazon Vendor Demand Forecasts
 description: How VENDOR_FORECASTING_SRC shows Amazon's latest weekly demand forecast, and how to get past forecasts to compare with your sales.
 ---
 
-Every week, Amazon publishes a new demand forecast for each of your <Term>ASIN</Term>s in Vendor Central. Each forecast covers the next 48 weeks. DataHawk collects it and loads it into `SELLING_PARTNER.VENDOR_FORECASTING_SRC`. This page explains what the table shows and how to compare a past forecast with your sales.
+Every week, Amazon publishes a new demand forecast for each of your <Term>ASIN</Term>s in Vendor Central. Each forecast covers the next 48 weeks. DataHawk collects it and delivers it to `SELLING_PARTNER.VENDOR_FORECASTING_SRC` every Wednesday. This page explains what the table shows and how to compare a past forecast with your sales.
 
 ## What's in the table
 
@@ -35,7 +35,7 @@ Want to check how accurate Amazon's forecast was? You'll need the forecast as it
 
 ### Option 1: save the forecast yourself
 
-When you want to track a forecast, save a copy of it that week. For example:
+When you want to track a forecast, save a copy of it after Wednesday's delivery, before the next one replaces it. For example:
 
 - Download the Forecasting report from Vendor Central.
 - Export the table from your DataHawk destination (Snowflake, BigQuery, or another tool).
@@ -95,7 +95,7 @@ Yes. Amazon doesn't share old forecasts, but DataHawk stores them and can send t
 
 <Accordion title="How often does the table refresh?">
 
-Weekly, not daily like other Vendor data. DataHawk collects each new forecast once Amazon publishes it. For Amazon's publishing schedule, see [Amazon's documentation](https://developer-docs.amazon/sp-api/docs/report-type-values-analytics#vendor-forecasting-report). See [Source Systems & Freshness](/help-center/data-reference/source-systems-freshness).
+Every Wednesday, not daily like other Vendor data. DataHawk collects and delivers Amazon's newest forecast that day. For Amazon's publishing schedule, see [Amazon's documentation](https://developer-docs.amazon/sp-api/docs/report-type-values-analytics#vendor-forecasting-report). See [Source Systems & Freshness](/help-center/data-reference/source-systems-freshness).
 
 </Accordion>
 
