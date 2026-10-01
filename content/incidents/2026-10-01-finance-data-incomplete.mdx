@@ -1,0 +1,27 @@
+---
+title: "Finance order and product metrics data was briefly incomplete"
+description: "Finance order and product data for September 29, 2026 was incomplete in North America and Europe. The missing data has since been collected."
+date: "2026-10-01"
+dateRangeImpacted: "Sep 29, 2026"
+datasetsImpacted: ["FINANCE.FINANCE_ORDERS_SUCCESS", "FINANCE.FINANCE_PRODUCT_METRICS_DAILY"]
+status: "resolved-no-data-impact"
+severity: "minor"
+---
+
+Finance figures for September 29 came out well below actual volumes. We collect a day's finance data the following morning, so the run that gathered September 29 only picked up part of it. 
+Our quality monitoring identified the shortfall on the morning of September 30, first on European marketplaces and then on NorthAmerican ones later the same day. 
+
+## Cause
+The cause was a release of an updated version of our collection system, which delayed collection.
+September 29 was recollected and confirmed complete on the morning of October 1.
+
+## What this means for you
+
+If you pulled finance data for September 29 before the morning of October 1, sales, order and daily product metrics for that date were understated, in places by around half the expected rows. 
+Both European and North American marketplaces were affected, across Snowflake and BigQuery delivery. Vendor data for the same date was also delayed and has since been delivered. 
+No other dates were affected, and nothing was lost: the figures were incomplete while collection caught up.
+
+## What we are doing about it
+
+We recollected September 29 and verified the finance datasets against expected volumes before closing this out. 
+If you exported that date before October 1, pull it again. The numbers are now correct.

@@ -8,8 +8,8 @@ translates them into customer language and strips anything that shouldn't go
 public. Write "not sure" where you're not sure. A gap is easy to chase; a
 confident guess that turns out wrong is what we end up apologizing for twice.
 
-Questions 2, 3, 4, 5 and 5b are the ones an entry can't be written without. Leave
-any of them blank and the agent will come back asking rather than guess.
+Questions 2, 2b, 3, 4, 5 and 5b are the ones an entry can't be written without.
+Leave any of them blank and the agent will come back asking rather than guess.
 
 ---
 
@@ -44,6 +44,16 @@ name if the table name is cryptic. Also say:
 - All marketplaces, or only certain regions?
 >
 
+**2b. What type of issue is it?** Pick one:
+- [ ] **Delayed** - the data is late to be delivered; it's expected to arrive. Say since when.
+- [ ] **Partial** - the data is incomplete, there's a gap. Say which days, rows or marketplaces.
+- [ ] **Incorrect** - it all arrived, but the values are wrong because the calculation was wrong
+- [ ] **Unavailable** - a destination or the app couldn't be reached; the data itself was fine
+
+If two apply, say which one a customer notices first. Flag **Incorrect** clearly:
+it's treated as major unless the wrong values were live for only a few hours.
+>
+
 **3. Which data dates are affected?**
 The dates of the *data*, not the day you noticed. If the data for Sep 11 was wrong
 but you found it on Sep 14, the answer is Sep 11.
@@ -73,24 +83,32 @@ backfill is planned but hasn't run, it still counts as lost until it does.
 - [ ] **Major** - data permanently lost, or wide enough that customers have to act
 
 If anything was permanently lost, it's major - that one isn't a judgment call.
+Wrong values (2b = Incorrect) are major too unless they were live for only a few
+hours on one dataset.
 Otherwise, if you're not sure, say which two you're between and why; the lower
 one usually wins.
 >
 
 **6. What caused it?**
-Internal words are fine - the agent translates them.
-- **Required** if any data was permanently lost, however fast we fixed it.
+Internal words are fine - the agent translates them. Published entries now use a
+fixed phrase ("an internal processing issue", "a confirmed issue with [provider]"),
+so what we mainly need from you is which of those it was, and whether the source
+was us or a provider.
+- **Required** if any data was permanently lost, however fast we fixed it - that
+  case gets one specific published sentence, so give us enough to write it.
 - **Not needed** if this is a low-severity notice.
 - Otherwise optional when it was resolved within 48 hours; required if it ran
   longer or could recur.
 >
 
 **7. What did we do to fix it?**
+Useful context for us. The entry only publishes whether it's fixed, so keep this short.
 >
 
 **8. What stops it happening again?**
-A safeguard we actually shipped, or a change we've committed to. If the answer is
-"nothing yet", say that - we just won't publish a promise.
+A safeguard we actually shipped, or a change we've committed to. Entries no longer
+publish prevention measures - if it's worth telling customers, it's a changelog
+entry. Still worth recording here.
 >
 
 **9. What should an affected customer do?**
@@ -119,10 +137,11 @@ under investigation.
 > **1. What went wrong:** Order report got counted twice during the migration to the new
 > collection system, so shared sales numbers were inflated.
 > **2. Datasets:** order + daily sales data in the BigQuery share, all marketplaces, partial (only duplicated orders). Internal tables were fine.
+> **5. Status:** fixed, no data impact - values were wrong, now corrected.
 > **3. Data dates:** Sep 11 and Sep 12, worst on the 12th.
 > **4. Dates:** detected Sep 14 morning, resolved Sep 14 around noon, started Sep 11 with the migration.
 > **5. Status:** fixed, no data impact - values were wrong, now corrected.
-> **5b. Severity:** minor - two days of wrong numbers, one destination, fixed same day.
+> **5b. Severity:** major - wrong numbers were live for three days. Values are corrected now.
 > **6. Cause:** overlapping window in the sharing incremental during migration, double-counted some orders.
 > **7. Fix:** re-ran the share, corrected figures live within ~20 min.
 > **8. Prevention:** added safeguards on the incremental so overlap can't double-count.
