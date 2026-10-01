@@ -19,6 +19,7 @@
     "fba-fbm-seller-inventory",
     "amz-removal-data", 
     "amz-replenishment", 
+    "amz-vendor-forecasting", 
     "amz-returns-data", 
     "amz-seller-profit-data"
   ]
