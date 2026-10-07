@@ -44,3 +44,6 @@ next-env.d.ts
 # Power BI templates are published as GitHub Release assets
 /public/files/dashboard-templates/power-bi/*.pbix
 /.source
+
+# Local Codex files may contain credentials and private session data.
+.codex
