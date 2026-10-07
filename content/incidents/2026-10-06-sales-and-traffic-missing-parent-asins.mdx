@@ -1,0 +1,25 @@
+---
+title: "Sales and traffic report missing some parent ASINs for one day"
+description: "Sales and traffic data for Oct 3, 2026 was missing some parent ASINs for some accounts until Oct 6. The data is now complete."
+date: "2026-10-06"
+dateRangeImpacted: "Oct 3, 2026"
+datasetsImpacted: ["reports.report_amzn_sales_and_traffic"]
+status: "resolved-no-data-impact"
+severity: "minor"
+---
+
+**Issue type:** Partial
+
+**Period:** Oct 3, 2026
+
+**Impact:**
+- Some accounts
+- Dataset: `reports.report_amzn_sales_and_traffic`
+
+**Cause:**              Amazon's report wasn't complete when we first collected it, and an internal processing issue delayed the refresh.
+
+**Progress:**           Resolved.
+
+**Historical data:**    All affected data has been restored or corrected.
+
+**Action:**             If you queried Oct 3 data before Oct 7, you can now run your query again to get every parent ASIN.

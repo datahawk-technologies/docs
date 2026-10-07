@@ -1,0 +1,28 @@
+---
+title: "Star-rating breakdown stored as 0 for Amazon products"
+description: "The 1- to 5-star percentage columns in PRODUCT.PRODUCT_DETAILED came through as 0 for many rated Amazon products. New data is fixed; history is under review."
+date: "2026-10-07"
+dateRangeImpacted: "From May 2026"
+datasetsImpacted: ["PRODUCT.PRODUCT_DETAILED"]
+status: "in-progress"
+severity: "major"
+---
+
+**Data update - Identified**
+
+**Issue type:** Incorrect data
+
+**Period:** From May 2026
+
+**Scope:** Amazon products with ratings, a share of rows (most rows since May 2026). Walmart isn't affected.
+
+**Datasets:** `PRODUCT.PRODUCT_DETAILED` (`RATING_1_STARS_PERCENT` to `RATING_5_STARS_PERCENT`)
+
+**Cause:** An Amazon page change stopped us from reading the star-rating breakdown, and the missing values were stored as 0. `RATING` and `RATING_COUNT` were correct.
+
+**Progress:** Fixed for new data from Oct 7, 2026. Missing breakdowns are updated and when no data comes through, it is now NULL, not 0.
+
+**Historical data:** We're reviewing how far back we can correct it.
+
+**Action:** We are working on restoring the historical data. If you queried this dataset for Amazon products with ratings, you may have seen 0s in the star-rating breakdown columns. 
+Before Oct 7, 2026, you can treat old all-zero breakdowns as missing for now while we restore them, not 0%. From Oct 7, NULL means Amazon shows no breakdown for that product.
