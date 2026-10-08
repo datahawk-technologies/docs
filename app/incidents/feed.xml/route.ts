@@ -9,9 +9,9 @@
  * an incident publishes the feed item.
  *
  * Each item carries its status as a category, so a subscriber can filter or
- * alert on permanent data loss specifically. The
- * status, date range and datasets are also folded into the description, since
- * most readers only surface the description text.
+ * alert on permanent data loss specifically. The status is also prefixed to the
+ * title (emoji + full label, see STATUS_EMOJI), and status, severity and date range open
+ * the description, since most readers (Slack included) only surface plain text.
  *
  * Updating an entry rather than duplicating it: `guid` is the entry's permalink
  * and the permalink comes from the filename, so an entry keeps one identity for
@@ -38,6 +38,15 @@ const STATUS_LABEL: Record<string, string> = {
   'in-progress': 'In progress',
   'resolved-no-data-impact': 'Resolved (no data impact)',
   'resolved-data-unrecoverable': 'Resolved (data unrecoverable)',
+};
+
+// Emoji prefixed to the full status label in each item title. Slack's RSS app
+// and most readers only render the title prominently, so this is where status
+// must live. The text label keeps the status readable where emoji don't render.
+const STATUS_EMOJI: Record<string, string> = {
+  'in-progress': '🟠',
+  'resolved-no-data-impact': '🟢',
+  'resolved-data-unrecoverable': '🔴',
 };
 
 export function GET() {
@@ -67,11 +76,14 @@ export function GET() {
     const status = STATUS_LABEL[e.status] ?? e.status;
     const category = e.status;
 
+    const title = `${STATUS_EMOJI[e.status] ?? ''} [${status}] ${e.title}`.trim();
+
+    // Key facts first, summary next, long dataset list last.
     const details = [
+      `Status: ${status} · Severity: ${e.severity}` +
+        (e.dateRangeImpacted ? ` · Affected: ${e.dateRangeImpacted}` : '') +
+        '.',
       e.description,
-      `Severity: ${e.severity}.`,
-      `Status: ${status}.`,
-      e.dateRangeImpacted ? `Date range affected: ${e.dateRangeImpacted}.` : '',
       e.datasetsImpacted.length > 0
         ? `Datasets affected: ${e.datasetsImpacted.join(', ')}.`
         : '',
@@ -81,7 +93,7 @@ export function GET() {
 
     return `
     <item>
-      <title>${escapeXml(e.title)}</title>
+      <title>${escapeXml(title)}</title>
       <link>${SITE_URL}${e.url}</link>
       <guid isPermaLink="true">${SITE_URL}${e.url}</guid>
       <description>${escapeXml(details)}</description>
