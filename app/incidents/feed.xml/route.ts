@@ -44,9 +44,9 @@ const STATUS_LABEL: Record<string, string> = {
 // and most readers only render the title prominently, so this is where status
 // must live. The text label keeps the status readable where emoji don't render.
 const STATUS_EMOJI: Record<string, string> = {
-  'in-progress': '🟠',
-  'resolved-no-data-impact': '🟢',
-  'resolved-data-unrecoverable': '🔴',
+  'in-progress': '🏗️',
+  'resolved-no-data-impact': '✅',
+  'resolved-data-unrecoverable': '⚠️',
 };
 
 export function GET() {
