@@ -1,0 +1,123 @@
+---
+title: Amazon Vendor Demand Forecasts
+description: How VENDOR_FORECASTING_SRC shows Amazon's latest weekly demand forecast, and how to get past forecasts to compare with your sales.
+---
+
+Every week, Amazon publishes a new demand forecast for each of your <Term>ASIN</Term>s in Vendor Central. Each forecast covers the next 48 weeks. DataHawk collects it and delivers it to `SELLING_PARTNER.VENDOR_FORECASTING_SRC` every Wednesday. This page explains what the table shows and how to compare a past forecast with your sales.
+
+## What's in the table
+
+The table holds one row per ASIN and forecasted week. Each row carries:
+
+- **Generation date:** the day Amazon produced the forecast.
+- **Start date:** the first day of the forecasted week.
+- **Forecasted units:** Amazon's Mean, P70, P80, and P90 demand forecasts for that week. In short, the higher the P-level, the more cautious the number.
+
+DataHawk serves these values as Amazon sends them, without recalculating them. For Amazon's exact definitions and report rules, see [Amazon's Vendor Forecasting Report documentation](https://developer-docs.amazon/sp-api/docs/report-type-values-analytics#vendor-forecasting-report).
+
+## Only the latest forecast is kept
+
+The table always shows **Amazon's latest forecast**. Each week, the new forecast replaces the previous one entirely. Older forecasts don't stay in the table.
+
+Here's how it works week by week:
+
+| Week | DataHawk collects | What the table shows |
+|---|---|---|
+| **W0** | Forecast for W0 to W48 | Forecast for W0 to W48 |
+| **W1** | Forecast for W1 to W49 | Forecast for W1 to W49. The W0 forecast is gone |
+| **W2** | Forecast for W2 to W50 | Forecast for W2 to W50. The W1 forecast is gone |
+
+And so on, every week.
+
+## Compare a past forecast with your sales
+
+Want to check how accurate Amazon's forecast was? You'll need the forecast as it looked on a given date, then compare it with your actual sales as the weeks go by. You have two ways to get it.
+
+### Option 1: save the forecast yourself
+
+When you want to track a forecast, save a copy of it after Wednesday's delivery, before the next one replaces it. For example:
+
+- Download the Forecasting report from Vendor Central.
+- Export the table from your DataHawk destination (Snowflake, BigQuery, or another tool).
+
+Later, compare that saved copy with your sales data. Plan ahead: once a newer forecast is out, neither Amazon nor the table will show the old one.
+
+### Option 2: ask DataHawk
+
+Amazon only shares its most recent forecast. DataHawk, however, keeps every past forecast on its side. Forgot to save one? We can send it to you.
+
+<Steps>
+
+<Step>
+
+### Contact support
+
+Reach out to your DataHawk contact or our support team and ask for a historical forecast export.
+
+</Step>
+
+<Step>
+
+### Tell us what you need
+
+Include:
+
+- **Which vendor accounts and <Term>Marketplace</Term>s** you need
+- **Which forecast dates** you want (for example, the forecast Amazon made on June 1, 2026)
+
+</Step>
+
+<Step>
+
+### Get your data
+
+We prepare the export and deliver it. If you have a dedicated <Term>Snowflake</Term> account with a writable database, we can load it there as a table.
+
+</Step>
+
+</Steps>
+
+## Frequently asked questions
+
+<Accordions>
+
+<Accordion title="Why can't I see older forecasts in the table?">
+
+The table only keeps Amazon's latest forecast. Each new weekly forecast replaces the previous one. See [Only the latest forecast is kept](#only-the-latest-forecast-is-kept).
+
+</Accordion>
+
+<Accordion title="Can I get Amazon's forecast from several months ago?">
+
+Yes. Amazon doesn't share old forecasts, but DataHawk stores them and can send them to you. See [Option 2: ask DataHawk](#option-2-ask-datahawk).
+
+</Accordion>
+
+<Accordion title="How often does the table refresh?">
+
+Every Wednesday, not daily like other Vendor data. DataHawk collects and delivers Amazon's newest forecast that day. For Amazon's publishing schedule, see [Amazon's documentation](https://developer-docs.amazon/sp-api/docs/report-type-values-analytics#vendor-forecasting-report). See [Source Systems & Freshness](/help-center/data-reference/source-systems-freshness).
+
+</Accordion>
+
+</Accordions>
+
+
+## Where to go next
+
+<div className="card-grid">
+  <Card
+    title="Vendor Account"
+    href="/help-center/data-setup/vendor-account"
+    description="Connect Vendor Central and see all Vendor tables."
+  />
+  <Card
+    title="Source Systems & Freshness"
+    href="/help-center/data-reference/source-systems-freshness"
+    description="Refresh frequency and delays for each data source."
+  />
+  <Card
+    title="Find Tables and Columns"
+    href="/help-center/data-reference/find-tables-and-columns"
+    description="Use the source-of-truth schema reference for exact columns."
+  />
+</div>
