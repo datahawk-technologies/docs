@@ -13,14 +13,20 @@
  * title (emoji + full label, see STATUS_EMOJI), and status, severity and date range open
  * the description, since most readers (Slack included) only surface plain text.
  *
- * Updating an entry rather than duplicating it: `guid` is the entry's permalink
- * and the permalink comes from the filename, so an entry keeps one identity for
- * life and a status change edits the item a subscriber already has. That only
- * holds while the file is never renamed - a rename mints a new guid, which
- * readers show as a second item while the first sits there saying "In progress"
- * forever. The optional `updated` frontmatter field is how an entry moves
- * instead: it drives pubDate, so closing an incident re-surfaces the existing
- * item in readers that sort or alert on date, under the same guid.
+ * Status changes are new items: `guid` and `link` carry the status
+ * (`.../incidents/<slug>?status=resolved-no-data-impact`). Most readers, the
+ * Slack RSS app included, only alert on a guid they haven't seen, so a status
+ * change under a fixed guid reached nobody. Now closing an incident (changing
+ * `status` in the same MDX, no new file) shows up as a fresh item, and the
+ * subscriber keeps the earlier "In progress" item as history. Wording edits
+ * that leave `status` alone keep the guid, so they don't re-alert anyone.
+ *
+ * The filename is still the root of that identity: never rename a published
+ * file. The optional `updated` frontmatter field drives pubDate, so the new item
+ * also sorts by when the status changed.
+ *
+ * Entries last changed before GUID_CUTOVER keep their old plain-URL guid, so
+ * shipping this change didn't re-announce every past incident.
  *
  * The feed is statically generated at build time. For dev mode, it's
  * regenerated on each request.
@@ -49,6 +55,11 @@ const STATUS_EMOJI: Record<string, string> = {
   'resolved-data-unrecoverable': '⚠️',
 };
 
+// See the header comment. Entries whose effective date (updated || date) is
+// before this keep their original guid. Leave it alone: moving it re-alerts or
+// silences existing items.
+const GUID_CUTOVER = new Date('2026-10-08T16:00:00Z');
+
 export function GET() {
   const entries = incidentsSource
     .getPages()
@@ -76,6 +87,11 @@ export function GET() {
     const status = STATUS_LABEL[e.status] ?? e.status;
     const category = e.status;
 
+    const pageUrl = `${SITE_URL}${e.url}`;
+    const itemUrl = effectiveDate(e) < GUID_CUTOVER
+      ? pageUrl
+      : `${pageUrl}?status=${encodeURIComponent(e.status)}`;
+
     const title = `${STATUS_EMOJI[e.status] ?? ''} [${status}] ${e.title}`.trim();
 
     // Key facts first, summary next, long dataset list last.
@@ -94,8 +110,8 @@ export function GET() {
     return `
     <item>
       <title>${escapeXml(title)}</title>
-      <link>${SITE_URL}${e.url}</link>
-      <guid isPermaLink="true">${SITE_URL}${e.url}</guid>
+      <link>${escapeXml(itemUrl)}</link>
+      <guid isPermaLink="true">${escapeXml(itemUrl)}</guid>
       <description>${escapeXml(details)}</description>
       <pubDate>${pubDate}</pubDate>
       <category>${escapeXml(category)}</category>

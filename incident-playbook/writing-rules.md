@@ -62,11 +62,12 @@ something is genuinely both, write the incident and link to the changelog entry.
 must match the `date` frontmatter field. Use the date the incident was resolved
 (or the date we're publishing, if still open) - not the date the data broke.
 
-**Once published, the filename is frozen.** It is the entry's URL, and the URL is
-its RSS `guid` - the one thing that tells a subscriber's reader "this is the item
-you already have". Rename it and the reader shows a second copy while the first
-sits there saying "In progress" forever, support's pasted links 404, and the
-entry loses its search history. So an entry published while still open keeps its
+**Once published, the filename is frozen.** It is the entry's URL, and the URL
+plus the current `status` is its RSS `guid` - what tells a subscriber's reader
+"this is the item you already have". A `status` change mints a new guid on
+purpose, so RSS subscribers get alerted when an incident closes; never create a
+second MDX for an update. Rename the file and the reader shows an unrelated
+copy, support's pasted links 404, and the entry loses its search history. So an entry published while still open keeps its
 original date and filename when it closes, even though that date is now the
 publication date rather than the resolution date. Record the resolution with
 `updated` and the dated update line instead.
@@ -412,8 +413,9 @@ Closing an `in-progress` entry is five edits to the same file, and no sixth:
 3. The `Update` block - `Cause` to past tense, `Progress: Resolved.`,
    `Historical data` to the outcome, `Action` to whatever is now true.
 4. `updated` - the date of this revision, plus the dated update line in the body.
-   `updated` moves the entry's RSS `pubDate`, so subscribers who already have the
-   item see it again as resolved rather than keeping a stale "In progress" copy.
+   `updated` moves the entry's RSS `pubDate`. Together with the `status` change
+   (which gives the feed item a new guid), RSS subscribers get a fresh "Resolved"
+   item, and Slack Connect channels get a status-update message.
 5. `severity`, if the outcome turned out worse than first published (permanent
    loss is always `major`).
 
