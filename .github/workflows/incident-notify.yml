@@ -1,0 +1,34 @@
+name: Incident Slack notifications
+
+# Posts new incidents and status changes to every Slack channel the
+# "DataHawk Incidents" bot is in. See scripts/notify-incidents.mjs.
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'content/incidents/**'
+
+# Two quick pushes queue up instead of racing, so a message is never posted twice.
+concurrency:
+  group: incident-notify
+  cancel-in-progress: false
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # full history, to compare with the previous push
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Post to Slack
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+        run: node scripts/notify-incidents.mjs --before "${{ github.event.before }}" --after "${{ github.sha }}"
