@@ -1,19 +1,18 @@
 ---
 title: "Star-rating breakdown stored as 0 for Amazon products"
-description: "The 1- to 5-star percentage columns in PRODUCT.PRODUCT_DETAILED came through as 0 for many rated Amazon products. New data is fixed; history is recovered."
+description: "The 1- to 5-star percentage columns in PRODUCT.PRODUCT_DETAILED came through as 0 for many rated Amazon products. New data is fixed; history is under review."
 date: "2026-10-07"
-dateRangeImpacted: "May 2026 - Oct 6, 2026"
+dateRangeImpacted: "From May 2026"
 datasetsImpacted: ["PRODUCT.PRODUCT_DETAILED"]
-status: "resolved-no-data-impact"
+status: "in-progress"
 severity: "major"
-updated: "2026-10-09T10:25:00+02:00"
 ---
 
-**Data update - Resolved**
+**Data update - Identified**
 
 **Issue type:** Incorrect data
 
-**Period:** May 2026 - Oct 6, 2026
+**Period:** From May 2026
 
 **Scope:** Amazon products with ratings, a share of rows (most rows since May 2026). Walmart isn't affected.
 
@@ -21,10 +20,9 @@ updated: "2026-10-09T10:25:00+02:00"
 
 **Cause:** An Amazon page change stopped us from reading the star-rating breakdown, and the missing values were stored as 0. `RATING` and `RATING_COUNT` were correct.
 
-**Progress:** Resolved.
+**Progress:** Fixed for new data from Oct 7, 2026. Missing breakdowns are updated and when no data comes through, it is now NULL, not 0.
 
-**Historical data:** All affected data has been restored or corrected.
+**Historical data:** We're reviewing how far back we can correct it.
 
-**Action:** If you exported the star-rating breakdown columns before Oct 9, 2026, pull them again. From Oct 7, 2026, NULL means Amazon shows no breakdown for that product.
-
-Update, Oct 9, 2026: the historical star-rating breakdowns have been corrected.
+**Action:** We are working on restoring the historical data. If you queried this dataset for Amazon products with ratings, you may have seen 0s in the star-rating breakdown columns. 
+Before Oct 7, 2026, you can treat old all-zero breakdowns as missing for now while we restore them, not 0%. From Oct 7, NULL means Amazon shows no breakdown for that product.
