@@ -1,18 +1,19 @@
 ---
 title: "Star-rating breakdown stored as 0 for Amazon products"
-description: "The 1- to 5-star percentage columns in PRODUCT.PRODUCT_DETAILED came through as 0 for many rated Amazon products. New data is fixed; history is under review."
+description: "The 1- to 5-star percentage columns in PRODUCT.PRODUCT_DETAILED came through as 0 for many rated Amazon products. New data is fixed; history is recovered."
 date: "2026-10-07"
-dateRangeImpacted: "From May 2026"
+dateRangeImpacted: "May 2026 - Oct 6, 2026"
 datasetsImpacted: ["PRODUCT.PRODUCT_DETAILED"]
-status: "in-progress"
+status: "resolved-no-data-impact"
 severity: "major"
+updated: "2026-10-09T10:25:00+02:00"
 ---
 
-**Data update - Identified**
+**Data update - Resolved**
 
 **Issue type:** Incorrect data
 
-**Period:** From May 2026
+**Period:** May 2026 - Oct 6, 2026
 
 **Scope:** Amazon products with ratings, a share of rows (most rows since May 2026). Walmart isn't affected.
 
@@ -20,9 +21,10 @@ severity: "major"
 
 **Cause:** An Amazon page change stopped us from reading the star-rating breakdown, and the missing values were stored as 0. `RATING` and `RATING_COUNT` were correct.
 
-**Progress:** Fixed for new data from Oct 7, 2026. Missing breakdowns are updated and when no data comes through, it is now NULL, not 0.
+**Progress:** Resolved.
 
-**Historical data:** We're reviewing how far back we can correct it.
+**Historical data:** All affected data has been restored or corrected.
 
-**Action:** We are working on restoring the historical data. If you queried this dataset for Amazon products with ratings, you may have seen 0s in the star-rating breakdown columns. 
-Before Oct 7, 2026, you can treat old all-zero breakdowns as missing for now while we restore them, not 0%. From Oct 7, NULL means Amazon shows no breakdown for that product.
+**Action:** If you exported the star-rating breakdown columns before Oct 9, 2026, pull them again. From Oct 7, 2026, NULL means Amazon shows no breakdown for that product.
+
+Update, Oct 9, 2026: the historical star-rating breakdowns have been corrected.
