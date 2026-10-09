@@ -105,24 +105,32 @@ severity: "major"
 Every entry uses this shape, at every severity. Nothing else goes in the body:
 no opening paragraph, no `##` headings, no components, no closing note.
 
+Every label is bold (`**Issue type:**`) and sits on its own paragraph, with a
+blank line between labels. That blank line is not cosmetic: Markdown joins
+consecutive lines into one paragraph, so without it the labels run together on
+the page.
+
 ```mdx
 **Data update - Resolved**
 
-Issue type: Incorrect
-Period: Sep 11 - Sep 12, 2026
-Scope: BigQuery Data Sharing customers, all marketplaces
+**Issue type:** Incorrect
 
-Datasets:
+**Period:** Sep 11 - Sep 12, 2026
+
+**Scope:** BigQuery Data Sharing customers, all marketplaces
+
+**Datasets:**
 
 - `MARKET.ORDERS`
 - `MARKET.DAILY_SALES`
 
-Update:
+**Cause:** An internal processing issue affected order updates.
 
-- Cause: An internal processing issue affected order updates.
-- Progress: Resolved.
-- Historical data: All affected data has been restored or corrected.
-- Action: If you exported Sep 11 or Sep 12 before the fix, pull those dates again.
+**Progress:** Resolved.
+
+**Historical data:** All affected data has been restored or corrected.
+
+**Action:** If you exported Sep 11 or Sep 12 before the fix, pull those dates again.
 ```
 
 **Target length: under 120 words.** If the entry needs more, it's hiding a
@@ -144,14 +152,14 @@ entry can read `Resolved` and still say data is permanently gone on the
 `Historical data` line. That is the one place the two could be misread as
 agreeing, so the `Historical data` line is what carries the truth.
 
-### The four facts lines
+### The four facts
 
 | Line | Values |
 |---|---|
 | `Issue type:` | One of `Delayed`, `Partial`, `Incorrect`, `Unavailable`. What went wrong with the data, not whether it's fixed. |
 | `Period:` | The *data* dates. Open range while it's open (`Since Sep 11, 2026`), closed range once bounded (`Sep 11 - Sep 12, 2026`), or a single date. Same dates as `dateRangeImpacted`, written the same way. |
 | `Scope:` | Who and where. `All customers`, or narrowed: destination, marketplace, region, subset of rows. Say what was *not* affected here when it meaningfully narrows the worry. |
-| `Datasets:` | A bullet list below the label. Backticked `schema.table_name` where customers query them, plain-English names otherwise. Same set as `datasetsImpacted`. |
+| `Datasets:` | A bullet list below the label, or on the same line when there is only one dataset. Backticked `schema.table_name` where customers query them, plain-English names otherwise. Same set as `datasetsImpacted`. |
 
 What the `Issue type` values mean:
 
@@ -170,9 +178,9 @@ Pick one. If two apply, pick the one a customer would notice first and let
 `Scope` carry the rest. A delay that has already been caught up is still
 `Delayed`; the `Historical data` line is what says it came back.
 
-### The Update block
+### The update lines
 
-Four bullets, in this order. `Cause`, `Progress` and `Historical data` use the
+Four bold labels, in this order, after `Datasets`. `Cause`, `Progress` and `Historical data` use the
 set phrases below; don't improvise a variant.
 
 **Cause** - present tense while open, past tense once resolved:
@@ -183,7 +191,7 @@ set phrases below; don't improvise a variant.
 | An internal processing issue is affecting updates. | An internal processing issue affected updates. |
 | A confirmed issue with [provider] is affecting source data. | A confirmed issue with [provider] affected source data. |
 
-Omit the `Cause` bullet entirely when `severity` is `"low"` (section 3c).
+Omit the `Cause` line entirely when `severity` is `"low"` (section 3c).
 
 When `status` is `"resolved-data-unrecoverable"`, the set phrase is not enough:
 append one specific sentence saying why, in customer terms. Data is gone for
@@ -316,10 +324,10 @@ the detail. Overstating severity trains people to ignore the field.
 
 "Explanation" here means the cause - why it happened - not just what happened.
 
-| Case | `Cause` bullet |
+| Case | `Cause` line |
 |---|---|
 | `status: "resolved-data-unrecoverable"` | **Required, always**, and the set phrase alone doesn't satisfy it: add one specific sentence. This overrides the 48-hour rule below. |
-| `severity: "low"` | **Omit the bullet.** The entry exists to say it happened and it's handled. |
+| `severity: "low"` | **Omit the line.** The entry exists to say it happened and it's handled. |
 | Everything else | Set phrase only. Optional when the incident was resolved within 48 hours; required when it ran longer than that, or when it could recur. |
 
 These cases never collide: permanent loss is always `major` (section 3b), so an
@@ -396,8 +404,8 @@ The exception is customer-facing dataset and table names - always exact.
 ### Updating a published entry
 
 Facts change: a backfill runs, an investigation concludes, an `in-progress`
-incident closes. Add a dated line at the bottom of the body, below the `Update`
-block, saying what changed:
+incident closes. Add a dated line at the bottom of the body, below the `Action`
+line, saying what changed:
 
 ```mdx
 Update, Sep 20, 2026: the August 20 gap has been backfilled.
@@ -410,12 +418,13 @@ Closing an `in-progress` entry is five edits to the same file, and no sixth:
 
 1. `status` - to the resolved value that's actually true.
 2. The header line - `Identified` becomes `Resolved`.
-3. The `Update` block - `Cause` to past tense, `Progress: Resolved.`,
+3. The update lines - `Cause` to past tense, `**Progress:** Resolved.`,
    `Historical data` to the outcome, `Action` to whatever is now true.
 4. `updated` - the date of this revision, plus the dated update line in the body.
    `updated` moves the entry's RSS `pubDate`. Together with the `status` change
    (which gives the feed item a new guid), RSS subscribers get a fresh "Resolved"
-   item, and Slack Connect channels get a status-update message.
+   item. Once the Slack bot is live (see `slack-bot.md`), Slack Connect
+   channels also get a status-update message.
 5. `severity`, if the outcome turned out worse than first published (permanent
    loss is always `major`).
 
@@ -463,20 +472,23 @@ severity: "minor"
 
 **Data update - Identified**
 
-Issue type: Delayed
-Period: Since Sep 18, 2026
-Scope: Snowflake destinations, all marketplaces
+**Issue type:** Delayed
 
-Datasets:
+**Period:** Since Sep 18, 2026
+
+**Scope:** Snowflake destinations, all marketplaces
+
+**Datasets:**
 
 - `INVENTORY.RAW_INVENTORY_FBA`
 
-Update:
+**Cause:** We are investigating the cause.
 
-- Cause: We are investigating the cause.
-- Progress: We are working on a fix.
-- Historical data: We are assessing whether affected data can be recovered.
-- Action: Treat FBA inventory from September 18 onward as incomplete until this entry says otherwise.
+**Progress:** We are working on a fix.
+
+**Historical data:** We are assessing whether affected data can be recovered.
+
+**Action:** Treat FBA inventory from September 18 onward as incomplete until this entry says otherwise.
 ```
 
 ### Resolved entry
@@ -499,21 +511,24 @@ severity: "major"
 
 **Data update - Resolved**
 
-Issue type: Incorrect
-Period: Sep 11 - Sep 12, 2026
-Scope: BigQuery Data Sharing customers, all marketplaces. Snowflake was correct throughout.
+**Issue type:** Incorrect
 
-Datasets:
+**Period:** Sep 11 - Sep 12, 2026
+
+**Scope:** BigQuery Data Sharing customers, all marketplaces. Snowflake was correct throughout.
+
+**Datasets:**
 
 - `MARKET.ORDERS`
 - `MARKET.DAILY_SALES`
 
-Update:
+**Cause:** An internal processing issue affected order updates.
 
-- Cause: An internal processing issue affected order updates.
-- Progress: Resolved.
-- Historical data: All affected data has been restored or corrected.
-- Action: If you exported Sep 11 or Sep 12 before the fix, pull those dates again.
+**Progress:** Resolved.
+
+**Historical data:** All affected data has been restored or corrected.
+
+**Action:** If you exported Sep 11 or Sep 12 before the fix, pull those dates again.
 ```
 
 Note what the intake gave us and the entry doesn't: the customer, the internal
@@ -531,7 +546,7 @@ the two fields.
 - [ ] All six required inputs settled, or the missing ones raised rather than guessed (section 2b)
 - [ ] Frontmatter complete, `date` matches the filename prefix, `description` at most 160 characters
 - [ ] `title` describes what happened and is not "Data update"
-- [ ] Body follows section 2c exactly: header line, four facts lines, `Update` block, nothing else
+- [ ] Body follows section 2c exactly: header line, then bold labels `Issue type`, `Period`, `Scope`, `Datasets`, `Cause`, `Progress`, `Historical data`, `Action`, each on its own paragraph, nothing else
 - [ ] Header line matches `status`, and `Period` matches `dateRangeImpacted`
 - [ ] `Issue type` matches the definitions in section 2c, and only one value is given
 - [ ] `Scope` states partial and regional limits, and what was not affected
