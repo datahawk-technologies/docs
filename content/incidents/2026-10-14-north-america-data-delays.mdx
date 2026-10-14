@@ -1,0 +1,34 @@
+---
+title: "Advertising, vendor, and inventory data delayed in North America"
+description: "Several North America datasets for Oct 9 to Oct 12 arrived late or incomplete. We're reloading the missing data now."
+date: "2026-10-14"
+dateRangeImpacted: "Oct 9 - Oct 12, 2026"
+datasetsImpacted: ["ADVERTISING.ADVERTISING_CAMPAIGN_METRICS", "ADVERTISING.ADVERTISING_PRODUCT_METRICS", "SELLING_PARTNER.SELLER_RETAIL_TRAFFIC_BY_ASIN_SRC", "SELLING_PARTNER.VENDOR_SALES_MANUFACTURING_SRC", "SELLING_PARTNER.VENDOR_SALES_SOURCING_SRC", "SELLING_PARTNER.VENDOR_INVENTORY_MANUFACTURING_SRC", "SELLING_PARTNER.VENDOR_INVENTORY_SOURCING_SRC", "SELLING_PARTNER.SELLER_INVENTORY_FBA_PLANNING", "RAW_INVENTORY.RAW_INVENTORY_RESTOCK_RECOMMENDATIONS_HISTORY"]
+status: "in-progress"
+severity: "major"
+---
+
+Several North America datasets arrived late or incomplete for data dates between
+October 9 and October 12. We identified the delay on October 13 and are
+reloading the missing data now. Other regions weren't affected.
+
+## What this means for you
+
+If you query North America data, you may see these gaps:
+
+- **Advertising, Oct 12:** `ADVERTISING.ADVERTISING_CAMPAIGN_METRICS` and
+  `ADVERTISING.ADVERTISING_PRODUCT_METRICS` had no data.
+- **Retail traffic, Oct 11:** `SELLING_PARTNER.SELLER_RETAIL_TRAFFIC_BY_ASIN_SRC`
+  had no data.
+- **Vendor reports, Oct 9:** the four vendor sales and inventory tables
+  (manufacturing and sourcing views) hold only a small share of the usual rows.
+- **FBA planning and restock, Oct 12:** `SELLING_PARTNER.SELLER_INVENTORY_FBA_PLANNING`
+  and `RAW_INVENTORY.RAW_INVENTORY_RESTOCK_RECOMMENDATIONS_HISTORY` are missing
+  about 12 to 14% of their usual rows.
+
+## What we are doing about it
+
+We're reloading the missing data, and advertising data has already started to
+catch up. We'll update this entry once every table is complete. Until then,
+treat these dates as incomplete. If you exported them, pull them again after we
+mark this incident resolved.
