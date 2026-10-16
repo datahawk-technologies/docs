@@ -1,0 +1,24 @@
+---
+title: "Category tracking: no more duplicates"
+description: "Category tracking now relies on each category's unique ID, so the same category reached through different paths is tracked only once."
+date: "2026-09-23"
+tags: ["improvement"]
+---
+
+On Amazon, one category can sit under several parent paths. For example, category X can be reached through `A > B > X` and `A > C > X`.
+
+## What changes
+
+Category tracking now relies on each category's unique ID, not the path you took to reach it.
+
+- **No duplicates:** track X from two different paths and you get one tracked category, not two.
+- **Faster:** category data processes more quickly.
+
+## What to expect
+
+- No action required on your side.
+- If you tracked the same category through several paths, it now appears once in your tracked categories.
+
+See [Categories tracking](/help-center/data-setup/categories-tracking) for how tracking works.
+
+Questions? Contact [support@datahawk.co](mailto:support@datahawk.co).

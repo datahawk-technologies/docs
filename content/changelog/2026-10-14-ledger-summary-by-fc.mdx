@@ -1,0 +1,67 @@
+---
+title: "New view: inventory ledger summary by fulfillment center"
+description: "SELLER_INVENTORY_LEDGER_SUMMARY_BY_FC tracks daily stock movements per Amazon fulfillment center, without the legacy table's mixed rows."
+date: "2026-10-14"
+tags: ["new"]
+---
+
+Want to see how your stock is spread across Amazon fulfillment centers (FCs), and how it moves day to day? You can now get it from a dedicated view:
+
+- `SELLING_PARTNER.SELLER_INVENTORY_LEDGER_SUMMARY_BY_FC`
+
+It holds one row per day, product (FNSKU), disposition and fulfillment center.
+
+## Why we added it
+
+Since November 2025, `SELLER_INVENTORY_LEDGER_SUMMARY` is our recommended ledger. It's reliable, but it only shows totals by country.
+
+Until now, the only FC-level option was the legacy `RAW_INVENTORY.RAW_INVENTORY_LEDGER_SUMMARY`. That table mixes country rows and FC rows, and its `COUNTRY` column isn't reliable. The new view fixes both: it holds FC rows only, so there's nothing to filter out.
+
+## What's in it
+
+It has the same columns as `SELLER_INVENTORY_LEDGER_SUMMARY`, with one swap: `COUNTRY` becomes `FULFILLMENT_CENTER`.
+
+| Group | Columns |
+|---|---|
+| Account and date | `ACCOUNT_KEY`, `WORKSPACE_ID`, `SELLER_NAME`, `REGION_SELLER_NAME`, `REGION_NAME`, `DATE` |
+| Product | `ASIN`, `FNSKU`, `MSKU`, `TITLE`, `DISPOSITION` |
+| Fulfillment center | `FULFILLMENT_CENTER`, `LOCATION` (both hold the FC code, for example `SCK6`) |
+| Balances | `STARTING_WAREHOUSE_BALANCE`, `ENDING_WAREHOUSE_BALANCE`, `IN_TRANSIT_BETWEEN_WAREHOUSES` |
+| Events | `RECEIPTS`, `CUSTOMER_SHIPMENTS`, `CUSTOMER_RETURNS`, `VENDOR_RETURNS`, `WAREHOUSE_TRANSFER_IN_OUT`, `FOUND`, `LOST`, `DAMAGED`, `DISPOSED`, `OTHER_EVENTS`, `UNKNOWN_EVENTS` |
+| Technical | `INVENTORY_LEDGER_SUMMARY_EVENT_KEY`, `SYNC_TIME`, `_SYNC_TIME` |
+
+## Which ledger should I use?
+
+| You want to... | Use |
+|---|---|
+| Report inventory totals by country | `SELLER_INVENTORY_LEDGER_SUMMARY` |
+| See which FCs hold each product, and how stock moves between them | `SELLER_INVENTORY_LEDGER_SUMMARY_BY_FC` |
+| Find the reason behind a specific stock change | `SELLER_INVENTORY_LEDGER_DETAIL` |
+
+<Callout type="warn">
+Don't add up FC rows to get country totals. Amazon builds the FC and country reports separately, so the sums can differ. For country totals, use `SELLER_INVENTORY_LEDGER_SUMMARY`.
+</Callout>
+
+## What to do
+
+- If you pull FC-level data from `RAW_INVENTORY.RAW_INVENTORY_LEDGER_SUMMARY`, switch to the new view.
+- If you only need country totals, no action needed.
+
+See [Amazon inventory data](/help-center/data-reference/amz-inventory-data) for the full list of inventory datasets.
+
+## For SQL users: count the FCs holding each product
+
+```sql
+SELECT DATE,
+       FNSKU,
+       COUNT(DISTINCT FULFILLMENT_CENTER) AS fc_count,
+       SUM(ENDING_WAREHOUSE_BALANCE)      AS sellable_units
+FROM SELLING_PARTNER.SELLER_INVENTORY_LEDGER_SUMMARY_BY_FC
+WHERE DISPOSITION = 'SELLABLE'
+  AND ENDING_WAREHOUSE_BALANCE > 0
+  AND DATE = '2026-10-12'
+GROUP BY DATE, FNSKU
+ORDER BY sellable_units DESC;
+```
+
+Questions? Contact [support@datahawk.co](mailto:support@datahawk.co).

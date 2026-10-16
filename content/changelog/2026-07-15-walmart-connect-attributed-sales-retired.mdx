@@ -1,0 +1,32 @@
+---
+title: "Walmart Connect: nine attributed-sales metrics retired by Walmart"
+description: "Walmart retired its brand, direct, and related attributed-sales metrics on July 15, 2026. Use the advertised SKU and other SKU sales fields instead."
+date: "2026-07-15"
+tags: ["breaking"]
+---
+
+Walmart deprecated several Walmart Connect snapshot report metrics on **July 15, 2026**. From that date, these fields are empty in new data.
+
+## What changes
+
+**Retired fields** (empty from July 15):
+
+- `brandAttributedSales3days`, `brandAttributedSales14days`, `brandAttributedSales30days`
+- `directAttributedSales3days`, `directAttributedSales14days`, `directAttributedSales30days`
+- `relatedAttributedSales3days`, `relatedAttributedSales14days`, `relatedAttributedSales30days`
+
+**Replacement fields** (recommended by Walmart, already in your data):
+
+- `advertisedSkuSales3days`, `advertisedSkuSales14days`, `advertisedSkuSales30days`
+- `otherSkuSales3days`, `otherSkuSales14days`, `otherSkuSales30days`
+
+This affects campaign, ad group, item, keyword, brand, category, placement, platform, page type, and video reports.
+
+## What to do
+
+- Update any query or dashboard that uses the retired fields.
+- Data collected before July 15 doesn't change, so your history stays intact.
+
+See [Walmart Advertising Data](/help-center/data-reference/wmt-advertising-data) for the full table reference.
+
+Questions? Contact [support@datahawk.co](mailto:support@datahawk.co).

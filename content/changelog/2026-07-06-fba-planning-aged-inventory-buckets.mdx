@@ -1,0 +1,30 @@
+---
+title: "FBA Planning: finer aged-inventory buckets"
+description: "Six new fields in Seller Inventory FBA Planning cover the 366-455 and 456+ day aging buckets Amazon uses in US, DE, UK, FR, IT, and ES."
+date: "2026-07-06"
+tags: ["improvement"]
+---
+
+For **US, DE, UK, FR, IT, and ES**, Amazon leaves the 365+ day aging fields empty. It splits that bucket into **366 to 455 days** and **456+ days** instead. You can now see those buckets in DataHawk.
+
+## What changes
+
+We added six fields to `SELLER_INVENTORY_FBA_PLANNING`:
+
+| Field | What it shows |
+|---|---|
+| `inv_age_366_to_455_days` | Units aged 366 to 455 days |
+| `inv_age_456_plus_days` | Units aged 456+ days |
+| `quantity_to_be_charged_ais_366_455_days` | Units that will incur the aged-inventory surcharge, 366 to 455 days |
+| `quantity_to_be_charged_ais_456_plus_days` | Units that will incur the aged-inventory surcharge, 456+ days |
+| `estimated_ais_366_455_days` | Estimated surcharge, 366 to 455 days |
+| `estimated_ais_456_plus_days` | Estimated surcharge, 456+ days |
+
+## What to do
+
+- **US, DE, UK, FR, IT, or ES:** switch your aged-inventory reports and queries to the new fields.
+- **All other marketplaces:** keep using the 365+ fields. Nothing changes for you.
+
+See [Seller Inventory FBA Planning](/help-center/data-reference/fba-seller-inventory-fba-planning) for details.
+
+Questions? Contact [support@datahawk.co](mailto:support@datahawk.co).

@@ -1,0 +1,21 @@
+---
+title: "Amazon DSP: correct account names"
+description: "DSP accounts now show their own advertiser account name instead of the Manager Account name in AMZN_DSP_CAMPAIGNS."
+date: "2026-08-27"
+tags: ["fix"]
+---
+
+For DSP accounts, `seller_name` in `ADVERTISING.AMZN_DSP_CAMPAIGNS` showed the Manager Account name instead of the DSP advertiser account name. Separate DSP accounts could look like duplicates.
+
+## What changes
+
+Each DSP advertiser ID now maps to its own account name.
+
+## What to expect
+
+- No action required on your side.
+- If you grouped or filtered by `seller_name`, your DSP accounts now appear under their own names.
+
+See [Amazon Advertising Data](/help-center/data-reference/amazon-advertising-data) for the table reference.
+
+Questions? Contact [support@datahawk.co](mailto:support@datahawk.co).
