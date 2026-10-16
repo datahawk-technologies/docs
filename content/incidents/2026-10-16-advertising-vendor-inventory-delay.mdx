@@ -1,18 +1,21 @@
 ---
 title: "Advertising and vendor inventory data delayed"
-description: "Amazon Advertising data from Oct 15 and vendor inventory data from Oct 12 are arriving late, mainly in North America. We are working on a fix."
+description: "Amazon Advertising data for Oct 15 and vendor inventory data for Oct 12 arrived late, mainly in North America. All data has been recovered."
 date: "2026-10-16"
-dateRangeImpacted: "Since Oct 12, 2026"
+updated: "2026-10-16T17:42:00+02:00"
+dateRangeImpacted: "Oct 12 - Oct 15, 2026"
 datasetsImpacted: ["ADVERTISING.ADVERTISING_CAMPAIGN_METRICS", "ADVERTISING.ADVERTISING_PRODUCT_METRICS", "SELLING_PARTNER.VENDOR_INVENTORY_MANUFACTURING_SRC"]
-status: "in-progress"
+status: "resolved-no-data-impact"
 severity: "minor"
 ---
 
+**Data update - Resolved**
+
 **Issue type:** Delayed
 
-**Period:** Since Oct 12, 2026
+**Period:** Oct 12 - Oct 15, 2026
 
-**Scope:** Advertising data from Oct 15: missing in North America, partial in other regions. Vendor inventory data from Oct 12: partial, North America only.
+**Scope:** Advertising data for Oct 15: missing in North America, partial in other regions. Vendor inventory data for Oct 12: partial, North America only.
 
 **Datasets:**
 
@@ -20,8 +23,12 @@ severity: "minor"
 - `ADVERTISING.ADVERTISING_PRODUCT_METRICS`
 - `SELLING_PARTNER.VENDOR_INVENTORY_MANUFACTURING_SRC`
 
-**Cause:** We are investigating the cause.
+**Cause:** The cause is still under investigation.
 
-**Progress:** We are working on a fix.
+**Progress:** Resolved.
 
-**Action:** Treat these tables as incomplete for the dates above until this entry says otherwise.
+**Historical data:** All affected data has been restored or corrected.
+
+**Action:** If you exported these tables for Oct 12 or Oct 15 before the fix, pull those dates again.
+
+Update, Oct 16, 2026: all delayed data has been delivered, and no data was lost.
