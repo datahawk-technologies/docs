@@ -32,22 +32,22 @@ export const glossary: Record<string, GlossaryEntry> = {
   ASIN: {
     title: 'Amazon Standard Identification Number',
     short: "Unique 10-character product ID Amazon assigns to every product. ASINs are marketplace-specific — the same physical product sold on Amazon.com (US) and Amazon.co.uk (UK) has a different ASIN in each country.",
-    readMore: '/help-center/data-metrics-guides/foundation/key-concepts#asin--what-it-is-and-why-it-matters',
+    readMore: '/help-center/data-metrics-guides/foundation/key-concepts#asin-what-it-is-and-why-it-matters',
   },
   'PARENT ASIN': {
     title: 'Parent ASIN',
     short: 'A virtual container ASIN that groups related product variations (sizes, colors, packs). Not directly purchasable — only its child ASINs are.',
-    readMore: '/help-center/data-metrics-guides/foundation/key-concepts#parent-asins-and-child-asins--understanding-product-variants',
+    readMore: '/help-center/data-metrics-guides/foundation/key-concepts#parent-asins-and-child-asins-understanding-product-variants',
   },
   'CHILD ASIN': {
     title: 'Child ASIN',
     short: 'A specific, purchasable variation under a parent ASIN — for example, the blue size-M t-shirt within a parent that groups all sizes and colors.',
-    readMore: '/help-center/data-metrics-guides/foundation/key-concepts#parent-asins-and-child-asins--understanding-product-variants',
+    readMore: '/help-center/data-metrics-guides/foundation/key-concepts#parent-asins-and-child-asins-understanding-product-variants',
   },
   SKU: {
     title: 'Stock Keeping Unit',
     short: 'Your internal product identifier — assigned by you, not by Amazon. Each ASIN can have multiple SKUs across sellers and fulfillment channels; each SKU maps to exactly one ASIN.',
-    readMore: '/help-center/data-metrics-guides/foundation/key-concepts#sku--your-internal-product-reference',
+    readMore: '/help-center/data-metrics-guides/foundation/key-concepts#sku-your-internal-product-reference',
   },
   FNSKU: {
     title: 'Fulfillment Network SKU',
@@ -147,7 +147,7 @@ export const glossary: Record<string, GlossaryEntry> = {
   BSR: {
     title: 'Best Sellers Rank',
     short: "A product's ranking within its Amazon category, based on recent sales velocity. Updated hourly by Amazon, captured daily by DataHawk. Lower number = better seller.",
-    readMore: '/help-center/data-metrics-guides/foundation/key-concepts#bsr--best-seller-rank',
+    readMore: '/help-center/data-metrics-guides/foundation/key-concepts#bsr-best-seller-rank',
   },
   SQP: {
     title: 'Search Query Performance',

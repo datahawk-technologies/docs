@@ -3,11 +3,11 @@ title: Snowflake Credit Usage and Consumption Monitoring
 description: Understand how Snowflake credits work, what happens when you hit your quota, and how to monitor your own consumption.
 ---
 
-<Term>Snowflake</Term> credits are the currency behind your DataHawk-hosted database — they measure the compute your warehouse burns through when it runs queries. This page covers what drives consumption, what happens if you run out, and how to track your own usage with self-serve SQL queries against the `USAGE` schema.
+<Term>Snowflake</Term> credits are the currency behind your DataHawk-hosted database. They measure the compute your warehouse burns through when it runs queries. This page covers what drives consumption, what happens if you run out, and how to track your own usage with self-serve SQL queries against the `USAGE` schema.
 
 ## What are Snowflake credits?
 
-Snowflake credits measure your consumption of compute resources. They're used up whenever your virtual warehouse is running and executing queries. The number of credits you get each month depends on your subscription plan — Standard subscriptions include **20 credits per month**.
+Snowflake credits measure your consumption of compute resources. They're used up whenever your virtual warehouse is running and executing queries. The number of credits you get each month depends on your subscription plan. Standard subscriptions include **20 credits per month**.
 
 Credits are consumed by:
 
@@ -25,7 +25,7 @@ Every query you run spins up compute through a virtual warehouse, and credits ar
 - How many queries are executed
 - How many users or tools are querying the data at the same time
 
-Usage adds up. Even small, lightweight queries can eat into your quota fast if they run often — a dashboard set to auto-refresh every few minutes is a common culprit.
+Usage adds up. Even small, lightweight queries can eat into your quota fast if they run often. A dashboard set to auto-refresh every few minutes is a common culprit.
 
 [Learn more about Snowflake's compute cost model](https://docs.snowflake.com/en/user-guide/cost-understanding-compute)
 
@@ -90,7 +90,7 @@ This surfaces daily trends, flags abnormal spikes, and helps you tell early whet
 
 **Long-term fix:** if you consistently run over your monthly allocation, upgrading your plan is the more reliable fix. It avoids repeated service interruptions and the need to manually manage consumption every month. You can review plans from **Workspace → Settings → Subscription**, or reach out to your account manager.
 
-Still seeing unexplained high consumption? Reach out to your DataHawk representative — we're happy to help investigate.
+Still seeing unexplained high consumption? Reach out to your DataHawk representative. We're happy to help investigate.
 
 ---
 

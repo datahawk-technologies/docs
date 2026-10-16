@@ -75,7 +75,7 @@ Global LQS = (Title Score * 0.4) + (Media Score * 0.3) + (Bullets Score * 0.2) +
 Amazon flags catalog and compliance problems on your listings through the Listings Items API: search-suppressed active listings, inactive listings missing an offer or price, items pending approval, and more. DataHawk captures these in `SELLING_PARTNER.LISTING_ITEMS`.
 
 <Callout type="info">
-  Released June 2026. This is a raw table today, with no dedicated view or dashboard yet — query it directly using the recipe below. See the [changelog entry](/changelog/2026-06-04-listing-issues-dataset) for what's planned next.
+  Released June 2026. This is a raw table today, with no dedicated view or dashboard yet. Query it directly using the recipe below. See the [changelog entry](/changelog/2026-06-04-listing-issues-dataset) for what's planned next.
 </Callout>
 
 **Where the data comes from:** `LISTING_ITEM_DETAILS:issues` is a semi-structured array on each listing item, one entry per open issue, with a `code`, `severity`, `message`, `categories`, and `attributeNames`. A single SKU can have multiple issues open at once.
@@ -114,7 +114,7 @@ FROM ranked
 WHERE rn = 1
 ```
 
-This dedupes to the latest snapshot of each open issue per SKU, so you don't see the same issue repeated across days. The `-3 days` window only controls which snapshot the dedup uses as "current" — widen it if a SKU's most recent snapshot is older than that.
+This dedupes to the latest snapshot of each open issue per SKU, so you don't see the same issue repeated across days. The `-3 days` window only controls which snapshot the dedup uses as "current". Widen it if a SKU's most recent snapshot is older than that.
 
 <Callout type="warn">
   **This returns every issue Amazon reports, not just compliance problems.** If you only want catalog/compliance issues (for example, to exclude Out of Stock, which is usually managed elsewhere), filter `ISSUE_CODE`, `ISSUE_MESSAGE`, or `ISSUE_CATEGORIES` to the types you care about. Amazon's own **Manage All Inventory \> Activate Listings \> Fix Issues** view in Seller Central groups these; issue types customers commonly ask to track are Search Suppressed, Detail Page Removed, Missing Offer, Pricing Issue, Approval Required, and Closed.

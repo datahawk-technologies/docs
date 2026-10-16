@@ -9,7 +9,7 @@ A few core concepts come up constantly in DataHawk dashboards and datasets. This
   This page applies to both Amazon and Walmart unless otherwise noted.
 </Callout>
 
-## ASIN — What it is and why it matters
+## ASIN: What it is and why it matters
 
 An **<Term>ASIN</Term>** (Amazon Standard Identification Number) is Amazon's internal identifier for a product. Every product listed on Amazon has one. Think of it as Amazon's own product ID; separate from any reference you or your supplier use.
 
@@ -17,7 +17,7 @@ ASINs are **marketplace-specific**: the same physical product sold on Amazon.com
 
 DataHawk uses ASINs as the primary key to identify and track products across all datasets. When you look at sales, keyword rankings, pricing, or inventory data in DataHawk, it's always tied to an ASIN.
 
-## SKU — Your internal product reference
+## SKU: Your internal product reference
 
 A **<Term>SKU</Term>** (Stock Keeping Unit) is the product identifier *you* assign. It's your own internal code, not Amazon's. While ASINs are assigned by Amazon and shared across all sellers who list that product, a SKU is specific to your seller account.
 
@@ -25,7 +25,7 @@ One ASIN can be linked to multiple SKUs (for example, if you sell the same produ
 
 In DataHawk, SKUs appear in private data (orders, inventory, profit) because they come from your Seller or Vendor account. Public data (rankings, estimates, keyword visibility) is indexed by ASIN only.
 
-## Parent ASINs and Child ASINs — Understanding product variants
+## Parent ASINs and Child ASINs: Understanding product variants
 
 Amazon groups product variations together using a **parent/child structure**:
 
@@ -40,7 +40,7 @@ This distinction matters in DataHawk because some data is reported at the parent
   **Amazon Sales Estimates note:** DataHawk now provides sales estimates at the child (variant) level by default. See [Amazon Sales Estimates](/help-center/data-metrics-guides/competition/amz-sales-estimates) for details.
 </Callout>
 
-## BSR — Best Seller Rank
+## BSR: Best Seller Rank
 
 **<Term>BSR</Term>** (Best Seller Rank) is a number Amazon assigns to each product within a category, based on recent sales velocity. A BSR of 1 means the product is the top seller in that category.
 

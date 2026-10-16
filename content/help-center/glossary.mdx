@@ -15,19 +15,19 @@ This glossary covers the terms that come up most often. If you encounter one tha
 
 ## Amazon platform
 
-### ASIN — Amazon Standard Identification Number
+### ASIN: Amazon Standard Identification Number
 
-The unique 10-character identifier Amazon assigns to every product. For books, it's typically the ISBN. **ASINs are marketplace-specific**: The same physical product sold on Amazon.com (US) and Amazon.co.uk (UK) has a different ASIN in each country. For a deeper explanation including how DataHawk uses ASINs across datasets, see [DataHawk Data Concepts → ASIN](/help-center/data-metrics-guides/foundation/key-concepts#asin--what-it-is-and-why-it-matters).
+The unique 10-character identifier Amazon assigns to every product. For books, it's typically the ISBN. **ASINs are marketplace-specific**: The same physical product sold on Amazon.com (US) and Amazon.co.uk (UK) has a different ASIN in each country. For a deeper explanation including how DataHawk uses ASINs across datasets, see [DataHawk Data Concepts → ASIN](/help-center/data-metrics-guides/foundation/key-concepts#asin-what-it-is-and-why-it-matters).
 
 ### Parent ASIN / Child ASIN
 
 The top-level ASIN that groups multiple variations (different colors, sizes, packs) is the **parent**. Each variation is a **child** ASIN. Sales, ranks, and reviews can be reported at either level.
 
-### SKU — Stock Keeping Unit
+### SKU: Stock Keeping Unit
 
 Your internal product identifier. Each ASIN can have multiple SKUs (across sellers or fulfillment channels); each SKU belongs to exactly one ASIN.
 
-### FNSKU — Fulfillment Network SKU
+### FNSKU: Fulfillment Network SKU
 
 Amazon's internal identifier used within FBA warehouses. Generated when you create an FBA shipment. Helps Amazon track your inventory through their network.
 
@@ -69,15 +69,15 @@ The Walmart prefix in DataHawk's table names. Tables starting with `WMT_` or `wm
 
 ## Advertising
 
-### ACoS — Advertising Cost of Sales
+### ACoS: Advertising Cost of Sales
 
 A metric that measures advertising efficiency by comparing ad spend to ad-attributed revenue. Used to evaluate the success of ad campaigns. Lower ACoS means more efficient ads; industry benchmarks vary by category, but 15–25% is typical for healthy ad performance. See the dashboard page where ACoS appears for the formula used in that specific view.
 
-### TACoS — Total Advertising Cost of Sales
+### TACoS: Total Advertising Cost of Sales
 
 A metric that measures advertising spend against total revenue (both organic and ad-attributed). Used to gauge advertising's overall impact on the business, useful for evaluating whether ad spending is sustainable. See the dashboard page where TACoS appears for the formula (the definition of "total revenue" changes depending on whether you're looking at Seller, Vendor, or combined views).
 
-### ROAS — Return on Ad Spend
+### ROAS: Return on Ad Spend
 
 A metric that measures ad-attributed revenue per dollar of ad spend. The inverse of ACoS. Higher is better. Used to evaluate ad campaign profitability. See the dashboard page where ROAS appears for the formula used in that specific view.
 
@@ -97,11 +97,11 @@ Display ad type that appears on product detail pages and off-Amazon (programmati
 
 Video variation of Sponsored Brands. Appears in search results with autoplay video.
 
-### DSP — Demand Side Platform
+### DSP: Demand Side Platform
 
 Amazon's programmatic advertising platform for display, video, and audio ads. Different from Sponsored Ads (which are CPC). DSP is typically managed-service or accessed via larger agencies.
 
-### DPV — Detail Page View
+### DPV: Detail Page View
 
 A view of a product's detail page on Amazon. A core conversion-funnel metric. Attribution rules vary by context. The Ads DSP Dashboard counts a DPV when it occurs within 14 days of an ad view or click. Other dashboards may use a different window. See the dashboard page for the specific attribution.
 
@@ -109,11 +109,11 @@ A view of a product's detail page on Amazon. A core conversion-funnel metric. At
 
 The number of detail page views relative to the number of impressions.
 
-### NTB — New-to-Brand
+### NTB: New-to-Brand
 
 Amazon's metric for first-time purchases of a brand within a rolling 12-month window. Used to measure brand-building effectiveness of campaigns.
 
-### SoV — Share of Voice
+### SoV: Share of Voice
 
 Your brand's percentage of visibility for a given search query, product segment, or category. Can be measured at the organic level, sponsored level, or combined.
 
@@ -141,15 +141,15 @@ Number of times an ad is displayed to users on a webpage, app, or platform.
 
 Number of times users click on an ad.
 
-### CTR — Click-Through Rate
+### CTR: Click-Through Rate
 
 A metric that measures how often viewers click an ad after seeing it. Used to evaluate ad creative quality and targeting relevance. See the dashboard page where CTR appears for the formula used in that view.
 
-### CPC — Cost Per Click
+### CPC: Cost Per Click
 
 A metric that measures the cost paid each time a user clicks on an ad. Used to compare ad cost efficiency across campaigns. See the dashboard page where CPC appears for the formula used in that view.
 
-### CVR — Conversion Rate
+### CVR: Conversion Rate
 
 A metric that measures how often ad clicks result in a purchase. Used to evaluate landing-page quality and product-market fit. See the dashboard page where CVR appears for the formula used in that view.
 
@@ -159,7 +159,7 @@ Revenue generated from purchases by first-time brand shoppers attributed to adve
 
 ## Finance & Profit
 
-### COGS — Cost of Goods Sold
+### COGS: Cost of Goods Sold
 
 The amount you paid to manufacture or buy the products you sold. Uploaded into DataHawk via CSV to enable accurate profit calculations. See [Upload COGS](/help-center/data-setup/cogs-amz-upload).
 
@@ -192,25 +192,25 @@ The seller currently winning the Buy Box for a product. Available in DataHawk vi
 
 The featured offer slot on a product detail page. The seller who appears by default when a customer clicks "Add to Cart". Winning the Buy Box typically captures 80–90% of sales for that product.
 
-### VAT — Value Added Tax
+### VAT: Value Added Tax
 
 A consumption tax used in the EU, UK, and several other regions. In some marketplaces (EU/UK) prices include VAT; in others (US/CA) tax is added at checkout. Affects how DataHawk reconciles sales with Amazon Seller Central reports. See [Profit data discrepancies](/troubleshooting/data-discrepancies).
 
 ### Sales vs Sales (Orders) vs Gross Revenue vs Sales Principal
 
-These four terms sound interchangeable but aren't — each includes or excludes VAT and shipping differently, and each lives on a different page.
+These four terms sound interchangeable but aren't: each includes or excludes VAT and shipping differently, and each lives on a different page.
 
 | Term | Where you'll find it | Includes VAT/tax? | Includes shipping? |
 |---|---|---|---|
 | **Sales** | Ledger category in `FINANCE.FINANCE_PROFIT_LEDGER` (technical reference) | Yes (except US marketplace) | Yes, plus giftwrap |
-| **Gross Revenue** | P&L Report tab, Profit Explorer | Yes — including the US, no exception (see note below) | Yes, including shipping |
+| **Gross Revenue** | P&L Report tab, Profit Explorer | Yes, including the US, no exception (see note below) | Yes, including shipping |
 | **Sales (Orders)** | Seller Analytics dashboard, Sales Report tab (also the basis for ASP and AOV) | Yes (except US marketplace) | No |
-| **Sales Principal** | Profit Explorer, grouped by Category → Subcategory, under Sales | No — this is Sales net of VAT | No — shipping and sales tax are broken out into separate subcategories |
+| **Sales Principal** | Profit Explorer, grouped by Category → Subcategory, under Sales | No, this is Sales net of VAT | No, shipping and sales tax are broken out into separate subcategories |
 
-Need a net-of-VAT sales figure? Use **Sales Principal** in Profit Explorer — see [Net Sales excluding VAT](/help-center/data-metrics-guides/finance/profitability-analysis) for the full walkthrough. For the full category/subcategory breakdown (including the Marketplace Facilitator VAT lines under Tax Expenses), see [Amazon Seller Profit Data](/help-center/data-reference/amz-seller-profit-data).
+Need a net-of-VAT sales figure? Use **Sales Principal** in Profit Explorer. See [Net Sales excluding VAT](/help-center/data-metrics-guides/finance/profitability-analysis) for the full walkthrough. For the full category/subcategory breakdown (including the Marketplace Facilitator VAT lines under Tax Expenses), see [Amazon Seller Profit Data](/help-center/data-reference/amz-seller-profit-data).
 
 <Callout type="warn">
-  **Gross Revenue's tax handling is provisional (as of August 2026).** Unlike Sales and Sales (Orders), Gross Revenue doesn't carve out an exception for the US marketplace — it includes VAT/tax everywhere, because the P&L Report and Profit Explorer are still built on an older profit-metrics model that doesn't yet distinguish tax handling by marketplace. A new P&L is planned; Gross Revenue's definition will likely change once that ships and the dashboards are rewired.
+  **Gross Revenue's tax handling is provisional (as of August 2026).** Unlike Sales and Sales (Orders), Gross Revenue doesn't carve out an exception for the US marketplace: it includes VAT/tax everywhere, because the P&L Report and Profit Explorer are still built on an older profit-metrics model that doesn't yet distinguish tax handling by marketplace. A new P&L is planned; Gross Revenue's definition will likely change once that ships and the dashboards are rewired.
 </Callout>
 
 ### Adjustments (in Profit data)
@@ -219,19 +219,19 @@ Charges or credits applied to a seller's account to correct inventory, pricing, 
 
 ## Inventory & Fulfillment
 
-### FBA — Fulfillment by Amazon
+### FBA: Fulfillment by Amazon
 
 Amazon stores, picks, packs, and ships your inventory. You ship to Amazon warehouses. Amazon handles the rest. Most popular fulfillment model for 3P sellers at scale.
 
-### FBM — Fulfillment by Merchant
+### FBM: Fulfillment by Merchant
 
 You store and ship your own inventory directly to customers. Used for oversized items, slow movers, or sellers with their own logistics.
 
-### MFN — Merchant Fulfilled Network
+### MFN: Merchant Fulfilled Network
 
 Amazon's official API term for FBM. Used in API and report names (e.g., `MFN_DELIVERY_SERVICE_FEE`).
 
-### SnS — Subscribe & Save
+### SnS: Subscribe & Save
 
 Amazon's subscription program for recurring product purchases (typically every 1–6 months). Sellers offer a small discount in exchange for predictable repeat sales. Has dedicated DataHawk datasets: `SELLING_PARTNER.FBA_RESPLENISHMENT_SNS_PERFORMANCE` and `..._FORECAST`.
 
@@ -243,7 +243,7 @@ The process of restocking inventory at Amazon's warehouses. DataHawk's replenish
 
 FBA inventory currently allocated to pending customer orders. Distinct from "sellable" inventory which is available for new orders.
 
-### FC — Fulfillment Center
+### FC: Fulfillment Center
 
 Amazon's warehouses. Inventory moves between FCs based on demand forecasts ("FC transfer").
 
@@ -288,7 +288,7 @@ Number of views to a Vendor product detail page. Calculated at the ASIN level, a
 
 Number of unique visits to your Amazon listings within a 24-hour period. Multiple pages viewed by the same shopper count as a single session.
 
-### ASP — Average Selling Price
+### ASP: Average Selling Price
 
 A metric that measures the average price per unit sold over a period. Used to track pricing strategy and product-mix shifts. The basis changes the formula: Seller accounts use the price the customer paid; vendor accounts have two flavors, **ASP (Ordered Revenue basis)** at Amazon's retail price and **AWP (Average Wholesale Price)** at the wholesale price Amazon paid you. See the dashboard page for the formula used in that view.
 
@@ -353,7 +353,7 @@ DataHawk's AI module that generates and optimizes Amazon listing copy (titles, b
 
 DataHawk's notification module. Set thresholds on tracked metrics (Buy Box loss, price change, rank drop, etc.) and receive emails when they fire.
 
-### MCP — Model Context Protocol
+### MCP: Model Context Protocol
 
 What's an[MCP](https://docs.replit.com/platforms/mcp-server)?
 An open standard for connecting AI assistants (Claude, ChatGPT, n8n, custom agents) to your DataHawk data. Lets you ask your AI assistant questions like *"what was my US ROAS last week broken down by campaign?"* and have it query DataHawk directly. See [DataHawk MCP](/help-center/modules/datahawkmcp).
@@ -370,7 +370,7 @@ Your subscription limit for tracked products, keywords, categories, or accounts.
 
 DataHawk's modeled estimates of units and revenue for Amazon products, based on rank and price signals. These are estimates, not Amazon-reported sales. They won't exactly match Seller Central. See [Amazon Sales Estimates](/help-center/data-metrics-guides/competition/amz-sales-estimates) for the model details, accuracy expectations, and how to use them.
 
-### LQS — Listing Quality Score
+### LQS: Listing Quality Score
 
 A 0-100 score reflecting how well an Amazon listing follows best practices for titles, images, bullets, and content. Computed daily by DataHawk from 25+ criteria. See [Listing Quality Analysis](/help-center/data-metrics-guides/content/listing-quality-analysis) for the scoring breakdown.
 
@@ -400,15 +400,15 @@ Google's free BI tool. DataHawk provides Looker Studio templates that connect to
 
 Salesforce's BI tool. Connects to DataHawk via Snowflake or BigQuery.
 
-### API — Application Programming Interface
+### API: Application Programming Interface
 
 DataHawk's REST API configures your **workspace**: adding, removing, or updating tracked products, keywords, and categories. It is not a data-retrieval mechanism, so features and metrics aren't necessarily exposed through it just because they exist in the app. To pull data programmatically instead, use [DataHawk MCP](/help-center/modules/datahawkmcp) or your Snowflake/BigQuery data share. See [API Reference](/api-reference) for what's covered today.
 
-### SP-API — Selling Partner API
+### SP-API: Selling Partner API
 
 Amazon's modern API for Seller and Vendor data. Replaced the older MWS (Marketplace Web Service). Most of DataHawk's Amazon datasets come via SP-API.
 
-### SQL — Structured Query Language
+### SQL: Structured Query Language
 
 The language used to query Snowflake or BigQuery data. DataHawk's data lives in standard SQL-compatible tables. Examples are written in Snowflake SQL dialect.
 
@@ -430,15 +430,15 @@ DataHawk's standardized identifier for a marketplace (e.g., `Amazon-US`, `Amazon
 
 ## Time and comparison
 
-### bps — Basis Points
+### bps: Basis Points
 
 Absolute change in percentage points. `100 bps = 1 percentage point`. Used for ratio metrics like conversion rate or ACoS, where relative percentage changes can be misleading.
 
-### PoP — Period over Period
+### PoP: Period over Period
 
 Relative difference of a measure between two consecutive periods. Monthly view means Month over Month (MoM); weekly view means Week over Week (WoW). Can be expressed as absolute value (PoP Abs) or percentage (PoP %).
 
-### YoY — Year over Year
+### YoY: Year over Year
 
 Relative difference of a measure in the selected period vs the same period last year (e.g., January 2024 vs January 2023). Use to control for seasonality.
 

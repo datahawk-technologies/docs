@@ -61,7 +61,7 @@ In `FINANCE_PROFIT_LEDGER`, filter to `transaction_status = 'RELEASED'` to match
 </Step>
 
 <Step>
-### For Vendor specifically — check selling program
+### For Vendor specifically: check selling program
 
 In `VENDOR_SALES_*`, filter by `selling_program`. If a marketplace appears empty but the customer has activity there, it's likely a sourcing-only marketplace where DataHawk has limited visibility.
 </Step>
@@ -275,7 +275,7 @@ For accurate country-level inventory analysis, use:
 - `SELLING_PARTNER.SELLER_INVENTORY_LEDGER_DETAIL`
 - `SELLING_PARTNER.SELLER_INVENTORY_LEDGER_SUMMARY`
 
-These were introduced in November 2025 and are the recommended source. Fulfillment-center-based ledgers are still available but not suitable for country-level reporting.
+These were introduced in November 2025 and are the recommended source. For fulfillment-center analysis, use `SELLING_PARTNER.SELLER_INVENTORY_LEDGER_SUMMARY_BY_FC`. Don't sum its rows to get country totals: Amazon builds the two reports separately, so they can differ.
 </Step>
 
 <Step>

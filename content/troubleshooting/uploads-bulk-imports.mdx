@@ -13,14 +13,14 @@ Bulk CSV imports (Tags, COGS, and similar uploads) can fail, hang, or time out w
 
 - Uploading a large Tags CSV (roughly 10,000+ rows) gets stuck after you click confirm, or fails without a clear error message.
 - Smaller files (a few thousand rows) upload without issue.
-- This isn't specific to one workspace — it's been reported more than once.
+- This isn't specific to one workspace. It's been reported more than once.
 
 **Why is this happening?**
 
 DataHawk's Tags CSV importer runs on a third-party upload widget (Dromo) plus DataHawk's own pre-upload validation checks. On very large files, that validation step can take too long, and the upload times out or appears to hang after confirmation.
 
 <Callout type="warn">
-  **Known limitation (as of April 2026): reliable uploads top out around 3,000–4,000 rows.** DataHawk has looked at optimizing the validation step but hasn't shipped a fix as of this writing — if you're reading this later, check with support whether larger files now upload successfully before splitting yours.
+  **Known limitation (as of April 2026): reliable uploads top out around 3,000–4,000 rows.** DataHawk has looked at optimizing the validation step but hasn't shipped a fix as of this writing. If you're reading this later, check with support whether larger files now upload successfully before splitting yours.
 </Callout>
 
 **What can I do?**
@@ -47,13 +47,13 @@ Pick whichever [import mode](/help-center/data-setup/tags) matches what you're t
 
     If your goal is to fully replace your tag catalog across multiple chunks:
 
-    1. Upload the **first** chunk with **Replace All** — this clears old tags and sets the first chunk's tags.
-    2. Upload every **subsequent** chunk with **Add New Only** — since those items have no tags left after the wipe, this correctly adds each chunk's tags without touching what you already uploaded.
+    1. Upload the **first** chunk with **Replace All**. This clears old tags and sets the first chunk's tags.
+    2. Upload every **subsequent** chunk with **Add New Only**. Since those items have no tags left after the wipe, this correctly adds each chunk's tags without touching what you already uploaded.
 
-    `[TO CONFIRM with Sylvain/support: this sequencing is inferred from how the three import modes are documented — it hasn't been explicitly confirmed for a multi-chunk upload. Verify before pointing a customer at it.]`
+    `[TO CONFIRM with Sylvain/support: this sequencing is inferred from how the three import modes are documented; it hasn't been explicitly confirmed for a multi-chunk upload. Verify before pointing a customer at it.]`
 </Callout>
 
-  If you're using **Add New Only** or **Replace Matching** for the whole file, you can use the same mode consistently across all chunks — neither one wipes the full tag set, so there's no ordering risk.
+  If you're using **Add New Only** or **Replace Matching** for the whole file, you can use the same mode consistently across all chunks. Neither one wipes the full tag set, so there's no ordering risk.
 </Step>
 
 <Step>

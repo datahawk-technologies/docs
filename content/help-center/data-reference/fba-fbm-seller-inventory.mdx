@@ -6,12 +6,12 @@ description: "A single, unified view of FBA and FBM inventory side by side, one 
 **Source:** Combines `SELLER_INVENTORY_FBA_PLANNING` (Amazon FBA Manage Inventory Health Report) and `SELLER_INVENTORY_ALL_LISTINGS` (Amazon All Listings Report)
 
 <Callout type="info">
-  Not to be confused with `SELLER_INVENTORY_ALL_LISTINGS` itself — that's the FBM-only source table this view is built from (see [FBM Seller Inventory (All Listings)](/help-center/data-reference/fbm-seller-inventory-all-listings)). This page covers `SELLER_INVENTORY`, the unified FBA + FBM view.
+  Not to be confused with `SELLER_INVENTORY_ALL_LISTINGS` itself. That's the FBM-only source table this view is built from (see [FBM Seller Inventory (All Listings)](/help-center/data-reference/fbm-seller-inventory-all-listings)). This page covers `SELLER_INVENTORY`, the unified FBA + FBM view.
 </Callout>
 
 ## What this dataset is
 
-A single, unified view of your inventory across both fulfillment channels — one row per **ASIN × SKU × Marketplace**, showing FBA and FBM stock side by side. Instead of querying two separate tables and manually matching rows, you can directly compare price, condition, and stock health across channels for the same product, or pull a blended total quantity across FBA and FBM.
+A single, unified view of your inventory across both fulfillment channels: one row per **ASIN × SKU × Marketplace**, showing FBA and FBM stock side by side. Instead of querying two separate tables and manually matching rows, you can directly compare price, condition, and stock health across channels for the same product, or pull a blended total quantity across FBA and FBM.
 
 Use it to answer questions like "is this listing active on FBA, FBM, both, or neither?", "how does my price/condition differ by channel?", or "what's my combined available stock for this SKU?"
 
@@ -23,7 +23,7 @@ Use it to answer questions like "is this listing active on FBA, FBM, both, or ne
 | --- | --- |
 | **Refresh** | Daily |
 | **Geographic scope** | Marketplace level. FBA side excludes **NL, PL, SE, and BE** (not covered by Amazon's FBA planning report); FBM side covers all marketplaces. |
-| **Grain** | One row per **ASIN × SKU × Marketplace**. A row can be FBA-only, FBM-only, or both — see `FBA_LISTING_EXISTS` / `FBM_LISTING_EXISTS` below. |
+| **Grain** | One row per **ASIN × SKU × Marketplace**. A row can be FBA-only, FBM-only, or both. See `FBA_LISTING_EXISTS` / `FBM_LISTING_EXISTS` below. |
 
 
 If a listing exists on only one channel, the columns for the other channel will simply be null.
@@ -47,7 +47,7 @@ If a listing exists on only one channel, the columns for the other channel will 
 | `CURRENCY` | Currency code for price fields on this row |
 
 <Callout type="warn">
-  **Known gap (as of April 2026): no `FNSKU` column on this unified view.** `FNSKU` exists on both source tables (`SELLER_INVENTORY_FBA_PLANNING` and `SELLER_INVENTORY_ALL_LISTINGS`) but wasn't carried into this coalesced view. DataHawk was evaluating adding it reliably at the time this note was written — if you're reading this later, check whether it's since been added before using the workaround.
+  **Known gap (as of April 2026): no `FNSKU` column on this unified view.** `FNSKU` exists on both source tables (`SELLER_INVENTORY_FBA_PLANNING` and `SELLER_INVENTORY_ALL_LISTINGS`) but wasn't carried into this coalesced view. DataHawk was evaluating adding it reliably at the time this note was written. If you're reading this later, check whether it's since been added before using the workaround.
 
   In the meantime, see [Which FNSKU is linked to each ASIN/SKU?](/help-center/data-reference/amz-inventory-data) for the join (join on `ASIN`, and `SKU` too if you need SKU-level precision, to bring `FNSKU` onto your `SELLER_INVENTORY` rows).
 </Callout>
@@ -56,8 +56,8 @@ If a listing exists on only one channel, the columns for the other channel will 
 
 | Field | Definition |
 | --- | --- |
-| `FBA_LISTING_EXISTS` | `Yes`/`No` — whether this ASIN/SKU has an FBA listing |
-| `FBM_LISTING_EXISTS` | `Yes`/`No` — whether this ASIN/SKU has an FBM (merchant-fulfilled) listing |
+| `FBA_LISTING_EXISTS` | `Yes`/`No`: whether this ASIN/SKU has an FBA listing |
+| `FBM_LISTING_EXISTS` | `Yes`/`No`: whether this ASIN/SKU has an FBM (merchant-fulfilled) listing |
 
 ### Snapshot dates
 
@@ -75,7 +75,7 @@ If a listing exists on only one channel, the columns for the other channel will 
 | `FBA_PRICE` | Current FBA listing price |
 | `FBM_PRICE` | Current FBM listing price |
 
-### Stock — available
+### Stock: available
 
 | Field | Definition |
 | --- | --- |
@@ -83,7 +83,7 @@ If a listing exists on only one channel, the columns for the other channel will 
 | `FBM_QUANTITY` | Units declared as available for merchant-fulfilled orders |
 | `TOTAL_AVAILABLE_QUANTITY` | `FBA_AVAILABLE + FBM_QUANTITY` |
 
-### Stock — total
+### Stock: total
 
 | Field | Definition |
 | --- | --- |
@@ -91,7 +91,7 @@ If a listing exists on only one channel, the columns for the other channel will 
 | `FBM_TOTAL_QUANTITY` | `FBM_QUANTITY + FBM_PENDING_QUANTITY` |
 | `TOTAL_QUANTITY` | `FBA_TOTAL_QUANTITY + FBM_TOTAL_QUANTITY` |
 
-### FBA — reserved / inbound / removal detail
+### FBA: reserved / inbound / removal detail
 
 | Field | Definition |
 | --- | --- |
@@ -108,7 +108,7 @@ If a listing exists on only one channel, the columns for the other channel will 
 | `FBA_INBOUND_TOTAL` | Sum of working + shipped + received inbound units |
 | `FBA_PENDING_REMOVAL_QUANTITY` | Units pending removal or disposal from FBA |
 
-### FBA — aging & supply
+### FBA: aging & supply
 
 | Field | Definition |
 | --- | --- |
@@ -119,7 +119,7 @@ If a listing exists on only one channel, the columns for the other channel will 
 | `FBA_INV_AGE_91_TO_180_DAYS` | Units in FBA for 91–180 days |
 | `FBA_INV_AGE_181_TO_330_DAYS` | Units in FBA for 181–330 days |
 | `FBA_INV_AGE_331_TO_365_DAYS` | Units in FBA for 331–365 days |
-| `FBA_INV_AGE_365_PLUS_DAYS` | Units in FBA over 365 days. **Not populated for US, DE, UK, FR, IT, ES** — for these marketplaces use `FBA_INV_AGE_366_TO_455_DAYS` + `FBA_INV_AGE_456_PLUS_DAYS` instead |
+| `FBA_INV_AGE_365_PLUS_DAYS` | Units in FBA over 365 days. **Not populated for US, DE, UK, FR, IT, ES**. For these marketplaces use `FBA_INV_AGE_366_TO_455_DAYS` + `FBA_INV_AGE_456_PLUS_DAYS` instead |
 | `FBA_INV_AGE_366_TO_455_DAYS` | Units in FBA for 366–455 days (populated only for US, DE, UK, FR, IT, ES) |
 | `FBA_INV_AGE_456_PLUS_DAYS` | Units in FBA over 456 days (populated only for US, DE, UK, FR, IT, ES) |
 
@@ -138,6 +138,6 @@ If a listing exists on only one channel, the columns for the other channel will 
 - Is this listing active on FBA, FBM or both?
 - How does price or condition compare across fulfillment channels for the same ASIN?
 - What's my combined (FBA + FBM) available and total stock per SKU?
-- What's the current stock health — aging, reserved breakdown, inbound pipeline — for my FBA inventory?
+- What's the current stock health (aging, reserved breakdown, inbound pipeline) for my FBA inventory?
 - Are there products only sold via one channel that I'm not tracking on the other?
 - How much aged inventory (365+ days) do I have, accounting for the marketplace split in the 366–455 and 456+ buckets?

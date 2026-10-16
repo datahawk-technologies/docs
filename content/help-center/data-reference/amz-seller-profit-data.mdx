@@ -58,13 +58,13 @@ A ledger of profit events compiled from a comprehensive selection of seller fina
   **ServiceFee categorization (fix, September 17, 2025).** Non-categorized ServiceFee events are now correctly categorized under `Others > ServiceFee`. Previously they were misclassified under `Refunds > Other`.
 </Callout>
 
-**Subcategories (selected):** Not an exhaustive list — Amazon's raw event types are numerous — but these are the ones customers ask about most, particularly around VAT.
+**Subcategories (selected):** Not an exhaustive list (Amazon's raw event types are numerous), but these are the ones customers ask about most, particularly around VAT.
 
 *Under Sales:*
 
 - **Sales Tax / Tax** (shown as "Sales Tax Charge" in some dashboards): The VAT or sales tax charged to the customer as part of the order. Included in the Sales category total and in Gross Revenue.
 - **Shipping** (shown as "Shipping Tax Charge" in some dashboards): The shipping charge billed to the customer as part of the order. Included in the Sales category total and in Gross Revenue, but broken out separately from Sales Principal.
-- **Sales Principal**: Sales net of VAT/tax and net of shipping — this is DataHawk's net-of-VAT, net-of-shipping sales figure, available in Profit Explorer. See [Sales vs Sales (Orders) vs Gross Revenue vs Sales Principal](/help-center/glossary#sales-vs-sales-orders-vs-gross-revenue-vs-sales-principal).
+- **Sales Principal**: Sales net of VAT/tax and net of shipping. This is DataHawk's net-of-VAT, net-of-shipping sales figure, available in Profit Explorer. See [Sales vs Sales (Orders) vs Gross Revenue vs Sales Principal](/help-center/glossary#sales-vs-sales-orders-vs-gross-revenue-vs-sales-principal).
 
 For a subcategory not listed here, email [support@datahawk.co](mailto:support@datahawk.co) with your workspace ID and the exact category/subcategory pair, or check the [Exhaustive Column Referential](https://docs.google.com/spreadsheets/d/1gYGqKQP9Z71nz1lOb4y0wJ15i27NvsUzdliIJeIx0HY/edit#gid=175439716).
 
@@ -91,7 +91,7 @@ Our **default aggregated Profit reporting tables follow an accrual methodology**
 
 **`finance.finance_profit_metrics`**: A collection of profit metrics:
 
-- **Gross Revenue**: Sales including Tax Charges (<Term>VAT</Term>) and shipping charges, for every marketplace including the US — see the [provisional tax-handling note](/help-center/glossary#sales-vs-sales-orders-vs-gross-revenue-vs-sales-principal) on this definition
+- **Gross Revenue**: Sales including Tax Charges (<Term>VAT</Term>) and shipping charges, for every marketplace including the US. See the [provisional tax-handling note](/help-center/glossary#sales-vs-sales-orders-vs-gross-revenue-vs-sales-principal) on this definition
 - **Net Revenue**: Gross Revenue - Refunds
 - **Gross Profit**: Net Revenue - Cost of Goods
 - **Operating Profit**: Gross Profit - Amazon Fees - Marketing

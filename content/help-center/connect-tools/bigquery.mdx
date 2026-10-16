@@ -17,7 +17,7 @@ What's included:
 
 DataHawk refreshes your BigQuery database every day. Not all data arrives at the same time. Some datasets are populated later in the day depending on when Amazon's API makes them available. See the individual dataset pages in the Knowledge Hub for dataset-specific freshness details.
 
-## Option 1 — DataHawk-hosted BigQuery (recommended for most users)
+## Option 1: DataHawk-hosted BigQuery (recommended for most users)
 
 This is the default setup. DataHawk creates and hosts the BigQuery database for you.
 
@@ -80,10 +80,10 @@ Once the email is a Google Account, add it under **Setup \> Destinations \> BigQ
 </Steps>
 
 <Callout type="warn">
-  **Already sure this email is a Google Account and still getting the error?** This can happen even for genuine Google Accounts in rare cases — see [BigQuery access errors](/troubleshooting/connection-failures#snowflake--bigquery-warehouse-connections) in Troubleshooting, and contact [support@datahawk.co](mailto:support@datahawk.co) with your workspace ID rather than trying to recreate the account.
+  **Already sure this email is a Google Account and still getting the error?** This can happen even for genuine Google Accounts in rare cases. See [BigQuery access errors](/troubleshooting/connection-failures#snowflake--bigquery-warehouse-connections) in Troubleshooting, and contact [support@datahawk.co](mailto:support@datahawk.co) with your workspace ID rather than trying to recreate the account.
 </Callout>
 
-## Option 2 — Self-hosted BigQuery (advanced)
+## Option 2: Self-hosted BigQuery (advanced)
 
 If you already use Google Cloud Platform (GCP) and prefer to host the database yourself, you can connect your own BigQuery project to DataHawk. DataHawk will write your data into your project directly.
 

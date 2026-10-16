@@ -34,8 +34,8 @@ Power BI or Looker Studio dashboards aren't behaving as expected. Most issues ar
 
 | Symptom | Likely cause | Fix |
 |---|---|---|
-| Ad sales > total sales | Multi-account attribution issue, or expected attribution behavior | Filter to one account at a time to verify. If it persists, this can be normal — see [why Ad Sales can exceed Total Sales](/troubleshooting/data-discrepancies#ad-spend-or-ad-sales-look-inflated-or-wrong) |
-| BSR (or other tabs) limited to less history than expected, e.g. 12 months | Template's lookback parameter is set lower than the data actually available | You can raise this yourself — see [Changing the historical lookback window](/help-center/connect-tools/powerbi#changing-the-historical-lookback-window). No need to query raw tables. |
+| Ad sales > total sales | Multi-account attribution issue, or expected attribution behavior | Filter to one account at a time to verify. If it persists, this can be normal. See [why Ad Sales can exceed Total Sales](/troubleshooting/data-discrepancies#ad-spend-or-ad-sales-look-inflated-or-wrong) |
+| BSR (or other tabs) limited to less history than expected, e.g. 12 months | Template's lookback parameter is set lower than the data actually available | You can raise this yourself. See [Changing the historical lookback window](/help-center/connect-tools/powerbi#changing-the-historical-lookback-window). No need to query raw tables. |
 | Profit Explorer P&L doesn't match pivot export | Different aggregation logic | The pivot export uses raw ledger data; the dashboard rolls up by category. They should match at marketplace+month grain but can differ at finer grain |
 | Currency picker shows wrong values | Currency conversion bug (Analytics Essentials Looker Studio dashboard) | Known issue. Confirm the currency parameter on the dashboard's data source matches the visual filter |
 

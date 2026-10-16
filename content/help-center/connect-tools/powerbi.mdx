@@ -38,7 +38,7 @@ When it will be asked to enter your Snowflake credentials, copy by clicking the 
 If you don't see anything in Destination page then it means you don't have a Snowflake database yet. 
 See [Send data to your tool](/help-center/connect-tools) to set one up. Provisioning can take up to 4 hours.
 
-## Option 1 — Use a DataHawk template
+## Option 1: Use a DataHawk template
 
 
 DataHawk provides pre-built Power BI templates in `.pbix` format. See [**Download Power BI Templates**](/help-center/connect-tools/powerbi-templates-library) for the full catalog and download links.
@@ -279,7 +279,7 @@ Once refreshed, navigate back to your workspace to open the report.
 Most DataHawk Power BI templates cap how much history a tab loads by default, both to keep the report fast and because that default isn't right for everyone. If a tab shows less history than you expected (BSR ranking limited to the last 12 months is a common example), you can usually extend it yourself, without needing raw database access.
 
 <Callout type="info">
-  This only controls how much of your *existing* data the dashboard displays — it can't show more history than DataHawk has actually collected for your account. See [Historical data storage](/help-center/data-setup/seller-account#historical-data-storage) for how far back your data goes.
+  This only controls how much of your *existing* data the dashboard displays. It can't show more history than DataHawk has actually collected for your account. See [Historical data storage](/help-center/data-setup/seller-account#historical-data-storage) for how far back your data goes.
 </Callout>
 
 **If you're working from the published report in Power BI Service** (the setup used in Option 1 above):
@@ -350,14 +350,14 @@ Each template ships with its own default, chosen to keep the report fast. If you
 | [Market Intelligence](/help-center/dashboard-templates/power-bi/market-intelligence-dashboard) | 365 days (1 year) |
 | [Ads DSP](/help-center/dashboard-templates/power-bi/ads-dsp-dashboard) | 365 days (1 year) |
 | [Advertising](/help-center/dashboard-templates/power-bi/advertising-dashboard) | 180 days |
-| Search | 180 days `[TO CONFIRM: this template has no dedicated reference page yet — see note below]` |
+| Search | 180 days `[TO CONFIRM: this template has no dedicated reference page yet; see note below]` |
 | [Product](/help-center/dashboard-templates/power-bi/product-dashboard) | 90 days |
 
 <Callout type="info">
   The Search dashboard is referenced in [Dashboard issues](/troubleshooting/dashboard-issues) as a shipped template but doesn't have its own guide on this site yet. `[TO CONFIRM: confirm this is a gap to fill, not a template being retired]`
 </Callout>
 
-## Option 2 — Build your own reports
+## Option 2: Build your own reports
 
 If you prefer to build from scratch or connect an existing Power BI file to your DataHawk data, [Learn how to connect to Snowflake in the power bi documentation](https://learn.microsoft.com/en-us/power-bi/connect-data/service-connect-snowflake).
 

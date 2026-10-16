@@ -41,6 +41,8 @@ const BRITISH_WORDS = [
 ];
 const BANNED_IMPORT_RE = /from\s+['"](fumadocs-ui\/components\/[^'"]+|@\/components\/Term|next\/image)['"]/;
 const CURLY_QUOTE_RE = /[‘’“”]/;
+// Em dash (U+2014). Written as an escape so this file doesn't contain the character itself.
+const EM_DASH = '\u2014';
 // Deliberately excludes the arrow block (U+2190-U+21FF) — inline "Click X → Y"
 // wayfinding arrows in prose are fine; only arrow-as-bullet-marker is banned,
 // which isn't practical to detect reliably here (see CLAUDE.md Section 16).
@@ -75,8 +77,18 @@ function getChangedFiles() {
   }
   if (diff === null) return null; // couldn't compute a diff at all — fall back to full audit
 
+  // Also pick up work that isn't committed yet (staged, unstaged, untracked),
+  // so the check can run before you commit.
+  const local = sh(`git diff --name-status HEAD -- content`) || '';
+  const untracked = (sh(`git ls-files --others --exclude-standard -- content`) || '')
+    .split('\n').filter(Boolean).map((f) => `A\t${f}`).join('\n');
+  diff = [diff, local, untracked].join('\n');
+
   const entries = [];
+  const seen = new Set();
   for (const line of diff.trim().split('\n').filter(Boolean)) {
+    if (seen.has(line)) continue;
+    seen.add(line);
     const parts = line.split('\t');
     const status = parts[0];
     if (status.startsWith('R')) {
@@ -208,6 +220,13 @@ function lintGeneral(file, content) {
   }
   if (CURLY_QUOTE_RE.test(content)) {
     report(file, 'error', 'Contains curly quotes (‘’“”) — use straight quotes.');
+  }
+  if (content.includes(EM_DASH)) {
+    const lines = content.split('\n')
+      .map((l, i) => (l.includes(EM_DASH) ? i + 1 : null))
+      .filter(Boolean);
+    const shown = lines.slice(0, 5).join(', ') + (lines.length > 5 ? `, +${lines.length - 5} more` : '');
+    report(file, 'error', `Contains an em dash on line(s) ${shown}. Use a period, comma, colon or parentheses instead. In headings, use a colon.`);
   }
   const stripped = content.replace(/⚙️/g, '');
   if (EMOJI_RE.test(stripped)) {
