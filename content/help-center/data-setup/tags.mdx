@@ -3,140 +3,124 @@ title: Use Tags
 description: Tag Products and Keywords to organize your catalog and target dashboards, Alerts, and Sherlock at any slice.
 ---
 
-Tags are labels you attach to Products and Keywords so you can group, filter, and target them everywhere DataHawk reports. Every Product or Keyword can carry as many tags as you need, and tags work whether the item is tracked or untracked.
+A tag is a label you attach to a product or a keyword, like `Top Performer` or `cat:HomeCare`. Once tagged, you can filter dashboards, scope Alerts, and group Sherlock signals by that label instead of picking items one by one. An item can carry as many tags as you need.
 
 <Callout type="info">
-  Tags apply to both **tracked and untracked** Products and Keywords, useful for organizing your catalog before you decide what to track.
+  To tag products from your connected Seller Central or Vendor Central account, use the **Product Tags** source on the Sources page. You don't need product tracking to tag a product. The **Products** source adds products to tracking and counts against your tracked product limit.
 </Callout>
 
 ## Why use tags?
 
-Tags become useful as soon as you have more than a handful of products or keywords. Concrete payoffs:
+Tags pay off as soon as you have more than a handful of products or keywords. With them, you can:
 
-- **Filter dashboards** down to a meaningful slice: E.g. Only your `Top Performer` products, or only `cat:HomeCare` keywords.
-- **Scope Alerts** to a group: Get pinged only when *your premium SKUs* lose Buy Box, instead of for every product.
-- **Slice ad performance** by your own categories: Without having to restructure how things are organized in Amazon Seller Central.
-- **Surface the right context in Sherlock**: When triaging an anomaly, your tags help you see *which* part of the catalog is affected.
+- **Filter dashboards** to a meaningful slice, for example only your `Top Performer` products or only `cat:HomeCare` keywords.
+- **Scope Alerts** to a group, so you're pinged when your premium SKUs lose the <Term>Buy Box</Term>, not for every product.
+- **Slice ad performance** by your own categories, without restructuring anything in Amazon Seller Central.
+- **Get context in Sherlock**: when you triage an anomaly, tags show which part of your catalog is affected.
 
-## Three types of tags
+## Tagging vs tracking
 
-DataHawk gives you three flavors of tags. They cover different needs and can coexist on the same Product or Keyword.
+Tagging and tracking are separate. Tagging only labels a product. Tracking makes DataHawk collect that product's page data every day. Pick the right source on the Sources page before you start:
 
-| Type | Who creates them | When attached |
+| | Your catalog (connected accounts) | Tracked products |
 |---|---|---|
-| **Automated** | DataHawk | Automatically, based on what we know about the item |
-| **Preset** | DataHawk (curated list) | When you pick one from the suggested list |
-| **Custom** | You | Whenever you add or edit a Product or Keyword |
+| What it is | Your own products, from your Seller Central or Vendor Central account | Products DataHawk monitors daily, yours or competitors' |
+| Source to use | **Product Tags** | **Products** |
+| Needs product tracking in your plan | No | Yes |
+| Counts against your tracked product limit | No | Yes |
+| How to tag | **Product Tags** CSV upload | While adding the products, or later with **Product Tags** |
 
-### Automated tags
+If you only want to group your catalog in dashboards, use **Product Tags**. Track a product only when you need its daily product page data (see [Track Products](/help-center/data-setup/products-tracking)). The same applies to keywords: you can tag keywords you don't track, for example to filter Brand Analytics <Term>SQP</Term> data by your own groups.
 
-DataHawk attaches these automatically based on what it knows about the item. You can't create or remove them. They reflect reality.
+## Add tags
 
-- **<Term>FBA</Term>**: Fulfilled by Amazon
-- **Prime**: Prime-eligible
-- **Vendor**: Sold by Amazon
-- **Tracked**: Currently monitored in your <Term>workspace</Term>
-- **<Term>ASIN</Term>**: The product's ASIN identifier
-- **Variation**: Belongs to a parent/child variation family
-- **Owned Tags**: Tags found in your Seller Central or Advertising Account, mirrored into DataHawk
+Most people tag in bulk with a CSV file. Pick the tab that matches your situation.
 
-### Preset tags
+<Tabs items={['CSV upload', 'While tracking', 'One item']}>
 
-DataHawk ships with a curated list of tags covering common needs. Use these when you don't want to invent your own naming.
+<Tab value="CSV upload">
 
-<Tabs items={['For Products', 'For Keywords']}>
+Best for tagging your catalog, or retagging dozens or hundreds of items at once.
 
-<Tab value="For Products">
+<Steps>
 
-- Direct Competitor
-- Threat
-- New Entrant
-- Top Performer
+<Step>
+### Open the tags importer
 
-</Tab>
+Go to **Sources**. Find the **Product Tags** (or **Keyword Tags**) row and click **+ Add**.
 
-<Tab value="For Keywords">
+<img
+  src="/images/help-center/data-setup/tags/tags-2.png"
+  alt="Product Tags row on the Sources page, with its Add button"
+  width={1200}
+  height={486}
+  className="rounded-lg border"
+/>
 
-- Short Tail / Mid Tail / Long Tail
-- Low Volume / Medium Volume / High Volume
-- Low Competition / Medium Competition / High Competition
-- Core Keywords / Ancillary Keywords
+Don't use the **Products** row. It adds products to tracking, not tags.
+</Step>
 
-</Tab>
+<Step>
+### Download a template
 
-</Tabs>
+- **Template CSV**: a blank file. Use it the first time you tag.
+- **Product/Keyword Catalog & Tags CSV**: pre-filled with the items you've already tagged. Use it to update existing tags. It doesn't include untagged items.
 
-### Custom tags
+For a first upload, start from your own product list, for example an export from Seller Central.
 
-You define them. The most frequently used ones surface as suggestions when you tag new items.
+{/* TODO: confirm whether DataHawk offers a way to download the full catalog, including untagged products, or to see how many products are still untagged. Customers ask for this to check their uploads. */}
+</Step>
 
-**Common examples:**
+<Step>
+### Fill in the template
 
-- Brand name
-- Product category
-- Marketing segment
-- Supplier
-- Internal SKU family
+Use one row per product or keyword. Put its tags in the **Tags** column, separated by semicolons (`;`). Tags are case-sensitive.
+</Step>
 
-## Structuring tags for scale
+<Step>
+### Upload and fix errors
 
-Once you have more than a few dozen tags, flat tag lists become hard to filter. DataHawk's tag field is a single string, but you can encode **dimensions** and **hierarchies** directly inside the tag name to keep things scalable.
+Upload the file. DataHawk checks every row and flags errors. Use the in-app **Find and replace** to fix them quickly.
+</Step>
 
-### Dimension prefixes (grouping tags)
+<Step>
+### Choose the import mode
 
-Use a `prefix:value` format so every tag self-identifies which dimension it belongs to.
+| Mode | What it does |
+|---|---|
+| **Add New Only** | Adds the tags in your file. Tags already on each item stay. The safe default. |
+| **Replace Matching** | For items in your file, replaces their tags with the ones in the file. Items not in the file keep their tags. |
+| **Replace All** | Wipes all existing tags, then applies your file. Destructive: be sure before you use it. |
+</Step>
 
-**Format:** `[dimension]:[value]`
+<Step>
+### Confirm
 
-**Examples:**
+Click **Add Product Tags** or **Add Keyword Tags**.
+</Step>
 
-- Product category: `cat:HomeCare`
-- Product group: `pg:Vacuum Cleaner`
-- Product color: `color:Red`
+</Steps>
 
-This makes filtering simple and consistent; search for `cat:` to see all category tags, `pg:` for all product groups, and so on.
-
-### Hierarchies (sub-levels within a dimension)
-
-Use `/` to represent sub-levels within a dimension.
-
-**Format:** `[dimension]:[level1]/[level2]/…`
-
-**Examples:**
-
-- `cat:HomeCare/All`
-- `cat:HomeCare/Accessory`
-- `cat:HomeCare/Vacuum/Cordless`
-
-### Formatting rules (recommended)
-
-- Always include the dimension prefix (`cat:`, `pg:`, `color:` etc.)
-- Keep prefix casing consistent: Convention is lowercase prefixes.
-- No spaces around `/` separators.
-- Trim trailing/leading whitespace before saving.
-
-## Adding tags
-
-There are three ways to attach tags to Products or Keywords. Pick the one that matches your situation.
-
-<Tabs items={['At tracking time', 'After tracking (single item)', 'CSV upload (bulk)']}>
-
-<Tab value="At tracking time">
-
-When you add a new Product or Keyword, you can attach tags in the same flow.
-
-- **URL or ASIN entry:** you'll see a Tags field in the last step of the tracking process before clicking **Add**.
-- **CSV import:** add an optional **Tags** column and separate multiple tags with semicolons (`;`). Entries are case-sensitive.
-
-See [Track Products](/help-center/data-setup/products-tracking) or [Track Keywords](/help-center/data-setup/keywords-tracking) for the full setup flow.
+Large file? See [Uploads & bulk imports](/troubleshooting/uploads-bulk-imports) if your upload hangs or times out.
 
 </Tab>
 
-<Tab value="After tracking (single item)">
+<Tab value="While tracking">
 
-Useful when you're triaging a single SKU and want to add an `On Watch` or `cat:NewSegment` tag on the fly.
+When you add products or keywords to tracking, you can tag them in the same flow:
 
-{/* TODO: Confirm exact UI flow + add screenshot; currently inferred from product tracking UI. */}
+- **URL or ASIN entry:** fill in the **Tags** field in the last step, before you click **Add**.
+- **CSV import:** add an optional **Tags** column, with multiple tags separated by semicolons (`;`). Tags are case-sensitive.
+
+See [Track Products](/help-center/data-setup/products-tracking) or [Track Keywords](/help-center/data-setup/keywords-tracking) for the full flow.
+
+</Tab>
+
+<Tab value="One item">
+
+Handy when you're looking at a single tracked SKU and want to add an `On Watch` or `cat:NewSegment` tag on the fly.
+
+{/* TODO: Confirm exact UI flow + add screenshot; currently inferred from product tracking UI. Also confirm how to tag a single untracked product. */}
 
 <Steps>
 
@@ -147,127 +131,141 @@ Go to **Sources → Products** or **Sources → Keywords**.
 </Step>
 
 <Step>
-### Pick the item to retag
+### Edit the tags
 
-Click the row of the item you want to update.
-</Step>
-
-<Step>
-### Edit the Tags field
-
-Type new tags or pick from the suggestions DataHawk surfaces.
+Click the item's row. Type new tags or pick one from the suggestions.
 </Step>
 
 <Step>
 ### Save
 
-Click **Save** to apply the change.
+Click **Save**.
 </Step>
 
 </Steps>
-
-</Tab>
-
-<Tab value="CSV upload (bulk)">
-
-**Recommended when you need to retag dozens or hundreds of items at once.**
-
-<Steps>
-
-<Step>
-### Open the tags importer
-
-Navigate to **Sources**, scroll to **Product Tags** or **Keyword Tags**, and click **+ Add**.
-</Step>
-
-<Step>
-### Pick the right CSV template
-
-- **Template CSV**: Blank, pre-formatted file. Use this if you're starting fresh.
-- **Product/Keyword Catalog & Tags CSV**: Pre-filled with your existing tagged items. Use this when updating tags you've already set. Note: This template **does not include untagged items**.
-</Step>
-
-<Step>
-### Fill in the template
-
-Each row corresponds to one Product or Keyword. Add the relevant tags in the Tags column, separated by semicolons (`;`). Entries are case-sensitive.
-</Step>
-
-<Step>
-### Upload the file
-
-Upload the completed CSV. DataHawk will validate it and flag any rows with errors.
-</Step>
-
-<Step>
-### Fix any flagged errors
-
-Use the in-app **Find and replace** to fix bad rows quickly.
-</Step>
-
-<Step>
-### Choose the import mode
-
-- **Add New Only**: Adds the tags in your file without touching tags already on each item. Safe default.
-- **Replace Matching**: For items that appear in your file, replaces their existing tags with the ones in the file. Items not in the file are untouched.
-- **Replace All**, wipes the existing tag set and replaces it with what's in your file. **Destructive**, be sure before running this.
-</Step>
-
-<Step>
-### Confirm
-
-Click **Add Product Tags** or **Add Keyword Tags** to finalize.
-</Step>
-
-</Steps>
-
-<Callout type="info">
-  After a tag upload, it can take **up to 24 hours** for the updated tags to surface in dashboards and downstream tools.
-</Callout>
 
 </Tab>
 
 </Tabs>
 
+### How long until tags show up?
+
+Tags don't apply instantly. DataHawk processes tag uploads every 3 hours, and each run takes about 40 minutes. Your tags reach your data (Snowflake or BigQuery) within **3 hours 40 minutes** at most. Dashboards show them after their next refresh.
+
+{/* TODO: confirm whether Sources → View Tags shows uploaded tags right away or on the same 3-hour cycle, how long dashboards take after the data lands, and whether single-item edits follow the same cycle. Real-time tag uploads are being considered (Linear DAT-459); update this section if it ships. */}
+
+## Types of tags
+
+You'll see three kinds of tags in DataHawk. They can sit side by side on the same item.
+
+| Type | Who creates them | When they're attached |
+|---|---|---|
+| **Automated** | DataHawk | Automatically, based on what DataHawk knows about the item. You can't add or remove them. |
+| **Preset** | DataHawk, as a starter list | When you pick one from the suggestions |
+| **Custom** | You | Whenever you add or edit a product or keyword |
+
+<Accordions>
+
+<Accordion title="Automated tags">
+
+- **<Term>FBA</Term>**: Fulfilled by Amazon
+- **Prime**: Prime-eligible
+- **Vendor**: sold by Amazon
+- **Tracked**: currently tracked in your <Term>workspace</Term>
+- **<Term>ASIN</Term>**: the product's ASIN identifier
+- **Variation**: part of a parent/child variation family
+- **Owned Tags**: tags found in your Seller Central or Advertising account, copied into DataHawk
+
+{/* TODO: clarify what "Owned Tags" are (which Seller Central or Advertising field they come from) and what the "ASIN" automated tag is used for. */}
+
+</Accordion>
+
+<Accordion title="Preset tags">
+
+A ready-made list for when you don't want to invent your own names.
+
+- **Products:** Direct Competitor, Threat, New Entrant, Top Performer
+- **Keywords:** Short Tail / Mid Tail / Long Tail; Low / Medium / High Volume; Low / Medium / High Competition; Core Keywords / Ancillary Keywords
+
+</Accordion>
+
+<Accordion title="Custom tags">
+
+You name them. Your most-used custom tags show up as suggestions when you tag new items. Common examples: brand name, product category, marketing segment, supplier, internal SKU family.
+
+</Accordion>
+
+</Accordions>
+
+## Name your tags so they scale
+
+A flat list of tags gets hard to filter after a few dozen. Each tag is a single text value, but you can build structure into the name.
+
+**Add a prefix for each dimension.** Use the `dimension:value` format, so every tag says what it describes:
+
+- Product category: `cat:HomeCare`
+- Product group: `pg:Vacuum Cleaner`
+- Product color: `color:Red`
+
+Then search `cat:` to see all category tags, `pg:` for all product groups, and so on.
+
+**Use `/` for sub-levels.** Use the `dimension:level1/level2` format:
+
+- `cat:HomeCare/All`
+- `cat:HomeCare/Accessory`
+- `cat:HomeCare/Vacuum/Cordless`
+
+**Follow a few formatting rules:**
+
+- Always include the prefix (`cat:`, `pg:`, `color:`).
+- Keep prefixes lowercase.
+- Don't put spaces around `/`.
+- Remove leading and trailing spaces.
+- Pick a casing convention and stick to it. Tags are case-sensitive: `HomeCare` and `homecare` are two different tags. Lowercase prefixes with PascalCase values (`cat:HomeCare`) work well.
+
+{/* TODO: confirm max tags per item (placeholder was "no practical limit, contact support above ~50"), max tag name length, and which special characters are allowed beyond the prefix:value/sublevel pattern. */}
+
 ## Manage tags
 
-To rename, merge, or delete tags across your workspace, open the Tag Management module: click **View Tags** in the Sources header.
+To manage tags across your workspace, click **View Tags** in the Sources header. From there you can:
 
-{/* TODO: add screenshot of Tag Management UI */}
+- **Add** a tag without attaching it to anything, to set up your naming in advance.
+- **Rename** a tag. Every item with the old name follows the rename, with no re-import needed.
+- **Remove** a tag from the workspace.
 
-From the module you can:
+{/* TODO: add screenshot of Tag Management UI. Confirm whether tags can be merged, and whether removing a tag also clears it from every item or only from the central list. */}
 
-- **Add** a new tag without attaching it to anything (useful for setting up a taxonomy in advance).
-- **Edit** an existing tag's name: Assignments follow the rename.
-- **Remove** a tag entirely from the workspace.
+## Where tags show up
 
-{/* TODO: confirm if a removed tag is cleared from all items, or only from the central list while assignments remain. */}
+Once applied, tags are available across DataHawk:
 
-### Tagging rules and limits
+- **Dashboards (Power BI, Looker Studio):** every standard dashboard has a Tags filter.
+- **Alerts:** target items by tag instead of one ASIN at a time.
+- **Sherlock:** signals are grouped by tag, so you see patterns across your catalog.
+- **Your data (Snowflake, BigQuery):** see [For analysts](#for-analysts-tags-in-your-data-warehouse) below.
 
-{/* TODO: Confirm all four facts below. Current values are placeholders. */}
-
-- **Case sensitivity:** tags are case-sensitive (`HomeCare` and `homecare` are two different tags).
-- **Max tags per item:** TBD: Confirm with support if you expect to attach more than ~50 per item.
-- **Tag name length:** TBD.
-- **Allowed characters:** TBD. The `prefix:value/sublevel` pattern documented above works in practice; confirm whether other special characters are accepted.
-
-## How tags show up downstream
-
-Tags propagate to every part of DataHawk where you can filter or scope:
-
-- **Dashboards (Power BI, Looker Studio)**: Every standard dashboard has a Tags filter. Apply one or more tags to narrow the view.
-- **Alerts**: When creating an Alert, the recipient/scope picker lets you target items by tag instead of one ASIN at a time.
-- **Sherlock**: Case-study triage groups items by their tags so you see catalog patterns rather than individual products.
-- **Data layer (Snowflake / BigQuery):** {/* TODO: confirm column name (likely TAGS in PRODUCT_LISTING / KEYWORD tables) and format (array vs. semicolon-delimited string). */}
+Tags belong to one workspace and aren't shared with your other workspaces. If you have several, upload the same tag file to each one.
 
 ## FAQ
 
 <Accordions>
 
+<Accordion title="I uploaded tags but I don't see them. What should I check?">
+
+1. **Wait for the next run.** Tags can take up to 3 hours 40 minutes to appear, then dashboards need to refresh.
+2. **Check you used the right source.** Tags for your catalog go through **Product Tags**, not **Products**.
+3. **Check the product is in your file.** Tags only apply to the exact ASINs listed. If you tagged child ASINs, don't expect the parent to carry the tag.
+4. **Check the import mode.** **Replace All** wipes tags that aren't in your file.
+
+Still missing? Email [support@datahawk.co](mailto:support@datahawk.co) with your file and two or three ASINs that should be tagged.
+
+{/* TODO: confirm with Isaac whether tags on child ASINs are ever applied to the parent (or the reverse). */}
+
+</Accordion>
+
 <Accordion title="Can I add tags to products I already track?">
 
-Yes. Use the **Product Tags** importer (**Sources → Product Tags → + Add**), not the product tracking CSV. The tags importer only changes tags, so your tracked products stay as they are. See the **CSV upload (bulk)** tab above.
+Yes. Use the **Product Tags** importer (**Sources → Product Tags → + Add**), not the product tracking CSV. The tags importer only changes tags, so your tracked products stay as they are.
 
 {/* TODO: confirm whether re-uploading the product tracking CSV also updates tags on products already tracked. */}
 
@@ -275,50 +273,52 @@ Yes. Use the **Product Tags** importer (**Sources → Product Tags → + Add**),
 
 <Accordion title="Do I need to track a product to tag it?">
 
-No. Tracking and tagging are independent. You can tag untracked products and keywords, for example to filter Brand Analytics <Term>SQP</Term> data by your own groups.
-
-</Accordion>
-
-<Accordion title="Are tags case-sensitive?">
-
-Yes. `HomeCare` and `homecare` are stored as two different tags. Set a casing convention up front and stick to it; lowercase prefixes (`cat:`, `pg:`) plus PascalCase values (`HomeCare`) is a common pattern.
-
-</Accordion>
-
-<Accordion title="How many tags can I attach to one Product or Keyword?">
-
-{/* TODO: confirm exact limit; placeholder answer below. */}
-There is no practical limit for typical use. If you're attaching more than ~50 tags to a single item, reach out to support. There may be performance implications at extreme volumes.
-
-</Accordion>
-
-<Accordion title="Can I rename a tag without losing its existing assignments?">
-
-Yes. From **Sources → View Tags**, edit the tag's name. Every item currently carrying the old name automatically follows the rename. No re-import needed.
-
-</Accordion>
-
-<Accordion title="Do tags appear in the Snowflake or BigQuery data?">
-
-{/* TODO: confirm column name and format. */}
-Yes; tags surface in the data layer alongside the Products and Keywords tables. Check with your analytics lead for the exact column name in your warehouse.
+No. Tagging and tracking are independent. See [Tagging vs tracking](#tagging-vs-tracking).
 
 </Accordion>
 
 <Accordion title="Are tags shared across workspaces?">
 
-{/* TODO: Confirm; likely workspace-scoped given how workspaces isolate data. */}
-Tags are scoped to a single workspace. If you maintain multiple workspaces with overlapping catalogs, you'll need to recreate (or CSV-import) the same tag set in each.
+No. Tags belong to one workspace. If you have several workspaces with overlapping catalogs, upload the same tag file to each one.
 
 </Accordion>
 
-<Accordion title="What's the difference between a Preset tag and an Automated tag?">
+<Accordion title="Can I rename a tag without losing its assignments?">
 
-Preset tags are **curated suggestions**, DataHawk ships them as a starter taxonomy, but you choose whether to apply them. Automated tags are **system-attached**, DataHawk decides when to apply them (e.g. Attaching `FBA` to any product that's Fulfilled by Amazon), and you can't manually add or remove them.
+Yes. In **Sources → View Tags**, rename the tag. Every item with the old name follows the rename.
+
+</Accordion>
+
+<Accordion title="Do tags appear in Snowflake or BigQuery?">
+
+Yes. Product tags are in `REFERENTIAL.REFERENTIAL_PRODUCT_TAG`, one row per product and tag, updated every 3 hours. See [For analysts](#for-analysts-tags-in-your-data-warehouse).
 
 </Accordion>
 
 </Accordions>
+
+## For analysts: tags in your data warehouse
+
+Product tags live in the `REFERENTIAL` schema, in two tables:
+
+| Table | What it holds | Use it to |
+|---|---|---|
+| `REFERENTIAL.REFERENTIAL_PRODUCT_TAG` | Current product and tag pairs (`PRODUCT_KEY`, `TAG_NAME`), updated every 3 hours | Filter or group data by tag. Power BI dashboards read this table. |
+| `REFERENTIAL.DATAHAWK_TAGS_SOURCE` | Each uploaded tag, with `TAG_NAME`, `MARKETPLACE_KEY`, `CHANNEL_PRODUCT_ID`, and `TAG_CREATION_DATE` | Check that a specific upload landed |
+
+To check an upload, count the tags created on the upload date:
+
+```sql
+SELECT COUNT(*) AS TAGS_CREATED
+FROM REFERENTIAL.DATAHAWK_TAGS_SOURCE
+WHERE TAG_CREATION_DATE::DATE = '2026-09-24'
+```
+
+Replace `COUNT(*) AS TAGS_CREATED` with `TAG_NAME, MARKETPLACE_KEY, CHANNEL_PRODUCT_ID, TAG_CREATION_DATE` to list them instead.
+
+To group your data by tag, join on `PRODUCT_KEY`. The [Google Sheets examples](/help-center/connect-tools/google-sheets) include a full query.
+
+{/* TODO: confirm DATAHAWK_TAGS_SOURCE is exposed to customers (it was queried through the internal share) and its refresh timing (it may update faster than REFERENTIAL_PRODUCT_TAG), what REFERENTIAL_PRODUCT_CATALOG_INPUT holds (Seller dashboards read it alongside REFERENTIAL_PRODUCT_TAG), and where keyword tags live. */}
 
 ---
 
@@ -328,12 +328,22 @@ Preset tags are **curated suggestions**, DataHawk ships them as a starter taxono
   <Card
     title="Track Products"
     href="/help-center/data-setup/products-tracking"
-    description="Set up product tracking and attach tags during the flow."
+    description="Set up product tracking and tag products as you add them."
   />
   <Card
     title="Track Keywords"
     href="/help-center/data-setup/keywords-tracking"
-    description="Set up keyword tracking and attach tags during the flow."
+    description="Set up keyword tracking and tag keywords as you add them."
+  />
+  <Card
+    title="Uploads & bulk imports"
+    href="/troubleshooting/uploads-bulk-imports"
+    description="Fix tag uploads that hang, time out, or don't show up."
+  />
+  <Card
+    title="Alerts"
+    href="/help-center/modules/alerts"
+    description="Scope alerts to tagged items so you only get pinged on what matters."
   />
   <Card
     title="Sherlock"
@@ -341,8 +351,8 @@ Preset tags are **curated suggestions**, DataHawk ships them as a starter taxono
     description="Use tags to group anomalies by the catalog slice they affect."
   />
   <Card
-    title="Alerts"
-    href="/help-center/modules/alerts"
-    description="Scope alerts to tagged items so you only get pinged on what matters."
+    title="Brand Analytics (SQP)"
+    href="/help-center/data-metrics-guides/search/brand-analytics-sqp"
+    description="Filter Search Query Performance data by your own tags."
   />
 </div>

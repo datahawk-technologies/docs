@@ -74,6 +74,24 @@ Email [support@datahawk.co](mailto:support@datahawk.co) with:
 - The total row count and how many chunks you split it into
 - A screenshot of where the upload got stuck, or the error you saw
 
+### Tags: upload succeeded but tags don't show
+
+**What I can observe**
+
+- Your tag upload completed, but the tags don't appear in Sources or in your dashboards.
+
+**Why is this happening?**
+
+Usually one of these:
+
+- **Timing.** Tag uploads are processed every 3 hours, and each run takes about 40 minutes. Tags can take up to 3 hours 40 minutes to reach your data, then dashboards need to refresh.
+- **Wrong source.** You used the **Products** source, which adds products to tracking. Tags for your own catalog go through **Product Tags**.
+- **Product not in the file.** Tags only apply to the exact ASINs listed in your file.
+
+**What can I do?**
+
+Wait for the next run, then check again. If tags are still missing, follow the checklist in [Use Tags](/help-center/data-setup/tags) and contact [support@datahawk.co](mailto:support@datahawk.co) with your file.
+
 ---
 
 ## Where to go next
