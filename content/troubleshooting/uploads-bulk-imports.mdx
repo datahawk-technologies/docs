@@ -17,10 +17,12 @@ Bulk CSV imports (Tags, COGS, and similar uploads) can fail, hang, or time out w
 
 **Why is this happening?**
 
-DataHawk's Tags CSV importer runs on a third-party upload widget (Dromo) plus DataHawk's own pre-upload validation checks. On very large files, that validation step can take too long, and the upload times out or appears to hang after confirmation.
+DataHawk validates every row of your file before importing it. On very large files, that validation step can take too long, and the upload times out or appears to hang after confirmation.
+
+{/* TODO: the CSV upload was rebuilt in-house on Aug 6, 2026 (see changelog). Confirm with engineering whether the 3,000-4,000 row limit below still applies, then update or remove the warning. */}
 
 <Callout type="warn">
-  **Known limitation (as of April 2026): reliable uploads top out around 3,000–4,000 rows.** DataHawk has looked at optimizing the validation step but hasn't shipped a fix as of this writing. If you're reading this later, check with support whether larger files now upload successfully before splitting yours.
+  **Known limitation (as of April 2026, before the August 2026 upload rebuild): reliable uploads topped out around 3,000-4,000 rows.** DataHawk has looked at optimizing the validation step but hasn't shipped a fix as of this writing. If you're reading this later, check with support whether larger files now upload successfully before splitting yours.
 </Callout>
 
 **What can I do?**

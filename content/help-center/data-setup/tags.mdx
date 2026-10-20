@@ -265,6 +265,20 @@ Tags propagate to every part of DataHawk where you can filter or scope:
 
 <Accordions>
 
+<Accordion title="Can I add tags to products I already track?">
+
+Yes. Use the **Product Tags** importer (**Sources → Product Tags → + Add**), not the product tracking CSV. The tags importer only changes tags, so your tracked products stay as they are. See the **CSV upload (bulk)** tab above.
+
+{/* TODO: confirm whether re-uploading the product tracking CSV also updates tags on products already tracked. */}
+
+</Accordion>
+
+<Accordion title="Do I need to track a product to tag it?">
+
+No. Tracking and tagging are independent. You can tag untracked products and keywords, for example to filter Brand Analytics <Term>SQP</Term> data by your own groups.
+
+</Accordion>
+
 <Accordion title="Are tags case-sensitive?">
 
 Yes. `HomeCare` and `homecare` are stored as two different tags. Set a casing convention up front and stick to it; lowercase prefixes (`cat:`, `pg:`) plus PascalCase values (`HomeCare`) is a common pattern.

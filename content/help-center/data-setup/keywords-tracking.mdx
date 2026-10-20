@@ -3,13 +3,17 @@ title: Track Keywords
 description: Monitor the first 5 pages of Amazon search results daily to track changes in organic rank and editorial recommendations.
 ---
 
-Keyword tracking captures where your products appear in Amazon's search results: the foundation of both SEO and PPC analysis. For each tracked keyword, DataHawk scans the first 5 pages of search results daily, giving you historical visibility into organic rank movements, content recommendations, and (with Premium Keywords) sponsored rank as well.
+Keyword tracking shows which products appear in search results for a keyword, and in what position. It's the foundation of both SEO and PPC analysis. Each day, DataHawk collects the first 5 pages of results for every tracked keyword: roughly 200 products, yours and your competitors'. You get a history of organic rank movements, content recommendations and, with Premium Keywords, sponsored rank.
+
+<Callout type="info">
+  Keyword tracking is the only source of search rank in DataHawk. You don't need to track a product to see where it ranks: tracking the keyword is enough.
+</Callout>
 
 ## DataHawk Keyword Tracking Capabilities
 
 ### What data does DataHawk collect?
 
-For each keyword you track, DataHawk records a daily snapshot of search ranks plus basic info on every product that shows up in the results. Available fields differ slightly between Amazon and Walmart. Pick your platform.
+For each keyword you track, DataHawk records a daily snapshot of search ranks plus basic info on every product that shows up in the results, tracked or not. This is the data visible on the search results page. For full product page details (bullets, sales rank, <Term>Buy Box</Term>, A+, variations), [track the product](/help-center/data-setup/products-tracking). Available fields differ slightly between Amazon and Walmart. Pick your platform.
 
 <Tabs items={['Amazon', 'Walmart']}>
 
@@ -25,6 +29,8 @@ For each keyword you track, DataHawk records a daily snapshot of search ranks pl
 **Per-product info:**
 
 - title
+- product image
+- brand *(added by DataHawk)*
 - price
 - stars rating
 - number of ratings, including reviews
@@ -55,7 +61,7 @@ For each keyword you track, DataHawk records a daily snapshot of search ranks pl
 
 ### Supported regions
 
-DataHawk integration works for tracked products in all Amazon regions:
+Keyword tracking works in all Amazon regions:
 
 - **North America**: US, Canada, Mexico, and Brazil.
 - **Europe**: UK, Germany, Italy, France, Spain, Netherlands, UAE, Sweden, India, and Poland.
@@ -67,15 +73,29 @@ DataHawk integration works for tracked products in all Amazon regions:
 
 ### Automated Data Sync & Backup
 
-Once you add a product for tracking, we collect data automatically from that point forward (it may take up to 24-hours to have complete data). No historical data possible.
+Once you add a keyword for tracking, we collect data automatically from that point forward (it may take up to 24 hours to have complete data). We can't collect data from before you started tracking.
 
 We then **securely store and back up** all your data **every day**, enabling **more comprehensive reporting with extended historical context**.
 
 ### Refresh Frequency
 
-Data is updated daily. There may be a delay in updating the data from the last 24-hours.
+Data is updated daily. Data from the last 24 hours may be delayed.
 
-## How to track an Amazon Keyword
+## Products or keywords: which should you track?
+
+Product tracking and keyword tracking collect different data. They complement each other, but you don't need both for every goal.
+
+| You want to… | Track |
+|---|---|
+| See the organic rank of any product, yours or a competitor's | Keyword |
+| See basic info on every product ranking for a keyword (title, image, price, rating, brand) | Keyword |
+| Get full product page details (bullets, sales rank, Buy Box, A+, variations, sales estimates) | Product |
+| Get Alerts and Sherlock signals on a specific <Term>ASIN</Term> | Product |
+| Find the keywords a product ranks for (Keyword Lookup) | Product and keyword |
+
+If you only need search rank, you can archive tracked products and use those units to track competitors instead. Keyword Lookup is the exception: it needs the product tracked. See [Keyword research](/help-center/data-metrics-guides/search/keyword-research).
+
+## How to track a keyword
 
 <Steps>
 
@@ -164,27 +184,46 @@ Best for adding a handful of keywords you can type or paste directly.
 
 </Steps>
 
-## How to archive a tracked keywords
-- Go on your DataHawk App > Sources > keywords
-- Search for the keyword to be archived
-- Select the keyword by ticking the box
+## How to archive a tracked keyword
+
+Archiving stops collecting new data for a keyword but keeps its history.
+
+<Steps>
+
+<Step>
+### Open your tracked keywords list
+
+In the DataHawk App, go to **Sources → Keywords**.
+</Step>
+
+<Step>
+### Select the keywords
+
+Search for the keyword and tick the box next to it.
 
 <img
   src="/images/help-center/data-setup/keywords-tracking/keywords-tracking-3.png"
-  alt="Keywords Tracking 3"
+  alt="Tick the checkbox next to each keyword"
   width={1200}
   height={680}
   className="rounded-lg border"
 />
 
-- Click on "Select all keywords", if you want to select all the keywords tracked
+To archive every tracked keyword, click **Select all keywords**.
 
 <img
   src="/images/help-center/data-setup/keywords-tracking/keywords-tracking-4.png"
-  alt="Keywords Tracking 4"
+  alt="Click Select all keywords"
   width={600}
   height={340}
   className="rounded-lg border"
 />
+</Step>
 
-- Then click on "Archive in <Term>Workspace</Term>"
+<Step>
+### Archive
+
+Click **Archive in <Term>Workspace</Term>**.
+</Step>
+
+</Steps>
