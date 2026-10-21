@@ -1,9 +1,9 @@
 ---
 title: Frequently Asked Questions (FAQ)
-description: Common questions about DataHawk MCP; getting started, security, multi-workspace, troubleshooting, and roadmap.
+description: Common questions about DataHawk MCP, from getting started and security to multiple workspaces, troubleshooting, and the roadmap.
 ---
 
-Questions about DataHawk <Term>MCP</Term> cluster around the same themes; setup, what the AI can and can't see, multi-workspace access, and what's coming next. The sections below mirror that order. If you're looking for installation steps, see the [setup guide](/help-center/modules/datahawkmcp/setup) instead.
+Questions about DataHawk <Term>MCP</Term> cluster around the same themes: setup, what the AI can and can't see, multi-workspace access, and what's coming next. The sections below mirror that order. If you're looking for installation steps, see the [setup guide](/help-center/modules/datahawkmcp/setup) instead.
 
 
 <Accordions>
@@ -19,11 +19,15 @@ Every number comes from a real `datahawk_load_data` call against your actual dat
 <Accordion title='Which AI clients are supported?'>
 Any client supporting MCP servers with <Term>OAuth</Term> authentication.
 
-Claude (Desktop, Web, Mobile), ChatGPT (Plus, Team, Enterprise), Cursor, Windsurf, Lovable, Replit, n8n, Make, and any custom client speaking MCP. See the installation guides on the [setup page](/help-center/modules/datahawkmcp/setup).
+Claude (Desktop, Web, Mobile), ChatGPT (Plus, Team, Enterprise), Windsurf, Lovable, Replit, n8n, Make, and any custom client speaking MCP. See the installation guides on the [setup page](/help-center/modules/datahawkmcp/setup).
+</Accordion>
+
+<Accordion title='Does DataHawk MCP work with Walmart?'>
+Partly. MCP covers Walmart Connect advertising, Walmart keyword rankings, and the latest Walmart product snapshot. Walmart sales, traffic, and inventory aren't available yet. See [Walmart coverage](/help-center/modules/datahawkmcp#walmart-coverage).
 </Accordion>
 
 <Accordion title='How long does setup take?'>
-Under 2 minutes for any <Term>OAuth</Term>-based client (Claude, ChatGPT, Cursor). Slightly longer for token-based clients (n8n, Make) because you also need to generate an API token.
+Under 2 minutes for any <Term>OAuth</Term>-based client (Claude, ChatGPT). Slightly longer for token-based clients (n8n, Make) because you also need to generate an API token.
 </Accordion>
 
 <Accordion title='Does my data leave my workspace?'>
@@ -46,8 +50,12 @@ Access follows your DataHawk workspace roles. If a user can see something in Dat
 Usually one of: (1) your Amazon account isn't connected/syncing in DataHawk, (2) the date range you specified has no data yet, (3) a required filter was rejected by the validator. Ask the AI to show the tool call output. It usually pinpoints the issue.
 </Accordion>
 
+<Accordion title='How far back can MCP go?'>
+About 14 months, on a rolling basis. If you don't give a date range, MCP uses the last 90 days. For older data, use your <Term>Snowflake</Term> or BigQuery data.
+</Accordion>
+
 <Accordion title='The AI is giving me a different number than the DataHawk app.'>
-Most common causes: Different date range (MCP uses last 90 days by default), different marketplace filter, or different currency. Ask the AI to show the exact query it ran. Copy the date range and filters and run them in the app to reconcile.
+Most common causes: a different date range (MCP uses the last 90 days by default), a different marketplace filter, or a different currency (MCP uses local currency, or USD when marketplaces with different currencies are mixed). See [Defaults and limits](/help-center/modules/datahawkmcp/going-further#defaults-and-limits). Ask the AI to show the exact query it ran. Copy the date range and filters and run them in the app to reconcile.
 </Accordion>
 
 <Accordion title="I'm hitting rate limits.">
@@ -56,6 +64,23 @@ MCP is tuned for interactive use. For high-volume workloads, switch to the <Term
 
 <Accordion title='OAuth fails when I try to connect.'>
 Make sure you're signed into the correct DataHawk workspace in your browser before clicking authorize. If you have multiple workspaces, sign out of all but the target one, then retry.
+</Accordion>
+
+<Accordion title='What should I expect during the beta?'>
+DataHawk MCP is in beta, so it changes often:
+
+- **Frequent improvements:** query routing and data coverage get better most weeks.
+- **Occasional changes:** how questions are interpreted may shift slightly between updates.
+- **New data added regularly:** vendor data, brand analytics, and more land on a rolling basis.
+</Accordion>
+
+<Accordion title='How do I report a problem?'>
+Email [support@datahawk.co](mailto:support@datahawk.co) with:
+
+- the exact prompt you ran
+- the AI client you used (Claude, ChatGPT, etc.)
+- the tool call output (ask the AI to show it)
+- what you expected to see
 </Accordion>
 
 <Accordion title='When is the native ChatGPT / Claude app coming?'>
@@ -67,7 +92,7 @@ We're continuously expanding. Recent additions: <Term>DSP</Term> creative-level 
 </Accordion>
 
 <Accordion title='Can I request a new metric or view?'>
-Yes; email [support@datahawk.co](mailto:support@datahawk.co) with your use case. If multiple users request the same thing, it moves up the priority list fast.
+Yes. Email [support@datahawk.co](mailto:support@datahawk.co) with your use case. If multiple users request the same thing, it moves up the priority list fast.
 </Accordion>
 
 </Accordions>

@@ -1,12 +1,12 @@
 ---
 title: Set up DataHawk MCP
-description: How to connect DataHawk MCP to AI clients like Claude, ChatGPT, Cursor, n8n, Make, and more.
+description: How to connect DataHawk MCP to AI clients like Claude, ChatGPT, n8n, Make, and more.
 ---
 
-DataHawk MCP works with any AI assistant that supports the Model Context Protocol, from chat tools to code editors to automation platforms.
+Setting up DataHawk MCP means adding one link, the DataHawk MCP endpoint, to your AI tool, then signing in with your DataHawk account. Once connected, your AI can answer questions about your Amazon and Walmart data. It works with chat assistants, code editors, and automation platforms.
 
 <Callout type="info">
-  **Not sure which to pick?** Most users start with **Claude** or **ChatGPT**: They're the fastest to set up (under 2 minutes) and best for ad-hoc questions. Move to a code editor if you're building apps, or n8n / Make if you're scheduling automations.
+  **Not sure which to pick?** Most people start with **Claude** or **ChatGPT**. They're the fastest to set up (under 2 minutes) and the best fit for everyday questions. Use a code editor or app builder if you're building apps, or n8n or Make to schedule automations.
 </Callout>
 
 ## Before you start
@@ -14,132 +14,158 @@ DataHawk MCP works with any AI assistant that supports the Model Context Protoco
 <Steps>
 
 <Step>
-### Confirm your DataHawk plan supports MCP
-MCP access is enabled by default on active DataHawk workspaces. If you're not sure whether your plan is eligible, ping support@datahawk.co.
+### Check that your plan includes MCP
+
+DataHawk MCP is in beta. It's enabled by default on active DataHawk workspaces. Not sure your plan includes it? Ask your Account Manager or email [support@datahawk.co](mailto:support@datahawk.co).
 </Step>
 
 <Step>
-### Get your MCP endpoint URL
-```sql
+### Copy the DataHawk MCP endpoint
+
+You'll paste this link into your AI tool in the next section:
+
+```
 https://mcp.datahawk.co/mcp
 ```
-Keep this tab open. You'll paste the URL into your AI client in the next step.
 </Step>
 
 <Step>
-### Verify your data sources are connected
+### Check your data sources
 
-MCP only returns data for the marketplaces and accounts you've already connected in DataHawk. Before testing, confirm:
+MCP only returns data from the accounts you've connected in DataHawk. Before you start, check that these are connected and syncing on the Sources page:
 
-- Your **Amazon Seller Central** or **Vendor Central** accounts are linked and syncing
-- Your **Amazon Advertising** account is linked
-- (Optional) **DSP** is linked if you want DSP metrics in MCP responses
+- **Amazon:** your Seller Central or Vendor Central account, your Advertising account, and (optional) DSP.
+- **Walmart:** your Walmart Marketplace and Walmart Connect accounts.
 
-If anything shows a red "disconnected" state, fix it before connecting your AI; MCP will return empty results for missing sources.
+Fix anything marked as disconnected first. Otherwise MCP returns empty results for that source. MCP doesn't cover every Walmart dataset yet: see [Walmart coverage](/help-center/modules/datahawkmcp#walmart-coverage).
 </Step>
 
 </Steps>
 
-## Set up
+## Connect your AI tool
 
-### Chat with your data (LLMs)
+### Chat with your data
 
 <Tabs items={['Claude', 'ChatGPT']}>
 
 <Tab value="Claude">
 
 <Callout type="info">
-Check out the official [Claude custom connector guide](https://support.claude.com/en/articles/11175166-get-started-with-custom-connectors-using-remote-mcp)
+  For more detail, see Anthropic's [custom connector guide](https://support.claude.com/en/articles/11175166-get-started-with-custom-connectors-using-remote-mcp).
 </Callout>
 
 <Callout type="warn">
-If you have a company team plan, your Claude admin will have to add the connector
+  On a Claude Team or Enterprise plan, your Claude admin adds the connector for your organization.
 </Callout>
 
-
 <Steps>
+
 <Step>
-Open Claude → **Customize** → **Connectors**
+### Open your connectors
+
+In Claude, go to **Customize → Connectors**.
+
 <img
   src="/images/help-center/modules/datahawkmcp/setup/MCP-Claude-1.png"
-  alt="MCP-Claude-1"
+  alt="Claude menu with the Customize option"
   width={300}
   height={170}
   className="rounded-lg border"
 />
 </Step>
+
 <Step>
-Click **Add custom connector**
+### Add a custom connector
+
+Click **Add custom connector**.
+
 <img
   src="/images/help-center/modules/datahawkmcp/setup/MCP-Claude-3.png"
-  alt="MCP-Claude-3"
+  alt="Add custom connector button in Claude"
   width={600}
   height={340}
   className="rounded-lg border"
 />
 </Step>
+
 <Step>
-Paste your DataHawk MCP endpoint and Name it `DataHawk`:
-    
-    ```
-    https://mcp.datahawk.co/mcp
-    ```
+### Name it and paste the endpoint
+
+Name the connector `DataHawk` and paste the endpoint:
+
+```
+https://mcp.datahawk.co/mcp
+```
 
 <img
   src="/images/help-center/modules/datahawkmcp/setup/MCP-Claude-4.png"
-  alt="MCP-Claude-4"
+  alt="Custom connector form with the DataHawk name and endpoint filled in"
   width={600}
   height={340}
   className="rounded-lg border"
 />
 </Step>
+
 <Step>
-Click **Connect**
+### Connect
+
+Click **Connect**.
 
 <img
   src="/images/help-center/modules/datahawkmcp/setup/MCP-Claude-5.png"
-  alt="MCP-Claude-5"
+  alt="Connect button next to the DataHawk connector"
   width={600}
   height={340}
   className="rounded-lg border"
 />
 </Step>
+
 <Step>
-You'll be redirected to DataHawk to authorize the connection. Sign in with your DataHawk account
+### Sign in to DataHawk
+
+Claude sends you to DataHawk. Sign in with your DataHawk account.
 
 <img
   src="/images/help-center/modules/datahawkmcp/setup/MCP-Claude-6.png"
-  alt="MCP-Claude-6"
+  alt="DataHawk sign-in page"
   width={300}
   height={170}
   className="rounded-lg border"
 />
 </Step>
-<Step>
-Approve the permissions screen
 
-You should now see DataHawk in your list of connected tools with a green status.
+<Step>
+### Approve the permissions
+
+Approve the permissions screen. DataHawk now shows in your connectors list with a green status.
 </Step>
+
 </Steps>
 
 </Tab>
 
 <Tab value="ChatGPT">
+
 <Callout type="info">
-Check out the official [ChatGPT Apps guide](https://help.openai.com/en/articles/11487775-apps-in-chatgpt)
+  For more detail, see OpenAI's [apps in ChatGPT guide](https://help.openai.com/en/articles/11487775-apps-in-chatgpt).
 </Callout>
 
 <Steps>
+
 <Step>
-In ChatGPT, click your profile → **Settings** → **Apps**
+### Open the Apps settings
+
+In ChatGPT, click your profile, then **Settings → Apps**.
 </Step>
 
 <Step>
-Click **Advanced settings** → **Custom MCP server**
-    
+### Open the custom MCP server option
+
+Click **Advanced settings → Custom MCP server**.
+
 <img
   src="/images/help-center/modules/datahawkmcp/setup/MCP-ChatGPT-1.png"
-  alt="ChatGPT-1"
+  alt="Advanced settings in ChatGPT Apps, with the Custom MCP server option"
   width={600}
   height={340}
   className="rounded-lg border"
@@ -147,120 +173,104 @@ Click **Advanced settings** → **Custom MCP server**
 </Step>
 
 <Step>
-Activate **Developer mode**
-    
+### Turn on developer mode
+
+Turn on **Developer mode**.
+
 <img
   src="/images/help-center/modules/datahawkmcp/setup/MCP-ChatGPT-2.png"
-  alt="ChatGPT-2"
+  alt="Developer mode toggle in ChatGPT"
   width={600}
   height={340}
   className="rounded-lg border"
 />
 </Step>
 
-<Step>    
-Then click on `Create app`
-</Step>
-
 <Step>
-Fill all the required information:
-    
+### Create the app
+
+Click **Create app** and fill in the form:
+
+- **Name:** `DataHawk`
+- **MCP Server URL:** `https://mcp.datahawk.co/mcp`
+
 <img
   src="/images/help-center/modules/datahawkmcp/setup/MCP-ChatGPT-3.png"
-  alt="ChatGPT-3"
+  alt="Create app form in ChatGPT"
   width={300}
   height={170}
   className="rounded-lg border"
 />
-    
-    - Name: DataHawk
-    - Paste your DataHawk MCP endpoint to **MCP Server URL**:
-        
-        ```
-        https://mcp.datahawk.co/mcp
-        ```
-</Step>
-
-<Step>        
-Tick “I understand and want to continue” 
 </Step>
 
 <Step>
-`Create`
+### Confirm
+
+Tick **I understand and want to continue**, then click **Create**. Sign in with your DataHawk account when asked.
 </Step>
 
 <Step>
-You will see the enabled apps. And you are ready to start!
+### Check it's connected
+
+DataHawk now shows in your enabled apps with a green status.
+
 <img
   src="/images/help-center/modules/datahawkmcp/setup/MCP-ChatGPT-4.png"
-  alt="ChatGPT-4"
+  alt="DataHawk listed in ChatGPT's enabled apps"
   width={600}
   height={430}
   className="rounded-lg border"
 />
-
-You should now see DataHawk in your list of connected tools with a green status.
 </Step>
+
 </Steps>
 
 </Tab>
 
 </Tabs>
 
+### Build with your data
 
-### Build with your data (code editors & AI App builders)
+For code editors and AI app builders, follow the tool's own MCP guide and use the DataHawk endpoint: `https://mcp.datahawk.co/mcp`.
 
 <Tabs items={['Windsurf', 'Lovable', 'Replit']}>
 
 <Tab value="Windsurf">
-We invite you to go to the [official guide of Winsurf on MCP](https://docs.devin.ai/desktop/cascade/mcp#admin-controls-teams-&-enterprises)
 
-Here is out MCP endpoint
-    ```
-    https://mcp.datahawk.co/mcp
-    ```
+Follow [Windsurf's MCP guide](https://docs.devin.ai/desktop/cascade/mcp#admin-controls-teams-&-enterprises).
+
 </Tab>
 
 <Tab value="Lovable">
-We invite you to go to the [official guide of Lovable on MCP](https://docs.lovable.dev/integrations/mcp-servers)
 
-Here is out MCP endpoint
-    ```
-    https://mcp.datahawk.co/mcp
-    ```
+Follow [Lovable's MCP guide](https://docs.lovable.dev/integrations/mcp-servers).
+
 </Tab>
 
 <Tab value="Replit">
-We invite you to go to the [official guide of Replit on MCP](https://docs.replit.com/platforms/mcp-server)
 
-Here is out MCP endpoint
-    ```
-    https://mcp.datahawk.co/mcp
-    ```
+Follow [Replit's MCP guide](https://docs.replit.com/platforms/mcp-server).
+
 </Tab>
 
 </Tabs>
 
-### Automate with your data (workflows & schedules)
+### Automate with your data
+
+For workflow tools, follow the tool's own MCP guide and use the DataHawk endpoint: `https://mcp.datahawk.co/mcp`.
 
 <Tabs items={['n8n', 'Make']}>
 
 <Tab value="n8n">
-We invite you to go to the [official guide of n8n on MCP](https://docs.n8n.io/advanced-ai/mcp/accessing-n8n-mcp-server/)
 
-Here is out MCP endpoint
-    ```
-    https://mcp.datahawk.co/mcp
-    ```
+Follow [n8n's MCP guide](https://docs.n8n.io/advanced-ai/mcp/accessing-n8n-mcp-server/).
+
 </Tab>
 
 <Tab value="Make">
-We invite you to go to the [official guide of Make on MCP](https://developers.make.com/custom-apps-documentation/app-components/connections/oauth2)
 
-Here is out MCP endpoint
-    ```
-    https://mcp.datahawk.co/mcp
-    ```
+Follow [Make's connection guide](https://developers.make.com/custom-apps-documentation/app-components/connections/oauth2).
+
 </Tab>
 
 </Tabs>
@@ -283,7 +293,7 @@ Here is out MCP endpoint
     href="/help-center/modules/datahawkmcp/write-prompts"
     description="How to write prompts that return what you expect."
   />
-    <Card
+  <Card
     title="FAQ"
     href="/help-center/modules/datahawkmcp/faq-troubleshooting"
     description="Troubleshooting and common questions."

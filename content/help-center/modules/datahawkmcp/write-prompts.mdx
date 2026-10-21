@@ -1,6 +1,6 @@
 ---
 title: How to write effective MCP prompts
-description: How to phrase DataHawk MCP prompts so you get the right answer the first time; anatomy, domain vocabulary, patterns, and iteration tips.
+description: How to phrase DataHawk MCP prompts so you get the right answer the first time. Covers anatomy, domain vocabulary, patterns, and iteration tips.
 ---
 
 Your AI assistant is only as good as the question you give it. This guide shows you how to phrase prompts so DataHawk MCP returns the right answer the first time.
@@ -16,7 +16,7 @@ Most disappointing answers come from a vague prompt. A solid DataHawk MCP prompt
 1. **The metric**: What you want to measure (revenue, <Term>ACOS</Term>, units, sessions, on-hand inventory, rating…)
 2. **The dimension**: How to break it down (by <Term>ASIN</Term>, by campaign, by keyword, by <Term>marketplace</Term>, by day…)
 3. **The time range**: Be explicit ("March 2026", "last 30 days", "Q1 2026")
-4. **The marketplace**: "US", "all European marketplaces", "US + UK", etc.
+4. **The platform and marketplace**: "Amazon US", "all European marketplaces", "Walmart", "US + UK", etc.
 5. **The filter**: Narrow the scope ("Sponsored Products only", "vendor brand X", "spend > \$500")
 6. **The output format**: Table, ranked list, trend chart, short summary
 
@@ -36,15 +36,21 @@ DataHawk organizes data into domains. Using the right vocabulary for each domain
 
 | Domain | Words that work |
 |---|---|
-| Sales | revenue, ordered product sales, units ordered, average selling price (ASP), B2B sales |
-| Advertising | ACOS, <Term>ROAS</Term>, ad spend, ad sales, impressions, clicks, CPC, Sponsored Products / Brands / Display, campaign, ad group |
+| Sales | revenue, ordered product sales, units ordered, average selling price (ASP), B2B sales, year over year |
+| Revenue and refunds | sales principal, net proceeds, refunds, units shipped, accrual, recorded |
+| Advertising | ACOS, <Term>ROAS</Term>, TACoS, ad spend, ad sales, impressions, clicks, CPC, CTR, Sponsored Products / Brands / Display, campaign, portfolio, Walmart Connect |
 | <Term>DSP</Term> | total cost, attributed sales, new-to-brand, detail-page views, eCPM, creative |
 | Catalog | price, rating, review count, <Term>buy box</Term>, A+ content, variation, browse node |
 | Traffic | sessions, page views, buy box %, browser vs. mobile-app split |
-| SEO | organic rank, sponsored rank, keyword visibility, search volume |
-| Inventory | <Term>FBA</Term> on-hand, reserved, inbound, unsellable, <Term>MFN</Term> fulfillable, days of cover |
+| Offers and pricing | featured offer, buy box winner, number of offers, FBA vs FBM offers, landed price |
+| Market intelligence | best seller rank, top 100, estimated sales, estimated units |
+| SEO | organic rank, sponsored rank, search result page, search volume |
+| Search performance | search impressions, clicks, cart adds, purchases, search query volume |
+| Inventory | <Term>FBA</Term> on-hand, reserved, inbound, unsellable, <Term>MFN</Term> fulfillable |
+| Returns | returned units, return reason, return status |
 | Finance | profit ledger, fee category, refund, reimbursement |
-| Vendor | manufacturing, sourcing, sell-through, fill rate, lead time, aged inventory |
+| Vendor | manufacturing, sourcing, margin, sell-through, fill rate, lead time, aged inventory, demand forecast |
+| Account health | connected accounts, report health, tracked products, tracked keywords |
 
 If you're not sure what to call something, ask the AI: *"What metrics does DataHawk have for advertising?"* It'll list what's available.
 
@@ -99,7 +105,7 @@ If a number looks off, don't start over. Use this short diagnostic loop:
 **Step 1: Ask to see the query.**
 > *"Show me the DataHawk tool call you ran."*
 
-The AI will surface the exact filters, date range, and view it used. Most issues are visible at a glance; wrong marketplace, wrong date, missing filter.
+The AI will surface the exact filters, date range, and view it used. Most issues are visible at a glance: wrong marketplace, wrong date, missing filter.
 
 **Step 2: Narrow the scope.**
 
@@ -119,19 +125,13 @@ Once you know what went wrong, rewrite the prompt with the missing element added
 |---|---|
 | "Recently…" or "lately…" | Use an explicit range: "March 2026", "last 30 days" |
 | No marketplace specified | Add "in the US marketplace" or "across all European marketplaces" |
-| "All my data" | Pick one domain: Sales, ads, inventory; broad scans hit timeouts |
+| "All my data" | Pick one domain (sales, ads, or inventory). Broad scans hit timeouts. |
 | Vague metric ("performance") | Use a real metric name: revenue, ACOS, units, sessions |
 | Asking for raw data, getting a summary | Add "Return as a markdown table with columns X, Y, Z" |
 | Asking why something happened but getting a list | Use diagnostic language: "Why did X drop?" triggers the investigation flow |
 | Trusting a number with no tool call shown | Always ask: "Show me the DataHawk tool call you ran" |
 
 ## Advanced techniques
-
-### Force a tool call
-
-If the AI gives you a number without running a query, it might be guessing. Push it:
-
-> *"Pull this from DataHawk and show me the query you ran."*
 
 ### Combine multiple domains in one prompt
 
@@ -149,22 +149,11 @@ Saves you from repeating the same filters in every question.
 
 ### Save your best prompts
 
-When a prompt works well, save it. Most AI clients have a prompt library, Claude Projects, or custom GPT support. Reuse instead of rewrite.
+When a prompt works well, save it so you don't rewrite it. See [how to pin prompts](/help-center/modules/datahawkmcp/ready-prompts#pin-them-for-one-click-use).
 
-For full reusable templates, see [Ready-to-use prompts](/help-center/modules/datahawkmcp/ready-prompts).
+## Why specific prompts work better
 
-## Behind the scenes: what your AI does with your prompt
-
-When you send a prompt, your AI runs a four-step flow against DataHawk:
-
-1. **Plan**: Your question gets routed to the right data view (sales, ads, inventory, etc.) along with required filters.
-2. **Discover**: If the view doesn't already have what's needed, the AI inspects the full catalog of metrics and dimensions.
-3. **Validate**: Field names, filters, and date ranges get checked server-side before anything runs.
-4. **Load**: The query executes against your <Term>workspace</Term> and returns real numbers.
-
-For diagnostic questions (*"why did X happen?"*), the AI runs a parallel **investigate** flow that ranks hypotheses and gathers evidence across domains.
-
-Knowing this helps you write better prompts. When you specify a domain ("advertising"), a marketplace ("US"), and a time range ("last 30 days"), you're handing the planning step exactly what it needs, and that's why the answer comes back faster and more accurate.
+Before it loads any numbers, your AI plans the query: it picks a data view, adds the required filters, and checks the query (see [how MCP handles your prompt](/help-center/modules/datahawkmcp#behind-the-scenes-what-your-ai-does-with-your-prompt)). When you name a domain ("advertising"), a marketplace ("US"), and a time range ("last 30 days"), you give that planning step exactly what it needs. That's why the answer comes back faster and more accurate.
 
 ---
 
@@ -177,7 +166,7 @@ Knowing this helps you write better prompts. When you specify a domain ("adverti
     description="Finished prompt templates for weekly reports and deep-dives."
   />
   <Card
-    title="Going further with the MCP"
+    title="Get reliable answers"
     href="/help-center/modules/datahawkmcp/going-further"
     description="Performance, verification, and fallback guidance for power users."
   />
