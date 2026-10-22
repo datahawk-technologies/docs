@@ -9,6 +9,7 @@ const config = {
   async redirects() {
     const internalRedirects = [
       { source: '/welcome/pricing', destination: '/welcome/enterprise-pricing', permanent: true },
+      { source: '/upgrade', destination: '/welcome/upgrade', permanent: true },
       { source: '/troubleshooting/i-cannot-see-data-in-manufacturing-views,-but-i-see-it-in-sourcing', destination: '/troubleshooting/data-discrepancies/manufacturing-vs-sourcing-views', permanent: true },
       { source: '/troubleshooting/data-discrepancies/i-cannot-see-data-in-manufacturing-views,-but-i-see-it-in-sourcing', destination: '/troubleshooting/data-discrepancies/manufacturing-vs-sourcing-views', permanent: true },
       { source: '/troubleshooting/i-don%27t-see-data-after-connecting-my-dsp-account', destination: '/troubleshooting/connection-failures/no-data-after-dsp-connect', permanent: true },
