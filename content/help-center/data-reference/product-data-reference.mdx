@@ -30,6 +30,20 @@ For Walmart products, `FEATURES` can include:
 
 This value appears only when DataHawk detects the feature on the page. If the section is not active or not detected, `about_the_brand` is absent from the `FEATURES` list.
 
+## Star-rating breakdown
+
+`PRODUCT.PRODUCT_DETAILED` includes each product's star-rating breakdown: the share of ratings at each star level, from 1 to 5 stars. If a product has ratings but all five percentages are 0, DataHawk shows them as NULL, because that breakdown wasn't captured.
+
+| Column | What it holds |
+|---|---|
+| `RATING` | Average star rating |
+| `RATING_COUNT` | Total number of ratings |
+| `RATING_1_STARS_PERCENT` to `RATING_5_STARS_PERCENT` | Share of ratings at each star level. NULL when `RATING_COUNT` is above 0 and all five are 0. |
+
+A single 0 is still a real value. For what NULL means, the effect on rating alerts, and the current known gap, see [Ratings and Reviews](/help-center/data-metrics-guides/content/ratings-and-reviews).
+
+{/* TODO: confirm with Sylvain that the rule also reached self-hosted Snowflake and BigQuery (planned "later in the day" on Oct 16, 2026). */}
+
 ## Parent and child ASIN joins
 
 When joining product tables, confirm whether the table is parent-level, child-level, or mixed.

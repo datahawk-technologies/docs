@@ -1,0 +1,149 @@
+---
+title: Ratings and Reviews
+description: What DataHawk collects about product ratings on Amazon and Walmart, where to find it, how to read the star-rating breakdown, and its limits.
+---
+
+Ratings are one of the first things shoppers check before they buy, and a sudden wave of 1-star ratings often signals a product or listing problem. DataHawk follows the ratings of your products and your competitors' every day. You see the trend, and you can get alerted when something changes.
+
+A **rating** is a star score from 1 to 5. A **review** is a rating with written text. DataHawk collects the ratings side: the average rating, how many ratings a product has, and how they split across star levels. It doesn't collect review text.
+
+## What DataHawk collects
+
+For each product, DataHawk records a daily snapshot of:
+
+- **Average rating**: the star score shown on the product page, like 4.6 stars.
+- **Number of ratings**: the total count, written reviews included.
+- **Star-rating breakdown**: how the ratings split across 1 to 5 stars.
+
+<Tabs items={['Amazon', 'Walmart']}>
+
+<Tab value="Amazon">
+
+- Average rating and number of ratings: yes, daily.
+- Star-rating breakdown: yes, as the share of ratings at each star level (for example, 64% five-star). It's often missing on recent days: see [Known gap](#known-gap-missing-breakdowns-on-amazon).
+- Review text: no. Amazon doesn't make review text available to DataHawk.
+
+</Tab>
+
+<Tab value="Walmart">
+
+- Average rating and number of ratings: yes, daily.
+- Star-rating breakdown: yes, as the number of ratings at each star level. For example, a product with 4.8 stars and 2,573 ratings might have 2,266 five-star, 195 four-star, 50 three-star, 16 two-star, and 46 one-star ratings.
+- Review text: not available yet. DataHawk doesn't collect review text, or the seller linked to each review.
+
+</Tab>
+
+</Tabs>
+
+### Which sources include ratings
+
+| Source | What you get |
+|---|---|
+| [Tracked products](/help-center/data-setup/products-tracking) | Average rating, number of ratings, and star-rating breakdown |
+| [Tracked keywords](/help-center/data-setup/keywords-tracking) | Average rating and number of ratings for every product in the search results |
+| [Tracked categories](/help-center/data-setup/categories-tracking) (Amazon only) | Average rating and number of ratings for the top 100 products |
+
+Only tracked products include the star-rating breakdown.
+
+## Where to see ratings
+
+- **[Product dashboard](/help-center/dashboard-templates/power-bi/product-dashboard)**: rating and number of ratings over time, with filters by rating.
+- **[Market Intelligence dashboard](/help-center/dashboard-templates/power-bi/market-intelligence-dashboard)**: ratings of the top 100 products in your tracked categories.
+- **[Alerts](/help-center/modules/alerts)**: get notified when ratings change (see below).
+- **[DataHawk MCP](/help-center/modules/datahawkmcp)**: ask your AI, for example *"Which of my ASINs lost more than 0.2 stars in the last 30 days?"*
+- **Your data warehouse**: see [For analysts](#for-analysts-rating-columns) below.
+
+## Get alerted when ratings change
+
+Alerts can watch four rating properties on Amazon and Walmart:
+
+| Property | Uses the breakdown? |
+|---|---|
+| Rating | No |
+| Number of ratings | No |
+| % of critical (1–2 star) ratings | Yes |
+| % of positive (4–5 star) ratings | Yes |
+
+The preset **Changes in star ratings** trigger fires when the share of 1- and 2-star ratings goes up. To catch a sudden wave of negative ratings, set up a custom alert. [See how](/help-center/modules/alerts/custom-triggers).
+
+<Callout type="warn">
+  The critical and positive rating alerts rely on the star-rating breakdown. On days the breakdown is missing for a product, these alerts have no data to compare for that product. Rating and number-of-ratings alerts aren't affected.
+</Callout>
+
+{/* TODO: confirm with Isaac or the Alerts owner what the % critical / % positive triggers do on a day the breakdown is NULL: skip the day, compare with the last known value, or treat it as 0. */}
+
+## How to read the star-rating breakdown
+
+| What you see | What it means |
+|---|---|
+| Breakdown filled in | DataHawk captured the breakdown that day. |
+| Ratings, but no breakdown | The product has ratings, but DataHawk didn't capture the breakdown that day. It doesn't mean 0%. |
+| No rating, no ratings count, no breakdown | No rating data that day, for example because the product was unavailable. |
+
+<Callout type="info">
+  A product with ratings can't have 0% at every star level. So when a product has ratings but every star level shows 0, DataHawk treats the breakdown as missing and shows it as empty (NULL), not 0. A single 0 is still real: a product can have 0% one-star ratings, for example. DataHawk only does this when all five star levels are 0 at once.
+</Callout>
+
+### Known gap: missing breakdowns on Amazon
+
+**Known gap (as of October 2026):** on many days, DataHawk captures a product's average rating and number of ratings but not its star-rating breakdown. Those days show no breakdown. DataHawk is improving how it captures it. The improvement applies to new days only, so days already missed won't be filled in. See the [incident note](/incidents/2026-10-07-star-rating-breakdown-stored-as-zero) for the history of this issue.
+
+## FAQ
+
+<Accordions>
+
+<Accordion title="Can I see the text of reviews?">
+
+No. On Amazon, review text isn't available: Amazon doesn't make it available to DataHawk. On Walmart, DataHawk doesn't collect review text yet, or the seller linked to each review. You get the average rating, the number of ratings, and the star-rating breakdown.
+
+</Accordion>
+
+<Accordion title="Why is the star-rating breakdown empty for my product?">
+
+DataHawk didn't capture the breakdown that day. If the product still has an average rating and a number of ratings, the ratings exist: only the split by star level is missing. It isn't 0%. See [How to read the star-rating breakdown](#how-to-read-the-star-rating-breakdown).
+
+</Accordion>
+
+<Accordion title="Why does DataHawk show a different rating than Amazon today?">
+
+DataHawk records one snapshot per day, so a rating that changed since the last snapshot shows up the next day. Data from the last 24 hours may be delayed.
+
+</Accordion>
+
+<Accordion title="Do I get rating history for products I just started tracking?">
+
+No. For tracked products, rating data starts on the day you start tracking. For tracked categories, you get past data too: see [Track Categories](/help-center/data-setup/categories-tracking).
+
+</Accordion>
+
+</Accordions>
+
+## For analysts: rating columns
+
+The star-rating breakdown is only in `PRODUCT.PRODUCT_DETAILED`, in the `RATING_1_STARS_PERCENT` to `RATING_5_STARS_PERCENT` columns. The average rating (`RATING`) and number of ratings (`RATING_COUNT`) also appear in most product, category, and keyword tables. To find every table that has them, search for these column names in the schema reference. [See how](/help-center/data-reference/find-tables-and-columns#search-by-concept-or-column-name).
+
+When `RATING_COUNT` is above 0 and all five percentage columns are 0, the five columns return NULL. When you build checks on the breakdown (for example, a daily 1-star change), filter out rows where the percentage columns are NULL.
+
+{/* TODO: the schema doc lists only RATING_X_STARS_PERCENT columns (no count columns), while Walmart shows counts per star level. Confirm Walmart counts are converted to percentages in the same columns. Also confirm whether PRODUCT_SALES_ESTIMATES_V5 still exposes RATING: the schema doc lists it, but the Sales Estimates page says V5 now resolves to V7, which has no rating columns. */}
+
+---
+
+## Where to go next
+
+<div className="card-grid">
+  <Card
+    title="Track Products"
+    href="/help-center/data-setup/products-tracking"
+    description="Start tracking products to get daily ratings and the star-rating breakdown."
+  />
+  <Card
+    title="Create an alert"
+    href="/help-center/modules/alerts/create"
+    description="Get notified when a product's ratings drop."
+  />
+  <Card
+    title="Product dashboard"
+    href="/help-center/dashboard-templates/power-bi/product-dashboard"
+    description="Follow ratings and rating counts over time."
+  />
+</div>

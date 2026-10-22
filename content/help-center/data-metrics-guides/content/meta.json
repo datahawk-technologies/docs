@@ -1,4 +1,8 @@
 {
   "title": "Content",
-  "pages": ["listing-quality-analysis", "amz-product-pricing-offers-intelligence"]
+  "pages": [
+    "listing-quality-analysis",
+    "ratings-and-reviews",
+    "amz-product-pricing-offers-intelligence"
+  ]
 }
