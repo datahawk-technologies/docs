@@ -1,0 +1,138 @@
+---
+title: Use AI with your DataHawk data
+description: Connect Claude, ChatGPT, or another AI assistant to your DataHawk data with DataHawk MCP or Snowflake MCP, and pick the option that fits.
+---
+
+An AI assistant connected to your data can answer questions, build reports, and spot what changed, all in plain English. To connect one, you use an MCP server (Model Context Protocol): the open standard AI tools use to reach outside data. DataHawk gives you two of them. **DataHawk MCP** is native to DataHawk. **Snowflake MCP** is native to Snowflake and reaches your DataHawk Snowflake database directly.
+
+Both are read-only: your AI can look at your data, but it can't change anything.
+
+## Which option fits you?
+
+| | DataHawk MCP | Snowflake MCP |
+|---|---|---|
+| **Native to** | DataHawk | Snowflake |
+| **How it works** | Your AI asks DataHawk, which picks the right data and knows how to use it | Your AI writes SQL queries on your Snowflake tables |
+| **Data covered** | A curated set of Amazon and Walmart datasets, with about 14 months of history | Every table in your DataHawk Snowflake database |
+| **Combine with your own tables** | No | Yes, with your [writable database](/help-center/connect-tools/writable-database) |
+| **Best for** | Quick questions, investigations, and automations | Full data access, custom dashboards, and joins with your own data |
+| **Status** | Beta | Turned on by DataHawk on request |
+| **Setup** | Add one link to your AI tool, in about 2 minutes | Ask DataHawk, then add the connection details to your AI tool |
+
+**Not sure?** Start with DataHawk MCP. It's the fastest way to get answers. Move to Snowflake MCP when you need data it doesn't cover yet, or want to join DataHawk data with your own.
+
+You can use both at the same time.
+
+## DataHawk MCP
+
+DataHawk MCP connects your AI to DataHawk's own data layer. Instead of writing SQL, your AI asks DataHawk for what it needs. DataHawk routes the question to the right data, checks the query, and returns real numbers. It also guides your AI through "why" questions, like a sudden revenue drop.
+
+DataHawk MCP is in beta. It doesn't cover every dataset yet, and it goes back about 14 months.
+
+- **Get started:** [Set up DataHawk MCP](/help-center/modules/datahawkmcp/setup) in Claude, ChatGPT, or another AI tool.
+- **Learn more:** see [what DataHawk MCP covers](/help-center/modules/datahawkmcp) and [ready-to-use prompts](/help-center/modules/datahawkmcp/ready-prompts).
+
+## Snowflake MCP
+
+Snowflake MCP connects your AI straight to your DataHawk Snowflake database. Snowflake runs the MCP server, so there's nothing to install or host. DataHawk turns it on for your account.
+
+Your AI then queries the same data your dashboards use, so you get every table, not a curated set. Your team signs in through Snowflake's own login page (<Term>OAuth</Term>), so no password or key is shared with the AI.
+
+It's a good fit when you want to:
+
+- build your own dashboards and reports in your AI tool, refreshed on a schedule
+- join DataHawk data with your own tables, like shipping costs or data from another system
+- reach datasets or history that DataHawk MCP doesn't cover yet
+
+### What to know before you ask
+
+- **Read-only.** Your AI can query data, but it can't change it.
+- **It uses your Snowflake credits.** Each query runs on your warehouse and counts against the same quota as your own queries. See [Snowflake credit monitoring](/help-center/data-reference/snowflake-credit-monitoring).
+- **One connection per database.** The default connection covers your DataHawk database. If you also want your [writable database](/help-center/connect-tools/writable-database), say so when you ask: it needs its own connection.
+- **Claude works out of the box.** For ChatGPT, also send DataHawk your ChatGPT callback URL. Other AI tools that support MCP, like Mistral Le Chat or Codex, can connect too.
+
+### How to request it
+
+<Steps>
+
+<Step>
+### Contact DataHawk
+
+Email [cs@datahawk.co](mailto:cs@datahawk.co) or your Account Manager. Say which AI tool you'll use and which databases you need: your DataHawk database, your writable database, or both.
+</Step>
+
+<Step>
+### Get your connection details
+
+DataHawk sends you, securely, the MCP server URL, a client ID, and a client secret.
+</Step>
+
+<Step>
+### Add the connection in your AI tool
+
+Add a custom MCP connector with those details, then sign in with your Snowflake account. For Claude, see Anthropic's [custom connector guide](https://support.claude.com/en/articles/11175166-get-started-with-custom-connectors-using-remote-mcp). For ChatGPT, see OpenAI's [apps in ChatGPT guide](https://help.openai.com/en/articles/11487775-apps-in-chatgpt).
+</Step>
+
+</Steps>
+
+For how Snowflake runs the MCP server, see Snowflake's [managed MCP server guide](https://docs.snowflake.com/en/user-guide/snowflake-cortex/cortex-agents-mcp).
+
+{/* TODO: add links to the Mistral Le Chat and Codex guides for custom MCP connectors, and Claude setup screenshots for Snowflake MCP. */}
+
+## FAQ
+
+<Accordions>
+
+<Accordion title="Can I use DataHawk MCP and Snowflake MCP together?">
+
+Yes. Many teams use DataHawk MCP for quick questions and Snowflake MCP for deeper analysis. Add both connectors to your AI tool and name them clearly, for example `DataHawk` and `DataHawk Snowflake`.
+
+</Accordion>
+
+<Accordion title="Does Snowflake MCP use my Snowflake credits?">
+
+Yes. Queries run on your Snowflake warehouse, the same way as if you ran them yourself, and count against the same quota. Keep an eye on usage with [Snowflake credit monitoring](/help-center/data-reference/snowflake-credit-monitoring).
+
+</Accordion>
+
+<Accordion title="Can my AI change my data?">
+
+No. Both options are read-only.
+
+</Accordion>
+
+<Accordion title="Does my data leave my account?">
+
+Only the answers to your questions go to the AI tool you connected, when you ask. You choose which AI tool to connect, and you can disconnect it any time.
+
+</Accordion>
+
+<Accordion title="Can my AI see my own tables?">
+
+With Snowflake MCP, yes, if your own tables are in your [writable database](/help-center/connect-tools/writable-database) and you asked for that connection. DataHawk MCP only sees DataHawk data.
+
+</Accordion>
+
+</Accordions>
+
+---
+
+## Where to go next
+
+<div className="card-grid">
+  <Card
+    title="Set up DataHawk MCP"
+    href="/help-center/modules/datahawkmcp/setup"
+    description="Connect Claude, ChatGPT, or another AI tool in about 2 minutes."
+  />
+  <Card
+    title="Snowflake"
+    href="/help-center/connect-tools/snowflake"
+    description="Your DataHawk Snowflake database, credentials, and credits."
+  />
+  <Card
+    title="Ready-to-use prompts"
+    href="/help-center/modules/datahawkmcp/ready-prompts"
+    description="Prompt templates for weekly reports, deep-dives, and trackers."
+  />
+</div>
