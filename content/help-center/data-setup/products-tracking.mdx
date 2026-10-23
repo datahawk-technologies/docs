@@ -224,6 +224,16 @@ Best when you already have the identifiers in a list.
 
 **Recommended for more than 500 products.** Lets you set tags and variation rules per row in a spreadsheet.
 
+<Callout type="info">
+  The CSV import only adds products. It never removes or replaces the ones you already track:
+
+  - A product that isn't in your file stays tracked.
+  - A product you already track isn't added twice.
+  - A product you don't track yet is added and tracked.
+
+  To replace your whole list, see [Replace your tracked products](#replace-your-tracked-products).
+</Callout>
+
 1. Download the CSV template.
 2. Fill in the template with:
    - **Marketplace**: Domain name (Amazon/Walmart marketplace).
@@ -254,7 +264,7 @@ Best when you already have the identifiers in a list.
 
 ## How to archive a tracked product
 
-Archiving stops collecting new data for a product but keeps its history intact. Use it when you no longer need fresh snapshots for a SKU you used to track.
+Archiving stops collecting new data for a product but keeps its history intact. Archived products don't count against your tracked product limit. Use it when you no longer need fresh snapshots for a SKU you used to track.
 
 <Steps>
 
@@ -309,3 +319,30 @@ Click **Archive in <Term>Workspace</Term>**. The selected products stop receivin
 </Step>
 
 </Steps>
+
+## Replace your tracked products
+
+You can't delete tracked products, and the CSV import can't replace your list: it only adds. To swap your tracked products for a new list, archive what you don't need, then upload your file.
+
+- **A few products to remove:** archive them one by one, as shown in [How to archive a tracked product](#how-to-archive-a-tracked-product).
+- **Many products to remove:** start from a clean slate.
+
+<Steps>
+
+<Step>
+### Archive all your tracked products
+
+Go to **Sources → Products**, click **Select all products**, then **Archive in Workspace**.
+</Step>
+
+<Step>
+### Upload your new list
+
+Import your CSV with only the products you want to track. See the **CSV Import** tab in [How to track a Product](#how-to-track-a-product).
+</Step>
+
+</Steps>
+
+If an archived product is in your new list, DataHawk tracks it again and keeps its past data. Only tracked products count against your limit, so the products you leave archived don't use any of it.
+
+{/* TODO: confirm whether the keyword CSV import works the same way (add only). */}
