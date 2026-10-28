@@ -1,0 +1,19 @@
+---
+title: "New dataset: FBA Inventory Summaries"
+description: "New daily FBA stock dataset per SKU and marketplace, split into available, inbound, reserved, researching and unfulfillable units."
+date: "2026-10-28"
+tags: ["new"]
+---
+
+Two new inventory tables are available in the `SELLING_PARTNER` schema.
+
+**FBA Inventory Summaries** is now the recommended source for following your <Term>FBA</Term> stock. It takes a full daily snapshot for every connected seller account and marketplace, and splits each <Term>SKU</Term> into available, inbound, reserved, researching and unfulfillable units, with a detailed breakdown of each status.
+
+- `SELLER_INVENTORY_FBA_SUMMARIES`: latest snapshot, for current stock
+- `SELLER_INVENTORY_FBA_SUMMARIES_HISTORY`: every daily snapshot, for stock trends
+
+<Callout type="info">
+  FBA Inventory Planning remains the source for inventory age, storage fees, sales velocity and Amazon's recommendations. See [Amazon Inventory Data](/help-center/data-reference/amz-inventory-data) for which table to use when.
+</Callout>
+
+Read more: [FBA Inventory Summaries Data](/help-center/data-reference/fba-seller-inventory-fba-summaries).

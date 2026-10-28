@@ -3,14 +3,18 @@ title: FBA Inventory Planning Data
 description: "Reference for SELLER_INVENTORY_FBA_PLANNING_LATEST, DataHawk's daily FBA inventory health snapshot: stock, aging, velocity, and Amazon's recommendations."
 ---
 
-`SELLING_PARTNER.SELLER_INVENTORY_FBA_PLANNING_LATEST` is sourced from Amazon's FBA Manage Inventory Health Report (`GET_FBA_INVENTORY_PLANNING_DATA`). It's a daily country-level snapshot of every <Term>FBA</Term> <Term>SKU</Term>, combining stock levels, inventory aging, sales velocity, inbound pipeline, storage costs, and Amazon's own action recommendations in one place. It mirrors what you see on the Manage FBA Inventory page in Seller Central, so you can spot aging and excess stock before fees hit and validate Amazon's restock or removal suggestions.
+`SELLING_PARTNER.SELLER_INVENTORY_FBA_PLANNING_LATEST` is sourced from Amazon's FBA Manage Inventory Health Report (`GET_FBA_INVENTORY_PLANNING_DATA`). It's a daily country-level snapshot of every <Term>FBA</Term> <Term>SKU</Term>, combining stock levels, inventory aging, sales velocity, inbound pipeline, storage costs, and Amazon's own action recommendations in one place. Use it to spot aging and excess stock before fees hit and to validate Amazon's restock or removal suggestions.
+
+<Callout type="info">
+  To follow your FBA stock level day to day, use [FBA Inventory Summaries](/help-center/data-reference/fba-seller-inventory-fba-summaries) instead. It covers every marketplace on the account, keeps every FBA SKU, and reports `available` the way Seller Central does. Use this planning table for what Summaries doesn't have: aging, storage costs, sales velocity, days of supply and recommendations.
+</Callout>
 
 ## Freshness & coverage
 
 | Field | Value |
 |---|---|
 | **Refresh** | Daily |
-| **Geographic scope** | Country level. All marketplaces except **NL, PL, SE, and BE** |
+| **Geographic scope** | Marketplace level. All marketplaces except **NL, PL, SE, BE, and IE**. Coverage of **MX** is partial |
 | **Grain** | One row per <Term>ASIN</Term> × <Term>FNSKU</Term> × SKU × snapshot date × <Term>marketplace</Term> |
 
 <Callout type="info">
@@ -38,7 +42,7 @@ Need aging, velocity, or recommendations **over time** rather than the current s
 
 ## Questions this dataset answers
 
-- What's my current sellable stock by SKU and country?
+- How much of my stock is aged, and in which marketplace?
 - Why is my available quantity lower than expected?
 - Which SKUs have inventory older than 180 days, and what will it cost me?
 - What's my total projected aged-inventory surcharge for next month?
@@ -51,8 +55,11 @@ Need aging, velocity, or recommendations **over time** rather than the current s
 
 ## Limitations
 
-- **NL, PL, SE, and BE aren't supported.** These marketplaces aren't covered by this report.
-- **No warehouse-level detail.** Data sits at the country level. For warehouse-level movements, use `SELLER_INVENTORY_LEDGER_DETAIL`.
+- **NL, PL, SE, BE, and IE aren't supported.** These marketplaces aren't covered by this report, and coverage of MX is partial. For stock in every marketplace, use [FBA Inventory Summaries](/help-center/data-reference/fba-seller-inventory-fba-summaries).
+- **Some SKUs that hold stock can be missing.** The report doesn't always return every stocked SKU, especially outside the US. A SKU dropped from the report keeps its last values in this history table but no longer appears in new snapshots.
+- **`available` can include units in fulfillment center processing.** Total units match FBA Inventory Summaries closely, but this report can count units still being processed as available, so `available` here can be higher than in Seller Central. FBA Inventory Summaries reports these units in `reserved_fc_processing`.
+- **Don't sum stock across marketplaces.** With Pan-European FBA, the European Fulfillment Network or Remote Fulfillment, the same units can appear in several marketplaces.
+- **No warehouse-level detail.** Data sits at the marketplace level. For stock by country or fulfillment center, use the [Inventory Ledger Summary](/help-center/data-reference/seller-inventory-ledger-summary).
 - **`RESERVED_QUANTITY` and `RESERVED_QUANTITY_INCLUDING_TRANSFER` can differ.** For some marketplaces, Amazon's reported reserved figure doesn't fully reflect FC Transfer units. We recompute a second total from the four reserved components to capture these units.
 - **The 365+ day aging bucket splits for six marketplaces.** For US, DE, UK, FR, IT, and ES, `inv_age_365_plus_days`, `quantity_to_be_charged_ais_365_plus_days`, and `estimated_ais_365_plus_days` aren't populated. Use the split fields instead: `inv_age_366_to_455_days` / `inv_age_456_plus_days`, `quantity_to_be_charged_ais_366_455_days` / `quantity_to_be_charged_ais_456_plus_days`, and `estimated_ais_366_455_days` / `estimated_ais_456_plus_days`. For all other marketplaces, the single 365+ fields remain the source of truth.
 - **Amazon's recommendations are signals, not directives.** Always cross-check `WEEKS_OF_COVER_T30` and `ESTIMATED_EXCESS_QUANTITY` before acting on a removal or restock suggestion.

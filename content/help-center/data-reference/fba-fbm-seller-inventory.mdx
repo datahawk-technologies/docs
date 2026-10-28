@@ -15,20 +15,18 @@ A single, unified view of your inventory across both fulfillment channels: one r
 
 Use it to answer questions like "is this listing active on FBA, FBM, both, or neither?", "how does my price/condition differ by channel?", or "what's my combined available stock for this SKU?"
 
----
 
 ## Freshness & coverage
 
 | | |
 | --- | --- |
 | **Refresh** | Daily |
-| **Geographic scope** | Marketplace level. FBA side excludes **NL, PL, SE, and BE** (not covered by Amazon's FBA planning report); FBM side covers all marketplaces. |
+| **Geographic scope** | Marketplace level. FBA side excludes **NL, PL, SE, BE, and IE**, and is partial for **MX** (not covered by Amazon's FBA planning report); FBM side covers all marketplaces. |
 | **Grain** | One row per **ASIN × SKU × Marketplace**. A row can be FBA-only, FBM-only, or both. See `FBA_LISTING_EXISTS` / `FBM_LISTING_EXISTS` below. |
 
 
 If a listing exists on only one channel, the columns for the other channel will simply be null.
 
----
 
 ## Field reference
 
@@ -47,7 +45,7 @@ If a listing exists on only one channel, the columns for the other channel will 
 | `CURRENCY` | Currency code for price fields on this row |
 
 <Callout type="warn">
-  **Known gap (as of April 2026): no `FNSKU` column on this unified view.** `FNSKU` exists on both source tables (`SELLER_INVENTORY_FBA_PLANNING` and `SELLER_INVENTORY_ALL_LISTINGS`) but wasn't carried into this coalesced view. DataHawk was evaluating adding it reliably at the time this note was written. If you're reading this later, check whether it's since been added before using the workaround.
+  **Known gap (as of April 2026): no `FNSKU` column on this unified view.** `FNSKU` exists on the FBA source table (`SELLER_INVENTORY_FBA_PLANNING`) and on `SELLER_INVENTORY_FBA_SUMMARIES`, but wasn't carried into this coalesced view. DataHawk was evaluating adding it reliably at the time this note was written. If you're reading this later, check whether it's since been added before using the workaround.
 
   In the meantime, see [Which FNSKU is linked to each ASIN/SKU?](/help-center/data-reference/amz-inventory-data) for the join (join on `ASIN`, and `SKU` too if you need SKU-level precision, to bring `FNSKU` onto your `SELLER_INVENTORY` rows).
 </Callout>
@@ -131,7 +129,6 @@ If a listing exists on only one channel, the columns for the other channel will 
 | `FBM_STATUS` | Listing status (e.g. active, inactive, suppressed) |
 | `FBM_FULFILLMENT_CHANNEL` | Fulfillment channel reported on the FBM source row |
 
----
 
 ## Questions you can answer
 
