@@ -21,6 +21,7 @@ Use it to answer questions like "is this listing active on FBA, FBM, both, or ne
 | | |
 | --- | --- |
 | **Refresh** | Daily |
+| **History** | Current state only: one row per ASIN × SKU × Marketplace, with no history. For stock over time, use `SELLER_INVENTORY_FBA_SUMMARIES_HISTORY` (FBA) or `SELLER_INVENTORY_ALL_LISTINGS_HISTORY` (FBM), which start on the day you connect your account |
 | **Geographic scope** | Marketplace level. FBA side excludes **NL, PL, SE, BE, and IE**, and is partial for **MX** (not covered by Amazon's FBA planning report); FBM side covers all marketplaces. |
 | **Grain** | One row per **ASIN × SKU × Marketplace**. A row can be FBA-only, FBM-only, or both. See `FBA_LISTING_EXISTS` / `FBM_LISTING_EXISTS` below. |
 

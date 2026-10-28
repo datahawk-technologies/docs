@@ -41,7 +41,7 @@ All tables live in either the `RAW_INVENTORY` or `SELLING_PARTNER` schema (noted
 | `SELLING_PARTNER` | `SELLER_INVENTORY` | Unified FBA + FBM view: combined stock, price, and condition per ASIN/SKU | Daily | FBA side follows FBA Planning coverage; FBM side all marketplaces |
 
 <Callout type="info">
-  **Summaries or Planning for FBA stock?** Use `SELLER_INVENTORY_FBA_SUMMARIES` to follow your stock. It covers every marketplace on the account, keeps every FBA SKU, and reports `available` the way Seller Central does. Use `SELLER_INVENTORY_FBA_PLANNING_LATEST` when you need what Summaries doesn't have: inventory age, storage fees, sales velocity, days of supply and Amazon's recommendations. Total units are very close between the two, but the planning report can count units still in fulfillment center processing as available, and it can leave out SKUs that hold stock, especially outside the US.
+  **Summaries or Planning for FBA stock?** Use `SELLER_INVENTORY_FBA_SUMMARIES` to follow your stock. It covers every marketplace on the account, keeps every FBA SKU, reports `available` the way Seller Central does, and breaks unfulfillable units down by reason (customer, warehouse, distributor or carrier damaged, defective, expired) and reports units Amazon is researching, which Planning doesn't provide. Use `SELLER_INVENTORY_FBA_PLANNING_LATEST` when you need what Summaries doesn't have: inventory age, storage fees, sales velocity, days of supply and Amazon's recommendations. Total units are very close between the two, but the planning report can count units still in fulfillment center processing as available, and it can leave out SKUs that hold stock, especially outside the US.
 </Callout>
 
 <Callout type="info">
