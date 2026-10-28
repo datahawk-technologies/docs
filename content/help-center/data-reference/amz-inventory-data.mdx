@@ -48,6 +48,19 @@ All tables live in either the `RAW_INVENTORY` or `SELLING_PARTNER` schema (noted
 `SELLER_INVENTORY` doesn't add new data. It joins `SELLER_INVENTORY_FBA_PLANNING_LATEST` and `SELLER_INVENTORY_ALL_LISTINGS` on ASIN × SKU × Marketplace so you don't have to. Use the individual tables above if you only need one channel or want FBA-specific fields like aging or reserved detail not exposed on the unified view.
 </Callout>
 
+### History: snapshot tables vs. tables loaded with history
+
+Inventory tables fall into two groups, depending on what Amazon lets us collect. This matters when you need data from before you connected your account.
+
+| Type | Tables | History available |
+|---|---|---|
+| **Snapshot tables** | `SELLER_INVENTORY_FBA_SUMMARIES` (+ `_HISTORY`), `SELLER_INVENTORY_FBA_PLANNING` (+ `_LATEST`), `SELLER_INVENTORY_ALL_LISTINGS` (+ `_HISTORY`), `RAW_INVENTORY_RESTOCK_RECOMMENDATIONS` (+ `_HISTORY`), `SELLER_INVENTORY` | From the day you connect your account, moving forward. Amazon only reports the current state, so earlier days can't be loaded |
+| **Ledger tables** | `SELLER_INVENTORY_LEDGER_SUMMARY`, `SELLER_INVENTORY_LEDGER_SUMMARY_BY_FC`, `SELLER_INVENTORY_LEDGER_DETAIL` | Up to 18 months before you connect your account (Amazon's limit), then daily |
+
+<Callout type="info">
+  **Need stock levels from before you connected?** Use the ledger tables: `ending_warehouse_balance` gives your stock per day, by country or fulfillment center. Keep in mind it counts units physically stored in each location, which isn't the same as the marketplace-level `available` in the snapshot tables.
+</Callout>
+
 ### For specific needs
 
 | Schema | View | Use it for | Why not the default? | Freshness | Coverage |

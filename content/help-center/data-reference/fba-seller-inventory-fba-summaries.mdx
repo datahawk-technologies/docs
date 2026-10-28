@@ -153,7 +153,7 @@ Both tables have the same columns.
 |---|---|
 | **Frequency** | One snapshot per day, per account and marketplace |
 | **Delivery** | Same day (D+0). Snapshots are taken in the morning (UTC) and are usually available in your database in the afternoon (UTC) |
-| **Initial history** | Accounts connected before the release of this dataset: from October 1, 2026. New accounts: from the first daily snapshot after connection |
+| **History** | Snapshot only, moving forward: starts with the first daily snapshot after you connect your account (October 1, 2026 for accounts connected before this dataset's release). Amazon only reports current stock, so earlier days can't be loaded. For stock before that date, use the [Inventory Ledger Summary](/help-center/data-reference/seller-inventory-ledger-summary), which is loaded with up to 18 months of history |
 | **Historical updates** | None. Each daily snapshot is final once delivered and is never refreshed |
 
 ## Example queries

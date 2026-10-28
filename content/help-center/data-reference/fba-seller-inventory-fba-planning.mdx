@@ -14,6 +14,7 @@ description: "Reference for SELLER_INVENTORY_FBA_PLANNING_LATEST, DataHawk's dai
 | Field | Value |
 |---|---|
 | **Refresh** | Daily |
+| **History** | Snapshot only, moving forward: starts on the day you connect your account. Amazon only reports the current state, so earlier days can't be loaded |
 | **Geographic scope** | Marketplace level. All marketplaces except **NL, PL, SE, BE, and IE**. Coverage of **MX** is partial |
 | **Grain** | One row per <Term>ASIN</Term> × <Term>FNSKU</Term> × SKU × snapshot date × <Term>marketplace</Term> |
 
@@ -21,7 +22,7 @@ description: "Reference for SELLER_INVENTORY_FBA_PLANNING_LATEST, DataHawk's dai
   `report_date` is the date the report was requested. `snapshot_date` reflects the actual date of the inventory data in the report.
 </Callout>
 <Callout type="info">
-Need aging, velocity, or recommendations **over time** rather than the current snapshot? Use [`SELLER_INVENTORY_FBA_PLANNING`](/help-center/data-reference/fba-seller-inventory-fba-planning), the historized version of this table.
+Need aging, velocity, or recommendations **over time** rather than the current snapshot? Use `SELLER_INVENTORY_FBA_PLANNING`, the historized version of this table.
 </Callout>
 
 ## What's in it
