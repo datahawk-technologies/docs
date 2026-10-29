@@ -1,0 +1,31 @@
+---
+title: "Advertising and vendor sales data delayed outside North America"
+description: "Amazon Advertising and vendor sales data for Oct 28 is late or incomplete outside North America. Missing data is being recovered."
+date: "2026-10-29"
+dateRangeImpacted: "Since Oct 28, 2026"
+datasetsImpacted: ["ADVERTISING.ADVERTISING_CAMPAIGN_METRICS", "ADVERTISING.ADVERTISING_PRODUCT_METRICS", "SELLING_PARTNER.VENDOR_SALES_SOURCING_SRC"]
+status: "in-progress"
+severity: "minor"
+---
+
+**Data update - Identified**
+
+**Issue type:** Delayed
+
+**Period:** Since Oct 28, 2026
+
+**Scope:** Marketplaces outside North America. Advertising tables hold almost no data for Oct 28. Vendor sales holds about 84% of its usual rows. North America isn't affected.
+
+**Datasets:**
+
+- `ADVERTISING.ADVERTISING_CAMPAIGN_METRICS`
+- `ADVERTISING.ADVERTISING_PRODUCT_METRICS`
+- `SELLING_PARTNER.VENDOR_SALES_SOURCING_SRC`
+
+**Cause:** An internal processing issue is affecting updates.
+
+**Progress:** We are working on a fix.
+
+**Historical data:** Missing data is being recovered. No historical data is lost.
+
+**Action:** Treat these tables as incomplete outside North America from Oct 28 onward until this entry says otherwise.
