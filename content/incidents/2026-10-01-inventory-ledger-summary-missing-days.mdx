@@ -1,26 +1,30 @@
 ---
 title: "Inventory Ledger Summary is missing two days of North America data"
-description: "The Inventory Ledger Summary report is missing September 18 and 19 for some North America accounts. The detail report is complete."
+description: "The Inventory Ledger Summary report was missing September 18 and 19 for some North America accounts. Both days have been recovered."
 date: "2026-10-01"
+updated: "2026-10-29T10:25:00+01:00"
 dateRangeImpacted: "Sep 18 - Sep 19, 2026"
 datasetsImpacted: ["RAW_INVENTORY.RAW_INVENTORY_LEDGER_SUMMARY (Inventory Ledger Summary)"]
-status: "in-progress"
+status: "resolved-no-data-impact"
 severity: "minor"
 ---
 
-**Data update - Identified**
+**Data update - Resolved**
 
-Status: Partial
-Period: Sep 18 - Sep 19, 2026
-Scope: North America (US and Canada), some accounts
+**Issue type:** Partial
 
-Datasets:
+**Period:** Sep 18 - Sep 19, 2026
 
-- `RAW_INVENTORY.RAW_INVENTORY_LEDGER_SUMMARY`
+**Scope:** North America (US and Canada), some accounts. `RAW_INVENTORY.RAW_INVENTORY_LEDGER_DETAIL` stayed complete throughout.
 
-Update:
+**Datasets:** `RAW_INVENTORY.RAW_INVENTORY_LEDGER_SUMMARY`
 
-- Cause: Amazon returned empty Inventory Ledger Summary reports during an outage on September 18 and 19, including on later requests for the same dates.
-- Progress: Identified on September 22. Collection resumed on September 20 and the report is advancing normally. We are re-requesting the two missing dates and confirming the full list of affected accounts.
-- Historical data: Whether September 18 and 19 can be recovered is not yet confirmed. This entry will be updated when it is.
-- Action: Read September 18 and 19 from `RAW_INVENTORY.RAW_INVENTORY_LEDGER_DETAIL`, which stayed complete and current throughout.
+**Cause:** A confirmed issue with Amazon affected source data.
+
+**Progress:** Resolved.
+
+**Historical data:** All affected data has been restored or corrected.
+
+**Action:** If you exported Sep 18 or Sep 19 before the fix, pull those dates again.
+
+Update, Oct 29, 2026: September 18 and 19 have been recovered, and no data was lost.
