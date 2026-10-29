@@ -35,7 +35,8 @@ You're trying to wire up an integration, Amazon Seller, Walmart, Snowflake, BigQ
 
 | Error | Likely cause | Fix |
 |---|---|---|
-| "Failed to test the connection to your data source" (in Power BI) | Snowflake credentials copy-paste error or expired | Re-copy from Workspace → Integrations and paste fresh |
+| "Failed to test the connection to your data source" (in Power BI) | Snowflake credentials copy-paste error or expired | Re-copy from Setup → Destinations → Snowflake → See Credentials and paste fresh |
+| "We couldn't authenticate with the credentials provided" (in Excel), while the ODBC Administrator test passes | Snowflake driver installed with the ODBC option instead of DSII | Reinstall the driver and pick DSII. See [Connect to Excel](/help-center/connect-tools/excel#troubleshooting) |
 | "Data Set Configuration Error" (Looker Studio with BigQuery) | Service account permissions missing | Grant `BigQuery Data Viewer` role to the service account |
 | "Access Denied: Permission `bigquery.tables.create` denied" | Read-only role assigned where write needed | Upgrade service account role or work in a project where you have write access |
 | "BigQuery only support Google Account. Please use a Google Account email instead." | The email you're adding under BigQuery access isn't a Google Account yet | Turn the email into a Google Account. See [Managing user access](/help-center/connect-tools/bigquery#managing-user-access) |

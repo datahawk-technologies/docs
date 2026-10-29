@@ -29,6 +29,12 @@ Download and install the Snowflake ODBC driver for your operating system:
 - [Windows 64-bit](https://sfc-repo.snowflakecomputing.com/odbc/win64/latest/index.html)
 - [Windows 32-bit](https://sfc-repo.snowflakecomputing.com/odbc/win32/latest/index.html)
 - [macOS](https://community.snowflake.com/s/article/How-to-configure-Excel-on-MacOS-to-use-Snowflake-using-ODBC-driver)
+
+<Callout type="warn">
+  **On Windows, pick DSII when the installer asks.** Recent driver versions (4.x) ask which driver to install: **ODBC** or **DSII**. Choose **DSII**. If you choose ODBC, the connection test in the ODBC Administrator still passes, but Excel rejects your login.
+</Callout>
+
+{/* TODO: confirm with Isaac the exact installer wording and from which driver version the ODBC/DSII choice appears (case: Ben Rabinowitz, Oct 2026, driver 4.2) */}
 </Step>
 
 <Step>
@@ -44,6 +50,8 @@ Search for **ODBC** on your computer to open the **ODBC Data Source Administrato
 | Server | Your Snowflake server URL |
 | Database | Your DataHawk database name |
 | Warehouse | Your Snowflake warehouse |
+
+{/* TODO: the credentials screen also shows Role and Account Name. Confirm with the data team whether Role should be filled in the DSN, and update this table and the Snowflake page. */}
 </Step>
 
 <Step>
@@ -89,6 +97,54 @@ In Power Query Editor you can:
 - Write a custom SQL query
 
 When finished, click **Close & Load**.
+
+## Troubleshooting
+
+<Accordions>
+
+<Accordion title="The ODBC test works, but Excel says &quot;We couldn't authenticate with the credentials provided&quot;">
+
+Your credentials are fine. The Snowflake driver was most likely installed with the **ODBC** option instead of **DSII**, so Excel can't log in even though the test in the ODBC Administrator passes.
+
+To fix it:
+
+<Steps>
+
+<Step>
+### Uninstall the Snowflake driver
+
+Remove the Snowflake ODBC driver from your computer's installed apps.
+</Step>
+
+<Step>
+### Reinstall it and choose DSII
+
+Download the latest Windows 64-bit driver (link in the setup steps above). When the installer asks which driver to install, pick **DSII**.
+</Step>
+
+<Step>
+### Recreate your data source
+
+In the ODBC Data Source Administrator, add a new User DSN with **SnowflakeDSIIDriver** and fill in your DataHawk credentials again.
+</Step>
+
+<Step>
+### Reconnect from Excel
+
+Go to **Data \> Get Data \> From Other Sources \> From ODBC**, select your data source, choose **Database** as the credential type, and enter your **User** and **Password**.
+</Step>
+
+</Steps>
+
+</Accordion>
+
+<Accordion title="Which credential type do I pick in Excel?">
+
+Pick **Database**, then enter the **User** and **Password** from your DataHawk Snowflake credentials. Don't use your DataHawk App login.
+
+</Accordion>
+
+</Accordions>
 
 ## Limitations
 
