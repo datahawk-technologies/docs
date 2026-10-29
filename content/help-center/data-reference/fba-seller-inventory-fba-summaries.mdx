@@ -1,0 +1,212 @@
+---
+title: FBA Inventory Summaries Data
+description: Daily FBA stock snapshot per SKU and marketplace, with available, inbound, reserved, researching and unfulfillable units broken down by status.
+---
+
+FBA Inventory Summaries is DataHawk's recommended source for following your <Term>FBA</Term> stock. It comes from Amazon's FBA Inventory API (`getInventorySummaries`), the same source behind the stock figures in Seller Central, and it splits every unit Amazon holds for you into a status: available to sell, on its way in, reserved, being researched, or unfulfillable. A full snapshot is collected every day for each connected seller account and marketplace.
+
+The data is available in two tables:
+
+| Table | Content | Use for |
+|---|---|---|
+| `SELLER_INVENTORY_FBA_SUMMARIES` | Latest full snapshot per account and marketplace | Current stock |
+| `SELLER_INVENTORY_FBA_SUMMARIES_HISTORY` | All daily snapshots | Stock trends and day-by-day tracking |
+
+<Callout type="info">
+  Several inventory tables share the `SELLER_INVENTORY_FBA_` prefix. This page covers stock status. For inventory age, storage fees, sales velocity and Amazon's recommendations, see [FBA Inventory Planning](/help-center/data-reference/fba-seller-inventory-fba-planning). For stock by country or fulfillment center, see [Inventory Ledger Summary](/help-center/data-reference/seller-inventory-ledger-summary).
+</Callout>
+
+## Main use cases
+
+- Current available stock per <Term>SKU</Term> and marketplace
+- Daily stock level tracking
+- Breakdown of non-sellable units: reserved, researching, damaged or expired
+- Inbound shipment monitoring
+
+## Related tables
+
+| Need | Table |
+|---|---|
+| Inventory age, storage fees, sales velocity, days of supply, restock recommendations | `SELLER_INVENTORY_FBA_PLANNING` |
+| Stock by country (physical location) | `SELLER_INVENTORY_LEDGER_SUMMARY` |
+| Stock by fulfillment center | `SELLER_INVENTORY_LEDGER_SUMMARY_BY_FC` |
+| Transaction-level stock movements (receipts, shipments, returns, transfers) | `SELLER_INVENTORY_LEDGER_DETAIL` |
+| Merchant-fulfilled (<Term>FBM</Term>) stock | `SELLER_INVENTORY_ALL_LISTINGS` |
+
+## Key facts
+
+| | |
+|---|---|
+| **Tables** | `SELLING_PARTNER.SELLER_INVENTORY_FBA_SUMMARIES`, `SELLING_PARTNER.SELLER_INVENTORY_FBA_SUMMARIES_HISTORY` |
+| **Source** | Amazon Selling Partner API, FBA Inventory (`getInventorySummaries`) |
+| **Account types** | Seller accounts only |
+| **Regions** | North America, Europe, Far East |
+| **Marketplaces** | All marketplaces enabled on the account |
+| **Refresh** | Daily |
+
+## Grain
+
+| Table | One row per |
+|---|---|
+| `SELLER_INVENTORY_FBA_SUMMARIES` | Account × marketplace × SKU × <Term>FNSKU</Term> × <Term>ASIN</Term> × condition (latest snapshot only) |
+| `SELLER_INVENTORY_FBA_SUMMARIES_HISTORY` | Account × marketplace × snapshot date × SKU × FNSKU × ASIN × condition |
+
+- **SKUs with zero stock are kept.** Amazon returns every FBA SKU on the account, including SKUs with no units, so most rows in a snapshot have `total_quantity = 0`. Filter on `total_quantity > 0` to keep only SKUs that hold stock.
+- **A SKU absent from a snapshot** was not returned by Amazon for that day.
+
+## How to read the quantities
+
+**Total quantity** is the sum of four statuses:
+
+```text
+total_quantity = available + inbound_quantity + reserved_quantity + unfulfillable_quantity
+```
+
+Researching units are reported separately and are **not** included in `total_quantity`.
+
+Each status has its own breakdown:
+
+| Status | Total column | Breakdown columns (add up to the total) |
+|---|---|---|
+| Available | `available` | |
+| Inbound | `inbound_quantity` | `inbound_working` + `inbound_shipped` + `inbound_receiving` |
+| Reserved | `reserved_quantity` | `reserved_customer_order` + `reserved_fc_transfer` + `reserved_fc_processing` |
+| Unfulfillable | `unfulfillable_quantity` | `customer_damaged_quantity` + `warehouse_damaged_quantity` + `distributor_damaged_quantity` + `carrier_damaged_quantity` + `defective_quantity` + `expired_quantity` |
+| Researching | `researching_quantity` | `researching_short_term` + `researching_mid_term` + `researching_long_term` (empty when no units are being researched). Amazon names these buckets short, mid and long term without defining day ranges |
+
+<Callout type="warn">
+  **Don't sum stock across marketplaces.** `available` is the stock Amazon can sell on that marketplace, not the stock physically stored in that country. When inventory is shared between marketplaces, Amazon returns the same units for each marketplace that can sell them:
+
+  - **Europe:** with Pan-European FBA or the European Fulfillment Network, the EU marketplaces show the same pooled stock. The UK is a separate pool, and Amazon.ie can show stock from both the UK and the EU.
+  - **North America:** with Remote Fulfillment, Canada and Mexico can show stock that is stored in the US.
+
+  Adding marketplaces together counts the same units several times, and picking one marketplace per region doesn't reliably give the pooled total either. To see where your stock is physically stored, use the [Inventory Ledger Summary](/help-center/data-reference/seller-inventory-ledger-summary) by country or by fulfillment center.
+</Callout>
+
+## Columns
+
+Both tables have the same columns.
+
+### Identifiers
+
+| Column | Description |
+|---|---|
+| `workspace_id` | DataHawk workspace identifier |
+| `account_key` | DataHawk account identifier |
+| `seller_name` | Seller account name |
+| `marketplace_seller_name` | Seller name for the marketplace |
+| `region_seller_name` | Seller name for the region |
+| `region` | Amazon region identifier |
+| `region_name` | Region: North America, Europe or Far East |
+| `marketplace_key` | DataHawk marketplace identifier |
+
+### Product
+
+| Column | Description |
+|---|---|
+| `asin` | Amazon Standard Identification Number |
+| `sku` | Seller SKU |
+| `fnsku` | Amazon fulfillment network SKU |
+| `product_name` | Product title |
+| `condition` | Item condition as returned by Amazon (for example `NewItem`) |
+
+### Dates
+
+| Column | Description |
+|---|---|
+| `snapshot_date` | Snapshot date (UTC) |
+| `last_updated_time` | Last time Amazon changed any quantity for the item (UTC). Empty on most rows, and not the snapshot time. Use `snapshot_date` instead |
+| `_sync_time` | Last time the row was loaded into your database |
+
+### Quantities
+
+| Column | Description |
+|---|---|
+| `total_quantity` | Total FBA units: available + inbound + reserved + unfulfillable |
+| `available` | Units available to fulfill customer orders |
+| `inbound_quantity` | Total inbound units: working + shipped + receiving |
+| `inbound_working` | Units in inbound shipments in working status |
+| `inbound_shipped` | Units in inbound shipments shipped to Amazon |
+| `inbound_receiving` | Units in inbound shipments being received |
+| `reserved_quantity` | Total reserved units |
+| `reserved_customer_order` | Units reserved for pending customer orders |
+| `reserved_fc_transfer` | Units reserved for transfer between fulfillment centers |
+| `reserved_fc_processing` | Units reserved for fulfillment center processing |
+| `researching_quantity` | Total units being researched by Amazon |
+| `researching_short_term` | Researching units, short term |
+| `researching_mid_term` | Researching units, mid term |
+| `researching_long_term` | Researching units, long term |
+| `unfulfillable_quantity` | Total unfulfillable units |
+| `customer_damaged_quantity` | Unfulfillable: customer damaged |
+| `warehouse_damaged_quantity` | Unfulfillable: warehouse damaged |
+| `distributor_damaged_quantity` | Unfulfillable: distributor damaged |
+| `carrier_damaged_quantity` | Unfulfillable: carrier damaged |
+| `defective_quantity` | Unfulfillable: defective |
+| `expired_quantity` | Unfulfillable: expired |
+| `reserved_future_supply_quantity` | Future supply units, reserved |
+| `future_supply_buyable_quantity` | Future supply units, buyable |
+| `stores_json` | Store details as returned by Amazon, as JSON text |
+
+## Data delivery
+
+| | |
+|---|---|
+| **Frequency** | One snapshot per day, per account and marketplace |
+| **Delivery** | Same day (D+0). Snapshots are taken in the morning (UTC) and are usually available in your database in the afternoon (UTC) |
+| **History** | Snapshot only, moving forward: starts with the first daily snapshot after you connect your account (October 1, 2026 for accounts connected before this dataset's release). Amazon only reports current stock, so earlier days can't be loaded. For stock before that date, use the [Inventory Ledger Summary](/help-center/data-reference/seller-inventory-ledger-summary), which is loaded with up to 18 months of history |
+| **Historical updates** | None. Each daily snapshot is final once delivered and is never refreshed |
+
+## Example queries
+
+**Current stock that can be sold, per SKU and marketplace**
+
+```sql
+SELECT MARKETPLACE_KEY, SKU, ASIN, AVAILABLE, RESERVED_QUANTITY, INBOUND_QUANTITY, TOTAL_QUANTITY
+FROM SELLING_PARTNER.SELLER_INVENTORY_FBA_SUMMARIES
+WHERE TOTAL_QUANTITY > 0
+ORDER BY AVAILABLE DESC;
+```
+
+**Daily available stock for one SKU**
+
+```sql
+SELECT SNAPSHOT_DATE, MARKETPLACE_KEY, AVAILABLE, RESERVED_QUANTITY, INBOUND_QUANTITY
+FROM SELLING_PARTNER.SELLER_INVENTORY_FBA_SUMMARIES_HISTORY
+WHERE SKU = 'YOUR_SKU'
+ORDER BY SNAPSHOT_DATE DESC;
+```
+
+**Why isn't more of my stock available?**
+
+```sql
+SELECT SKU, AVAILABLE,
+       RESERVED_CUSTOMER_ORDER, RESERVED_FC_TRANSFER, RESERVED_FC_PROCESSING,
+       RESEARCHING_QUANTITY,
+       CUSTOMER_DAMAGED_QUANTITY, WAREHOUSE_DAMAGED_QUANTITY, CARRIER_DAMAGED_QUANTITY,
+       DEFECTIVE_QUANTITY, EXPIRED_QUANTITY
+FROM SELLING_PARTNER.SELLER_INVENTORY_FBA_SUMMARIES
+WHERE SKU = 'YOUR_SKU';
+```
+
+## FAQ
+
+<Accordions>
+<Accordion title="Why do several marketplaces show the same quantities?">
+With Pan-European FBA, the European Fulfillment Network, Remote Fulfillment or other shared inventory programs, Amazon reports the stock each marketplace can sell. Marketplaces that share a pool show the same units, so they should not be summed. Use the [Inventory Ledger Summary](/help-center/data-reference/seller-inventory-ledger-summary) for physical stock by country.
+</Accordion>
+<Accordion title="Why is a product in the history table but not in the latest table?">
+The latest table only contains products returned in the most recent snapshot. Products no longer returned by Amazon are not carried over from earlier days.
+</Accordion>
+<Accordion title="Why does total_quantity exclude researching units?">
+This follows Amazon's definition of total quantity. Adding `researching_quantity` gives every unit held by Amazon.
+</Accordion>
+<Accordion title="Why are there so many rows with zero stock?">
+Amazon returns every FBA SKU on the account, including SKUs that currently hold no units. Filter on `total_quantity > 0` when you only want SKUs with stock.
+</Accordion>
+<Accordion title="How does this dataset differ from FBA Inventory Planning?">
+This dataset focuses on stock status, with a daily snapshot for every marketplace on the account. It breaks unfulfillable units down by reason (customer, warehouse, distributor or carrier damaged, defective, expired) and reports units Amazon is researching, split into short, mid and long term. Planning only gives an unfulfillable total and has no researching columns. The planning table adds inventory age, fees, sales and recommendations, but doesn't cover every marketplace and can leave out SKUs that hold stock. Total units are very close between the two; the main difference is in `available`, where the planning report can count units still in fulfillment center processing as available, while this dataset reports them in `reserved_fc_processing`, as Seller Central does.
+</Accordion>
+<Accordion title="Why can numbers differ slightly from Seller Central?">
+Seller Central shows live stock. This dataset shows stock at the time of the daily snapshot, so orders and receipts after that time appear in the next snapshot.
+</Accordion>
+</Accordions>

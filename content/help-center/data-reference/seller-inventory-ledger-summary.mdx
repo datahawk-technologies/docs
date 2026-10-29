@@ -1,0 +1,161 @@
+---
+title: Inventory Ledger Summary Data
+description: Daily FBA stock balances and movements per SKU, by country or by fulfillment center, from Amazon's Inventory Ledger summary report.
+---
+
+The Inventory Ledger tracks where your <Term>FBA</Term> units physically are and how they moved: receipts, customer shipments, returns, transfers between warehouses, units found, lost, damaged or disposed. Unlike [FBA Inventory Summaries](/help-center/data-reference/fba-seller-inventory-fba-summaries), which reports the stock each marketplace can sell, the ledger reports the stock stored in each location, so it is the right source when the question is "where is my stock?" or "why did it change?".
+
+DataHawk exposes the ledger summary at two levels of location, from two versions of the same Amazon report (`GET_LEDGER_SUMMARY_VIEW_DATA`):
+
+| Table | Location level | Use for |
+|---|---|---|
+| `SELLER_INVENTORY_LEDGER_SUMMARY` | Country | Stock and net movements per country |
+| `SELLER_INVENTORY_LEDGER_SUMMARY_BY_FC` | Fulfillment center | Stock and net movements per fulfillment center |
+
+<Callout type="info">
+  The two tables have the same columns, except `COUNTRY` becomes `FULFILLMENT_CENTER`. Amazon builds the country and fulfillment center reports separately, so don't add up fulfillment center rows to get country totals: the sums are usually close but can differ. For country totals, use `SELLER_INVENTORY_LEDGER_SUMMARY`. For the individual transactions behind a movement, use `SELLER_INVENTORY_LEDGER_DETAIL`.
+</Callout>
+
+## Key facts
+
+| | |
+|---|---|
+| **Tables** | `SELLING_PARTNER.SELLER_INVENTORY_LEDGER_SUMMARY`, `SELLING_PARTNER.SELLER_INVENTORY_LEDGER_SUMMARY_BY_FC` |
+| **Source** | Amazon Selling Partner API, Inventory Ledger summary report (`GET_LEDGER_SUMMARY_VIEW_DATA`), aggregated by country or by fulfillment center |
+| **Account types** | Seller accounts only |
+| **Granularity** | Daily |
+| **History** | Up to 18 months before you connect your account (Amazon's limit) is loaded at connection, then new days are added daily |
+| **Refresh** | Daily. Amazon publishes ledger days with a delay, so the most recent date is usually 2 to 3 days behind today |
+
+## Grain
+
+| Table | One row per |
+|---|---|
+| `SELLER_INVENTORY_LEDGER_SUMMARY` | Account × date × <Term>FNSKU</Term> × MSKU × disposition × country |
+| `SELLER_INVENTORY_LEDGER_SUMMARY_BY_FC` | Account × date × FNSKU × MSKU × disposition × fulfillment center |
+
+`disposition` splits each SKU's stock by condition: `SELLABLE`, `CUSTOMER_DAMAGED`, `WAREHOUSE_DAMAGED`, `CARRIER_DAMAGED`, `DISTRIBUTOR_DAMAGED`, `DEFECTIVE` and `EXPIRED`. Sum over dispositions for all units in a location, or filter on `SELLABLE` for sellable units only.
+
+## How the balance works
+
+For each row, the ending balance is the starting balance plus the day's movements:
+
+```text
+ending_warehouse_balance = starting_warehouse_balance
+                         + receipts + customer_shipments + customer_returns + vendor_returns
+                         + warehouse_transfer_in_out + found + lost + damaged + disposed
+                         + other_events + unknown_events
+```
+
+Movements that remove units from the location (shipments, transfers out, lost, disposed) are negative. `in_transit_between_warehouses` is reported for information and is not part of this calculation.
+
+<Callout type="warn">
+  The ledger counts units physically stored in a location. It doesn't include inbound shipments that haven't been received yet, and it doesn't pool stock across marketplaces. That's why its totals are lower than `total_quantity` in FBA Inventory Summaries, and why one country's ledger balance can differ from the `available` quantity shown for the same country's marketplace.
+</Callout>
+
+## Columns
+
+### Identifiers
+
+| Column | Description |
+|---|---|
+| `workspace_id` | DataHawk workspace identifier |
+| `account_key` | DataHawk account identifier |
+| `seller_name` | Seller account name |
+| `region_seller_name` | Seller name for the region |
+| `region_name` | Region: North America, Europe or Far East |
+| `inventory_ledger_summary_event_key` | Unique row identifier |
+
+### Product and location
+
+| Column | Description |
+|---|---|
+| `date` | Ledger date |
+| `asin` | Amazon Standard Identification Number |
+| `fnsku` | Amazon fulfillment network SKU |
+| `msku` | Merchant SKU (your seller SKU) |
+| `title` | Product title |
+| `disposition` | Condition of the units: `SELLABLE` or one of the unsellable dispositions |
+| `location` | Location as returned by Amazon: a country code in `SELLER_INVENTORY_LEDGER_SUMMARY`, a fulfillment center code in `SELLER_INVENTORY_LEDGER_SUMMARY_BY_FC` |
+| `country` | Country code (for example `US`, `DE`, `GB`). `SELLER_INVENTORY_LEDGER_SUMMARY` only |
+| `fulfillment_center` | Fulfillment center code. `SELLER_INVENTORY_LEDGER_SUMMARY_BY_FC` only |
+
+### Balances and movements
+
+| Column | Description |
+|---|---|
+| `starting_warehouse_balance` | Units in the location at the start of the day |
+| `in_transit_between_warehouses` | Units moving between fulfillment centers. Not included in the ending balance |
+| `receipts` | Units received from inbound shipments |
+| `customer_shipments` | Units shipped to customers |
+| `customer_returns` | Units returned by customers |
+| `vendor_returns` | Units removed and returned to you |
+| `warehouse_transfer_in_out` | Units transferred in or out of the location |
+| `found` | Units found after being reported lost |
+| `lost` | Units reported lost |
+| `damaged` | Units reported damaged |
+| `disposed` | Units disposed of |
+| `other_events` | Other adjustments |
+| `unknown_events` | Movements Amazon doesn't classify |
+| `ending_warehouse_balance` | Units in the location at the end of the day |
+
+### Sync
+
+| Column | Description |
+|---|---|
+| `sync_time` | Time the source report was loaded |
+| `_sync_time` | Last time the row was loaded into your database |
+
+## Example queries
+
+**Sellable stock by country on the latest ledger date**
+
+```sql
+SELECT COUNTRY, MSKU, SUM(ENDING_WAREHOUSE_BALANCE) AS SELLABLE_UNITS
+FROM SELLING_PARTNER.SELLER_INVENTORY_LEDGER_SUMMARY
+WHERE DISPOSITION = 'SELLABLE'
+  AND DATE = (SELECT MAX(DATE) FROM SELLING_PARTNER.SELLER_INVENTORY_LEDGER_SUMMARY)
+GROUP BY COUNTRY, MSKU
+ORDER BY SELLABLE_UNITS DESC;
+```
+
+**Stock by fulfillment center for one SKU**
+
+```sql
+SELECT DATE, FULFILLMENT_CENTER, DISPOSITION, ENDING_WAREHOUSE_BALANCE
+FROM SELLING_PARTNER.SELLER_INVENTORY_LEDGER_SUMMARY_BY_FC
+WHERE MSKU = 'YOUR_SKU'
+  AND DATE >= DATEADD(day, -7, CURRENT_DATE())
+ORDER BY DATE DESC, ENDING_WAREHOUSE_BALANCE DESC;
+```
+
+**What moved my stock in a country last week?**
+
+```sql
+SELECT MSKU,
+       SUM(RECEIPTS) AS RECEIPTS,
+       SUM(CUSTOMER_SHIPMENTS) AS CUSTOMER_SHIPMENTS,
+       SUM(CUSTOMER_RETURNS) AS CUSTOMER_RETURNS,
+       SUM(WAREHOUSE_TRANSFER_IN_OUT) AS TRANSFERS,
+       SUM(LOST + FOUND + DAMAGED + DISPOSED) AS ADJUSTMENTS
+FROM SELLING_PARTNER.SELLER_INVENTORY_LEDGER_SUMMARY
+WHERE COUNTRY = 'US'
+  AND DATE BETWEEN '2026-10-01' AND '2026-10-07'
+GROUP BY MSKU;
+```
+
+For the individual events behind these totals, query `SELLER_INVENTORY_LEDGER_DETAIL` with the same SKU, country and dates.
+
+## FAQ
+
+<Accordions>
+<Accordion title="Why is the latest ledger date a few days old?">
+Amazon makes each ledger day available with a delay. The most recent date is usually 2 to 3 days behind today. For today's stock, use [FBA Inventory Summaries](/help-center/data-reference/fba-seller-inventory-fba-summaries).
+</Accordion>
+<Accordion title="Why doesn't the ledger match FBA Inventory Summaries?">
+The two answer different questions. The ledger counts units stored in a country or fulfillment center. FBA Inventory Summaries reports what each marketplace can sell, which includes stock shared between marketplaces and inbound units. Totals also come from different moments in the day.
+</Accordion>
+<Accordion title="What happened to the fulfillment-center-level ledger in RAW_INVENTORY?">
+`RAW_INVENTORY.RAW_INVENTORY_LEDGER_SUMMARY` is a legacy table, replaced by the `SELLING_PARTNER` ledger tables. Use `SELLER_INVENTORY_LEDGER_SUMMARY` for country-level analysis and `SELLER_INVENTORY_LEDGER_SUMMARY_BY_FC` for fulfillment-center-level analysis.
+</Accordion>
+</Accordions>
