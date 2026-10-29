@@ -1,20 +1,21 @@
 ---
 title: "Advertising and vendor sales data delayed outside North America"
-description: "Amazon Advertising and vendor sales data for Oct 28 is late or incomplete outside North America. Missing data is being recovered."
+description: "Amazon Advertising and vendor sales data for Oct 28 arrived late outside North America. All data has been delivered and no data was lost."
 date: "2026-10-29"
-dateRangeImpacted: "Since Oct 28, 2026"
+updated: "2026-10-29T16:17:00+01:00"
+dateRangeImpacted: "Oct 28, 2026"
 datasetsImpacted: ["ADVERTISING.ADVERTISING_CAMPAIGN_METRICS", "ADVERTISING.ADVERTISING_PRODUCT_METRICS", "SELLING_PARTNER.VENDOR_SALES_SOURCING_SRC"]
-status: "in-progress"
+status: "resolved-no-data-impact"
 severity: "minor"
 ---
 
-**Data update - Identified**
+**Data update - Resolved**
 
 **Issue type:** Delayed
 
-**Period:** Since Oct 28, 2026
+**Period:** Oct 28, 2026
 
-**Scope:** Marketplaces outside North America. Advertising tables hold almost no data for Oct 28. Vendor sales holds about 84% of its usual rows. North America isn't affected.
+**Scope:** Marketplaces outside North America. Advertising tables held almost no data for Oct 28 until the fix. Vendor sales held about 84% of its usual rows. North America wasn't affected.
 
 **Datasets:**
 
@@ -22,10 +23,12 @@ severity: "minor"
 - `ADVERTISING.ADVERTISING_PRODUCT_METRICS`
 - `SELLING_PARTNER.VENDOR_SALES_SOURCING_SRC`
 
-**Cause:** An internal processing issue is affecting updates.
+**Cause:** An internal processing issue affected updates.
 
-**Progress:** We are working on a fix.
+**Progress:** Resolved.
 
-**Historical data:** Missing data is being recovered. No historical data is lost.
+**Historical data:** All affected data has been restored or corrected.
 
-**Action:** Treat these tables as incomplete outside North America from Oct 28 onward until this entry says otherwise.
+**Action:** If you pulled these tables for Oct 28 before the fix, pull that date again.
+
+Update, Oct 29, 2026: the delayed Oct 28 data has been delivered, and no data was lost.
