@@ -86,7 +86,7 @@
     capture_performance: { web_vitals: true },
     capture_exceptions: false,
     enable_recording_console_log: false,
-    disable_session_recording: true,
+    session_recording: { maskAllInputs: true, maskTextSelector: '*' },
     before_send: function (event) {
       if (identityEpoch() !== epoch) return null;
       if (!event || (event.event === '$exception' && event.properties.user_visible !== true)) return null;
