@@ -48,7 +48,7 @@
       ph.resetGroups();
       if (workspaceId != null) ph.group('workspace', String(workspaceId));
     }); },
-    reset: function () { safe(function (ph) { ph.capture('signout_completed'); resetIdentity(ph); }); },
+    reset: function () { safe(function (ph) { resetIdentity(ph); }); },
     visibleError: function (code) { safe(function (ph) {
       ph.captureException(new Error(code), { user_visible: true, error_code: code });
     }); }
@@ -97,7 +97,8 @@
       });
       event.properties.application = config.application;
       event.properties.environment = 'production';
-      event.properties.event_schema_version = 1;
+      event.properties.event_schema_version = event.properties.event_schema_version || 1;
+      event.properties.event_origin = 'frontend';
       return event;
     },
     loaded: function (ph) {
