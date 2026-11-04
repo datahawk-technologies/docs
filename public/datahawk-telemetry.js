@@ -1,3 +1,61 @@
+/* Shared, SDK-independent acquisition context. Never stores identity, query strings or fragments. */
+(function (w, d) {
+  'use strict';
+  var utms = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'];
+  var keys = utms.concat(['referring_domain', 'landing_url', 'timestamp', 'channel']);
+  function read(touch) {
+    try {
+      var entry = (d.cookie || '').split('; ').find(function (s) { return s.indexOf('dh_attribution_' + touch + '=') === 0; });
+      var value = JSON.parse(decodeURIComponent(entry.slice(entry.indexOf('=') + 1)));
+      var result = {};
+      keys.forEach(function (key) { if (typeof value[key] === 'string') result[key] = value[key].slice(0, 200); });
+      return result;
+    } catch (_) { return {}; }
+  }
+  function write(touch, value) {
+    try { d.cookie = 'dh_attribution_' + touch + '=' + encodeURIComponent(JSON.stringify(value)) + '; Path=/; Domain=datahawk.co; Secure; SameSite=Lax; Max-Age=15552000'; } catch (_) { /* Disabled storage. */ }
+  }
+  function properties() {
+    var result = {};
+    ['first', 'latest'].forEach(function (touch) {
+      var value = read(touch);
+      Object.keys(value).forEach(function (key) { result['attribution_' + touch + '_' + key] = value[key]; });
+    });
+    return result;
+  }
+  w.datahawkAttribution = {
+    properties: properties,
+    collect: function () {
+      var current = {}, params = new URLSearchParams(w.location.search);
+      utms.forEach(function (key) {
+        var value = params.get(key);
+        if (value) {
+          value = Array.from(value).slice(0, 80).join('');
+          while (encodeURIComponent(value).length > 240) value = Array.from(value).slice(0, -1).join('');
+          current[key] = value;
+        }
+      });
+      var referral = '';
+      try { referral = new URL(d.referrer).hostname; } catch (_) { /* Direct visit. */ }
+      var internal = referral === 'datahawk.co' || referral.endsWith('.datahawk.co');
+      // Provider redirects are continuations, not new acquisition touches.
+      var authReturn = /^(signup|signin)$/.test(params.get('origin') || '');
+      var authProvider = /^(accounts\.google\.com|login\.microsoftonline\.com|login\.live\.com)$/.test(referral)
+        || (authReturn && /(^|\.)linkedin\.com$/.test(referral));
+      var campaign = Object.keys(current).length > 0;
+      // Explicit empty values keep a direct first touch from acquiring UTMs on a later device.
+      utms.forEach(function (key) { if (!current[key]) current[key] = ''; });
+      current.referring_domain = referral && !internal && !authProvider ? referral : '$direct';
+      current.channel = campaign ? 'campaign' : current.referring_domain !== '$direct' ? 'referral' : 'direct';
+      current.landing_url = (w.location.origin + w.location.pathname).slice(0, 200);
+      current.timestamp = new Date().toISOString();
+      if (!read('first').timestamp) write('first', current);
+      if (!read('latest').timestamp || campaign || current.channel === 'referral') write('latest', current);
+      return properties();
+    }
+  };
+})(window, document);
+
 /* DataHawk browser telemetry. Config is public; never supply a personal API key. */
 (function (w, d) {
   'use strict';
@@ -17,6 +75,7 @@
   function refreshChangedIdentity() { if (enabled && identityEpoch() !== epoch) w.location.reload(); }
   w.addEventListener('focus', refreshChangedIdentity);
   w.addEventListener('pageshow', refreshChangedIdentity);
+  var attribution = enabled ? w.datahawkAttribution.collect() : {};
   var campaign = {};
   var firstCampaign = {};
   var params = new URLSearchParams(w.location.search);
@@ -43,6 +102,7 @@
         if (last) latest[key] = last;
         if (first) initial['$initial_' + key] = first;
       });
+      Object.keys(attribution).forEach(function (key) { (key.indexOf('attribution_first_') === 0 ? initial : latest)[key] = attribution[key]; });
       ph.identify(String(id), latest, initial);
       ph.register({ is_impersonating: String(id).indexOf("impersonation:") === 0 });
       ph.resetGroups();
@@ -86,7 +146,7 @@
     capture_performance: { web_vitals: true },
     capture_exceptions: false,
     enable_recording_console_log: false,
-    session_recording: { maskAllInputs: true, maskTextSelector: '*' },
+    session_recording: { maskAllInputs: true, maskTextSelector: '*', maskAllElementAttributes: true },
     before_send: function (event) {
       if (identityEpoch() !== epoch) return null;
       if (!event || (event.event === '$exception' && event.properties.user_visible !== true)) return null;
@@ -95,6 +155,7 @@
           if (/(url|referrer)$/i.test(key) && typeof props[key] === 'string') props[key] = cleanUrl(props[key]);
         });
       });
+      Object.assign(event.properties, attribution);
       event.properties.application = config.application;
       event.properties.environment = 'production';
       event.properties.event_schema_version = event.properties.event_schema_version || 1;
@@ -102,7 +163,7 @@
       return event;
     },
     loaded: function (ph) {
-      ph.register(campaign);
+      ph.register(Object.assign({}, campaign, attribution));
       ph.register_once(firstCampaign);
       w.datahawkTelemetry.ready = true;
       pending.splice(0).forEach(safe);
