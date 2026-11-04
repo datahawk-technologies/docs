@@ -13,7 +13,20 @@
     } catch (_) { return {}; }
   }
   function write(touch, value) {
-    try { d.cookie = 'dh_attribution_' + touch + '=' + encodeURIComponent(JSON.stringify(value)) + '; Path=/; Domain=datahawk.co; Secure; SameSite=Lax; Max-Age=15552000'; } catch (_) { /* Disabled storage. */ }
+    try {
+      value = Object.assign({}, value);
+      var encoded = encodeURIComponent(JSON.stringify(value));
+      // Hard byte budget, including percent-encoding: leave room for auth and other site cookies.
+      while (encoded.length > 640) {
+        var largest = utms.concat(['landing_url', 'referring_domain']).filter(function (key) { return value[key]; })
+          .sort(function (a, b) { return encodeURIComponent(value[b]).length - encodeURIComponent(value[a]).length; })[0];
+        if (!largest) return;
+        var chars = Array.from(value[largest]);
+        value[largest] = chars.slice(0, Math.floor(chars.length / 2)).join('');
+        encoded = encodeURIComponent(JSON.stringify(value));
+      }
+      d.cookie = 'dh_attribution_' + touch + '=' + encoded + '; Path=/; Domain=datahawk.co; Secure; SameSite=Lax; Max-Age=15552000';
+    } catch (_) { /* Disabled storage. */ }
   }
   function properties() {
     var result = {};
@@ -49,6 +62,11 @@
       current.channel = campaign ? 'campaign' : current.referring_domain !== '$direct' ? 'referral' : 'direct';
       current.landing_url = (w.location.origin + w.location.pathname).slice(0, 200);
       current.timestamp = new Date().toISOString();
+      // Rewrite pre-1.2.1 cookies into the bounded format once a page can load.
+      ['first', 'latest'].forEach(function (touch) {
+        var saved = read(touch);
+        if (saved.timestamp && encodeURIComponent(JSON.stringify(saved)).length > 640) write(touch, saved);
+      });
       if (!read('first').timestamp) write('first', current);
       if (!read('latest').timestamp || campaign || current.channel === 'referral') write('latest', current);
       return properties();
@@ -134,7 +152,7 @@
   w.posthog.init(config.token, {
     api_host: config.host,
     defaults: '2026-01-30',
-    persistence: 'cookie',
+    persistence: 'localStorage+cookie',
     cross_subdomain_cookie: true,
     secure_cookie: true,
     person_profiles: 'identified_only',
@@ -163,7 +181,7 @@
       return event;
     },
     loaded: function (ph) {
-      ph.register(Object.assign({}, campaign, attribution));
+      ph.register(campaign);
       ph.register_once(firstCampaign);
       w.datahawkTelemetry.ready = true;
       pending.splice(0).forEach(safe);
