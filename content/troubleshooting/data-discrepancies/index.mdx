@@ -125,56 +125,47 @@ For Walmart, confirm you're using `advertising.wmt_ad_item` (not the deprecated 
 <Accordion title="Refund amounts don't match across tables or Seller Central">
 
 **Common symptoms:**
-- Refund total in `FINANCE_PROFIT_LEDGER` differs from `FINANCE_EVENTS`
-- An order shows a sale event for one product and a refund event for another, even though the order had two of the same product
-- Seller Central Transaction Report differs from DataHawk's refund total
-- Sellerboard refunds different from DataHawk
+- DataHawk's refund total differs from the Seller Central Transaction Report
+- DataHawk's refund total differs from another tool, such as Sellerboard
 
 **Most likely causes:**
 
-1. **Different tables, different purposes.** DataHawk has three layers:
-   - `FINANCE_EVENTS`: Raw events from Amazon, kept for completeness
-   - `FINANCE_PROFIT_LEDGER`: Events deduplicated, categorized for profit calculation (this is the **canonical refund source**)
-   - `FINANCE_PROFIT`: Daily aggregations
-   
-   Use the **ledger** for refund reconciliation.
+1. **Different dates.** DataHawk's default profit tables attribute a refund to the date of the original order (accrual date). Seller Central's Transaction Report uses the date Amazon recorded the refund. Over the same date range, the two include different refunds.
+   - To match Seller Central, use `recorded_date` (or the `_RECORDED_BASIS` tables)
+   - For order-aligned reporting, use `accrual_date`
 
-2. **Deferred refunds.** Like sales, refunds can be deferred. Filter `transaction_status` to compare apples-to-apples.
+2. **Deferred refunds.** Like sales, refunds can be deferred by Amazon before they are released. Compare the same statuses on both sides with `transaction_status`.
 
-3. **Recorded date vs accrual date.** Since July 2025, DataHawk supports both Accrual and Recorded methodologies. `FINANCE_PROFIT_LEDGER` exposes both `accrual_date` and `recorded_date`. Seller Central's Transaction Report uses recorded date. Match accordingly.
-   - For matching Seller Central → use `recorded_date`
-   - For matching purchase-aligned reporting → use `accrual_date`
+3. **Different scope.** DataHawk's Refunds category groups returns, guarantees, chargebacks and their related fees. Other tools may count only the refunded product price, or include or exclude refunded fees. Compare subcategory by subcategory.
 
 **Investigation steps:**
 
 <Steps>
 <Step>
-### Use `FINANCE_PROFIT_LEDGER` as the source of truth
+### Get DataHawk's refunds on the same basis as Seller Central
 
 ```sql
-SELECT SUM(amount)
+SELECT subcategory, currency, SUM(amount) AS amount
 FROM finance.finance_profit_ledger
-WHERE event_category = 'Refund'
+WHERE category = 'Refunds'
   AND recorded_date BETWEEN '2026-05-01' AND '2026-05-31'
   AND marketplace_key = 'Amazon-US'
-  AND workspace_id = YOUR_WSID;
+GROUP BY subcategory, currency;
 ```
 </Step>
 
 <Step>
-### Pick the right date field
+### Compare the same scope
 
-Match `recorded_date` for Seller Central comparisons; match `accrual_date` for purchase-aligned reporting.
+Match each subcategory with the corresponding lines of the other report, rather than comparing one total with another.
 </Step>
 
 <Step>
 ### Check transaction_status
 
-Add `WHERE transaction_status = 'RELEASED'` if you want only finalized refunds.
+Add `AND transaction_status = 'RELEASED'` to leave out refunds Amazon has not released yet.
 </Step>
 </Steps>
-
-**Known edge case:** if a single order contains two units of the same product and you see one "sale" and one "refund" with different ASIN keys, there may be a ledger bug. Email support with the order ID. This is the kind of case Anna debugs case-by-case.
 
 </Accordion>
 

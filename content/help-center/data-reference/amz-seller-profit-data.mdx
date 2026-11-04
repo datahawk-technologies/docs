@@ -1,95 +1,126 @@
 ---
 title: Amazon Seller Profit Data
-description: Data sources and models behind DataHawk's Amazon Seller profit reporting, from financial events to the profit ledger and metric tables.
+description: Which DataHawk finance tables to use for Amazon Seller profit, sales and reconciliation, how they are built, and how fresh their numbers are.
 ---
 
-DataHawk offers comprehensive financial reporting for Amazon Seller accounts. This article explains the data sources behind our holistic reports and the data models that power them.
+DataHawk exposes Amazon Seller finance data at three levels: the raw transactions Amazon reports, the profit ledger DataHawk builds from them, and daily profit tables aggregated from the ledger. Order-based sales tables and settlement reports sit beside them. Each answers a different question, so start by picking the table that matches yours.
 
-Our profit and loss data is compiled from multiple sources, initially recorded as an events ledger.
+## Which table should I use?
 
-## Data Sources
+| I want to... | Use |
+|---|---|
+| Report profit and loss (P&L) by day, marketplace, ASIN or SKU | [`FINANCE_PROFIT_METRICS`](#profit-metrics) |
+| Break P&L down by category and subcategory | [`FINANCE_PROFIT`](#profit) |
+| Investigate a specific fee, refund or order | [`FINANCE_PROFIT_LEDGER`](#profit-ledger) |
+| Match Seller Central's transaction view or a payout period | [`FINANCE_PROFIT_RECORDED_BASIS`, `FINANCE_PROFIT_METRICS_RECORDED_BASIS`](#recorded-basis-profit) |
+| Reconcile a payout | [`FINANCE_SETTLEMENT`, `FINANCE_SETTLEMENT_SUMMARY`](#settlements) |
+| See exactly what Amazon reported, before any DataHawk processing | [`FINANCE_TRANSACTIONS`](#transactions) |
+| Track orders, units and order sales as they are placed | [`FINANCE_ORDERS_SUCCESS`, `FINANCE_PRODUCT_METRICS_DAILY`](#orders) |
 
-### Financial Events
+<Callout type="info">
+  **Retired tables.** `FINANCE_EVENTS`, `FINANCE_PROFIT_LOSS` and `FINANCE_PRODUCT_PROFIT_LOSS` stopped updating on June 30, 2026. Financial events were replaced by financial transactions. If a report or query still reads from these tables, move it to the tables above.
+</Callout>
 
-The majority of records in the Seller Profit Ledger are financial events sourced from the [Amazon Finance API](https://developer-docs.amazon.com/sp-api/docs/finances-api-reference). This includes all transactions made on an Amazon Seller Account.
+## How the tables relate
 
-Financial events are complete with a 2 year history up to T-2d from today.
+| Amazon source | Raw table | Profit tables built on top |
+|---|---|---|
+| Finances API transactions | `FINANCE_TRANSACTIONS` | `FINANCE_PROFIT_LEDGER`, then `FINANCE_PROFIT` and `FINANCE_PROFIT_METRICS` (by accrual date) and their `_RECORDED_BASIS` versions (by recorded date) |
+| Orders report | `FINANCE_ORDERS` | `FINANCE_ORDERS_SUCCESS`, then `FINANCE_PRODUCT_METRICS_DAILY` |
+| Settlement reports | `FINANCE_SETTLEMENT`, `FINANCE_SETTLEMENT_SUMMARY` | none |
 
-### Enrichment Reports
+Besides `FINANCE_TRANSACTIONS`, the profit ledger also uses Amazon advertising reports, FBA removal and storage fee reports, and your cost of goods. See [Profit ledger](#profit-ledger).
 
-There are particular financial events that lack richness in accompanying information. These enrichment reports are used to replace these events, providing additional relevant information at no loss.
+**Orders vs profit.** Order tables count an order when the customer places it, at the order price. Profit tables count money when Amazon books it: the sale, then fees, refunds, reimbursements and taxes as they post. The two measure different things and will not match for recent days. See [Sales vs Sales (Orders) vs Gross Revenue vs Sales Principal](/help-center/glossary#sales-vs-sales-orders-vs-gross-revenue-vs-sales-principal).
 
-**Advertising Reports**: Advertising cost events are replaced with events sourced from Advertising Reports to provide sponsored type and <Term>ASIN</Term> annotation. Advertising events are complete with a 2 year history up to T-2d from today.
+## How fresh are the numbers?
 
-**<Term>FBA</Term> Removal Order and Detail Report**: Removal and disposal fee events are replaced to provide <Term>ASIN</Term> and <Term>SKU</Term> annotation. <Term>FBA</Term> reports are produced by Amazon once a month. Events can take up to one month to be present.
+Finance data for a day is available the following day (see [Source Systems & Freshness](/help-center/data-reference/source-systems-freshness)), and most of a day's amounts arrive in that first collection. Amazon then keeps posting some amounts later, such as fees on shipments, refunds and reimbursements, so DataHawk collects each posting date again on a fixed schedule:
 
-**FBA Storage Fee Charges Report**: Storage Fee events are replaced to provide ASIN annotation. FBA reports are produced by Amazon once a month.
+| When | What DataHawk does |
+|---|---|
+| Day of posting | First collection |
+| 2, 8 and 14 days later | Collects again to pick up late amounts and status changes |
+| 30 days later | Last automatic collection: figures by recorded date are final |
 
-**FBA Longterm Storage Fee Charges Report**: Longterm Storage Fee events are replaced to provide ASIN and <Term>SKU</Term> annotation. FBA reports are produced by Amazon once a month.
+Two things to keep in mind:
 
-### Cost of Goods
-
-User-submitted [product expenses](/help-center/data-setup/cogs-amz-upload) are applied to items sold and returned to get Cost of Goods events which are appended to the profit ledger.
-
-## Data Dictionaries
-
-For an exhaustive list of all tables and fields, see the [Exhaustive Column Referential](https://docs.google.com/spreadsheets/d/1gYGqKQP9Z71nz1lOb4y0wJ15i27NvsUzdliIJeIx0HY/edit#gid=175439716).
+- **By accrual date** (the default profit tables), amounts are attached to the date of the order, so a past day can still receive small amounts after day 30, mostly refunds and reimbursements. Recent days are reliable for daily and weekly trends; month-end totals can still move slightly over the following weeks.
+- **Deferred amounts.** Amazon holds some amounts before releasing them, for example until 7 days after delivery, or for business orders. Both `FINANCE_TRANSACTIONS` and `FINANCE_PROFIT_LEDGER` show this in `TRANSACTION_STATUS` and `DEFERRAL_REASON`.
 
 ## Datasets
 
-### Profit Ledger
+Each table is described below with its purpose and grain. For the full list of columns of every table, see the [Exhaustive Column Referential](https://docs.google.com/spreadsheets/d/1gYGqKQP9Z71nz1lOb4y0wJ15i27NvsUzdliIJeIx0HY/edit#gid=175439716).
 
-`finance.finance_profit_ledger`
+### Transactions
 
-A ledger of profit events compiled from a comprehensive selection of seller finance data sources. Events are annotated with timestamp, category, subcategory, event description, and other additional fields.
+**Table:** `finance.finance_transactions`
+
+Financial transactions exactly as the [Amazon Finances API](https://developer-docs.amazon.com/sp-api/docs/finances-api-reference) reports them, with up to 2 years of history and the latest status of each transaction. Nothing is added, replaced or categorized.
+
+- **One row per:** transaction breakdown line, for example `OurPricePrincipal`, `Commission` or `FBAPerUnitFulfillmentFee`, grouped under a parent type such as `ProductCharges`, `AmazonFees`, `Shipping` or `Tax`
+- **Date:** `POSTED_TIME`, when Amazon posted the transaction
+- **Currency:** the marketplace currency
+- **Use it for:** checking exactly what Amazon reported for an order, a fee or a deferred amount
+
+<Callout type="warn">
+  **Not a profit table.** Amounts are uncategorized, in local currency, with no advertising detail or cost of goods. Summing them does not give profit: use the profit tables below.
+</Callout>
+
+### Profit ledger
+
+**Table:** `finance.finance_profit_ledger`
+
+The most detailed profit table: every line is one profit event with a category, subcategory and event signature. `FINANCE_PROFIT` and `FINANCE_PROFIT_METRICS` are built from it, so use the ledger when you need to see the individual events behind a total. It is built from three inputs:
+
+- **Amazon financial transactions**, the same data as `FINANCE_TRANSACTIONS` (labelled `Financial Events` in the `SOURCE` column)
+- **Amazon reports that add detail to some fees.** These lines replace the matching transactions, with the same amounts:
+  - Advertising reports: sponsored type and ASIN for advertising costs
+  - FBA Removal Order Detail report: ASIN and SKU for removal and disposal fees (monthly, so these can take up to a month to appear)
+  - FBA Storage Fee Charges and Long-term Storage Fee Charges reports: ASIN (and SKU for long-term storage) for storage fees (monthly)
+- **Your cost of goods**, from the [product expenses](/help-center/data-setup/cogs-amz-upload) you upload, applied to units sold and returned
 
 **Categories:**
 
-- **Sales**: Sales revenue including charges to customers (Tax/<Term>VAT</Term>, Giftwrap, Shipping). See Subcategories below for the VAT breakdown.
+- **Sales**: Sales revenue including charges to customers (Tax/<Term>VAT</Term>, Giftwrap, Shipping).
 - **Refunds**: Returns, Guarantees, Chargebacks, and related fees.
 - **Cost of Goods**: Cost of goods sold and returned.
-- **Amazon Fees**: Fulfillment fees, Service Fees, Warehousing, and more. <Term>FBA</Term> fee coverage includes Inbound Defect Fee, Per Unit Fulfillment Fee, Disposal Fee, and Customer Return Per Unit Fee (the last two may be delayed in Financial Events).
+- **Amazon Fees**: Fulfillment fees, Service Fees, Warehousing, and more.
 - **Marketing**: Advertising, Coupons, and Promotion.
 - **Adjustments**: Made to sales charges and fees.
-- **Tax Expenses**: Taxes withheld and paid. See Subcategories below for the VAT-specific ones.
+- **Tax Expenses**: Taxes withheld and paid.
 - **Tax Adjustments**: Made to tax charges and expenses.
+- **Other**: Amounts that fit none of the categories above, such as some service fees. Not included in the Net Profit metric.
 
-<Callout type="info">
-  **ServiceFee categorization (fix, September 17, 2025).** Non-categorized ServiceFee events are now correctly categorized under `Others > ServiceFee`. Previously they were misclassified under `Refunds > Other`.
-</Callout>
+**Amounts:** each line has `AMOUNT` in the marketplace currency and `AMOUNT_USD` converted to USD. Amounts are signed: sales are positive, and refunds, fees, marketing, cost of goods and taxes withheld are negative, so summing `AMOUNT_USD` gives the net result. Do not sum `AMOUNT` across marketplaces with different currencies.
 
-**Subcategories (selected):** Not an exhaustive list (Amazon's raw event types are numerous), but these are the ones customers ask about most, particularly around VAT.
+Each category is split into subcategories. To see the ones present in your data, run the [category query](#which-categories-and-subcategories-are-in-my-data) below. Tax lines are flagged with `IS_TAX = TRUE` (see the [Tax Management changelog](/changelog/2025-11-02-tax-management-profit)).
 
-*Under Sales:*
+- **One row per:** profit event
+- **Dates:** `ACCRUAL_DATE` (when the event was incurred, usually the order date; `POSTED_DATE` is an alias), `RECORDED_DATE` (when Amazon recorded it, as in Seller Central), `PURCHASE_DATE` when the event belongs to an order
+- **Use it for:** drilling into a fee, refund or order, and reconciling with Seller Central
 
-- **Sales Tax / Tax** (shown as "Sales Tax Charge" in some dashboards): The VAT or sales tax charged to the customer as part of the order. Included in the Sales category total and in Gross Revenue.
-- **Shipping** (shown as "Shipping Tax Charge" in some dashboards): The shipping charge billed to the customer as part of the order. Included in the Sales category total and in Gross Revenue, but broken out separately from Sales Principal.
-- **Sales Principal**: Sales net of VAT/tax and net of shipping. This is DataHawk's net-of-VAT, net-of-shipping sales figure, available in Profit Explorer. See [Sales vs Sales (Orders) vs Gross Revenue vs Sales Principal](/help-center/glossary#sales-vs-sales-orders-vs-gross-revenue-vs-sales-principal).
+### Profit
 
-For a subcategory not listed here, email [support@datahawk.co](mailto:support@datahawk.co) with your workspace ID and the exact category/subcategory pair, or check the [Exhaustive Column Referential](https://docs.google.com/spreadsheets/d/1gYGqKQP9Z71nz1lOb4y0wJ15i27NvsUzdliIJeIx0HY/edit#gid=175439716).
+**Table:** `finance.finance_profit`
 
-**Tax handling:** Taxes previously embedded within fees are now extracted into separate ledger lines, and tax portions are flagged with `is_tax = true`. Category and subcategory hierarchies and event signatures are unchanged. Reported profit may increase slightly because tax amounts are no longer mixed into fee totals. (See the [Tax Management changelog](/changelog/2025-11-02-tax-management-profit).)
+The profit ledger summed per day, seller account, <Term>marketplace</Term>, ASIN, SKU and event signature, by accrual date. Same categories and subcategories as the ledger.
 
-**Available timestamps:** `purchase_date` (when applicable), `accrual_date` (event incurred date), `recorded_date` (Amazon's official ledger posting date). `posted_date` is an alias for `accrual_date`.
+- **One row per:** day, account, marketplace, product and event signature
+- **Date:** `DATE_DAY` (accrual date)
+- **Use it for:** P&L breakdowns by category and subcategory
 
-**Deferred-transaction columns** (Ledger table only):
+### Profit metrics
 
-| Column | Values |
-|---|---|
-| `transaction_status` | `DEFERRED`, `DEFERRED_RELEASED`, `RELEASED` |
-| `deferral_reason` | `DD7` (Delivery Date +7), `B2B` (Business-to-Business) |
+**Table:** `finance.finance_profit_metrics`
 
-**Other columns:**
+The same data as `FINANCE_PROFIT`, with one column per P&L metric.
 
-- `settlement_id`: Amazon settlement identifier for the event (added January 22, 2026).
+- **One row per:** day, account, marketplace and product
+- **Date:** `DATE_DAY` (accrual date)
+- **Use it for:** P&L reporting and KPIs
 
-### Accrual Profit Methodology
-
-Our **default aggregated Profit reporting tables follow an accrual methodology**, which recognizes profit events based on their incurred date (such as purchase date) rather than payout date.
-
-**`finance.finance_profit`**: A daily summary of the profit ledger, aggregated by date, seller account, <Term>marketplace</Term>, ASIN, SKU, and event signature.
-
-**`finance.finance_profit_metrics`**: A collection of profit metrics:
+**Metrics:**
 
 - **Gross Revenue**: Sales including Tax Charges (<Term>VAT</Term>) and shipping charges, for every marketplace including the US. See the [provisional tax-handling note](/help-center/glossary#sales-vs-sales-orders-vs-gross-revenue-vs-sales-principal) on this definition
 - **Net Revenue**: Gross Revenue - Refunds
@@ -98,54 +129,108 @@ Our **default aggregated Profit reporting tables follow an accrual methodology**
 - **Adjusted Operating Profit**: Operating Profit + Adjustments
 - **Net Profit**: Adjusted Operating Profit - Net Taxes
 
-### Recorded Profit Methodology
+### Recorded basis profit
 
-For analysis based on Amazon's official ledger posting date:
+**Tables:** `finance.finance_profit_recorded_basis`, `finance.finance_profit_metrics_recorded_basis`
 
-- `FINANCE_PROFIT_RECORDED_BASIS`: Daily profit aggregated on recorded date
-- `FINANCE_PROFIT_METRICS_RECORDED_BASIS`: Daily profit metrics on recorded date
+The same as `FINANCE_PROFIT` and `FINANCE_PROFIT_METRICS`, but by the date Amazon recorded each event instead of the accrual date.
+
+- **Date:** `DATE_DAY` (recorded date)
+- **Use it for:** matching Seller Central reports and payout periods
+
+### Orders
+
+**Tables:** `finance.finance_orders`, `finance.finance_orders_success`, `finance.finance_product_metrics_daily`
+
+Built from the Amazon Orders report. `FINANCE_ORDERS` holds every order line, including cancelled ones; `FINANCE_ORDERS_SUCCESS` keeps only non-cancelled orders; `FINANCE_PRODUCT_METRICS_DAILY` sums orders, units and sales per product and day. Order lines are updated when an order changes, for example when it is cancelled.
+
+- **One row per:** order line (orders tables), or product and day (`FINANCE_PRODUCT_METRICS_DAILY`)
+- **Date:** `PURCHASE_DATE` (orders tables), `DATE_DAY` (`FINANCE_PRODUCT_METRICS_DAILY`)
+- **Use it for:** sales trends, units, order counts and average selling price, not profit
+
+### Settlements
+
+**Tables:** `finance.finance_settlement`, `finance.finance_settlement_summary`
+
+Amazon settlement reports: line items, and one header per settlement with its period, deposit date and total. The ledger's `SETTLEMENT_ID` links profit events to their settlement.
+
+- **One row per:** settlement line (`FINANCE_SETTLEMENT`), or settlement (`FINANCE_SETTLEMENT_SUMMARY`)
+- **Use it for:** reconciling payouts
 
 ## Use Case Queries
 
-**How do I summarize my Amazon Profit this year?**
+### How do I get my P&L by category for this year?
+
+One line per category and subcategory, in USD. Because amounts are signed, the total of all lines is the net result for the year (including the Other category, which the Net Profit metric leaves out).
 
 ```sql
 SELECT
   category,
   subcategory,
-  SUM(amount_usd) AS amount,
+  SUM(amount_usd) AS amount_usd,
   category_path_order
 FROM finance.finance_profit_ledger
-WHERE YEAR(posted_date) = YEAR(CURRENT_DATE())
+WHERE YEAR(accrual_date) = YEAR(CURRENT_DATE())
 GROUP BY ALL
 ORDER BY category_path_order
 ```
 
-**How do I explore SKU profitability?**
+### How do I explore SKU profitability?
 
 ```sql
 SELECT
   asin,
   sku,
-  SUM(amount_usd) AS amount
+  SUM(amount_usd) AS amount_usd
 FROM finance.finance_profit_ledger
-WHERE YEAR(posted_date) = YEAR(CURRENT_DATE())
+WHERE YEAR(accrual_date) = YEAR(CURRENT_DATE())
 GROUP BY ALL
-ORDER BY SUM(amount) DESC
+ORDER BY amount_usd DESC
 ```
 
-**What is my Amazon Profit in Euros?**
+### What is my Amazon Profit in Euros?
+
+`REFERENTIAL_CURRENCY_RATE` gives, for each day, the value of 1 USD in each currency (`BASE = 'USD'`). Convert the USD amounts with the EUR rate of each day:
 
 ```sql
 SELECT
   l.category,
   l.subcategory,
-  SUM(l.amount_usd * r.rate) AS amount,
+  SUM(l.amount_usd * r.rate) AS amount_eur,
   l.category_path_order
 FROM finance.finance_profit_ledger l
 LEFT JOIN referential.referential_currency_rate r
-  ON l.posted_date = r.posted_date AND l.currency = r.currency
-WHERE YEAR(l.posted_date) = YEAR(CURRENT_DATE()) AND r.base = 'USD'
+  ON r.date_day = l.accrual_date
+ AND r.base = 'USD'
+ AND r.currency = 'EUR'
+WHERE YEAR(l.accrual_date) = YEAR(CURRENT_DATE())
 GROUP BY ALL
 ORDER BY l.category_path_order
+```
+
+### Which categories and subcategories are in my data?
+
+```sql
+SELECT
+  category,
+  subcategory,
+  COUNT(*) AS lines,
+  SUM(amount_usd) AS amount_usd
+FROM finance.finance_profit_ledger
+WHERE accrual_date >= CURRENT_DATE() - 90
+GROUP BY category, subcategory, category_path_order
+ORDER BY category_path_order
+```
+
+### How much is still deferred by Amazon?
+
+```sql
+SELECT
+  deferral_reason,
+  category,
+  SUM(amount_usd) AS deferred_amount_usd
+FROM finance.finance_profit_ledger
+WHERE transaction_status = 'DEFERRED'
+GROUP BY ALL
+ORDER BY deferred_amount_usd DESC
 ```

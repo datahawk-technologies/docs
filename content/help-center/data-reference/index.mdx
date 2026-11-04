@@ -69,13 +69,15 @@ These simplified flows help you choose the right family before opening the Sheet
 ### Profit and finance
 
 ```text
-FINANCE_EVENTS
-FINANCE_PROFIT_LEDGER
-FINANCE_PROFIT / FINANCE_PROFIT_LOSS
-FINANCE_PRODUCT_PROFIT_LOSS
+FINANCE_TRANSACTIONS (raw Amazon transactions)
+FINANCE_PROFIT_LEDGER (categorized profit events)
+FINANCE_PROFIT / FINANCE_PROFIT_METRICS (daily, accrual date)
+FINANCE_PROFIT_RECORDED_BASIS / FINANCE_PROFIT_METRICS_RECORDED_BASIS (daily, recorded date)
+
+FINANCE_ORDERS_SUCCESS -> FINANCE_PRODUCT_METRICS_DAILY (orders, not profit)
 ```
 
-For profit-specific fields, event timing, and use-case queries, see [Amazon Seller Profit Data](/help-center/data-reference/amz-seller-profit-data).
+For which table to use when, when numbers are final, and use-case queries, see [Amazon Seller Profit Data](/help-center/data-reference/amz-seller-profit-data).
 
 ### Inventory
 
