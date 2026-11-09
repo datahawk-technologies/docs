@@ -186,7 +186,7 @@ Best for adding a handful of keywords you can type or paste directly.
 
 ## How to archive a tracked keyword
 
-Archiving stops collecting new data for a keyword but keeps its history.
+Archiving stops collecting new data for a keyword. DataHawk keeps the keyword's history, but you can't see it anymore: it disappears from your dashboards, Power BI, and queries on your shared data. See [See an archived keyword's data again](#see-an-archived-keywords-data-again).
 
 <Steps>
 
@@ -227,3 +227,34 @@ Click **Archive in <Term>Workspace</Term>**.
 </Step>
 
 </Steps>
+
+## See an archived keyword's data again
+
+To see an archived keyword's history again, track it again. You can't view it any other way.
+
+When you track it again:
+
+- **Its history comes back.** Data collected before you archived it shows up again in your dashboards, Power BI, and shared data.
+- **New data starts within 24 hours.** DataHawk collects the keyword's first new data about 24 hours after you track it again, then every day.
+- **The gap stays empty.** DataHawk didn't collect data while the keyword was archived, and it can't recover those days.
+- **It counts against your limit again.** Check you have room before you track it again.
+
+<Tabs items={['One keyword', 'Many keywords']}>
+
+<Tab value="One keyword">
+
+Open the archived keyword's page in the DataHawk App and click **Unarchive keyword**.
+
+</Tab>
+
+<Tab value="Many keywords">
+
+Upload a CSV with the keywords you want back. It's much faster than unarchiving them one by one. See the **CSV Import** tab in [How to track a keyword](#how-to-track-a-keyword).
+
+</Tab>
+
+</Tabs>
+
+<Callout type="info">
+  You can't permanently delete an archived keyword's data. DataHawk keeps it so it's ready if you track the keyword again.
+</Callout>

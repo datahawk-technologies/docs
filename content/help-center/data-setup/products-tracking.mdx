@@ -264,7 +264,9 @@ Best when you already have the identifiers in a list.
 
 ## How to archive a tracked product
 
-Archiving stops collecting new data for a product but keeps its history intact. Archived products don't count against your tracked product limit. Use it when you no longer need fresh snapshots for a SKU you used to track.
+Archiving stops collecting new data for a product. DataHawk keeps the product's history, but you can't see it anymore: it disappears from your dashboards, Power BI, and queries on your shared data. Archived products don't count against your tracked product limit.
+
+Use it when you no longer need fresh snapshots for a SKU you used to track. Need its history again later? Track it again (see [See an archived product's data again](#see-an-archived-products-data-again)).
 
 <Steps>
 
@@ -320,6 +322,34 @@ Click **Archive in <Term>Workspace</Term>**. The selected products stop receivin
 
 </Steps>
 
+## See an archived product's data again
+
+To see an archived product's history again, track it again. You can't view it any other way.
+
+When you track it again:
+
+- **Its history comes back.** Data collected before you archived it shows up again in your dashboards, Power BI, and shared data.
+- **New data starts within 24 hours.** DataHawk takes its first new snapshot about 24 hours after you track the product again, then one every day.
+- **The gap stays empty.** DataHawk didn't collect data while the product was archived, and it can't recover those days.
+- **It counts against your limit again.** Check you have room before you track it again.
+
+<Tabs items={['One product', 'Many products']}>
+
+<Tab value="One product">
+
+Open the archived product's page in the DataHawk App and click **Unarchive product**.
+
+</Tab>
+
+<Tab value="Many products">
+
+Upload a CSV with the products you want back. It's much faster than unarchiving them one by one. See the **CSV Import** tab in [How to track a Product](#how-to-track-a-product).
+
+</Tab>
+
+</Tabs>
+
+
 ## Replace your tracked products
 
 You can't delete tracked products, and the CSV import can't replace your list: it only adds. To swap your tracked products for a new list, archive what you don't need, then upload your file.
@@ -343,6 +373,6 @@ Import your CSV with only the products you want to track. See the **CSV Import**
 
 </Steps>
 
-If an archived product is in your new list, DataHawk tracks it again and keeps its past data. Only tracked products count against your limit, so the products you leave archived don't use any of it.
+If an archived product is in your new list, DataHawk tracks it again and its past data becomes visible again. Days it spent archived stay empty. Only tracked products count against your limit, so the products you leave archived don't use any of it.
 
 {/* TODO: confirm whether the keyword CSV import works the same way (add only). */}
