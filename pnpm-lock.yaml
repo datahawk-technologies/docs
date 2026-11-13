@@ -36,6 +36,9 @@ importers:
         specifier: ^4.4.3
         version: 4.4.3
     devDependencies:
+      '@posthog/cli':
+        specifier: 0.20.0
+        version: 0.20.0
       '@tailwindcss/postcss':
         specifier: ^4.3.0
         version: 4.3.0
@@ -644,6 +647,11 @@ packages:
   '@orama/orama@3.1.18':
     resolution: {integrity: sha512-a61ljmRVVyG5MC/698C8/FfFDw5a8LOIvyOLW5fztgUXqUpc1jOfQzOitSCbge657OgXXThmY3Tk8fpiDb4UcA==}
     engines: {node: '>= 20.0.0'}
+
+  '@posthog/cli@0.20.0':
+    resolution: {integrity: sha512-HX4o9ddrCdFnDDGrNlqmg2kDLs/04u4fAzFTmTFuLDY54rRbWjyHURNqPQsSjQ2gYGdcfr2clxOV5Lm7LdvAvw==}
+    engines: {node: '>=14.14', npm: '>=6'}
+    hasBin: true
 
   '@radix-ui/number@1.1.1':
     resolution: {integrity: sha512-MkKCwxlXTgz6CFoJx3pCwn07GKp36+aZyu/u2Ln2VrA5DcdyCZkASEDBTd8x5whTQQL5CiYf4prXKLcgQdv29g==}
@@ -3825,6 +3833,10 @@ snapshots:
   '@nolyfill/is-core-module@1.0.39': {}
 
   '@orama/orama@3.1.18': {}
+
+  '@posthog/cli@0.20.0':
+    dependencies:
+      detect-libc: 2.1.2
 
   '@radix-ui/number@1.1.1': {}
 

@@ -6,6 +6,7 @@ const withMDX = createMDX();
 /** @type {import('next').NextConfig} */
 const config = {
   reactStrictMode: true,
+  productionBrowserSourceMaps: Boolean(process.env.POSTHOG_CLI_API_KEY),
   async redirects() {
     const internalRedirects = [
       { source: '/welcome/pricing', destination: '/welcome/enterprise-pricing', permanent: true },

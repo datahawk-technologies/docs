@@ -79,6 +79,7 @@
   'use strict';
   if (w.datahawkTelemetry) return;
   var config = w.__DATAHAWK_POSTHOG__ || {};
+  var apiHost = config.host === 'https://eu.i.posthog.com' ? 'https://e.datahawk.co' : config.host;
   var hosts = ['datahawk.co', 'www.datahawk.co', 'analytics.datahawk.co', 'sherlock.datahawk.co', 'docs.datahawk.co'];
   var enabled = config.enabled === true && hosts.indexOf(w.location.hostname) !== -1;
   function identityEpoch() {
@@ -105,14 +106,35 @@
     try { var url = new URL(value, w.location.origin); return url.origin + url.pathname; } catch (_) { return ''; }
   }
   var pending = [];
+  var awaitingContext = [];
+  // Page-local context: never persist the active workspace across tabs/subdomains.
+  var context = { actor_type: 'anonymous', is_impersonating: false, identity_context_version: 1 };
+  function eventContext() {
+    var result = Object.assign({}, context);
+    if (config.application !== 'analytics' || /^\/(signin|signup|signout|account|auth)(\/|$)/i.test(w.location.pathname)) delete result.workspace_id;
+    return result;
+  }
   function safe(fn) {
     if (!enabled) return;
     if (!w.datahawkTelemetry.ready) { pending.push(fn); return; }
     try { fn(w.posthog); } catch (_) { /* Analytics cannot break the product. */ }
   }
   w.datahawkTelemetry = {
-    capture: function (name, properties) { safe(function (ph) { ph.capture(name, properties || {}); }); },
-    identify: function (id, workspaceId) { safe(function (ph) {
+    capture: function (name, properties) {
+      var captured = Object.assign({}, properties || {}, { __dh_context: eventContext() });
+      safe(function (ph) { ph.capture(name, captured); });
+    },
+    identify: function (id, workspaceId, effectiveUserId) {
+      var actor = String(id == null ? '' : id).trim(), effective = String(effectiveUserId == null ? actor : effectiveUserId).trim();
+      // Compatibility with the previous frontend while the coordinated deployment rolls out.
+      if (actor.indexOf('impersonation:') === 0) { var parts = actor.split(':'); actor = parts[1]; effective = parts[2]; }
+      if (!/^[1-9][0-9]*$/.test(actor) || !/^[1-9][0-9]*$/.test(effective)) return;
+      context = { user_id: actor, effective_user_id: effective, actor_type: 'user', is_impersonating: actor !== effective, identity_context_version: 1 };
+      if (/^[1-9][0-9]*$/.test(String(workspaceId))) context.workspace_id = String(workspaceId);
+      if (actor !== effective) context.impersonator_user_id = actor;
+      id = actor;
+      var identifiedContext = Object.assign({}, context);
+      safe(function (ph) {
       if (ph.get_distinct_id && ph.get_property && ph.get_property('$user_id') && ph.get_distinct_id() !== String(id)) resetIdentity(ph);
       var latest = {}, initial = {};
       ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'].forEach(function (key) {
@@ -121,12 +143,19 @@
         if (first) initial['$initial_' + key] = first;
       });
       Object.keys(attribution).forEach(function (key) { (key.indexOf('attribution_first_') === 0 ? initial : latest)[key] = attribution[key]; });
-      ph.identify(String(id), latest, initial);
-      ph.register({ is_impersonating: String(id).indexOf("impersonation:") === 0 });
+      ph.identify(String(id), identifiedContext.is_impersonating ? {} : latest, identifiedContext.is_impersonating ? {} : initial);
+      // Clear legacy persisted context; current events receive page-local values below.
+      ['workspace_id', 'user_id', 'effective_user_id', 'impersonator_user_id', 'is_impersonating'].forEach(function (key) { if (ph.unregister) ph.unregister(key); });
       ph.resetGroups();
-      if (workspaceId != null) ph.group('workspace', String(workspaceId));
+      awaitingContext.splice(0).forEach(function (event) {
+        delete event.properties.distinct_id;
+        delete event.properties.$user_id;
+        event.properties.__dh_context = identifiedContext;
+        ph.capture(event.event, event.properties, { timestamp: event.timestamp });
+      });
+
     }); },
-    reset: function () { safe(function (ph) { resetIdentity(ph); }); },
+    reset: function () { awaitingContext = []; context = { actor_type: 'anonymous', is_impersonating: false, identity_context_version: 1 }; safe(function (ph) { resetIdentity(ph); }); },
     visibleError: function (code) { safe(function (ph) {
       ph.captureException(new Error(code), { user_visible: true, error_code: code });
     }); }
@@ -150,7 +179,8 @@
     }).observe(d.documentElement, { childList: true, subtree: true });
   }
   w.posthog.init(config.token, {
-    api_host: config.host,
+    api_host: apiHost,
+    ui_host: 'https://eu.posthog.com',
     defaults: '2026-01-30',
     persistence: 'localStorage+cookie',
     cross_subdomain_cookie: true,
@@ -168,11 +198,29 @@
     before_send: function (event) {
       if (identityEpoch() !== epoch) return null;
       if (!event || (event.event === '$exception' && event.properties.user_visible !== true)) return null;
+      // Hold automatic workspace-page events until trusted authentication resolves.
+      // Public/auth pages remain anonymous and can later link through identify.
+      if (config.application === 'analytics' && !context.user_id
+          && !/^\/(signin|signup|signout|account|auth)(\/|$)/i.test(w.location.pathname)
+          && /^\$(pageview|pageleave|autocapture|web_vitals|exception|feature_flag_called)$/.test(event.event)) {
+        if (awaitingContext.length < 100) awaitingContext.push(event);
+        return null;
+      }
       [event.properties, event.properties.$set, event.properties.$set_once].forEach(function (props) {
         Object.keys(props || {}).forEach(function (key) {
           if (/(url|referrer)$/i.test(key) && typeof props[key] === 'string') props[key] = cleanUrl(props[key]);
         });
       });
+      ['workspace_id', 'user_id', 'effective_user_id', 'impersonator_user_id', '$groups', 'is_impersonating'].forEach(function (key) { delete event.properties[key]; });
+      var capturedContext = event.properties.__dh_context || eventContext();
+      delete event.properties.__dh_context;
+      Object.assign(event.properties, capturedContext);
+      if (/^(signin|signup|signout|mfa)_/.test(event.event)) delete event.properties.workspace_id;
+      if (!capturedContext.user_id && event.properties.$user_id) {
+        event.properties.user_id = String(event.properties.$user_id);
+        event.properties.effective_user_id = String(event.properties.$user_id);
+        event.properties.actor_type = 'user';
+      }
       Object.assign(event.properties, attribution);
       event.properties.application = config.application;
       event.properties.environment = 'production';
