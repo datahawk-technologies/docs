@@ -1,0 +1,32 @@
+---
+title: "Vendor sales and inventory data delayed in Europe"
+description: "Amazon vendor sales and inventory data for Nov 7 and Nov 8 has not arrived for EU marketplaces. We are waiting on a fix from Amazon."
+date: "2026-11-13"
+dateRangeImpacted: "Nov 7 - Nov 8, 2026"
+datasetsImpacted: ["SELLING_PARTNER.VENDOR_SALES_MANUFACTURING_SRC", "SELLING_PARTNER.VENDOR_SALES_SOURCING_SRC", "SELLING_PARTNER.VENDOR_INVENTORY_MANUFACTURING_SRC", "SELLING_PARTNER.VENDOR_INVENTORY_SOURCING_SRC"]
+status: "in-progress"
+severity: "minor"
+---
+
+**Data update - Identified**
+
+**Issue type:** Delayed
+
+**Period:** Nov 7 - Nov 8, 2026
+
+**Scope:** EU marketplaces. Vendor sales and inventory tables have no data for these dates yet. Other regions aren't affected.
+
+**Datasets:**
+
+- `SELLING_PARTNER.VENDOR_SALES_MANUFACTURING_SRC`
+- `SELLING_PARTNER.VENDOR_SALES_SOURCING_SRC`
+- `SELLING_PARTNER.VENDOR_INVENTORY_MANUFACTURING_SRC`
+- `SELLING_PARTNER.VENDOR_INVENTORY_SOURCING_SRC`
+
+**Cause:** A confirmed issue with Amazon is affecting source data.
+
+**Progress:** We are awaiting provider recovery.
+
+**Historical data:** Missing data will be recovered once Amazon resolves the issue.
+
+**Action:** Exclude Nov 7 and Nov 8 from EU vendor reporting for now. These dates will fill in automatically once Amazon delivers the data.
