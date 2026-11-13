@@ -15,7 +15,7 @@ Before connecting Excel, make sure you have:
 
 - **Data sources connected**: Your Amazon and/or Walmart accounts are connected and collecting data. If not yet, see [Set up data](/help-center/data-setup) first.
 - **A DataHawk <Term>Snowflake</Term> database**: Activated and showing **Enabled** in your DataHawk App. Provisioning can take up to 4 hours. See [Send data to your tool](/help-center/connect-tools) if you haven't set one up.
-- **Your Snowflake credentials**: Available from **Setup → Destinations → Snowflake → See Credentials** in the DataHawk App.
+- **Your Snowflake credentials and private key**: [Generate a key pair in DataHawk](/help-center/connect-tools/snowflake#switch-from-a-password-to-a-key-pair), then keep the downloaded file and passphrase ready.
 
 ## Set up
 
@@ -46,18 +46,21 @@ Search for **ODBC** on your computer to open the **ODBC Data Source Administrato
 |---|---|
 | Data Source Name | Any name you choose (e.g. "DataHawk") |
 | User | Your Snowflake username |
-| Password | Your Snowflake password |
+| Authenticator | `SNOWFLAKE_JWT` for key-pair authentication |
+| Private key file / `PRIV_KEY_FILE` | Full path to your downloaded `.p8` file |
+| Private key passphrase / `PRIV_KEY_FILE_PWD` | The passphrase you chose in DataHawk |
 | Server | Your Snowflake server URL |
 | Database | Your DataHawk database name |
 | Warehouse | Your Snowflake warehouse |
+| Role | The role shown in your DataHawk credentials |
 
-{/* TODO: the credentials screen also shows Role and Account Name. Confirm with the data team whether Role should be filled in the DSN, and update this table and the Snowflake page. */}
+Keep the private-key file in a secure location that Excel can read. Do not move or delete it after setup. If your driver does not show the key-pair fields, ask your IT team to configure them using [Snowflake's ODBC key-pair settings](https://docs.snowflake.com/en/developer-guide/odbc/odbc-parameters#using-key-pair-authentication). The old Snowflake password is not used for this connection.
 </Step>
 
 <Step>
 ### Connect Excel to your data source
 
-In Excel, go to **Data \> Get Data \> From Other Sources \> From ODBC**. Select the data source you just created, re-enter your **User** and **Password** when prompted, then browse and select the tables you want to load.
+In Excel, go to **Data \> Get Data \> From Other Sources \> From ODBC**. Select the data source you just created. If Excel asks for credentials, choose **Default or Custom** to use the key-pair settings saved in the data source. Then browse and select the tables you want to load.
 
 If you want to load only part of a table (specific columns, a date range, or merged data), use **Transform Data** to open the Power Query Editor before loading. See the **Transform data with Power Query** section below.
 </Step>
@@ -131,7 +134,7 @@ In the ODBC Data Source Administrator, add a new User DSN with **SnowflakeDSIIDr
 <Step>
 ### Reconnect from Excel
 
-Go to **Data \> Get Data \> From Other Sources \> From ODBC**, select your data source, choose **Database** as the credential type, and enter your **User** and **Password**.
+Go to **Data \> Get Data \> From Other Sources \> From ODBC**, select your data source, and choose **Default or Custom** to use its saved key-pair settings. If Excel keeps requesting the old password, clear the saved permissions for this source under **Data > Get Data > Data Source Settings**, then reconnect.
 </Step>
 
 </Steps>
@@ -140,7 +143,7 @@ Go to **Data \> Get Data \> From Other Sources \> From ODBC**, select your data 
 
 <Accordion title="Which credential type do I pick in Excel?">
 
-Pick **Database**, then enter the **User** and **Password** from your DataHawk Snowflake credentials. Don't use your DataHawk App login.
+Choose **Default or Custom** after configuring the private key and passphrase in your ODBC data source. **Database** authentication is the username/password option. Do not use your DataHawk App login. See [Microsoft's ODBC connection guide](https://learn.microsoft.com/en-us/power-query/connectors/odbc#connect-from-power-query-desktop).
 
 </Accordion>
 
