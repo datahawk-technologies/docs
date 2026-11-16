@@ -28,18 +28,18 @@ Before we start, make sure you have your Snowflake credentials ready. You can fi
   className="rounded-lg border"
 />
 When it will be asked to enter your Snowflake credentials, copy by clicking the **Copy** icon next to each field, and paste them into Power BI when prompted.
+Keypairs private files are generated once, so be sure to store the file in a private and secure location. See [**Credentials generation**](/help-center/connect-tools/snowflake#how-to-find-your-credentials)
 <img
-  src="/images/help-center/connect-tools/powerbi/powerbi-0.2.png"
-  alt="Power BI 0.2"
-  width={1200}
-  height={380}
+  src="/images/help-center/connect-tools/snowflake/generate-keypair.png"
+  alt="DataHawk Snowflake credentials with Generate keypair 1 highlighted"
+  width={1431}
+  height={1075}
   className="rounded-lg border"
 />
 If you don't see anything in Destination page then it means you don't have a Snowflake database yet. 
 See [Send data to your tool](/help-center/connect-tools) to set one up. Provisioning can take up to 4 hours.
 
 ## Option 1: Use a DataHawk template
-
 
 DataHawk provides pre-built Power BI templates in `.pbix` format. See [**Download Power BI Templates**](/help-center/connect-tools/powerbi-templates-library) for the full catalog and download links.
 
@@ -96,7 +96,8 @@ Click **Close & Apply**.
 <Step>
 ### Sign in to Snowflake
 
-Enter your Snowflake **username** and **password** when prompted.
+Choose **KeyPair** authentication. Enter your Snowflake **User Name**, select the downloaded private-key file, and enter its passphrase. 
+If KeyPair is unavailable, update Power BI Desktop or contact support.
 </Step>
 
 <Step>
@@ -111,22 +112,13 @@ Data will begin refreshing. This can take up to 30 minutes depending on your dat
   If you run into a refresh error, try closing and re-applying the parameters once or twice, then contact the DataHawk team if the issue persists.
 </Callout>
 
-### Publish to Power BI Online (for sharing and scheduled refresh)
+## Publish to Power BI Online (for sharing and scheduled refresh)
 
 **Estimated time: under 5 minutes.**
 
-<Callout type="info">
-  **One-time admin step required:** Before publishing templates to Power BI Online, a Power BI administrator must enable Snowflake SSO in your tenant. 
-  
-  Only if you have an account under your organization's Power BI instance. If you have a personal Power BI account, you can skip this step.
+Use a Snowflake connection with **KeyPair** authentication for the published semantic model. Configure this separately from your Desktop connection. The Snowflake SSO tenant setting is for a different authentication method and is not required for this setup.
 
-  1. Go to [app.powerbi.com/admin-portal](https://app.powerbi.com/admin-portal)
-  2. Navigate to **Tenant Settings**
-  3. Find **Snowflake SSO**, expand it, and enable the toggle
-  4. Allow a few hours for the change to propagate across your organization
-</Callout>
-
-Once SSO is enabled:
+Follow these steps:
 
 <Steps>
 
@@ -207,15 +199,36 @@ Under **Parameters**, replace **Database** and **Warehouse** with your DataHawk 
   className="rounded-lg border"
 />
 
-Under **Data source credentials**, click **Edit credentials** and enter your Snowflake **username** and **password** with your DataHawk Snowflake credentials ([that you have handy](#get-your-snowflake-credentials-handy)). And click **Apply**.
+Under **Data source credentials**, click **Edit credentials** and enter your Snowflake **username** and the Keypair **passphrase** chosen during the generation. Use the **.p8 file** downloaded at generation for **Private Key** and click **Apply**.
 
 <img
-  src="/images/help-center/connect-tools/powerbi/powerbi-7.png"
+  src="/images/help-center/connect-tools/powerbi/powerbi-7-renewed.png"
   alt="Power BI 7"
   width={300}
   height={170}
   className="rounded-lg border"
 />
+
+<Accordions>
+<Accordion title="Legacy: connect with a password (expires January 31, 2027)">
+
+[Switch from a password to a key pair](/help-center/connect-tools/snowflake#switch-from-a-password-to-a-key-pair).
+
+Password connections will stop working on **January 31, 2027**. The instructions below are for existing connections only.
+
+**Power BI Desktop:** follow the template setup above. When prompted to sign in to Snowflake, choose **Database** authentication and enter the **User Name** and **Password** from your DataHawk Snowflake credentials.
+
+**Power BI Online:** follow the publishing steps above. In the semantic model settings, under **Data source credentials**, click **Edit credentials**. Choose **Basic**, enter your Snowflake **User Name** and **Password**, then click **Apply**.
+
+<img src="/images/help-center/connect-tools/powerbi/powerbi-6.png" alt="Legacy Power BI data source credentials settings" width={600} height={340} className="rounded-lg border" />
+
+<img src="/images/help-center/connect-tools/powerbi/powerbi-7.png" alt="Legacy Power BI Basic authentication dialog" width={300} height={170} className="rounded-lg border" />
+
+Enable scheduled refresh and run **Refresh now** as described above.
+
+</Accordion>
+</Accordions>
+
 </Step>
 
 <Step>
@@ -359,7 +372,7 @@ Each template ships with its own default, chosen to keep the report fast. If you
 
 ## Option 2: Build your own reports
 
-If you prefer to build from scratch or connect an existing Power BI file to your DataHawk data, [Learn how to connect to Snowflake in the power bi documentation](https://learn.microsoft.com/en-us/power-bi/connect-data/service-connect-snowflake).
+If you prefer to build from scratch or connect an existing Power BI file to your DataHawk data, use your DataHawk private key with **KeyPair** authentication. [Learn how to connect to Snowflake in the power bi documentation](https://learn.microsoft.com/en-us/power-bi/connect-data/service-connect-snowflake).
 
 DataHawk's Power BI templates use **DirectQuery** mode. If you plan to build your own reports, the same mode is recommended to ensure your data stays live.
 
