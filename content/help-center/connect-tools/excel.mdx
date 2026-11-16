@@ -17,6 +17,7 @@ Before connecting Excel, make sure you have:
 - **A DataHawk <Term>Snowflake</Term> database**: Activated and showing **Enabled** in your DataHawk App. Provisioning can take up to 4 hours. See [Send data to your tool](/help-center/connect-tools) if you haven't set one up.
 - **Your Snowflake credentials**: Available from **Setup → Destinations → Snowflake → See Credentials** in the DataHawk App.
 
+
 ## Set up
 
 <Steps>
@@ -46,18 +47,47 @@ Search for **ODBC** on your computer to open the **ODBC Data Source Administrato
 |---|---|
 | Data Source Name | Any name you choose (e.g. "DataHawk") |
 | User | Your Snowflake username |
+| Password | Put a dummy value like "123", the field cannot be left empty even if not used |
+| Server | Your Snowflake server URL |
+| Database | Your DataHawk database name |
+| Warehouse | Your Snowflake warehouse |
+| Role | The role shown in your DataHawk credentials |
+| Authenticator | `SNOWFLAKE_JWT` for key-pair authentication |
+
+Keep the private-key file in a secure location that Excel can read. Do not move or delete it after setup. If your driver does not show the key-pair fields, ask your IT team to configure them using [Snowflake's ODBC key-pair settings](https://docs.snowflake.com/en/developer-guide/odbc/odbc-parameters#using-key-pair-authentication). The old Snowflake password is not used for this connection.
+
+<Accordions>
+<Accordion title="Legacy: connect with a password (expires January 31, 2027)">
+
+[Switch from a password to a key pair](/help-center/connect-tools/snowflake#switch-from-a-password-to-a-key-pair).
+
+Password connections will stop working on **January 31, 2027**. The instructions below are for existing connections only.
+
+Install the Snowflake ODBC driver as described above. In **ODBC Data Source Administrator**, add a **User DSN** with **SnowflakeDSIIDriver** and fill in:
+
+| ODBC field | DataHawk credential |
+|---|---|
+| Data Source Name | Any name you choose (e.g. "DataHawk") |
+| User | Your Snowflake username |
 | Password | Your Snowflake password |
 | Server | Your Snowflake server URL |
 | Database | Your DataHawk database name |
 | Warehouse | Your Snowflake warehouse |
+| Role | The role shown in your DataHawk credentials |
 
-{/* TODO: the credentials screen also shows Role and Account Name. Confirm with the data team whether Role should be filled in the DSN, and update this table and the Snowflake page. */}
+In Excel, go to **Data > Get Data > From Other Sources > From ODBC** and select your data source. Choose **Database** authentication and enter the **User** and **Password** from DataHawk. Do not use your DataHawk App login.
+
+Select the tables to load, then configure automatic refresh as described above.
+
+</Accordion>
+</Accordions>
+
 </Step>
 
 <Step>
 ### Connect Excel to your data source
 
-In Excel, go to **Data \> Get Data \> From Other Sources \> From ODBC**. Select the data source you just created, re-enter your **User** and **Password** when prompted, then browse and select the tables you want to load.
+In Excel, go to **Data \> Get Data \> From Other Sources \> From ODBC**. Select the data source you just created. If Excel asks for credentials, choose **Default or Custom** to use the key-pair settings saved in the data source. Then browse and select the tables you want to load.
 
 If you want to load only part of a table (specific columns, a date range, or merged data), use **Transform Data** to open the Power Query Editor before loading. See the **Transform data with Power Query** section below.
 </Step>
@@ -131,7 +161,7 @@ In the ODBC Data Source Administrator, add a new User DSN with **SnowflakeDSIIDr
 <Step>
 ### Reconnect from Excel
 
-Go to **Data \> Get Data \> From Other Sources \> From ODBC**, select your data source, choose **Database** as the credential type, and enter your **User** and **Password**.
+Go to **Data \> Get Data \> From Other Sources \> From ODBC**, select your data source, and choose **Default or Custom** to use its saved key-pair settings. If Excel keeps requesting the old password, clear the saved permissions for this source under **Data > Get Data > Data Source Settings**, then reconnect.
 </Step>
 
 </Steps>
@@ -140,7 +170,7 @@ Go to **Data \> Get Data \> From Other Sources \> From ODBC**, select your data 
 
 <Accordion title="Which credential type do I pick in Excel?">
 
-Pick **Database**, then enter the **User** and **Password** from your DataHawk Snowflake credentials. Don't use your DataHawk App login.
+Choose **Default or Custom** after configuring the private key and passphrase in your ODBC data source. Do not use your DataHawk App login. See [Microsoft's ODBC connection guide](https://learn.microsoft.com/en-us/power-query/connectors/odbc#connect-from-power-query-desktop).
 
 </Accordion>
 
