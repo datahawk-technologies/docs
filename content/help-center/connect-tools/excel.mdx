@@ -20,16 +20,20 @@ Before connecting Excel, make sure you have:
 
 ## Set up
 
+Choose your operating system to configure the driver and key pair. Then follow the Excel connection and refresh steps below.
+
+<Accordions>
+<Accordion title="Windows setup">
+
 <Steps>
 
 <Step>
 ### Install the Snowflake ODBC driver
 
-Download and install the Snowflake ODBC driver for your operating system:
+Download and install the Snowflake ODBC driver for Windows:
 
 - [Windows 64-bit](https://sfc-repo.snowflakecomputing.com/odbc/win64/latest/index.html)
 - [Windows 32-bit](https://sfc-repo.snowflakecomputing.com/odbc/win32/latest/index.html)
-- [macOS](https://community.snowflake.com/s/article/How-to-configure-Excel-on-MacOS-to-use-Snowflake-using-ODBC-driver)
 
 <Callout type="warn">
   **On Windows, pick DSII when the installer asks.** Recent driver versions (4.x) ask which driver to install: **ODBC** or **DSII**. Choose **DSII**. If you choose ODBC, the connection test in the ODBC Administrator still passes, but Excel rejects your login.
@@ -41,7 +45,7 @@ Download and install the Snowflake ODBC driver for your operating system:
 <Step>
 ### Configure the ODBC data source
 
-Search for **ODBC** on your computer to open the **ODBC Data Source Administrator**. In the **User DSN** tab, click **Add \> SnowflakeDSIIDriver \> Finish**, then fill in the fields using your DataHawk Snowflake credentials:
+Search for **ODBC** on your computer to open the **ODBC Data Source Administrator**. In the **System DSN** tab, click **Add \> SnowflakeDSIIDriver \> Finish**, then fill in the fields using your DataHawk Snowflake credentials:
 
 | ODBC field | DataHawk credential |
 |---|---|
@@ -54,7 +58,176 @@ Search for **ODBC** on your computer to open the **ODBC Data Source Administrato
 | Role | The role shown in your DataHawk credentials |
 | Authenticator | `SNOWFLAKE_JWT` for key-pair authentication |
 
-Keep the private-key file in a secure location that Excel can read. Do not move or delete it after setup. If your driver does not show the key-pair fields, ask your IT team to configure them using [Snowflake's ODBC key-pair settings](https://docs.snowflake.com/en/developer-guide/odbc/odbc-parameters#using-key-pair-authentication). The old Snowflake password is not used for this connection.
+Keep the private-key file in a secure location that Excel can read. Do not move or delete it after setup. The old Snowflake password is not used for this connection.
+
+
+
+</Step>
+
+<Step>
+### Configure key-pair authentication in Windows
+
+The following instructions cover steps 5 to 9 and 12 to 14 of [Snowflake's Windows ODBC guide](https://community.snowflake.com/s/article/How-to-set-up-ODBC-Driver-with-key-pair-authentication-to-connect-to-Snowflake-on-Windows). Screenshots are from Snowflake. Use your own data source name, file path, and passphrase.
+
+<Steps>
+
+<Step>
+#### Open Registry Editor
+
+On Windows, search for **Regedit** and open **Registry Editor**.
+
+<img
+  src="/images/help-center/connect-tools/excel/odbc-keypair-step-5.png"
+  alt="Windows search showing Registry Editor"
+  width={1426}
+  height={1252}
+  className="rounded-lg border"
+/>
+</Step>
+
+<Step>
+#### Find your data source in the registry
+
+Open `Computer\HKEY_LOCAL_MACHINE\SOFTWARE\ODBC\ODBC.INI\` and select the System DSN you created. Its settings appear on the right. A non-default installation may use a different path.
+
+<img
+  src="/images/help-center/connect-tools/excel/odbc-keypair-step-6.png"
+  alt="Registry Editor showing the Snowflake System DSN settings"
+  width={950}
+  height={876}
+  className="rounded-lg border"
+/>
+</Step>
+
+<Step>
+#### Add a string value
+
+Choose **Edit > New > String Value** in Registry Editor.
+
+<img
+  src="/images/help-center/connect-tools/excel/odbc-keypair-step-7.png"
+  alt="Registry Editor menu for creating a string value"
+  width={916}
+  height={508}
+  className="rounded-lg border"
+/>
+</Step>
+
+<Step>
+#### Set the private-key file path
+
+Name the value `PRIV_KEY_FILE`. Open it, enter the full path to your downloaded `.p8` file, and save with **OK**.
+
+<img
+  src="/images/help-center/connect-tools/excel/odbc-keypair-step-8.png"
+  alt="PRIV_KEY_FILE registry value containing the private-key file path"
+  width={870}
+  height={496}
+  className="rounded-lg border"
+/>
+</Step>
+
+<Step>
+#### Set the private-key passphrase
+
+Create another string value named `PRIV_KEY_FILE_PWD` and enter your key file's passphrase.
+
+<img
+  src="/images/help-center/connect-tools/excel/odbc-keypair-step-9.png"
+  alt="PRIV_KEY_FILE_PWD registry value containing the passphrase"
+  width={952}
+  height={706}
+  className="rounded-lg border"
+/>
+</Step>
+
+<Step>
+#### Reopen the ODBC configuration
+
+Return to **ODBC Data Source Administrator**, select your System DSN, then choose **Configure**.
+
+<img
+  src="/images/help-center/connect-tools/excel/odbc-keypair-step-12.png"
+  alt="ODBC System DSN selected with Configure highlighted"
+  width={1178}
+  height={830}
+  className="rounded-lg border"
+/>
+</Step>
+
+<Step>
+#### Test the connection
+
+Choose **Test** in the Snowflake configuration dialog.
+
+<img
+  src="/images/help-center/connect-tools/excel/odbc-keypair-step-13.png"
+  alt="Snowflake ODBC configuration with Test highlighted"
+  width={630}
+  height={894}
+  className="rounded-lg border"
+/>
+</Step>
+
+<Step>
+#### Confirm the connection works
+
+Check that the test reports a successful connection.
+
+<img
+  src="/images/help-center/connect-tools/excel/odbc-keypair-step-14.png"
+  alt="Snowflake ODBC connection test reporting success"
+  width={726}
+  height={658}
+  className="rounded-lg border"
+/>
+</Step>
+
+</Steps>
+</Step>
+
+</Steps>
+
+</Accordion>
+
+<Accordion title="macOS setup">
+
+{/* TODO: have a coworker verify this setup in Excel for Mac before marking it reviewed. */}
+
+<Steps>
+
+<Step>
+### Install iODBC and the Snowflake driver
+
+Follow [Snowflake's macOS installation guide](https://docs.snowflake.com/en/developer-guide/odbc/odbc-mac) to install iODBC and the Snowflake ODBC driver.
+</Step>
+
+<Step>
+### Configure your data source
+
+Use iODBC Administrator or edit `~/Library/ODBC/odbc.ini` to create a data source with your DataHawk **Server**, **User Name**, **Database**, **Warehouse**, and **Role**. Add these key-pair settings:
+
+```ini
+AUTHENTICATOR=SNOWFLAKE_JWT
+PRIV_KEY_FILE=/absolute/path/to/your/private-key.p8
+PRIV_KEY_FILE_PWD=your-passphrase
+```
+
+Replace the example path and passphrase with your own values.
+
+Excel for Mac restricts file access. With ODBC 4.x, follow [Snowflake's Excel for Mac instructions](https://community.snowflake.com/s/article/Specified-driver-could-not-be-loaded-when-connecting-Microsoft-Excel-for-Mac-to-Snowflake-with-the-ODBC-4-driver) to place the driver and private key where Excel can read them, update the driver path, and configure `sf.odbc.ini` with `DriverManagerEncoding=UTF-32`.
+</Step>
+
+<Step>
+### Test and connect in Excel
+
+Test the data source in iODBC Administrator, then reopen Excel and select that data source. Confirm that Excel can load and refresh your data too.
+</Step>
+
+</Steps>
+
+</Accordion>
+</Accordions>
 
 <Accordions>
 <Accordion title="Legacy: connect with a password (expires January 31, 2027)">
@@ -82,7 +255,7 @@ Select the tables to load, then configure automatic refresh as described above.
 </Accordion>
 </Accordions>
 
-</Step>
+<Steps>
 
 <Step>
 ### Connect Excel to your data source
@@ -155,7 +328,7 @@ Download the latest Windows 64-bit driver (link in the setup steps above). When 
 <Step>
 ### Recreate your data source
 
-In the ODBC Data Source Administrator, add a new User DSN with **SnowflakeDSIIDriver** and fill in your DataHawk credentials again.
+In the ODBC Data Source Administrator, add a new System DSN with **SnowflakeDSIIDriver** and fill in your DataHawk credentials again.
 </Step>
 
 <Step>
