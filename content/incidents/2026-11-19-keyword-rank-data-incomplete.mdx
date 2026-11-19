@@ -1,0 +1,30 @@
+---
+title: "Keyword rank data incomplete for November 18 on Walmart and Amazon"
+description: "About 40% of tracked Walmart keywords and part of Amazon search results weren't collected on Nov 18, leaving permanent gaps in rank data for that day."
+date: "2026-11-19"
+dateRangeImpacted: "Nov 18, 2026"
+datasetsImpacted: ["SEO.SEO_PRODUCT_ORGANIC_RANK", "SEO.SEO_PRODUCT_SPONSORED_RANK"]
+status: "resolved-data-unrecoverable"
+severity: "major"
+---
+
+**Data update - Resolved**
+
+**Issue type:** Partial
+
+**Period:** Nov 18, 2026
+
+**Scope:** Walmart: about 40% of tracked keywords have no data. Amazon: most keywords have data, but not all 5 result pages, so lower positions are missing. Data from Nov 19 is complete.
+
+**Datasets:**
+
+- `SEO.SEO_PRODUCT_ORGANIC_RANK`
+- `SEO.SEO_PRODUCT_SPONSORED_RANK`
+
+**Cause:** An internal processing issue affected updates. Search results weren't fully collected that day, so there's nothing to rebuild the missing ranks from.
+
+**Progress:** Resolved.
+
+**Historical data:** Some data for Nov 18, 2026 could not be recovered; these gaps are permanent.
+
+**Action:** Exclude Nov 18 from rank trends. A product missing from Amazon results that day may have dropped below the collected pages rather than out of search.

@@ -1,20 +1,21 @@
 ---
 title: "Vendor sales and inventory data delayed in Europe"
-description: "Amazon vendor sales and inventory data for Nov 7 and Nov 8 has not arrived for EU marketplaces. We are waiting on a fix from Amazon."
+description: "Amazon vendor sales and inventory data for Nov 7 and Nov 8 arrived late for EU marketplaces. All data has been delivered and no data was lost."
 date: "2026-11-13"
+updated: "2026-11-19T11:44:00+01:00"
 dateRangeImpacted: "Nov 7 - Nov 8, 2026"
 datasetsImpacted: ["SELLING_PARTNER.VENDOR_SALES_MANUFACTURING_SRC", "SELLING_PARTNER.VENDOR_SALES_SOURCING_SRC", "SELLING_PARTNER.VENDOR_INVENTORY_MANUFACTURING_SRC", "SELLING_PARTNER.VENDOR_INVENTORY_SOURCING_SRC"]
-status: "in-progress"
+status: "resolved-no-data-impact"
 severity: "minor"
 ---
 
-**Data update - Identified**
+**Data update - Resolved**
 
 **Issue type:** Delayed
 
 **Period:** Nov 7 - Nov 8, 2026
 
-**Scope:** EU marketplaces. Vendor sales and inventory tables have no data for these dates yet. Other regions aren't affected.
+**Scope:** EU marketplaces. Vendor sales and inventory tables had no data for these dates until Amazon delivered it. Other regions weren't affected.
 
 **Datasets:**
 
@@ -23,10 +24,12 @@ severity: "minor"
 - `SELLING_PARTNER.VENDOR_INVENTORY_MANUFACTURING_SRC`
 - `SELLING_PARTNER.VENDOR_INVENTORY_SOURCING_SRC`
 
-**Cause:** A confirmed issue with Amazon is affecting source data.
+**Cause:** A confirmed issue with Amazon affected source data.
 
-**Progress:** We are awaiting provider recovery.
+**Progress:** Resolved.
 
-**Historical data:** Missing data will be recovered once Amazon resolves the issue.
+**Historical data:** All affected data has been restored or corrected.
 
-**Action:** Exclude Nov 7 and Nov 8 from EU vendor reporting for now. These dates will fill in automatically once Amazon delivers the data.
+**Action:** If you excluded Nov 7 and Nov 8 from EU vendor reporting, include them again and refresh your reports.
+
+Update, Nov 19, 2026: Amazon delivered the Nov 7 and Nov 8 data, and no data was lost.
