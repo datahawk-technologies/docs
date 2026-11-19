@@ -9,7 +9,8 @@ const config = {
   productionBrowserSourceMaps: Boolean(process.env.POSTHOG_CLI_API_KEY),
   async redirects() {
     const internalRedirects = [
-      { source: '/help-center/connect-tools/snowflake-keypair-migration', destination: '/help-center/connect-tools/snowflake-password-to-key-pair', permanent: true },
+      { source: '/help-center/connect-tools/snowflake-keypair-migration', destination: '/troubleshooting/connection-failures/snowflake-password-to-key-pair', permanent: true },
+      { source: '/help-center/connect-tools/snowflake-password-to-key-pair', destination: '/troubleshooting/connection-failures/snowflake-password-to-key-pair', permanent: true },
       { source: '/welcome/pricing', destination: '/welcome/enterprise-pricing', permanent: true },
       { source: '/upgrade', destination: '/welcome/upgrade', permanent: true },
       { source: '/troubleshooting/i-cannot-see-data-in-manufacturing-views,-but-i-see-it-in-sourcing', destination: '/troubleshooting/data-discrepancies/manufacturing-vs-sourcing-views', permanent: true },
