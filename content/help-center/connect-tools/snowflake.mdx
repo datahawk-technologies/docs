@@ -37,13 +37,34 @@ Your credentials page will contain the following:
 
 | Field | Description |
 |---|---|
-| **User** | Your Snowflake username |
-| **Password** | Your Snowflake password |
+| **User Name** | Your Snowflake username |
+| **Public Key** | The public part of your key pair. Generate it here and keep the downloaded private-key file and passphrase for your tool. |
 | **Server** | The Snowflake account URL (e.g. `xyz123.eu-west-1.snowflakecomputing.com`) |
 | **Database** | The name of your DataHawk database |
 | **Warehouse** | The compute warehouse to use for queries |
+| **Role** | The access role to use for your connection |
 
 Keep these credentials safe. You'll use them to connect your database to your BI tool or SQL editor.
+
+If you Regenerate a Keypair, the previous version will be revoked so any tool still using it will no longer have access to the data.
+
+<a id="switch-from-a-password-to-a-key-pair" />
+
+A **password** is a secret you enter to connect. A **key pair** has two matching parts. DataHawk sends the public part to Snowflake, and you download the private part as a file for your tool to use. A **passphrase** protects that private file, like a password protecting a document. Your tool uses the file and passphrase together instead of your current password.
+
+[Switch from a password to a key pair](/troubleshooting/connection-failures/snowflake-password-to-key-pair).
+
+<Accordions>
+<Accordion title="Legacy: password authentication (expires January 31, 2027)">
+
+Password connections will stop working on **January 31, 2027**. Use a key pair for new connections.
+
+For an existing password connection, open **Setup > Destinations > Snowflake > [See Credentials](https://analytics.datahawk.co/app/destinations/snowflake-ecosystem)**. Copy the **User Name** and **Password**, along with **Server**, **Database**, **Warehouse**, and **Role**, into your tool's Snowflake connection settings. Use the Snowflake password shown here, not your DataHawk App password.
+
+See the legacy instructions in the [Power BI](/help-center/connect-tools/powerbi#legacy-password-authentication) or [Excel](/help-center/connect-tools/excel#legacy-password-authentication) guide.
+
+</Accordion>
+</Accordions>
 
 ## Option 2: Self-hosted Snowflake (advanced)
 
@@ -97,6 +118,7 @@ Snowflake connects natively to most modern data tools. Common examples:
 | SQL & Analytics | Hex, Deepnote, Streamlit |
 | Data Science & ML | dbt, Python / R notebooks |
 | AI assistants | Claude, ChatGPT, and other MCP-compatible tools, with [Snowflake MCP](/help-center/connect-tools/ai-assistants#snowflake-mcp) |
+
 
 ---
 
