@@ -1,4 +1,4 @@
 {
   "title": "Connection failures",
-  "pages": ["accessing-our-snowflake-database-from-behind-a-firewall"]
+  "pages": ["accessing-our-snowflake-database-from-behind-a-firewall", "snowflake-password-to-key-pair"]
 }
