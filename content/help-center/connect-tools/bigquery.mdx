@@ -15,7 +15,7 @@ What's included:
 - Analysis-ready views, cleaned and enriched by DataHawk
 - Zero infrastructure management on your side
 
-DataHawk refreshes your BigQuery database every day. Not all data arrives at the same time. Some datasets are populated later in the day depending on when Amazon's API makes them available. See the individual dataset pages in the Knowledge Hub for dataset-specific freshness details.
+DataHawk refreshes your BigQuery database every day. Not all data arrives at the same time. Some datasets are populated later in the day depending on when Amazon's API makes them available. See the individual dataset pages in the Knowledge Hub for dataset-specific freshness details. Many tables include a `SYNC_TIME` or `_sync_time` column that shows when a row last loaded, so you can check freshness before you query.
 
 ## Option 1: DataHawk-hosted BigQuery (recommended for most users)
 

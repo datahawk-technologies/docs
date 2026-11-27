@@ -69,8 +69,9 @@ The V7 table no longer exposes `OBSERVED_CHANNEL_PRODUCT_ID`, `RATING`, or `RATI
 | Attribute | Value |
 |---|---|
 | Granularity | One row per tracked child ASIN / marketplace / day |
-| Refresh | Daily |
-| History | Up to 2 years before tracking starts, then growing every day |
+| Refresh | Daily. Each day's estimate is recalculated for 7 days and is stable from day 8. |
+| Collection window | Product tracking typically runs between 00:00 and 08:00 UTC. Check `SYNC_TIME` to see when a row last loaded. |
+| History | Category top 100: up to 2 years before tracking starts. Products you track one by one: from the day tracking starts. Both grow every day after that. |
 | Primary key | `WORKSPACE_ID`, `OBSERVATION_DATE`, `MARKETPLACE_KEY`, `ASIN` |
 
 The full 2024+ history was reprocessed with V7 on June 15, 2026.
@@ -100,11 +101,32 @@ The full 2024+ history was reprocessed with V7 on June 15, 2026.
     Yes. If a product appears in the top 100 of a category you track, category tracking can provide estimates for it even if you did not add that ASIN manually.
   </Accordion>
 
+  <Accordion title="Can you backfill history for a list of ASINs?">
+    No. When you track ASINs one by one, estimates start on the day you begin tracking. If your ASINs rank in the top 100 of a category, track that category instead: you get up to 2 years of history for its top 100 products. How much history you can access also depends on your plan. See [Upgrade your DataHawk plan](/welcome/upgrade).
+  </Accordion>
+
+  <Accordion title="When is a day's estimate final?">
+    DataHawk recalculates each day's estimate every day for 7 days. From day 8, the value is stable. A stable value can still change after a model release (like the V7 recalculation on June 15, 2026), after a reference data update, or when history is loaded for a newly tracked category.
+  </Accordion>
+
+  <Accordion title="Why do some ASINs show the same low value every day?">
+    These aren't placeholders. They're baseline values the model applies when Amazon shows too few purchase signals to tell products apart. Two cases produce them:
+
+    - **Low-ranked products.** Each category's model separates products well down to a certain rank, often around the top 100. Below that, every product gets the same category-specific baseline. The value differs by category, which is why you may see figures like ~52.5 units a month.
+    - **Variants with no purchase signal.** When you track one variant of a family and it has no public purchase signal, it gets a low range of 0-50 units a month, shown as 25 units a month (about 0.8 units a day).
+
+    Read these values as "low seller in this category", not as an exact count. No column flags them yet.
+
+    **Known gap (as of November 2026):** for some categories, the baseline is higher than real sales of very slow sellers. Our data team is reviewing it.
+  </Accordion>
+
   <Accordion title="What is IS_EXTRAPOLATED?">
     When BSR data is temporarily unavailable, DataHawk fills the gap using linear extrapolation. These rows are flagged so you can include or exclude them in analysis.
   </Accordion>
 
   <Accordion title="What is TRUST_INDEX?">
-    A per-row confidence score reflecting data quality for that product and date.
+    A per-row confidence level for that product and date: `High`, `Medium` or `Low`. It depends on two things: how directly DataHawk can link the product's sales rank to the reference points used to calibrate the model, and how recent that calibration is. A close link and recent calibration give `High`. Indirect links or older calibration drop the row to `Medium` or `Low`.
+
+    Use it to compare confidence between products or dates, not as an accuracy percentage. For analysis, favor rows rated `High` or `Medium`.
   </Accordion>
 </Accordions>

@@ -86,6 +86,8 @@ Estimates are computed first at the **family (parent ASIN) level**, using the pa
 
 When you start tracking a category, you get up to 2 years of past data, enough for year-over-year analysis from the start. DataHawk then keeps adding data every day and never drops the oldest: after one year of tracking, you have up to 3 years of data; after two years, up to 4.
 
+How much of that history you can access depends on your plan: 12 months on Standard, 18 months on Growth, full history on Enterprise. See [Upgrade your DataHawk plan](/welcome/upgrade).
+
 ## Precision
 
 | Accuracy rating | Marketplaces |
@@ -93,7 +95,7 @@ When you start tracking a category, you get up to 2 years of past data, enough f
 | **High** | US, SA, IE, AE, BR, GB, FR, DE, IN, IT, EG, MX, TR, ES, CA, JP |
 | **Moderate** | AU, SE, BE, NL, PL, SG |
 
-Estimates are approximations, not exact figures. Revenue estimates depend on the accuracy of captured price data. Sudden rank changes (flash sales, stockouts) may cause temporary spikes that the model smooths over subsequent days.
+Estimates are approximations, not exact figures. Revenue estimates depend on the accuracy of captured price data. Sudden rank changes (flash sales, stockouts) may cause temporary spikes that the model smooths over subsequent days. That's why each day's estimate is recalculated daily for 7 days and is stable from day 8.
 
 ## How it works
 
@@ -145,7 +147,15 @@ When BSR data is temporarily unavailable, DataHawk applies linear extrapolation.
 
 ## Accuracy & reliability
 
-Each row in the dataset carries a `TRUST_INDEX` score indicating model confidence for that product and date. Rows where extrapolation was applied are flagged with `IS_EXTRAPOLATED`. Estimates are most reliable in categories with stable bestseller patterns and strong public purchase-signal coverage.
+Each row carries a `TRUST_INDEX` of High, Medium or Low, showing how much confidence you can place in that estimate. Rows filled by extrapolation are flagged with `IS_EXTRAPOLATED`. Estimates are most reliable in categories with stable bestseller patterns and strong public purchase-signal coverage.
+
+DataHawk checks its estimates against the "bought in past month" figures Amazon shows on product pages. Over the 4 weeks to November 2026, for products with visible sales, estimates fell within 2x of Amazon's figure in 82% of cases in the Netherlands, 76% in Poland and 82% in Belgium.
+
+To get the most out of estimates:
+
+- Use them to compare products and spot trends, not to count exact units.
+- Read very slow sellers (under about 50 units a month) as "low seller". Lower-ranked products often get the same category baseline value. See [Sales Estimates Data](/help-center/data-reference/sales-estimates-data) for details.
+- Favor rows with a High or Medium `TRUST_INDEX`.
 
 ---
 
